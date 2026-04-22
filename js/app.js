@@ -1,7 +1,7 @@
 import { BUILD_INFO } from './build-info.js';
 import { avatars, ranks, units, incidents } from './data/content.js';
 
-const SAVE_KEY = 'central190-save-v010';
+const SAVE_KEY = 'central190-save-v020';
 const dom = {
   screens: [...document.querySelectorAll('.screen')],
   btnNewGame: document.getElementById('btnNewGame'),
@@ -91,6 +91,7 @@ function loadPlayer() {
 
 function setActiveScreen(id) {
   dom.screens.forEach((screen) => screen.classList.toggle('is-active', screen.id === `screen-${id}`));
+  document.getElementById('appShell').classList.toggle('home-active', id === 'home');
 }
 
 function updateFooter() {
@@ -157,6 +158,7 @@ function startShift() {
   dom.chatLog.innerHTML = '';
   appendMessage('operator', `OPERADOR: ${appState.activeIncident.opening}`);
   appendMessage('caller', `${appState.activeIncident.callerName.toUpperCase()}: ${appState.activeIncident.callerOpening}`);
+  appendMessage('system', 'Protocolo iniciado. Colete dados críticos antes de abrir o despacho.');
 
   dom.incidentFacts.innerHTML = appState.activeIncident.facts.map((fact) => `<li>${fact}</li>`).join('');
   renderQuestionButtons();
@@ -173,26 +175,43 @@ function startShift() {
   setActiveScreen('shift');
 }
 
+function scrollChatToBottom(smooth = true) {
+  window.requestAnimationFrame(() => {
+    dom.chatLog.scrollTo({ top: dom.chatLog.scrollHeight, behavior: smooth ? 'smooth' : 'auto' });
+  });
+}
+
 function appendMessage(type, text) {
   const node = document.createElement('div');
   node.className = `message ${type}`;
   node.textContent = text;
   dom.chatLog.appendChild(node);
-  window.requestAnimationFrame(() => {
-    dom.chatLog.scrollTop = dom.chatLog.scrollHeight;
-    node.scrollIntoView({ block: 'end', behavior: 'smooth' });
-  });
+  scrollChatToBottom();
 }
 
-
-function renderQuestionButtons() {
-  const buttons = [
+function getQuestionOptions() {
+  const allButtons = [
     { id: 'location', label: 'Perguntar localização exata' },
     { id: 'victims', label: 'Perguntar sobre vítimas' },
     { id: 'weapon', label: 'Perguntar sobre arma / ameaça' }
-  ];
+  ].filter((button) => !appState.askedQuestions.has(button.id));
+
+  if (appState.askedQuestions.size === 0) return allButtons.slice(0, 2);
+  if (appState.askedQuestions.size === 1) {
+    const preferred = allButtons.sort((a, b) => (a.id === 'weapon' ? -1 : b.id === 'weapon' ? 1 : 0));
+    return preferred.slice(0, 2);
+  }
+  return allButtons.slice(0, 2);
+}
+
+function renderQuestionButtons() {
+  const buttons = getQuestionOptions();
+  if (!buttons.length) {
+    dom.questionActions.innerHTML = '<div class="quick-pill is-used">Perguntas esgotadas. Avalie o despacho.</div>';
+    return;
+  }
   dom.questionActions.innerHTML = buttons.map((button) => `
-    <button class="quick-pill ${appState.askedQuestions.has(button.id) ? 'is-used' : ''}" data-question="${button.id}">${button.label}</button>
+    <button class="quick-pill" data-question="${button.id}">${button.label}</button>
   `).join('');
 }
 
@@ -307,7 +326,11 @@ function handleQuestion(id) {
   appState.askedQuestions.add(id);
   appendMessage('operator', `OPERADOR: ${questionPrompts[id]}`);
   appendMessage('caller', `${appState.activeIncident.callerName.toUpperCase()}: ${appState.activeIncident.questionReplies[id]}`);
+  if (id === 'location') appendMessage('system', 'Localização refinada. Atualize rota e perímetro.');
+  if (id === 'victims') appendMessage('system', 'Estado das vítimas registrado no protocolo do atendimento.');
+  if (id === 'weapon') appendMessage('system', 'Nível de ameaça confirmado. Reforce prioridade operacional.');
   renderQuestionButtons();
+  scrollChatToBottom();
 }
 
 const questionPrompts = {
@@ -418,6 +441,7 @@ function attachEvents() {
 
 function init() {
   updateFooter();
+  document.getElementById('appShell').classList.add('home-active');
   renderAvatars();
   updateSelectedAvatar();
   refreshContinueState();
