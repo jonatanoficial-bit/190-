@@ -23,58 +23,24 @@
     <main class="app-main">
       <section class="screen is-active" id="screen-home" data-bg="home">
         <div class="screen-bg bg-home"></div>
-        <div class="screen-overlay home-overlay"></div>
-        <div class="screen-inner home-screen">
-          <div class="home-hero panel hero-panel">
+        <div class="screen-overlay home-overlay cinematic"></div>
+        <div class="screen-inner home-screen home-cinematic">
+          <div class="home-copy-block">
             <div class="hero-kicker eyebrow">Atender • Avaliar • Despachar • Proteger</div>
-            <h2>Central 190</h2>
-            <p>Simulador mobile-first de atendimento de emergência com progressão de operador, despacho tático e ambientação cinematográfica.</p>
-
-            <div class="hero-badges">
-              <span class="mini-chip">São Paulo</span>
-              <span class="mini-chip">Plantão tático</span>
-              <span class="mini-chip">Modo carreira</span>
-            </div>
-
-            <div class="hero-stats">
-              <div class="hero-stat panel subtle compact">
-                <img src="assets/icons/icon-alert.png" alt="Ocorrências críticas">
-                <div>
-                  <strong>Ocorrências dinâmicas</strong>
-                  <span>Risco, vítimas, fuga e ameaça armada</span>
-                </div>
-              </div>
-              <div class="hero-stat panel subtle compact">
-                <img src="assets/icons/icon-radar.png" alt="Despacho tático">
-                <div>
-                  <strong>Despacho tático</strong>
-                  <span>Viatura, resgate e apoio aéreo</span>
-                </div>
-              </div>
-            </div>
+            <h2 class="home-title">Central 190</h2>
+            <p class="home-subtitle">Simulador de atendimento de emergência com progressão de operador, despacho tático e ambientação cinematográfica.</p>
+            <div class="home-tagline">Linha de vida • São Paulo • Plantão tático</div>
           </div>
 
-          <div class="home-units panel compact">
-            <div class="section-label">Recursos operacionais</div>
-            <div class="home-unit-strip">
-              <div class="home-unit-card">
-                <img src="assets/units/unit-police-cruiser.png" alt="Viatura">
-                <span>Viaturas</span>
-              </div>
-              <div class="home-unit-card">
-                <img src="assets/units/unit-ambulance-samu.png" alt="Ambulância">
-                <span>Resgate</span>
-              </div>
-              <div class="home-unit-card">
-                <img src="assets/units/unit-helicopter-police.png" alt="Helicóptero">
-                <span>Aéreo</span>
-              </div>
+          <div class="home-actions-panel panel compact sticky-home-actions">
+            <div class="home-action-meta">
+              <span class="eyebrow">Pronto para operar</span>
+              <strong>Inicie uma nova carreira ou continue seu plantão.</strong>
             </div>
-          </div>
-
-          <div class="home-actions panel compact sticky-home-actions">
-            <button class="btn btn-primary" id="btnNewGame">Novo Jogo</button>
-            <button class="btn btn-secondary" id="btnContinue">Continuar</button>
+            <div class="home-actions-grid">
+              <button class="btn btn-primary" id="btnNewGame">Novo Jogo</button>
+              <button class="btn btn-secondary" id="btnContinue">Continuar</button>
+            </div>
           </div>
         </div>
       </section>
