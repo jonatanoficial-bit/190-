@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Central 190 • Build v0.1.0</title>
-  <meta name="description" content="Central 190 - build v0.1.0 mobile-first">
+  <title>Central 190 • Build v0.1.1</title>
+  <meta name="description" content="Central 190 - build v0.1.1 mobile-first">
   <link rel="icon" type="image/png" href="assets/icons/icon-alert.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -23,15 +23,56 @@
     <main class="app-main">
       <section class="screen is-active" id="screen-home" data-bg="home">
         <div class="screen-bg bg-home"></div>
-        <div class="screen-overlay"></div>
-        <div class="screen-inner hero-screen">
-          <div class="hero-copy">
-            <span class="eyebrow">Atender • Avaliar • Despachar • Proteger</span>
+        <div class="screen-overlay home-overlay"></div>
+        <div class="screen-inner home-screen">
+          <div class="home-hero panel hero-panel">
+            <div class="hero-kicker eyebrow">Atender • Avaliar • Despachar • Proteger</div>
             <h2>Central 190</h2>
-            <p>Simulador de atendimento de emergência com progressão, despacho tático e ambientação cinematográfica.</p>
+            <p>Simulador mobile-first de atendimento de emergência com progressão de operador, despacho tático e ambientação cinematográfica.</p>
+
+            <div class="hero-badges">
+              <span class="mini-chip">São Paulo</span>
+              <span class="mini-chip">Plantão tático</span>
+              <span class="mini-chip">Modo carreira</span>
+            </div>
+
+            <div class="hero-stats">
+              <div class="hero-stat panel subtle compact">
+                <img src="assets/icons/icon-alert.png" alt="Ocorrências críticas">
+                <div>
+                  <strong>Ocorrências dinâmicas</strong>
+                  <span>Risco, vítimas, fuga e ameaça armada</span>
+                </div>
+              </div>
+              <div class="hero-stat panel subtle compact">
+                <img src="assets/icons/icon-radar.png" alt="Despacho tático">
+                <div>
+                  <strong>Despacho tático</strong>
+                  <span>Viatura, resgate e apoio aéreo</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="home-actions panel compact">
+          <div class="home-units panel compact">
+            <div class="section-label">Recursos operacionais</div>
+            <div class="home-unit-strip">
+              <div class="home-unit-card">
+                <img src="assets/units/unit-police-cruiser.png" alt="Viatura">
+                <span>Viaturas</span>
+              </div>
+              <div class="home-unit-card">
+                <img src="assets/units/unit-ambulance-samu.png" alt="Ambulância">
+                <span>Resgate</span>
+              </div>
+              <div class="home-unit-card">
+                <img src="assets/units/unit-helicopter-police.png" alt="Helicóptero">
+                <span>Aéreo</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-actions panel compact sticky-home-actions">
             <button class="btn btn-primary" id="btnNewGame">Novo Jogo</button>
             <button class="btn btn-secondary" id="btnContinue">Continuar</button>
           </div>
@@ -145,7 +186,7 @@
       <section class="screen" id="screen-shift" data-bg="hall">
         <div class="screen-bg bg-hall"></div>
         <div class="screen-overlay strong"></div>
-        <div class="screen-inner stack-gap">
+        <div class="screen-inner stack-gap shift-screen-inner">
           <div class="shift-top panel compact">
             <div class="shift-ident">
               <img id="shiftAvatar" class="shift-avatar" src="assets/avatars/avatar-operator-01-lead.png" alt="Avatar do operador">
@@ -160,7 +201,7 @@
             </div>
           </div>
 
-          <div class="panel">
+          <div class="panel shift-panel">
             <div class="panel-head split">
               <div>
                 <span class="eyebrow">Atendimento em andamento</span>
@@ -173,13 +214,13 @@
 
             <div class="quick-actions" id="questionActions"></div>
 
-            <div class="action-row top-gap">
+            <div class="action-row top-gap sticky-action-row shift-sticky-actions">
               <button class="btn btn-secondary" id="btnBackLobby">Voltar ao lobby</button>
               <button class="btn btn-warning" id="btnOpenDispatch">Abrir despacho</button>
             </div>
           </div>
 
-          <div class="grid-2">
+          <div class="grid-2 shift-support-grid">
             <div class="panel compact">
               <div class="section-label">Resumo</div>
               <ul class="info-list" id="incidentFacts"></ul>
@@ -209,7 +250,7 @@
 
           <div class="unit-grid" id="unitGrid"></div>
 
-          <div class="action-row">
+          <div class="action-row sticky-action-row">
             <button class="btn btn-secondary" data-nav="shift">Voltar</button>
             <button class="btn btn-primary" id="btnConfirmDispatch">Finalizar despacho</button>
           </div>
@@ -234,7 +275,7 @@
             <div class="feedback-list" id="feedbackList"></div>
           </div>
 
-          <div class="action-row">
+          <div class="action-row sticky-action-row">
             <button class="btn btn-secondary" id="btnReturnLobby">Voltar ao plantão</button>
             <button class="btn btn-danger" id="btnEndShift">Encerrar plantão</button>
           </div>
@@ -243,7 +284,7 @@
     </main>
 
     <footer class="build-footer" id="buildFooter">
-      <span id="footerVersion">v0.1.0</span>
+      <span id="footerVersion">v0.1.1</span>
       <span id="footerDateTime">--</span>
       <span id="footerModule">Módulo base: São Paulo</span>
     </footer>
