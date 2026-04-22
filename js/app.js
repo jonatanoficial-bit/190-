@@ -178,8 +178,12 @@ function appendMessage(type, text) {
   node.className = `message ${type}`;
   node.textContent = text;
   dom.chatLog.appendChild(node);
-  dom.chatLog.scrollTop = dom.chatLog.scrollHeight;
+  window.requestAnimationFrame(() => {
+    dom.chatLog.scrollTop = dom.chatLog.scrollHeight;
+    node.scrollIntoView({ block: 'end', behavior: 'smooth' });
+  });
 }
+
 
 function renderQuestionButtons() {
   const buttons = [
