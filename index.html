@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Central 190 • Build v0.1.0</title>
+  <meta name="description" content="Central 190 - build v0.1.0 mobile-first">
+  <link rel="icon" type="image/png" href="assets/icons/icon-alert.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell" id="appShell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">Vale Games • Mobile-first</div>
+        <h1 class="brand">CENTRAL 190</h1>
+      </div>
+      <div class="topbar-meta">
+        <span class="chip" id="cityChip">São Paulo</span>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="screen is-active" id="screen-home" data-bg="home">
+        <div class="screen-bg bg-home"></div>
+        <div class="screen-overlay"></div>
+        <div class="screen-inner hero-screen">
+          <div class="hero-copy">
+            <span class="eyebrow">Atender • Avaliar • Despachar • Proteger</span>
+            <h2>Central 190</h2>
+            <p>Simulador de atendimento de emergência com progressão, despacho tático e ambientação cinematográfica.</p>
+          </div>
+
+          <div class="home-actions panel compact">
+            <button class="btn btn-primary" id="btnNewGame">Novo Jogo</button>
+            <button class="btn btn-secondary" id="btnContinue">Continuar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-profile" data-bg="lobby">
+        <div class="screen-bg bg-lobby"></div>
+        <div class="screen-overlay strong"></div>
+        <div class="screen-inner form-screen">
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Cadastro inicial</span>
+                <h3>Monte seu operador</h3>
+              </div>
+            </div>
+
+            <div class="avatar-preview-wrap">
+              <div class="avatar-preview panel subtle">
+                <img id="selectedAvatarPreview" src="assets/avatars/avatar-operator-01-lead.png" alt="Avatar selecionado">
+              </div>
+              <div class="profile-fields">
+                <label>
+                  <span>Nome do operador</span>
+                  <input id="playerName" type="text" maxlength="22" placeholder="Digite seu nome">
+                </label>
+                <label>
+                  <span>País de nascimento</span>
+                  <select id="playerCountry">
+                    <option>Brasil</option>
+                    <option>Argentina</option>
+                    <option>Chile</option>
+                    <option>Portugal</option>
+                    <option>Estados Unidos</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div class="section-label">Escolha seu avatar</div>
+            <div class="avatar-grid" id="avatarGrid"></div>
+
+            <div class="section-label">Modo de jogo</div>
+            <div class="mode-switch" id="modeSwitch">
+              <button class="mode-pill is-active" data-mode="carreira">Carreira</button>
+              <button class="mode-pill" data-mode="sandbox">Sandbox</button>
+            </div>
+
+            <div class="action-row">
+              <button class="btn btn-secondary" data-nav="home">Voltar</button>
+              <button class="btn btn-primary" id="btnCreateProfile">Confirmar operador</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-lobby" data-bg="lobby">
+        <div class="screen-bg bg-lobby"></div>
+        <div class="screen-overlay strong"></div>
+        <div class="screen-inner stack-gap">
+          <div class="panel player-panel">
+            <div class="player-main">
+              <div class="player-avatar panel subtle">
+                <img id="lobbyAvatar" src="assets/avatars/avatar-operator-01-lead.png" alt="Avatar do jogador">
+              </div>
+              <div class="player-meta">
+                <span class="eyebrow">Operador ativo</span>
+                <h3 id="lobbyName">Operador</h3>
+                <div class="meta-line"><span id="lobbyCountry">Brasil</span> • <span id="lobbyMode">Carreira</span></div>
+                <div class="meta-line">XP total: <strong id="lobbyXp">0</strong></div>
+              </div>
+              <div class="rank-card panel subtle">
+                <img id="lobbyInsignia" src="assets/insignias/insignia-rank-01-basic.png" alt="Patente atual">
+                <div>
+                  <div class="eyebrow">Patente</div>
+                  <strong id="lobbyRank">Atendente I</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel lobby-summary">
+            <div class="summary-grid">
+              <div class="summary-item">
+                <span>Ocorrências resolvidas</span>
+                <strong id="statResolved">0</strong>
+              </div>
+              <div class="summary-item">
+                <span>Melhor tempo</span>
+                <strong id="statBestTime">--</strong>
+              </div>
+              <div class="summary-item">
+                <span>Cidade base</span>
+                <strong>São Paulo</strong>
+              </div>
+              <div class="summary-item">
+                <span>Expansão</span>
+                <strong>Pronta para DLC</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-column panel compact">
+            <button class="btn btn-warning" id="btnStartShift">Iniciar Plantão</button>
+            <button class="btn btn-secondary" id="btnConfig">Configurações</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-shift" data-bg="hall">
+        <div class="screen-bg bg-hall"></div>
+        <div class="screen-overlay strong"></div>
+        <div class="screen-inner stack-gap">
+          <div class="shift-top panel compact">
+            <div class="shift-ident">
+              <img id="shiftAvatar" class="shift-avatar" src="assets/avatars/avatar-operator-01-lead.png" alt="Avatar do operador">
+              <div>
+                <div class="eyebrow">Plantão ativo</div>
+                <strong id="shiftOperatorName">Operador</strong>
+              </div>
+            </div>
+            <div class="timer-chip">
+              <img src="assets/icons/icon-stopwatch.png" alt="Cronômetro">
+              <strong id="timerValue">00:00</strong>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head split">
+              <div>
+                <span class="eyebrow">Atendimento em andamento</span>
+                <h3 id="incidentTitle">Ocorrência</h3>
+              </div>
+              <div class="severity-badge" id="severityBadge">Prioridade alta</div>
+            </div>
+
+            <div class="chat-log" id="chatLog"></div>
+
+            <div class="quick-actions" id="questionActions"></div>
+
+            <div class="action-row top-gap">
+              <button class="btn btn-secondary" id="btnBackLobby">Voltar ao lobby</button>
+              <button class="btn btn-warning" id="btnOpenDispatch">Abrir despacho</button>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="panel compact">
+              <div class="section-label">Resumo</div>
+              <ul class="info-list" id="incidentFacts"></ul>
+            </div>
+            <div class="panel compact">
+              <div class="section-label">Situação tática</div>
+              <div class="mini-map" id="miniMap"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-dispatch" data-bg="hall">
+        <div class="screen-bg bg-hall"></div>
+        <div class="screen-overlay strong"></div>
+        <div class="screen-inner stack-gap">
+          <div class="panel">
+            <div class="panel-head split">
+              <div>
+                <span class="eyebrow">Despacho operacional</span>
+                <h3>Selecionar unidades</h3>
+              </div>
+              <div class="chip" id="dispatchDistrict">República</div>
+            </div>
+            <div class="dispatch-map" id="dispatchMap"></div>
+          </div>
+
+          <div class="unit-grid" id="unitGrid"></div>
+
+          <div class="action-row">
+            <button class="btn btn-secondary" data-nav="shift">Voltar</button>
+            <button class="btn btn-primary" id="btnConfirmDispatch">Finalizar despacho</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-result" data-bg="hall">
+        <div class="screen-bg bg-hall"></div>
+        <div class="screen-overlay strong"></div>
+        <div class="screen-inner stack-gap">
+          <div class="panel result-score">
+            <div class="result-badge">
+              <img src="assets/icons/icon-check.png" alt="Resultado">
+            </div>
+            <span class="eyebrow">Relatório pós-despacho</span>
+            <h3 id="resultHeadline">Resultado da missão</h3>
+            <div class="score-pill">+<span id="resultScore">0</span> XP</div>
+          </div>
+
+          <div class="panel">
+            <div class="section-label">Feedback</div>
+            <div class="feedback-list" id="feedbackList"></div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn btn-secondary" id="btnReturnLobby">Voltar ao plantão</button>
+            <button class="btn btn-danger" id="btnEndShift">Encerrar plantão</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="build-footer" id="buildFooter">
+      <span id="footerVersion">v0.1.0</span>
+      <span id="footerDateTime">--</span>
+      <span id="footerModule">Módulo base: São Paulo</span>
+    </footer>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
