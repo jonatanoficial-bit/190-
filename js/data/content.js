@@ -103,5 +103,44 @@ export const incidents = [
       safety: 'Vou ficar dentro da loja, longe da porta, e falar baixo.'
     },
     correctUnits: ['police'], idealQuestions: ['location', 'suspect', 'weapon', 'safety'], mapChips: ['Local público', 'Ameaça incerta', 'Acolhimento']
+  },
+  {
+    id: 'kidnapping-attempt-school', title: 'Tentativa de sequestro na saída de escola', severity: 'Prioridade crítica', district: 'Tatuapé', baseRisk: 86, urgencyLimit: 24, callerName: 'Patrícia',
+    opening: '190, qual é a sua emergência?',
+    callerOpening: 'Tem um homem tentando colocar uma menina dentro de um carro. A mãe está gritando. É na frente da escola.',
+    facts: ['Criança em risco imediato', 'Veículo ainda próximo ao local', 'Múltiplas testemunhas em pânico'],
+    contradictions: ['Testemunhas citam duas cores diferentes para o veículo; placa parcial ainda incerta.'],
+    events: [
+      { at: 12, text: 'PATRÍCIA: O carro deu ré, acho que vai tentar sair pela rua lateral.', risk: 7 },
+      { at: 25, text: 'SISTEMA: Tempo crítico para bloqueio de rota. Priorizar contenção e preservação da vítima.', risk: 11 }
+    ],
+    questionReplies: {
+      location: 'Na rua da escola, perto de um mercado pequeno. Tatuapé, rua estreita com muito carro parado.',
+      victims: 'A menina está chorando, mas a mãe segurou ela. Ninguém parece ferido ainda.',
+      weapon: 'Não vi arma. Ele estava puxando a criança pelo braço.',
+      suspect: 'Homem de boné escuro, carro prata pequeno. A placa termina com 8 ou B, não tenho certeza.',
+      safety: 'Vou manter distância, ficar dentro da escola e não deixar ninguém cercar o carro.'
+    },
+    correctUnits: ['police', 'helicopter'], idealQuestions: ['location', 'victims', 'suspect', 'safety'], mapChips: ['Escola', 'Bloqueio de rota', 'Busca aérea indicada']
+  },
+  {
+    id: 'shots-fired-bar', title: 'Disparos em bar com multidão', severity: 'Prioridade crítica', district: 'Pinheiros', baseRisk: 88, urgencyLimit: 22, callerName: 'Diego',
+    opening: '190, qual é a sua emergência?',
+    callerOpening: 'Ouvi tiros dentro de um bar. Todo mundo saiu correndo. Tem gente caída na calçada.',
+    facts: ['Possíveis feridos por arma de fogo', 'Local com aglomeração', 'Autor pode ainda estar armado'],
+    contradictions: ['Solicitante não sabe se o atirador saiu ou se está escondido dentro do estabelecimento.'],
+    events: [
+      { at: 10, text: 'DIEGO: Tem uma mulher sangrando perto da porta. Ninguém consegue chegar nela.', risk: 9 },
+      { at: 24, text: 'SISTEMA: Risco de segundo confronto aumentado. Solicitar perímetro e suporte médico.', risk: 10 }
+    ],
+    questionReplies: {
+      location: 'Pinheiros, perto da avenida principal, bar de esquina com mesas na calçada.',
+      victims: 'Vi duas pessoas caídas. Não sei se estão conscientes.',
+      weapon: 'Foram vários disparos. Parece arma de fogo, ouvi pelo menos quatro tiros.',
+      suspect: 'Um homem de jaqueta preta correu para uma rua lateral, mas não tenho certeza se era ele.',
+      safety: 'Estou atrás de um carro, longe da entrada. Vou manter a linha aberta.'
+    },
+    correctUnits: ['police', 'ambulance'], idealQuestions: ['location', 'victims', 'weapon', 'safety'], mapChips: ['Disparos', 'SAMU urgente', 'Perímetro']
   }
+
 ];

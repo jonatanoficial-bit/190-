@@ -1,14 +1,21 @@
-# Central 190 - Build v0.3.0
+# Central 190 - Build v0.4.0
 
-Build mobile-first da Vale Games.
+Vale Games • Mobile-first • Site estático para GitHub Pages/Vercel.
 
-## Destaques v0.3.0
-- Modo de simulação **ultra realista**.
-- Ocorrências com informação incompleta, contradições e agravamento por tempo.
-- Sistema de risco dinâmico durante a chamada.
-- Perguntas orientadas por protocolo: localização, vítimas, ameaça, suspeito e segurança.
-- Despacho tático avaliado por unidade correta, tempo, coleta de dados e uso proporcional de recursos.
-- Relatório final técnico com acertos e ressalvas.
+## Destaques v0.4.0
 
-## Regra de build
-Versão, data, hora e módulo aparecem no rodapé do app.
+- Carreira local expandida com histórico de relatórios.
+- Nota técnica por ocorrência: A, B, C ou D.
+- Progresso de patente com barra visual no lobby.
+- Manual de Protocolo 190 dentro do jogo.
+- Tela de configurações de simulação ultra realista.
+- Banco de ocorrências ampliado com casos críticos de São Paulo.
+- Mantém botão de despacho acessível e perguntas limitadas a duas por rodada.
+
+## Publicação
+
+Envie todos os arquivos da pasta para GitHub Pages ou Vercel como site estático. Não há backend obrigatório.
+
+## Regra da build
+
+Versão, data, hora e módulo aparecem no rodapé do app conforme padrão Vale Games.

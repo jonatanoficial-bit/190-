@@ -820,3 +820,40 @@ input, select {
     font-size: 14px;
   }
 }
+
+/* v0.4.0 career, protocol and settings */
+.career-panel, .history-panel { position: relative; overflow: hidden; }
+.career-meter {
+  height: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 10px;
+}
+.career-meter span {
+  display: block;
+  width: 4%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2d8cff, #f1b84f);
+  box-shadow: 0 0 20px rgba(45,140,255,0.32);
+}
+.history-list { display: grid; gap: 8px; }
+.history-row {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.history-row strong { font-size: 13px; line-height: 1.25; }
+.history-row span { color: var(--muted); font-size: 12px; }
+.muted-row { color: var(--muted); font-size: 13px; }
+.manual-intro { color: var(--muted); line-height: 1.55; margin: 10px 0 0; }
+.protocol-list { display: grid; gap: 10px; }
+.protocol-card, .settings-card { display: grid; gap: 7px; }
+.protocol-card strong, .settings-card strong { font-size: 16px; }
+.protocol-card span, .settings-card span { color: var(--muted); line-height: 1.45; font-size: 14px; }
+#screen-manual .screen-inner, #screen-config .screen-inner { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }

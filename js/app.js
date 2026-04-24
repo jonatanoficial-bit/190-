@@ -1,11 +1,13 @@
 import { BUILD_INFO } from './build-info.js';
 import { avatars, ranks, units, incidents, protocolQuestions } from './data/content.js';
 
-const SAVE_KEY = 'central190-save-v030';
+const SAVE_KEY = 'central190-save-v040';
+const LEGACY_SAVE_KEYS = ['central190-save-v030', 'central190-save-v020', 'central190-save-v010'];
+
 const dom = {
   screens: [...document.querySelectorAll('.screen')], btnNewGame: document.getElementById('btnNewGame'), btnContinue: document.getElementById('btnContinue'),
   avatarGrid: document.getElementById('avatarGrid'), selectedAvatarPreview: document.getElementById('selectedAvatarPreview'), playerName: document.getElementById('playerName'), playerCountry: document.getElementById('playerCountry'), modeSwitch: document.getElementById('modeSwitch'), btnCreateProfile: document.getElementById('btnCreateProfile'),
-  lobbyAvatar: document.getElementById('lobbyAvatar'), lobbyName: document.getElementById('lobbyName'), lobbyCountry: document.getElementById('lobbyCountry'), lobbyMode: document.getElementById('lobbyMode'), lobbyXp: document.getElementById('lobbyXp'), lobbyInsignia: document.getElementById('lobbyInsignia'), lobbyRank: document.getElementById('lobbyRank'), statResolved: document.getElementById('statResolved'), statBestTime: document.getElementById('statBestTime'), btnStartShift: document.getElementById('btnStartShift'), btnConfig: document.getElementById('btnConfig'),
+  lobbyAvatar: document.getElementById('lobbyAvatar'), lobbyName: document.getElementById('lobbyName'), lobbyCountry: document.getElementById('lobbyCountry'), lobbyMode: document.getElementById('lobbyMode'), lobbyXp: document.getElementById('lobbyXp'), lobbyInsignia: document.getElementById('lobbyInsignia'), lobbyRank: document.getElementById('lobbyRank'), statResolved: document.getElementById('statResolved'), statBestTime: document.getElementById('statBestTime'), statAverage: document.getElementById('statAverage'), statStreak: document.getElementById('statStreak'), historyList: document.getElementById('historyList'), rankProgressFill: document.getElementById('rankProgressFill'), rankProgressText: document.getElementById('rankProgressText'), btnStartShift: document.getElementById('btnStartShift'), btnConfig: document.getElementById('btnConfig'), btnManualStart: document.getElementById('btnManualStart'), btnResetCareer: document.getElementById('btnResetCareer'),
   shiftAvatar: document.getElementById('shiftAvatar'), shiftOperatorName: document.getElementById('shiftOperatorName'), timerValue: document.getElementById('timerValue'), incidentTitle: document.getElementById('incidentTitle'), severityBadge: document.getElementById('severityBadge'), chatLog: document.getElementById('chatLog'), questionActions: document.getElementById('questionActions'), incidentFacts: document.getElementById('incidentFacts'), miniMap: document.getElementById('miniMap'), btnBackLobby: document.getElementById('btnBackLobby'), btnOpenDispatch: document.getElementById('btnOpenDispatch'),
   dispatchDistrict: document.getElementById('dispatchDistrict'), dispatchMap: document.getElementById('dispatchMap'), unitGrid: document.getElementById('unitGrid'), btnConfirmDispatch: document.getElementById('btnConfirmDispatch'),
   resultHeadline: document.getElementById('resultHeadline'), resultScore: document.getElementById('resultScore'), feedbackList: document.getElementById('feedbackList'), btnReturnLobby: document.getElementById('btnReturnLobby'), btnEndShift: document.getElementById('btnEndShift'),
@@ -17,15 +19,48 @@ const appState = { player: null, selectedAvatarId: avatars[0].id, selectedMode: 
 function formatTime(totalSeconds) { return `${String(Math.floor(totalSeconds / 60)).padStart(2, '0')}:${String(totalSeconds % 60).padStart(2, '0')}`; }
 function getAvatarById(id) { return avatars.find((avatar) => avatar.id === id) ?? avatars[0]; }
 function getRankByXp(xp = 0) { return [...ranks].reverse().find((rank) => xp >= rank.minXp) ?? ranks[0]; }
+function getNextRank(xp = 0) { return ranks.find((rank) => xp < rank.minXp) ?? ranks[ranks.length - 1]; }
+function normalizePlayer(player) {
+  if (!player) return null;
+  return {
+    name: player.name || 'Operador', country: player.country || 'Brasil', mode: player.mode || 'carreira', avatarId: player.avatarId || avatars[0].id,
+    xp: Number(player.xp || 0), resolved: Number(player.resolved || 0), bestTime: player.bestTime ?? null,
+    history: Array.isArray(player.history) ? player.history.slice(0, 8) : [], safeStreak: Number(player.safeStreak || 0), createdAt: player.createdAt || new Date().toISOString()
+  };
+}
 function savePlayer() { if (appState.player) localStorage.setItem(SAVE_KEY, JSON.stringify(appState.player)); }
-function loadPlayer() { try { const raw = localStorage.getItem(SAVE_KEY); return raw ? JSON.parse(raw) : null; } catch { return null; } }
-function setActiveScreen(id) { dom.screens.forEach((screen) => screen.classList.toggle('is-active', screen.id === `screen-${id}`)); document.getElementById('appShell').classList.toggle('home-active', id === 'home'); }
+function loadPlayer() {
+  try {
+    for (const key of [SAVE_KEY, ...LEGACY_SAVE_KEYS]) {
+      const raw = localStorage.getItem(key);
+      if (raw) return normalizePlayer(JSON.parse(raw));
+    }
+  } catch {}
+  return null;
+}
+function setActiveScreen(id) { dom.screens.forEach((screen) => screen.classList.toggle('is-active', screen.id === `screen-${id}`)); document.getElementById('appShell').classList.toggle('home-active', id === 'home'); window.scrollTo({ top: 0, behavior: 'auto' }); }
 function updateFooter() { dom.footerVersion.textContent = BUILD_INFO.version; dom.footerDateTime.textContent = `${BUILD_INFO.buildDate} • ${BUILD_INFO.buildTime}`; dom.footerModule.textContent = `Módulo base: ${BUILD_INFO.module}`; dom.cityChip.textContent = BUILD_INFO.module; }
 function refreshContinueState() { dom.btnContinue.disabled = !loadPlayer(); }
 
 function renderAvatars() { dom.avatarGrid.innerHTML = avatars.map((avatar) => `<button class="avatar-card ${avatar.id === appState.selectedAvatarId ? 'is-selected' : ''}" data-avatar-id="${avatar.id}"><img src="${avatar.src}" alt="${avatar.name}"></button>`).join(''); }
 function updateSelectedAvatar() { const avatar = getAvatarById(appState.selectedAvatarId); dom.selectedAvatarPreview.src = avatar.src; [...dom.avatarGrid.querySelectorAll('.avatar-card')].forEach((card) => card.classList.toggle('is-selected', card.dataset.avatarId === appState.selectedAvatarId)); }
-function renderLobby() { if (!appState.player) return; const avatar = getAvatarById(appState.player.avatarId); const rank = getRankByXp(appState.player.xp); dom.lobbyAvatar.src = avatar.src; dom.lobbyName.textContent = appState.player.name; dom.lobbyCountry.textContent = appState.player.country; dom.lobbyMode.textContent = appState.player.mode === 'carreira' ? 'Carreira' : 'Sandbox'; dom.lobbyXp.textContent = appState.player.xp; dom.lobbyInsignia.src = rank.insignia; dom.lobbyRank.textContent = rank.title; dom.statResolved.textContent = appState.player.resolved; dom.statBestTime.textContent = appState.player.bestTime ? formatTime(appState.player.bestTime) : '--'; }
+function renderLobby() {
+  if (!appState.player) return;
+  appState.player = normalizePlayer(appState.player);
+  const avatar = getAvatarById(appState.player.avatarId); const rank = getRankByXp(appState.player.xp); const nextRank = getNextRank(appState.player.xp);
+  dom.lobbyAvatar.src = avatar.src; dom.lobbyName.textContent = appState.player.name; dom.lobbyCountry.textContent = appState.player.country; dom.lobbyMode.textContent = appState.player.mode === 'carreira' ? 'Carreira' : 'Sandbox'; dom.lobbyXp.textContent = appState.player.xp; dom.lobbyInsignia.src = rank.insignia; dom.lobbyRank.textContent = rank.title; dom.statResolved.textContent = appState.player.resolved; dom.statBestTime.textContent = appState.player.bestTime ? formatTime(appState.player.bestTime) : '--';
+  const history = appState.player.history || []; const avg = history.length ? Math.round(history.reduce((acc, item) => acc + Number(item.score || 0), 0) / history.length) : null;
+  if (dom.statAverage) dom.statAverage.textContent = avg === null ? '--' : String(avg);
+  if (dom.statStreak) dom.statStreak.textContent = String(appState.player.safeStreak || 0);
+  if (dom.historyList) {
+    dom.historyList.innerHTML = history.length ? history.slice(0, 4).map((item) => `<div class="history-row"><strong>${item.title}</strong><span>${item.score} XP • ${item.grade} • ${item.time}</span></div>`).join('') : '<div class="history-row muted-row">Nenhum relatório registrado ainda.</div>';
+  }
+  if (dom.rankProgressFill && dom.rankProgressText) {
+    const prevMin = rank.minXp; const nextMin = Math.max(nextRank.minXp, prevMin + 1); const progress = rank === nextRank ? 100 : Math.round(((appState.player.xp - prevMin) / (nextMin - prevMin)) * 100);
+    dom.rankProgressFill.style.width = `${Math.max(4, Math.min(100, progress))}%`;
+    dom.rankProgressText.textContent = rank === nextRank ? 'Patente máxima da versão atual atingida.' : `${Math.max(0, nextRank.minXp - appState.player.xp)} XP para ${nextRank.title}.`;
+  }
+}
 function resetShiftState() { appState.activeIncident = null; appState.selectedUnits = new Set(); appState.askedQuestions = new Set(); appState.timerSeconds = 0; appState.risk = 0; appState.triggeredEvents = new Set(); if (appState.timerHandle) clearInterval(appState.timerHandle); appState.timerHandle = null; appState.dispatchResult = null; }
 
 function startShift() {
@@ -40,7 +75,7 @@ function startShift() {
   dom.chatLog.innerHTML = '';
   appendMessage('operator', `OPERADOR: ${appState.activeIncident.opening}`);
   appendMessage('caller', `${appState.activeIncident.callerName.toUpperCase()}: ${appState.activeIncident.callerOpening}`);
-  appendMessage('system', 'PROTOCOLO: confirmar localização, risco imediato, vítimas e segurança do solicitante antes de despachar, quando possível.');
+  appendMessage('system', 'PROTOCOLO: localização, risco imediato, vítimas e segurança do solicitante devem ser confirmados sempre que a janela operacional permitir.');
   dom.incidentFacts.innerHTML = [...appState.activeIncident.facts, ...appState.activeIncident.contradictions].map((fact) => `<li>${fact}</li>`).join('');
   updateRiskMeter(); renderQuestionButtons(); renderMiniMap(); renderDispatchMap(); renderUnits();
   dom.timerValue.textContent = formatTime(0);
@@ -61,7 +96,7 @@ function tickTimer() {
 }
 
 function updateRiskMeter() {
-  let fill = document.getElementById('riskFill'); let readout = document.getElementById('riskReadout');
+  const fill = document.getElementById('riskFill'); const readout = document.getElementById('riskReadout');
   if (!fill || !readout) return;
   fill.style.width = `${Math.max(6, Math.min(100, appState.risk))}%`;
   readout.textContent = appState.risk >= 85 ? 'Risco crítico: decisão imediata recomendada' : appState.risk >= 70 ? 'Risco alto: coletar dados essenciais e despachar' : 'Risco moderado: triagem em andamento';
@@ -86,6 +121,7 @@ function buildDispatchResult() {
   const timeScore = Math.max(0, 35 - Math.max(0, appState.timerSeconds - incident.urgencyLimit)); const dispatchScore = correctSelected.length * 28 - missing.length * 32 - extra.reduce((acc,id)=> acc + (units.find(u=>u.id===id)?.weight ?? 1) * 10, 0);
   const riskPenalty = appState.risk >= 90 && appState.timerSeconds > incident.urgencyLimit ? 18 : 0;
   let total = Math.max(0, 35 + protocolScore + timeScore + dispatchScore - riskPenalty);
+  const grade = total >= 130 ? 'A' : total >= 100 ? 'B' : total >= 70 ? 'C' : 'D';
   const headline = total >= 130 ? 'Atuação profissional exemplar' : total >= 100 ? 'Ocorrência conduzida com segurança' : total >= 70 ? 'Resolvida com ressalvas operacionais' : 'Falhas críticas no protocolo';
   const feedback = [
     { ok: missing.length === 0 && correctSelected.length === correct.size, title: missing.length === 0 ? 'Despacho compatível com risco' : 'Despacho subdimensionado', text: `Exigido: ${incident.correctUnits.join(', ')}. Selecionado: ${[...selected].join(', ') || 'nenhum'}.` },
@@ -94,21 +130,30 @@ function buildDispatchResult() {
     { ok: extra.length === 0, title: 'Uso proporcional de recursos', text: extra.length ? `Recurso possivelmente excessivo: ${extra.join(', ')}.` : 'Não houve sobrecarga desnecessária de recursos.' },
     { ok: appState.risk < 90 || appState.timerSeconds <= incident.urgencyLimit, title: 'Controle de agravamento', text: `Índice final de risco: ${appState.risk}/100.` }
   ];
-  return { total, feedback, headline };
+  return { total, feedback, headline, grade, incidentTitle: incident.title, time: formatTime(appState.timerSeconds) };
 }
-function renderResult() { if (!appState.dispatchResult) return; dom.resultHeadline.textContent = appState.dispatchResult.headline; dom.resultScore.textContent = appState.dispatchResult.total; dom.feedbackList.innerHTML = appState.dispatchResult.feedback.map((item) => `<div class="feedback-item"><img src="${item.ok ? 'assets/icons/icon-check.png' : 'assets/icons/icon-error.png'}" alt="${item.ok ? 'Acerto' : 'Erro'}"><div><strong>${item.title}</strong><span>${item.text}</span></div></div>`).join(''); }
-function finalizeDispatch() { if (!appState.selectedUnits.size) { appendMessage('system', 'PROTOCOLO: não é permitido finalizar sem pelo menos uma unidade ou recurso selecionado.'); setActiveScreen('dispatch'); return; } if (appState.timerHandle) clearInterval(appState.timerHandle); appState.timerHandle = null; appState.dispatchResult = buildDispatchResult(); appState.player.xp += appState.dispatchResult.total; appState.player.resolved += 1; if (!appState.player.bestTime || appState.timerSeconds < appState.player.bestTime) appState.player.bestTime = appState.timerSeconds; savePlayer(); renderLobby(); renderResult(); setActiveScreen('result'); }
+function renderResult() { if (!appState.dispatchResult) return; dom.resultHeadline.textContent = `${appState.dispatchResult.headline} • Nota ${appState.dispatchResult.grade}`; dom.resultScore.textContent = appState.dispatchResult.total; dom.feedbackList.innerHTML = appState.dispatchResult.feedback.map((item) => `<div class="feedback-item"><img src="${item.ok ? 'assets/icons/icon-check.png' : 'assets/icons/icon-error.png'}" alt="${item.ok ? 'Acerto' : 'Erro'}"><div><strong>${item.title}</strong><span>${item.text}</span></div></div>`).join(''); }
+function finalizeDispatch() {
+  if (!appState.selectedUnits.size) { appendMessage('system', 'PROTOCOLO: não é permitido finalizar sem pelo menos uma unidade ou recurso selecionado.'); setActiveScreen('dispatch'); return; }
+  if (appState.timerHandle) clearInterval(appState.timerHandle); appState.timerHandle = null; appState.dispatchResult = buildDispatchResult();
+  appState.player = normalizePlayer(appState.player); appState.player.xp += appState.dispatchResult.total; appState.player.resolved += 1;
+  if (!appState.player.bestTime || appState.timerSeconds < appState.player.bestTime) appState.player.bestTime = appState.timerSeconds;
+  const safe = appState.dispatchResult.grade === 'A' || appState.dispatchResult.grade === 'B'; appState.player.safeStreak = safe ? (appState.player.safeStreak || 0) + 1 : 0;
+  appState.player.history = [{ title: appState.dispatchResult.incidentTitle, score: appState.dispatchResult.total, grade: appState.dispatchResult.grade, time: appState.dispatchResult.time, at: new Date().toISOString() }, ...(appState.player.history || [])].slice(0, 8);
+  savePlayer(); renderLobby(); renderResult(); setActiveScreen('result');
+}
 
 function handleQuestion(id) { if (appState.askedQuestions.has(id)) return; const q = protocolQuestions.find(item => item.id === id); if (!q) return; appState.askedQuestions.add(id); appendMessage('operator', `OPERADOR: ${q.prompt}`); appendMessage('caller', `${appState.activeIncident.callerName.toUpperCase()}: ${appState.activeIncident.questionReplies[id]}`); appState.risk = Math.max(0, appState.risk - (appState.activeIncident.idealQuestions.includes(id) ? 7 : 3)); updateRiskMeter(); appendMessage('system', `PROTOCOLO REGISTRADO: ${q.protocol}.`); renderQuestionButtons(); scrollChatToBottom(); }
-function showConfigNotice() { window.alert('Configurações entram nas próximas builds. v0.3.0 prioriza simulação ultra realista, risco dinâmico e despacho profissional.'); }
-function createProfile() { const name = dom.playerName.value.trim(); if (!name) { dom.playerName.focus(); return; } appState.player = { name, country: dom.playerCountry.value, mode: appState.selectedMode, avatarId: appState.selectedAvatarId, xp: 0, resolved: 0, bestTime: null }; savePlayer(); refreshContinueState(); renderLobby(); setActiveScreen('lobby'); }
+function showConfigNotice() { setActiveScreen('config'); }
+function createProfile() { const name = dom.playerName.value.trim(); if (!name) { dom.playerName.focus(); return; } appState.player = normalizePlayer({ name, country: dom.playerCountry.value, mode: appState.selectedMode, avatarId: appState.selectedAvatarId, xp: 0, resolved: 0, bestTime: null, history: [], safeStreak: 0 }); savePlayer(); refreshContinueState(); renderLobby(); setActiveScreen('lobby'); }
 
 function attachEvents() {
   dom.btnNewGame.addEventListener('click', () => { appState.player = null; dom.playerName.value = ''; dom.playerCountry.value = 'Brasil'; appState.selectedAvatarId = avatars[0].id; appState.selectedMode = 'carreira'; renderAvatars(); updateSelectedAvatar(); [...dom.modeSwitch.querySelectorAll('.mode-pill')].forEach((pill) => pill.classList.toggle('is-active', pill.dataset.mode === 'carreira')); setActiveScreen('profile'); });
   dom.btnContinue.addEventListener('click', () => { const saved = loadPlayer(); if (!saved) return; appState.player = saved; renderLobby(); setActiveScreen('lobby'); });
   dom.avatarGrid.addEventListener('click', (event) => { const card = event.target.closest('[data-avatar-id]'); if (!card) return; appState.selectedAvatarId = card.dataset.avatarId; updateSelectedAvatar(); });
   dom.modeSwitch.addEventListener('click', (event) => { const button = event.target.closest('[data-mode]'); if (!button) return; appState.selectedMode = button.dataset.mode; [...dom.modeSwitch.querySelectorAll('.mode-pill')].forEach((pill) => pill.classList.toggle('is-active', pill === button)); });
-  dom.btnCreateProfile.addEventListener('click', createProfile); dom.btnStartShift.addEventListener('click', startShift); dom.btnConfig.addEventListener('click', showConfigNotice);
+  dom.btnCreateProfile.addEventListener('click', createProfile); dom.btnStartShift.addEventListener('click', startShift); dom.btnConfig.addEventListener('click', showConfigNotice); if (dom.btnManualStart) dom.btnManualStart.addEventListener('click', startShift);
+  if (dom.btnResetCareer) dom.btnResetCareer.addEventListener('click', () => { if (!confirm('Resetar carreira local deste navegador?')) return; localStorage.removeItem(SAVE_KEY); LEGACY_SAVE_KEYS.forEach((key) => localStorage.removeItem(key)); appState.player = null; refreshContinueState(); setActiveScreen('home'); });
   dom.btnBackLobby.addEventListener('click', () => { if (appState.timerHandle) clearInterval(appState.timerHandle); appState.timerHandle = null; renderLobby(); setActiveScreen('lobby'); });
   dom.btnOpenDispatch.addEventListener('click', () => setActiveScreen('dispatch')); dom.btnConfirmDispatch.addEventListener('click', finalizeDispatch);
   dom.btnReturnLobby.addEventListener('click', () => { renderLobby(); setActiveScreen('lobby'); }); dom.btnEndShift.addEventListener('click', () => setActiveScreen('home'));
