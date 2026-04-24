@@ -1,23 +1,14 @@
-# Central 190 - Build v0.1.0
+# Central 190 - Build v0.3.0
 
-Primeira build navegável, mobile-first, pronta para hospedagem estática.
+Build mobile-first da Vale Games.
 
-## O que já funciona
-- Tela inicial com Novo Jogo e Continuar
-- Cadastro do operador com avatar, nome, país e modo
-- Lobby com XP, patente e estatísticas
-- Plantão com chat, cronômetro e resumo da ocorrência
-- Tela de despacho com seleção de unidades
-- Resultado com pontuação e feedback
-- Persistência local com `localStorage`
-- Rodapé com versão, data e hora da build
+## Destaques v0.3.0
+- Modo de simulação **ultra realista**.
+- Ocorrências com informação incompleta, contradições e agravamento por tempo.
+- Sistema de risco dinâmico durante a chamada.
+- Perguntas orientadas por protocolo: localização, vítimas, ameaça, suspeito e segurança.
+- Despacho tático avaliado por unidade correta, tempo, coleta de dados e uso proporcional de recursos.
+- Relatório final técnico com acertos e ressalvas.
 
-## Estrutura
-- `index.html` - app principal
-- `css/style.css` - visual mobile-first
-- `js/` - lógica da build
-- `assets/` - imagens organizadas por categoria
-- `docs/asset-manifest.md` - nomes e categorias dos assets
-
-## Publicação
-Pode ser publicado direto em GitHub Pages, Netlify ou Vercel sem backend.
+## Regra de build
+Versão, data, hora e módulo aparecem no rodapé do app.

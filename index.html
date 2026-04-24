@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Central 190 • Build v0.2.0</title>
-  <meta name="description" content="Central 190 - build v0.2.0 mobile-first">
+  <title>Central 190 • Build v0.3.0</title>
+  <meta name="description" content="Central 190 - build v0.3.0 mobile-first">
   <link rel="icon" type="image/png" href="assets/icons/icon-alert.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -28,7 +28,7 @@
           <div class="home-stage-copy">
             <div class="eyebrow home-stage-kicker">Atender • Avaliar • Despachar • Proteger</div>
             <h2>Central 190</h2>
-            <p>Simulação séria de atendimento policial com progressão operacional, despacho tático e ocorrências urbanas em São Paulo.</p>
+            <p>Simulação ultra realista de atendimento policial: informação incompleta, risco dinâmico, protocolo e despacho tático sob pressão.</p>
           </div>
           <div class="home-reference-actions home-stage-actions">
             <button class="btn btn-primary home-hero-btn" id="btnNewGame">Novo Jogo</button>
@@ -180,11 +180,13 @@
 
           <div class="grid-2 shift-support-grid">
             <div class="panel compact">
-              <div class="section-label">Resumo</div>
+              <div class="section-label">Resumo operacional</div>
               <ul class="info-list" id="incidentFacts"></ul>
             </div>
-            <div class="panel compact">
-              <div class="section-label">Situação tática</div>
+            <div class="panel compact risk-panel">
+              <div class="section-label">Risco em tempo real</div>
+              <div class="risk-meter"><span id="riskFill"></span></div>
+              <div class="risk-readout" id="riskReadout">Aguardando triagem</div>
               <div class="mini-map" id="miniMap"></div>
             </div>
           </div>
@@ -229,7 +231,7 @@
           </div>
 
           <div class="panel">
-            <div class="section-label">Feedback</div>
+            <div class="section-label">Relatório técnico de desempenho</div>
             <div class="feedback-list" id="feedbackList"></div>
           </div>
 

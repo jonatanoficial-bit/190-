@@ -740,3 +740,83 @@ input, select {
   .home-stage-copy h2 { font-size: clamp(42px, 12vw, 58px); }
   .home-stage-copy p { font-size: 15px; }
 }
+
+/* v0.3.0 ultra realista */
+.severity-badge {
+  box-shadow: 0 0 0 1px rgba(255, 91, 91, 0.18), 0 10px 24px rgba(255, 75, 64, 0.12);
+}
+.message.system {
+  border: 1px solid rgba(255, 179, 71, 0.16);
+  text-transform: none;
+}
+.risk-meter {
+  position: relative;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 8px;
+}
+.risk-meter span {
+  display: block;
+  height: 100%;
+  width: 20%;
+  background: linear-gradient(90deg, #44d07b 0%, #f1b84f 55%, #ff4d5e 100%);
+  box-shadow: 0 0 16px rgba(255, 77, 94, 0.28);
+  transition: width 220ms ease;
+}
+.risk-readout {
+  color: #dbe7ff;
+  font-size: 12px;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+.quick-pill {
+  font-weight: 750;
+  line-height: 1.25;
+}
+#screen-shift .quick-actions {
+  grid-template-columns: 1fr 1fr;
+}
+#screen-shift .message {
+  font-size: 15px;
+}
+#screen-shift .chat-log {
+  scroll-behavior: smooth;
+}
+#screen-result .feedback-item strong {
+  color: #f1f6ff;
+}
+#screen-result .feedback-item span {
+  line-height: 1.35;
+}
+.bg-home.reference-home {
+  filter: contrast(1.05) brightness(0.88) saturate(1.08);
+}
+.home-stage-copy h2::after {
+  content: 'LINHA DE VIDA';
+  display: block;
+  margin-top: 6px;
+  font-size: 15px;
+  letter-spacing: 0.24em;
+  color: #ff626d;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.55);
+}
+.home-stage-actions {
+  border-color: rgba(255,255,255,0.14);
+}
+#btnOpenDispatch {
+  box-shadow: 0 0 0 1px rgba(255, 179, 71, 0.18), 0 12px 24px rgba(255, 179, 71, 0.16);
+}
+@media (max-width: 420px) {
+  #screen-shift .screen-inner {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  #screen-shift .quick-pill {
+    min-height: 66px;
+    padding: 10px 11px;
+    font-size: 14px;
+  }
+}
