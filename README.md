@@ -28,7 +28,7 @@ Versão, data, hora e módulo aparecem no rodapé do app conforme padrão Vale G
 - Penalidade leve por fila pendente e avaliação de gestão do plantão no relatório.
 - Ajustes visuais mobile-first no painel de plantão e mapa.
 
-## Build v0.5.1 — Correção estrutural full screen
+## Build v0.6.0 — Correção estrutural full screen
 
 Esta build é uma fase de fundação visual e de usabilidade. O foco foi corrigir o comportamento de tela para o jogo operar como app mobile-first:
 
@@ -42,3 +42,7 @@ Esta build é uma fase de fundação visual e de usabilidade. O foco foi corrigi
 - versão, data, hora e módulo preservados no rodapé.
 
 Os caminhos de assets existentes foram mantidos.
+
+
+## v0.6.0
+Correção da tela de atendimento com mapa tático visível no mobile e despacho visual refinado. Caminhos de assets preservados.

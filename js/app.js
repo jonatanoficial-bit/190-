@@ -1,8 +1,8 @@
 import { BUILD_INFO } from './build-info.js';
 import { avatars, ranks, units, incidents, protocolQuestions } from './data/content.js';
 
-const SAVE_KEY = 'central190-save-v050';
-const LEGACY_SAVE_KEYS = ['central190-save-v040', 'central190-save-v030', 'central190-save-v020', 'central190-save-v010'];
+const SAVE_KEY = 'central190-save-v052';
+const LEGACY_SAVE_KEYS = ['central190-save-v050', 'central190-save-v040', 'central190-save-v030', 'central190-save-v020', 'central190-save-v010'];
 
 const dom = {
   screens: [...document.querySelectorAll('.screen')], btnNewGame: document.getElementById('btnNewGame'), btnContinue: document.getElementById('btnContinue'),
@@ -154,8 +154,38 @@ function getQuestionOptions() {
   return ordered.filter((button) => !appState.askedQuestions.has(button.id)).slice(0, 2);
 }
 function renderQuestionButtons() { const buttons = getQuestionOptions(); dom.questionActions.innerHTML = buttons.length ? buttons.map((button) => `<button class="quick-pill" data-question="${button.id}">${button.label}</button>`).join('') : '<div class="quick-pill is-used">Perguntas essenciais esgotadas. Avalie o despacho.</div>'; }
-function renderMiniMap() { dom.miniMap.innerHTML = `<div class="map-chip" style="left: 12px; top: 12px;"><img src="assets/icons/icon-radar.png" alt="Radar"><span>Monitoramento</span></div><img class="map-marker" src="assets/icons/icon-incident-marker.png" alt="Ocorrência" style="left: 50%; top: 54%; transform: translate(-50%, -50%);"><img class="map-unit small" src="assets/units/unit-police-cruiser.png" alt="Viatura" style="left: 22%; top: 68%;"><img class="map-unit small" src="assets/units/unit-ambulance-samu.png" alt="Ambulância" style="left: 62%; top: 28%;">`; }
-function renderDispatchMap() { const chips = appState.activeIncident.mapChips.map((chip, index) => `<div class="map-chip" style="left:${12 + index * 18}px; top:${14 + index * 34}px">${chip}</div>`).join(''); dom.dispatchMap.innerHTML = `${chips}<img class="map-marker" src="assets/icons/icon-incident-marker.png" alt="Ocorrência" style="left: 52%; top: 52%; transform: translate(-50%, -50%);"><img class="map-unit" src="assets/units/unit-police-cruiser.png" alt="Viatura" style="left: 12%; top: 64%;"><img class="map-unit" src="assets/units/unit-ambulance-samu.png" alt="Ambulância" style="left: 65%; top: 15%; width:64px; height:64px;"><img class="map-unit" src="assets/units/unit-helicopter-police.png" alt="Helicóptero" style="left: 62%; top: 60%; width:76px; height:76px;">`; }
+function tacticalMapLayers(compact = false) {
+  const labelSize = compact ? '9px' : '10px';
+  return `
+    <span class="map-road r1"></span><span class="map-road r2"></span><span class="map-road r3"></span>
+    <span class="map-zone-label" style="left:7%;top:13%;font-size:${labelSize}">Centro</span>
+    <span class="map-zone-label" style="right:8%;top:18%;font-size:${labelSize}">Zona Leste</span>
+    <span class="map-zone-label" style="left:10%;bottom:13%;font-size:${labelSize}">Marginal</span>`;
+}
+function renderMiniMap() {
+  dom.miniMap.classList.add('tactical-grid');
+  dom.miniMap.innerHTML = `${tacticalMapLayers(true)}
+    <div class="map-chip" style="left: 8px; top: 8px;"><img src="assets/icons/icon-radar.png" alt="Radar"><span>Ao vivo</span></div>
+    <span class="map-pulse" style="left: 51%; top: 55%;"></span>
+    <img class="map-marker" src="assets/icons/icon-incident-marker.png" alt="Ocorrência" style="left: 51%; top: 55%; transform: translate(-50%, -50%);">
+    <img class="map-unit small" src="assets/units/unit-police-cruiser.png" alt="Viatura" style="left: 20%; top: 66%;">
+    <span class="unit-eta" style="left: 13%; top: 84%;">3 min</span>
+    <img class="map-unit small" src="assets/units/unit-ambulance-samu.png" alt="Ambulância" style="left: 66%; top: 25%;">
+    <span class="unit-eta" style="left: 61%; top: 9%;">6 min</span>`;
+}
+function renderDispatchMap() {
+  const chips = appState.activeIncident.mapChips.map((chip, index) => `<div class="map-chip" style="left:${12 + index * 10}px; top:${12 + index * 32}px">${chip}</div>`).join('');
+  dom.dispatchMap.classList.add('tactical-grid');
+  dom.dispatchMap.innerHTML = `${tacticalMapLayers(false)}${chips}
+    <span class="map-pulse" style="left: 52%; top: 52%;"></span>
+    <img class="map-marker" src="assets/icons/icon-incident-marker.png" alt="Ocorrência" style="left: 52%; top: 52%; transform: translate(-50%, -50%);">
+    <img class="map-unit" src="assets/units/unit-police-cruiser.png" alt="Viatura" style="left: 12%; top: 64%;">
+    <span class="unit-eta" style="left: 10%; top: 82%;">Viatura • 3 min</span>
+    <img class="map-unit" src="assets/units/unit-ambulance-samu.png" alt="Ambulância" style="left: 66%; top: 16%; width:64px; height:64px;">
+    <span class="unit-eta" style="left: 60%; top: 5%;">SAMU • 6 min</span>
+    <img class="map-unit" src="assets/units/unit-helicopter-police.png" alt="Helicóptero" style="left: 62%; top: 62%; width:76px; height:76px;">
+    <span class="unit-eta" style="left: 58%; top: 79%;">Águia • 4 min</span>`;
+}
 function renderUnits() { dom.unitGrid.innerHTML = units.map((unit) => `<button class="unit-card ${appState.selectedUnits.has(unit.id) ? 'is-selected' : ''}" data-unit-id="${unit.id}"><img src="${unit.src}" alt="${unit.name}"><div><strong>${unit.name}</strong><span>${unit.description}</span></div><span class="unit-toggle" aria-hidden="true"></span></button>`).join(''); }
 
 function buildDispatchResult() {
