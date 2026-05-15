@@ -1,7 +1,7 @@
 export const BUILD_INFO = {
-  version: 'v0.5.0',
+  version: 'v0.5.1',
   buildDate: '2026-05-15',
-  buildTime: '14:58 UTC',
+  buildTime: '15:28 UTC',
   module: 'São Paulo',
-  profile: 'Ultra realista • turnos, fila dinâmica e rádio operacional'
+  profile: 'Correção estrutural full screen • app shell mobile-first'
 };

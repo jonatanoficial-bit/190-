@@ -1,0 +1,16 @@
+{
+  "name": "Central 190",
+  "short_name": "Central 190",
+  "description": "Simulador mobile-first de atendimento e despacho 190.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone", "minimal-ui", "browser"],
+  "orientation": "portrait-primary",
+  "background_color": "#050b12",
+  "theme_color": "#050b12",
+  "icons": [
+    { "src": "assets/icons/icon-alert.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icons/icon-alert.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

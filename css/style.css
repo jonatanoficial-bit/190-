@@ -878,3 +878,417 @@ input, select {
 .map-chip { border-color: rgba(255,179,71,.22); }
 .dispatch-map::after, .mini-map::after { content: ''; position: absolute; inset: 35% 18% 30% 24%; border-top: 2px dashed rgba(45,140,255,.42); transform: rotate(-14deg); pointer-events: none; }
 @media (max-width: 380px) { .shift-selector { grid-template-columns: 1fr; } .shift-option { min-height: 62px; } }
+
+/* v0.5.1 — full screen mobile app shell structural fix */
+:root {
+  --app-height: 100dvh;
+  --topbar-space: calc(86px + env(safe-area-inset-top));
+  --footer-space: calc(42px + env(safe-area-inset-bottom));
+  --mobile-side: clamp(12px, 3.8vw, 22px);
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  height: var(--app-height);
+  min-height: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  display: block;
+  padding: 0 !important;
+  touch-action: manipulation;
+}
+.app-shell {
+  width: 100vw !important;
+  max-width: none !important;
+  height: var(--app-height);
+  min-height: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+.topbar,
+.build-footer {
+  left: 0;
+  right: 0;
+  width: 100vw !important;
+  max-width: none !important;
+  border-radius: 0 !important;
+}
+.topbar {
+  padding-left: var(--mobile-side);
+  padding-right: var(--mobile-side);
+}
+.brand {
+  font-size: clamp(26px, 8vw, 52px);
+  line-height: .98;
+}
+.app-main {
+  height: var(--app-height);
+  min-height: 0;
+  overflow: hidden;
+}
+.screen {
+  height: var(--app-height);
+  min-height: 0;
+  overflow: hidden;
+}
+.screen.is-active {
+  display: block;
+}
+.screen-bg {
+  width: 100%;
+  height: 100%;
+}
+.screen-inner {
+  width: 100%;
+  height: var(--app-height);
+  min-height: 0 !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: var(--topbar-space) var(--mobile-side) var(--footer-space) !important;
+  scrollbar-width: thin;
+}
+.screen-inner.stack-gap,
+.screen-inner.form-screen {
+  min-height: 0;
+}
+.panel {
+  max-width: 100%;
+}
+.action-row,
+.action-column {
+  flex-shrink: 0;
+}
+.sticky-action-row {
+  position: relative !important;
+  bottom: auto !important;
+  z-index: 10;
+  margin-top: 10px;
+  padding: 0 !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+/* Home: keep the reference feel, but make it a real full-screen start screen. */
+#screen-home .screen-inner,
+#screen-home .home-reference-screen {
+  height: var(--app-height);
+  overflow: hidden;
+  padding: var(--topbar-space) var(--mobile-side) var(--footer-space) !important;
+}
+#screen-home .bg-home.reference-home {
+  background-size: cover;
+  background-position: center center;
+}
+#screen-home .home-stage-copy {
+  position: absolute;
+  left: 50%;
+  top: calc(96px + env(safe-area-inset-top));
+  transform: translateX(-50%);
+  width: min(92vw, 780px);
+  text-align: center;
+  pointer-events: none;
+  text-shadow: 0 8px 24px rgba(0,0,0,.58);
+}
+#screen-home .home-stage-copy h2 {
+  margin: 6px 0 6px;
+  font-size: clamp(44px, 11vw, 92px);
+  line-height: .92;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+#screen-home .home-stage-copy p {
+  display: none;
+}
+#screen-home .home-stage-kicker {
+  font-size: clamp(10px, 2.2vw, 15px);
+  color: #dce8ff;
+}
+#screen-home .home-reference-actions,
+#screen-home .home-stage-actions {
+  position: absolute;
+  left: 50%;
+  bottom: calc(62px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(92vw, 760px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(10px, 2.6vw, 22px);
+}
+#screen-home .home-hero-btn {
+  min-height: clamp(58px, 9vh, 78px);
+  font-size: clamp(17px, 4.2vw, 28px);
+  text-transform: uppercase;
+  box-shadow: 0 16px 40px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.14);
+}
+
+/* Shift screen: no page-scroll. Chat scrolls internally, actions always visible. */
+#screen-shift .screen-inner.shift-screen-inner {
+  height: var(--app-height);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  padding-top: var(--topbar-space) !important;
+  padding-bottom: var(--footer-space) !important;
+}
+#screen-shift .shift-top {
+  min-height: 70px;
+  padding: 10px 12px;
+}
+#screen-shift .shift-avatar {
+  width: 48px;
+  height: 48px;
+}
+#screen-shift .timer-chip {
+  min-width: 118px;
+  justify-content: center;
+}
+#screen-shift .shift-panel {
+  min-height: 0 !important;
+  height: 100%;
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) auto auto !important;
+  gap: 10px;
+  overflow: hidden !important;
+  padding: 13px;
+}
+#screen-shift .panel-head.split {
+  margin-bottom: 0 !important;
+  gap: 8px;
+}
+#screen-shift .panel-head h3 {
+  font-size: clamp(21px, 6vw, 34px);
+  line-height: 1.08;
+}
+#screen-shift .severity-badge {
+  flex: 0 0 auto;
+  max-width: 142px;
+  white-space: normal;
+  text-align: center;
+}
+#screen-shift .chat-log {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-right: 6px;
+  padding-bottom: 4px;
+  scroll-behavior: smooth;
+}
+#screen-shift .message {
+  font-size: clamp(14px, 3.8vw, 17px);
+  max-width: 92%;
+}
+#screen-shift .quick-actions {
+  position: relative !important;
+  bottom: auto !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  background: transparent !important;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+#screen-shift .quick-pill {
+  min-height: 54px;
+  padding: 11px 12px;
+  align-items: center;
+  font-size: clamp(13px, 3.5vw, 16px);
+}
+#screen-shift .shift-sticky-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0;
+}
+#screen-shift .shift-sticky-actions .btn {
+  min-height: 56px;
+}
+#screen-shift .shift-support-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  min-height: 0;
+  max-height: clamp(96px, 17vh, 148px);
+  overflow: hidden;
+}
+#screen-shift .shift-support-grid .panel {
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  padding: 11px;
+}
+#screen-shift .shift-support-grid .section-label {
+  margin-bottom: 6px;
+  font-size: 10px;
+}
+#screen-shift .info-list {
+  max-height: 84px;
+  overflow-y: auto;
+  gap: 5px;
+  font-size: 12px;
+}
+#screen-shift .risk-readout {
+  font-size: 11px;
+  line-height: 1.25;
+}
+#screen-shift .mini-map {
+  min-height: 0 !important;
+  height: 76px;
+  border-radius: 14px;
+}
+#screen-shift .mini-map .map-chip {
+  transform: scale(.78);
+  transform-origin: top left;
+}
+#screen-shift .mini-map .map-unit.small,
+#screen-shift .mini-map .map-marker {
+  width: 28px;
+  height: 28px;
+}
+
+/* Dispatch and result: internal scrolling only, action bar accessible. */
+#screen-dispatch .screen-inner {
+  height: var(--app-height);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  gap: 10px;
+}
+#screen-dispatch .screen-inner > .panel:first-child {
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+#screen-dispatch .dispatch-map {
+  min-height: 0;
+  height: 100%;
+}
+#screen-dispatch .unit-grid {
+  min-height: 0;
+  max-height: clamp(146px, 28vh, 260px);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+#screen-dispatch .unit-card {
+  grid-template-columns: 64px 1fr 26px;
+  padding: 10px;
+}
+#screen-dispatch .unit-card img {
+  width: 64px;
+  height: 44px;
+}
+#screen-dispatch .sticky-action-row,
+#screen-result .sticky-action-row,
+#screen-manual .sticky-action-row,
+#screen-config .sticky-action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+#screen-result .screen-inner,
+#screen-manual .screen-inner,
+#screen-config .screen-inner,
+#screen-lobby .screen-inner,
+#screen-profile .screen-inner {
+  height: var(--app-height);
+  overflow-y: auto;
+}
+
+/* Desktop/wide preview: full canvas, centered content, not a narrow broken strip. */
+@media (min-width: 780px) {
+  :root { --topbar-space: calc(96px + env(safe-area-inset-top)); }
+  .topbar {
+    padding-left: clamp(24px, 4vw, 56px);
+    padding-right: clamp(24px, 4vw, 56px);
+  }
+  .screen-inner {
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #screen-home .screen-inner {
+    max-width: none;
+  }
+  #screen-shift .screen-inner.shift-screen-inner,
+  #screen-dispatch .screen-inner {
+    max-width: min(100vw - 48px, 1180px);
+  }
+  #screen-shift .screen-inner.shift-screen-inner {
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+    align-items: stretch;
+  }
+  #screen-shift .shift-top {
+    grid-column: 1 / -1;
+  }
+  #screen-shift .shift-panel {
+    grid-column: 1;
+  }
+  #screen-shift .shift-support-grid {
+    grid-column: 2;
+    grid-row: 2;
+    max-height: none;
+    height: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  #screen-shift .mini-map {
+    height: 100%;
+    min-height: 220px !important;
+  }
+  #screen-shift .info-list {
+    max-height: none;
+    font-size: 14px;
+  }
+  #screen-dispatch .screen-inner {
+    max-width: min(100vw - 48px, 1120px);
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+  #screen-dispatch .screen-inner > .panel:first-child {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  #screen-dispatch .unit-grid {
+    grid-column: 2;
+    grid-row: 1;
+    max-height: none;
+  }
+  #screen-dispatch .sticky-action-row {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .build-footer {
+    padding-left: clamp(24px, 4vw, 56px);
+    padding-right: clamp(24px, 4vw, 56px);
+  }
+}
+
+@media (max-height: 720px) and (max-width: 779px) {
+  :root { --topbar-space: calc(74px + env(safe-area-inset-top)); --footer-space: calc(34px + env(safe-area-inset-bottom)); }
+  .eyebrow { font-size: 9px; }
+  .brand { font-size: 24px; }
+  .topbar { padding-top: calc(10px + env(safe-area-inset-top)); padding-bottom: 8px; }
+  #screen-shift .shift-support-grid { display: none; }
+  #screen-shift .screen-inner.shift-screen-inner { grid-template-rows: auto minmax(0,1fr); }
+  #screen-shift .timer-chip img { width: 22px; height: 22px; }
+  #screen-shift .timer-chip strong { font-size: 16px; }
+  #screen-home .home-stage-copy { top: calc(74px + env(safe-area-inset-top)); }
+}
+
+@media (max-width: 380px) {
+  #screen-shift .quick-actions { grid-template-columns: 1fr; }
+  #screen-shift .shift-sticky-actions { grid-template-columns: 1fr 1fr; }
+  #screen-shift .shift-sticky-actions .btn { font-size: 13px; }
+  #screen-home .home-reference-actions,
+  #screen-home .home-stage-actions { width: calc(100vw - 28px); gap: 8px; }
+}

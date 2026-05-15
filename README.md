@@ -27,3 +27,18 @@ Versão, data, hora e módulo aparecem no rodapé do app conforme padrão Vale G
 - Ocorrências filtradas por horário, com pressão operacional e rádio de supervisão.
 - Penalidade leve por fila pendente e avaliação de gestão do plantão no relatório.
 - Ajustes visuais mobile-first no painel de plantão e mapa.
+
+## Build v0.5.1 — Correção estrutural full screen
+
+Esta build é uma fase de fundação visual e de usabilidade. O foco foi corrigir o comportamento de tela para o jogo operar como app mobile-first:
+
+- app shell ocupando 100% da viewport;
+- bloqueio de rolagem global do documento;
+- rolagem interna por tela;
+- tela de plantão com chat rolando internamente;
+- botões críticos sempre acessíveis;
+- layout de despacho com mapa e ações sem sobreposição;
+- metadados PWA iniciais (`manifest.webmanifest` e `sw.js`);
+- versão, data, hora e módulo preservados no rodapé.
+
+Os caminhos de assets existentes foram mantidos.

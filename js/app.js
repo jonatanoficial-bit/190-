@@ -17,6 +17,22 @@ const dom = {
 const shiftProfiles = { manha: { label: 'Manhã', riskBias: -2, radio: 'Rádio: entrada escolar, fluxo intenso e travessias monitoradas.' }, tarde: { label: 'Tarde', riskBias: 0, radio: 'Rádio: comércio ativo, trânsito carregado e apoio distribuído por zona.' }, noite: { label: 'Noite', riskBias: 7, radio: 'Rádio: prioridade para roubo, bares, violência doméstica e contenção.' }, madrugada: { label: 'Madrugada', riskBias: 11, radio: 'Rádio: efetivo reduzido, baixa visibilidade e ocorrências com isolamento.' } };
 const appState = { player: null, selectedAvatarId: avatars[0].id, selectedMode: 'carreira', selectedShift: 'manha', callQueue: [], activeIncident: null, selectedUnits: new Set(), askedQuestions: new Set(), timerSeconds: 0, timerHandle: null, risk: 0, triggeredEvents: new Set(), dispatchResult: null };
 
+function updateViewportHeight() {
+  const height = Math.round(window.visualViewport?.height || window.innerHeight || document.documentElement.clientHeight);
+  document.documentElement.style.setProperty('--app-height', `${height}px`);
+}
+function resetScreenScroll(id) {
+  const screen = document.getElementById(`screen-${id}`);
+  const inner = screen?.querySelector('.screen-inner');
+  if (inner) inner.scrollTop = 0;
+}
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+
 function formatTime(totalSeconds) { return `${String(Math.floor(totalSeconds / 60)).padStart(2, '0')}:${String(totalSeconds % 60).padStart(2, '0')}`; }
 function getAvatarById(id) { return avatars.find((avatar) => avatar.id === id) ?? avatars[0]; }
 function getRankByXp(xp = 0) { return [...ranks].reverse().find((rank) => xp >= rank.minXp) ?? ranks[0]; }
@@ -39,7 +55,7 @@ function loadPlayer() {
   } catch {}
   return null;
 }
-function setActiveScreen(id) { dom.screens.forEach((screen) => screen.classList.toggle('is-active', screen.id === `screen-${id}`)); document.getElementById('appShell').classList.toggle('home-active', id === 'home'); window.scrollTo({ top: 0, behavior: 'auto' }); }
+function setActiveScreen(id) { dom.screens.forEach((screen) => screen.classList.toggle('is-active', screen.id === `screen-${id}`)); document.getElementById('appShell').classList.toggle('home-active', id === 'home'); resetScreenScroll(id); if (id === 'shift') scrollChatToBottom(false); }
 function updateFooter() { dom.footerVersion.textContent = BUILD_INFO.version; dom.footerDateTime.textContent = `${BUILD_INFO.buildDate} • ${BUILD_INFO.buildTime}`; dom.footerModule.textContent = `Módulo base: ${BUILD_INFO.module}`; dom.cityChip.textContent = BUILD_INFO.module; }
 function refreshContinueState() { dom.btnContinue.disabled = !loadPlayer(); }
 
@@ -105,7 +121,9 @@ function startShift() {
   dom.timerValue.textContent = formatTime(0);
   appState.timerHandle = window.setInterval(tickTimer, 1000);
   setActiveScreen('shift');
+  window.requestAnimationFrame(() => scrollChatToBottom(false));
 }
+
 
 function tickTimer() {
   appState.timerSeconds += 1; dom.timerValue.textContent = formatTime(appState.timerSeconds);
@@ -127,7 +145,7 @@ function updateRiskMeter() {
   fill.style.width = `${Math.max(6, Math.min(100, appState.risk))}%`;
   readout.textContent = appState.risk >= 85 ? 'Risco crítico: decisão imediata recomendada' : appState.risk >= 70 ? 'Risco alto: coletar dados essenciais e despachar' : 'Risco moderado: triagem em andamento';
 }
-function scrollChatToBottom(smooth = true) { window.requestAnimationFrame(() => { dom.chatLog.scrollTo({ top: dom.chatLog.scrollHeight, behavior: smooth ? 'smooth' : 'auto' }); }); }
+function scrollChatToBottom(smooth = true) { window.requestAnimationFrame(() => { if (!dom.chatLog) return; dom.chatLog.scrollTo({ top: dom.chatLog.scrollHeight + 200, behavior: smooth ? 'smooth' : 'auto' }); }); }
 function appendMessage(type, text) { const node = document.createElement('div'); node.className = `message ${type}`; node.textContent = text; dom.chatLog.appendChild(node); scrollChatToBottom(); }
 
 function getQuestionOptions() {
@@ -188,5 +206,5 @@ function attachEvents() {
   dom.btnReturnLobby.addEventListener('click', () => { renderLobby(); setActiveScreen('lobby'); }); dom.btnEndShift.addEventListener('click', () => setActiveScreen('home'));
   document.body.addEventListener('click', (event) => { const nav = event.target.closest('[data-nav]'); if (nav) { setActiveScreen(nav.dataset.nav); return; } const question = event.target.closest('[data-question]'); if (question) { handleQuestion(question.dataset.question); return; } const unitCard = event.target.closest('[data-unit-id]'); if (unitCard) { const { unitId } = unitCard.dataset; if (appState.selectedUnits.has(unitId)) appState.selectedUnits.delete(unitId); else appState.selectedUnits.add(unitId); renderUnits(); } });
 }
-function init() { updateFooter(); document.getElementById('appShell').classList.add('home-active'); renderAvatars(); updateSelectedAvatar(); refreshContinueState(); const saved = loadPlayer(); if (saved) { appState.player = saved; appState.selectedShift = saved.preferredShift || 'manha'; renderLobby(); } setShift(appState.selectedShift); attachEvents(); }
+function init() { updateViewportHeight(); window.addEventListener('resize', updateViewportHeight); window.visualViewport?.addEventListener('resize', updateViewportHeight); window.addEventListener('orientationchange', () => setTimeout(updateViewportHeight, 250)); registerServiceWorker(); updateFooter(); document.getElementById('appShell').classList.add('home-active'); renderAvatars(); updateSelectedAvatar(); refreshContinueState(); const saved = loadPlayer(); if (saved) { appState.player = saved; appState.selectedShift = saved.preferredShift || 'manha'; renderLobby(); } setShift(appState.selectedShift); attachEvents(); }
 init();
