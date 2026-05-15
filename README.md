@@ -19,3 +19,11 @@ Envie todos os arquivos da pasta para GitHub Pages ou Vercel como site estático
 ## Regra da build
 
 Versão, data, hora e módulo aparecem no rodapé do app conforme padrão Vale Games.
+
+
+## Build v0.5.0
+- Sistema de turnos: manhã, tarde, noite e madrugada.
+- Fila dinâmica de chamadas no plantão.
+- Ocorrências filtradas por horário, com pressão operacional e rádio de supervisão.
+- Penalidade leve por fila pendente e avaliação de gestão do plantão no relatório.
+- Ajustes visuais mobile-first no painel de plantão e mapa.

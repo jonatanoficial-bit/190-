@@ -1,8 +1,8 @@
 import { BUILD_INFO } from './build-info.js';
 import { avatars, ranks, units, incidents, protocolQuestions } from './data/content.js';
 
-const SAVE_KEY = 'central190-save-v040';
-const LEGACY_SAVE_KEYS = ['central190-save-v030', 'central190-save-v020', 'central190-save-v010'];
+const SAVE_KEY = 'central190-save-v050';
+const LEGACY_SAVE_KEYS = ['central190-save-v040', 'central190-save-v030', 'central190-save-v020', 'central190-save-v010'];
 
 const dom = {
   screens: [...document.querySelectorAll('.screen')], btnNewGame: document.getElementById('btnNewGame'), btnContinue: document.getElementById('btnContinue'),
@@ -11,10 +11,11 @@ const dom = {
   shiftAvatar: document.getElementById('shiftAvatar'), shiftOperatorName: document.getElementById('shiftOperatorName'), timerValue: document.getElementById('timerValue'), incidentTitle: document.getElementById('incidentTitle'), severityBadge: document.getElementById('severityBadge'), chatLog: document.getElementById('chatLog'), questionActions: document.getElementById('questionActions'), incidentFacts: document.getElementById('incidentFacts'), miniMap: document.getElementById('miniMap'), btnBackLobby: document.getElementById('btnBackLobby'), btnOpenDispatch: document.getElementById('btnOpenDispatch'),
   dispatchDistrict: document.getElementById('dispatchDistrict'), dispatchMap: document.getElementById('dispatchMap'), unitGrid: document.getElementById('unitGrid'), btnConfirmDispatch: document.getElementById('btnConfirmDispatch'),
   resultHeadline: document.getElementById('resultHeadline'), resultScore: document.getElementById('resultScore'), feedbackList: document.getElementById('feedbackList'), btnReturnLobby: document.getElementById('btnReturnLobby'), btnEndShift: document.getElementById('btnEndShift'),
-  footerVersion: document.getElementById('footerVersion'), footerDateTime: document.getElementById('footerDateTime'), footerModule: document.getElementById('footerModule'), cityChip: document.getElementById('cityChip')
+  footerVersion: document.getElementById('footerVersion'), footerDateTime: document.getElementById('footerDateTime'), footerModule: document.getElementById('footerModule'), cityChip: document.getElementById('cityChip'), shiftSelector: document.getElementById('shiftSelector'), radioFeed: document.getElementById('radioFeed')
 };
 
-const appState = { player: null, selectedAvatarId: avatars[0].id, selectedMode: 'carreira', activeIncident: null, selectedUnits: new Set(), askedQuestions: new Set(), timerSeconds: 0, timerHandle: null, risk: 0, triggeredEvents: new Set(), dispatchResult: null };
+const shiftProfiles = { manha: { label: 'Manhã', riskBias: -2, radio: 'Rádio: entrada escolar, fluxo intenso e travessias monitoradas.' }, tarde: { label: 'Tarde', riskBias: 0, radio: 'Rádio: comércio ativo, trânsito carregado e apoio distribuído por zona.' }, noite: { label: 'Noite', riskBias: 7, radio: 'Rádio: prioridade para roubo, bares, violência doméstica e contenção.' }, madrugada: { label: 'Madrugada', riskBias: 11, radio: 'Rádio: efetivo reduzido, baixa visibilidade e ocorrências com isolamento.' } };
+const appState = { player: null, selectedAvatarId: avatars[0].id, selectedMode: 'carreira', selectedShift: 'manha', callQueue: [], activeIncident: null, selectedUnits: new Set(), askedQuestions: new Set(), timerSeconds: 0, timerHandle: null, risk: 0, triggeredEvents: new Set(), dispatchResult: null };
 
 function formatTime(totalSeconds) { return `${String(Math.floor(totalSeconds / 60)).padStart(2, '0')}:${String(totalSeconds % 60).padStart(2, '0')}`; }
 function getAvatarById(id) { return avatars.find((avatar) => avatar.id === id) ?? avatars[0]; }
@@ -25,7 +26,7 @@ function normalizePlayer(player) {
   return {
     name: player.name || 'Operador', country: player.country || 'Brasil', mode: player.mode || 'carreira', avatarId: player.avatarId || avatars[0].id,
     xp: Number(player.xp || 0), resolved: Number(player.resolved || 0), bestTime: player.bestTime ?? null,
-    history: Array.isArray(player.history) ? player.history.slice(0, 8) : [], safeStreak: Number(player.safeStreak || 0), createdAt: player.createdAt || new Date().toISOString()
+    history: Array.isArray(player.history) ? player.history.slice(0, 8) : [], safeStreak: Number(player.safeStreak || 0), createdAt: player.createdAt || new Date().toISOString(), preferredShift: player.preferredShift || 'manha'
   };
 }
 function savePlayer() { if (appState.player) localStorage.setItem(SAVE_KEY, JSON.stringify(appState.player)); }
@@ -61,12 +62,34 @@ function renderLobby() {
     dom.rankProgressText.textContent = rank === nextRank ? 'Patente máxima da versão atual atingida.' : `${Math.max(0, nextRank.minXp - appState.player.xp)} XP para ${nextRank.title}.`;
   }
 }
+
+function pickIncidentsForShift(shiftId) {
+  const filtered = incidents.filter((incident) => !incident.shiftTags || incident.shiftTags.includes(shiftId));
+  const pool = filtered.length ? filtered : incidents;
+  return [...pool].sort(() => Math.random() - 0.5).slice(0, 3);
+}
+function updateRadioFeed(text) {
+  if (!dom.radioFeed) return;
+  dom.radioFeed.textContent = text;
+}
+function setShift(shiftId) {
+  appState.selectedShift = shiftProfiles[shiftId] ? shiftId : 'manha';
+  if (appState.player) { appState.player.preferredShift = appState.selectedShift; savePlayer(); }
+  if (dom.shiftSelector) {
+    [...dom.shiftSelector.querySelectorAll('[data-shift]')].forEach((btn) => btn.classList.toggle('is-active', btn.dataset.shift === appState.selectedShift));
+  }
+  updateRadioFeed(shiftProfiles[appState.selectedShift].radio);
+}
+
 function resetShiftState() { appState.activeIncident = null; appState.selectedUnits = new Set(); appState.askedQuestions = new Set(); appState.timerSeconds = 0; appState.risk = 0; appState.triggeredEvents = new Set(); if (appState.timerHandle) clearInterval(appState.timerHandle); appState.timerHandle = null; appState.dispatchResult = null; }
 
 function startShift() {
   resetShiftState();
-  appState.activeIncident = incidents[Math.floor(Math.random() * incidents.length)];
-  appState.risk = appState.activeIncident.baseRisk;
+  if (!appState.callQueue.length) appState.callQueue = pickIncidentsForShift(appState.selectedShift);
+  appState.activeIncident = appState.callQueue.shift() || incidents[Math.floor(Math.random() * incidents.length)];
+  const shift = shiftProfiles[appState.selectedShift] || shiftProfiles.manha;
+  appState.risk = Math.max(0, Math.min(100, appState.activeIncident.baseRisk + shift.riskBias));
+  updateRadioFeed(`${shift.radio} Fila atual: ${1 + appState.callQueue.length} ocorrência(s) em triagem.`);
   dom.shiftAvatar.src = getAvatarById(appState.player.avatarId).src;
   dom.shiftOperatorName.textContent = appState.player.name;
   dom.incidentTitle.textContent = appState.activeIncident.title;
@@ -76,6 +99,7 @@ function startShift() {
   appendMessage('operator', `OPERADOR: ${appState.activeIncident.opening}`);
   appendMessage('caller', `${appState.activeIncident.callerName.toUpperCase()}: ${appState.activeIncident.callerOpening}`);
   appendMessage('system', 'PROTOCOLO: localização, risco imediato, vítimas e segurança do solicitante devem ser confirmados sempre que a janela operacional permitir.');
+  appendMessage('system', `TURNO: ${shiftProfiles[appState.selectedShift].label}. Fila de chamadas simultâneas: ${appState.callQueue.length}. Efetivo deve ser usado com proporcionalidade.`);
   dom.incidentFacts.innerHTML = [...appState.activeIncident.facts, ...appState.activeIncident.contradictions].map((fact) => `<li>${fact}</li>`).join('');
   updateRiskMeter(); renderQuestionButtons(); renderMiniMap(); renderDispatchMap(); renderUnits();
   dom.timerValue.textContent = formatTime(0);
@@ -85,6 +109,8 @@ function startShift() {
 
 function tickTimer() {
   appState.timerSeconds += 1; dom.timerValue.textContent = formatTime(appState.timerSeconds);
+  if (appState.timerSeconds === 20) updateRadioFeed('Rádio: outra chamada entrou na fila. Priorize coleta mínima e despacho proporcional.');
+  if (appState.timerSeconds === 45) updateRadioFeed('Rádio: supervisão solicita status. Evite manter unidade crítica ociosa sem necessidade.');
   const incident = appState.activeIncident;
   if (!incident) return;
   incident.events.forEach((event, idx) => {
@@ -120,7 +146,8 @@ function buildDispatchResult() {
   const idealAsked = incident.idealQuestions.filter((id) => appState.askedQuestions.has(id)); const protocolScore = Math.round((idealAsked.length / incident.idealQuestions.length) * 40);
   const timeScore = Math.max(0, 35 - Math.max(0, appState.timerSeconds - incident.urgencyLimit)); const dispatchScore = correctSelected.length * 28 - missing.length * 32 - extra.reduce((acc,id)=> acc + (units.find(u=>u.id===id)?.weight ?? 1) * 10, 0);
   const riskPenalty = appState.risk >= 90 && appState.timerSeconds > incident.urgencyLimit ? 18 : 0;
-  let total = Math.max(0, 35 + protocolScore + timeScore + dispatchScore - riskPenalty);
+  const queuePressure = (appState.callQueue?.length || 0) * 2;
+  let total = Math.max(0, 35 + protocolScore + timeScore + dispatchScore - riskPenalty - queuePressure);
   const grade = total >= 130 ? 'A' : total >= 100 ? 'B' : total >= 70 ? 'C' : 'D';
   const headline = total >= 130 ? 'Atuação profissional exemplar' : total >= 100 ? 'Ocorrência conduzida com segurança' : total >= 70 ? 'Resolvida com ressalvas operacionais' : 'Falhas críticas no protocolo';
   const feedback = [
@@ -128,7 +155,8 @@ function buildDispatchResult() {
     { ok: idealAsked.length >= Math.min(3, incident.idealQuestions.length), title: 'Coleta de dados críticos', text: `${idealAsked.length}/${incident.idealQuestions.length} protocolos relevantes confirmados antes do despacho.` },
     { ok: appState.timerSeconds <= incident.urgencyLimit, title: 'Tempo de resposta operacional', text: `Despacho em ${formatTime(appState.timerSeconds)}. Janela ideal: até ${formatTime(incident.urgencyLimit)}.` },
     { ok: extra.length === 0, title: 'Uso proporcional de recursos', text: extra.length ? `Recurso possivelmente excessivo: ${extra.join(', ')}.` : 'Não houve sobrecarga desnecessária de recursos.' },
-    { ok: appState.risk < 90 || appState.timerSeconds <= incident.urgencyLimit, title: 'Controle de agravamento', text: `Índice final de risco: ${appState.risk}/100.` }
+    { ok: appState.risk < 90 || appState.timerSeconds <= incident.urgencyLimit, title: 'Controle de agravamento', text: `Índice final de risco: ${appState.risk}/100.` },
+    { ok: (appState.callQueue?.length || 0) <= 2, title: 'Gestão de fila do plantão', text: `Turno ${shiftProfiles[appState.selectedShift].label}; ${appState.callQueue?.length || 0} chamada(s) ainda aguardando triagem.` }
   ];
   return { total, feedback, headline, grade, incidentTitle: incident.title, time: formatTime(appState.timerSeconds) };
 }
@@ -153,11 +181,12 @@ function attachEvents() {
   dom.avatarGrid.addEventListener('click', (event) => { const card = event.target.closest('[data-avatar-id]'); if (!card) return; appState.selectedAvatarId = card.dataset.avatarId; updateSelectedAvatar(); });
   dom.modeSwitch.addEventListener('click', (event) => { const button = event.target.closest('[data-mode]'); if (!button) return; appState.selectedMode = button.dataset.mode; [...dom.modeSwitch.querySelectorAll('.mode-pill')].forEach((pill) => pill.classList.toggle('is-active', pill === button)); });
   dom.btnCreateProfile.addEventListener('click', createProfile); dom.btnStartShift.addEventListener('click', startShift); dom.btnConfig.addEventListener('click', showConfigNotice); if (dom.btnManualStart) dom.btnManualStart.addEventListener('click', startShift);
+  if (dom.shiftSelector) dom.shiftSelector.addEventListener('click', (event) => { const btn = event.target.closest('[data-shift]'); if (btn) setShift(btn.dataset.shift); });
   if (dom.btnResetCareer) dom.btnResetCareer.addEventListener('click', () => { if (!confirm('Resetar carreira local deste navegador?')) return; localStorage.removeItem(SAVE_KEY); LEGACY_SAVE_KEYS.forEach((key) => localStorage.removeItem(key)); appState.player = null; refreshContinueState(); setActiveScreen('home'); });
   dom.btnBackLobby.addEventListener('click', () => { if (appState.timerHandle) clearInterval(appState.timerHandle); appState.timerHandle = null; renderLobby(); setActiveScreen('lobby'); });
   dom.btnOpenDispatch.addEventListener('click', () => setActiveScreen('dispatch')); dom.btnConfirmDispatch.addEventListener('click', finalizeDispatch);
   dom.btnReturnLobby.addEventListener('click', () => { renderLobby(); setActiveScreen('lobby'); }); dom.btnEndShift.addEventListener('click', () => setActiveScreen('home'));
   document.body.addEventListener('click', (event) => { const nav = event.target.closest('[data-nav]'); if (nav) { setActiveScreen(nav.dataset.nav); return; } const question = event.target.closest('[data-question]'); if (question) { handleQuestion(question.dataset.question); return; } const unitCard = event.target.closest('[data-unit-id]'); if (unitCard) { const { unitId } = unitCard.dataset; if (appState.selectedUnits.has(unitId)) appState.selectedUnits.delete(unitId); else appState.selectedUnits.add(unitId); renderUnits(); } });
 }
-function init() { updateFooter(); document.getElementById('appShell').classList.add('home-active'); renderAvatars(); updateSelectedAvatar(); refreshContinueState(); const saved = loadPlayer(); if (saved) { appState.player = saved; renderLobby(); } attachEvents(); }
+function init() { updateFooter(); document.getElementById('appShell').classList.add('home-active'); renderAvatars(); updateSelectedAvatar(); refreshContinueState(); const saved = loadPlayer(); if (saved) { appState.player = saved; appState.selectedShift = saved.preferredShift || 'manha'; renderLobby(); } setShift(appState.selectedShift); attachEvents(); }
 init();

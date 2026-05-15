@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Central 190 • Build v0.4.0</title>
-  <meta name="description" content="Central 190 - build v0.4.0 mobile-first">
+  <title>Central 190 • Build v0.5.0</title>
+  <meta name="description" content="Central 190 - build v0.5.0 mobile-first">
   <link rel="icon" type="image/png" href="assets/icons/icon-alert.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -148,6 +148,17 @@
             <div class="risk-readout" id="rankProgressText">Aguardando evolução</div>
           </div>
 
+          <div class="panel compact shift-setup-panel">
+            <div class="section-label">Planejamento do plantão</div>
+            <div class="shift-selector" id="shiftSelector">
+              <button class="shift-option is-active" data-shift="manha"><strong>Manhã</strong><span>trânsito, escola e entrada comercial</span></button>
+              <button class="shift-option" data-shift="tarde"><strong>Tarde</strong><span>comércio, vias cheias e conflito urbano</span></button>
+              <button class="shift-option" data-shift="noite"><strong>Noite</strong><span>roubos, bares e risco armado</span></button>
+              <button class="shift-option" data-shift="madrugada"><strong>Madrugada</strong><span>isolamento, violência e resposta crítica</span></button>
+            </div>
+            <div class="radio-feed" id="radioFeed">Rádio: aguardando início do plantão.</div>
+          </div>
+
           <div class="panel compact history-panel">
             <div class="section-label">Últimos relatórios</div>
             <div class="history-list" id="historyList"></div>
@@ -264,12 +275,12 @@
         <div class="screen-inner stack-gap">
           <div class="panel">
             <span class="eyebrow">Configuração de simulação</span>
-            <h3>Central 190 v0.4.0</h3>
+            <h3>Central 190 v0.5.0</h3>
             <p class="manual-intro">Perfil atual: ultra realista. As regras abaixo orientam a avaliação do plantão e ficam preparadas para ajustes completos em versões futuras.</p>
           </div>
           <div class="panel compact settings-card"><strong>Modo de avaliação</strong><span>Rigor alto: tempo, protocolo, proporcionalidade e agravamento contam no resultado.</span></div>
           <div class="panel compact settings-card"><strong>Interface</strong><span>Mobile-first com botões críticos fixos e perguntas limitadas a duas por rodada.</span></div>
-          <div class="panel compact settings-card"><strong>Conteúdo</strong><span>Banco ampliado com ocorrências críticas de São Paulo e preparação para DLC de cidades.</span></div>
+          <div class="panel compact settings-card"><strong>Conteúdo</strong><span>Banco ampliado com turnos, fila operacional, múltiplas unidades e ocorrências variáveis por horário.</span></div>
           <div class="action-row sticky-action-row"><button class="btn btn-secondary" data-nav="lobby">Voltar</button><button class="btn btn-danger" id="btnResetCareer">Resetar carreira</button></div>
         </div>
       </section>
@@ -300,7 +311,7 @@
     </main>
 
     <footer class="build-footer" id="buildFooter">
-      <span id="footerVersion">v0.4.0</span>
+      <span id="footerVersion">v0.5.0</span>
       <span id="footerDateTime">--</span>
       <span id="footerModule">Módulo base: São Paulo</span>
     </footer>

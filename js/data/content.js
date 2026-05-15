@@ -45,7 +45,7 @@ export const incidents = [
       suspect: 'Camisa cinza, bermuda preta. Ele está dentro da casa, na sala.',
       safety: 'Estou trancada no quarto. Vou ficar longe da porta e manter a ligação aberta.'
     },
-    correctUnits: ['police'], idealQuestions: ['location', 'victims', 'weapon', 'safety'], mapChips: ['Residência', 'Risco interno', 'Acesso estreito']
+    shiftTags: ['noite','madrugada'], correctUnits: ['police'], idealQuestions: ['location', 'victims', 'weapon', 'safety'], mapChips: ['Residência', 'Risco interno', 'Acesso estreito']
   },
   {
     id: 'armed-robbery-escape', title: 'Roubo armado com fuga em veículo', severity: 'Prioridade crítica', district: 'Sé', baseRisk: 82, urgencyLimit: 28, callerName: 'Carlos',
@@ -64,7 +64,7 @@ export const incidents = [
       suspect: 'Carro escuro, final da placa talvez 47. Dois homens, um de boné.',
       safety: 'Eu estou longe deles, do outro lado da rua. Não vou tentar seguir.'
     },
-    correctUnits: ['police', 'helicopter'], idealQuestions: ['location', 'weapon', 'suspect', 'safety'], mapChips: ['Rotas múltiplas', 'Busca aérea recomendada', 'Trânsito moderado']
+    shiftTags: ['tarde','noite','madrugada'], correctUnits: ['police', 'helicopter'], idealQuestions: ['location', 'weapon', 'suspect', 'safety'], mapChips: ['Rotas múltiplas', 'Busca aérea recomendada', 'Trânsito moderado']
   },
   {
     id: 'collision-victims-fuel', title: 'Colisão grave com vítima presa', severity: 'Prioridade alta', district: 'Bela Vista', baseRisk: 74, urgencyLimit: 38, callerName: 'Renato',
@@ -83,7 +83,7 @@ export const incidents = [
       suspect: 'Não há suspeito. São dois carros, um prata e um branco.',
       safety: 'Vou afastar as pessoas e não vou deixar ninguém fumar perto.'
     },
-    correctUnits: ['police', 'ambulance'], idealQuestions: ['location', 'victims', 'safety'], mapChips: ['Interdição necessária', 'SAMU recomendado', 'Risco secundário']
+    shiftTags: ['manha','tarde'], correctUnits: ['police', 'ambulance'], idealQuestions: ['location', 'victims', 'safety'], mapChips: ['Interdição necessária', 'SAMU recomendado', 'Risco secundário']
   },
   {
     id: 'panic-line-ambiguous-threat', title: 'Ligação em pânico com ameaça indefinida', severity: 'Prioridade alta', district: 'Liberdade', baseRisk: 69, urgencyLimit: 42, callerName: 'Ana',
@@ -102,7 +102,7 @@ export const incidents = [
       suspect: 'Homem alto, jaqueta preta, mochila. Pode estar alcoolizado.',
       safety: 'Vou ficar dentro da loja, longe da porta, e falar baixo.'
     },
-    correctUnits: ['police'], idealQuestions: ['location', 'suspect', 'weapon', 'safety'], mapChips: ['Local público', 'Ameaça incerta', 'Acolhimento']
+    shiftTags: ['tarde','noite'], correctUnits: ['police'], idealQuestions: ['location', 'suspect', 'weapon', 'safety'], mapChips: ['Local público', 'Ameaça incerta', 'Acolhimento']
   },
   {
     id: 'kidnapping-attempt-school', title: 'Tentativa de sequestro na saída de escola', severity: 'Prioridade crítica', district: 'Tatuapé', baseRisk: 86, urgencyLimit: 24, callerName: 'Patrícia',
@@ -121,7 +121,7 @@ export const incidents = [
       suspect: 'Homem de boné escuro, carro prata pequeno. A placa termina com 8 ou B, não tenho certeza.',
       safety: 'Vou manter distância, ficar dentro da escola e não deixar ninguém cercar o carro.'
     },
-    correctUnits: ['police', 'helicopter'], idealQuestions: ['location', 'victims', 'suspect', 'safety'], mapChips: ['Escola', 'Bloqueio de rota', 'Busca aérea indicada']
+    shiftTags: ['manha','tarde'], correctUnits: ['police', 'helicopter'], idealQuestions: ['location', 'victims', 'suspect', 'safety'], mapChips: ['Escola', 'Bloqueio de rota', 'Busca aérea indicada']
   },
   {
     id: 'shots-fired-bar', title: 'Disparos em bar com multidão', severity: 'Prioridade crítica', district: 'Pinheiros', baseRisk: 88, urgencyLimit: 22, callerName: 'Diego',
@@ -140,7 +140,47 @@ export const incidents = [
       suspect: 'Um homem de jaqueta preta correu para uma rua lateral, mas não tenho certeza se era ele.',
       safety: 'Estou atrás de um carro, longe da entrada. Vou manter a linha aberta.'
     },
-    correctUnits: ['police', 'ambulance'], idealQuestions: ['location', 'victims', 'weapon', 'safety'], mapChips: ['Disparos', 'SAMU urgente', 'Perímetro']
+    shiftTags: ['noite','madrugada'], correctUnits: ['police', 'ambulance'], idealQuestions: ['location', 'victims', 'weapon', 'safety'], mapChips: ['Disparos', 'SAMU urgente', 'Perímetro']
+  }
+
+
+  ,{
+    id: 'noise-party-threat', title: 'Perturbação com ameaça entre vizinhos', severity: 'Prioridade média', district: 'Mooca', baseRisk: 54, urgencyLimit: 55, callerName: 'Sueli',
+    opening: '190, qual é a sua emergência?',
+    callerOpening: 'Tem uma festa muito alta e um vizinho ameaçou outro com garrafa. Está todo mundo gritando no corredor.',
+    facts: ['Conflito entre vizinhos', 'Possível agressão iminente', 'Ambiente coletivo'],
+    contradictions: ['Solicitante não sabe se houve agressão ou apenas ameaça verbal.'],
+    events: [
+      { at: 24, text: 'SUELI: Agora ouvi vidro quebrando no corredor. Não vou sair de casa.', risk: 7 },
+      { at: 48, text: 'SISTEMA: Ocorrência pode escalar para vias de fato se a mediação demorar.', risk: 5 }
+    ],
+    questionReplies: {
+      location: 'Mooca, prédio antigo, terceiro andar. O porteiro sabe indicar o apartamento.',
+      victims: 'Aparentemente ninguém ferido, mas tem muita gente alterada.',
+      weapon: 'Vi uma garrafa na mão de um deles, não arma de fogo.',
+      suspect: 'Morador do apartamento do fundo, camiseta vermelha, alcoolizado.',
+      safety: 'Vou ficar dentro do meu apartamento e não vou abrir a porta.'
+    },
+    shiftTags: ['noite','madrugada'], correctUnits: ['police'], idealQuestions: ['location', 'weapon', 'safety'], mapChips: ['Prédio', 'Conflito', 'Mediação']
+  },
+  {
+    id: 'morning-school-traffic', title: 'Atropelamento próximo a escola', severity: 'Prioridade alta', district: 'Santana', baseRisk: 72, urgencyLimit: 36, callerName: 'Edson',
+    opening: '190, qual é a sua emergência?',
+    callerOpening: 'Uma criança foi atropelada perto da faixa. O motorista parou, mas muita gente cercou o carro.',
+    facts: ['Vítima menor de idade', 'Trânsito em horário escolar', 'Aglomeração no local'],
+    contradictions: ['Testemunhas divergem se o veículo avançou o sinal ou se a criança correu.'],
+    events: [
+      { at: 15, text: 'EDSON: A criança está chorando, mas não quer levantar. O trânsito travou.', risk: 7 },
+      { at: 34, text: 'SISTEMA: Risco de segundo acidente aumentado pela aglomeração na via.', risk: 6 }
+    ],
+    questionReplies: {
+      location: 'Santana, rua da escola, perto de uma padaria e da faixa de pedestre.',
+      victims: 'Uma criança no chão e uma professora tentando acalmar. Não vejo sangue forte.',
+      weapon: 'Não tem arma. O risco é trânsito e muita gente na rua.',
+      suspect: 'Motorista ficou no local, carro branco, aparenta estar nervoso.',
+      safety: 'Vou afastar as pessoas da pista e pedir para não moverem a criança.'
+    },
+    shiftTags: ['manha','tarde'], correctUnits: ['police', 'ambulance'], idealQuestions: ['location', 'victims', 'safety'], mapChips: ['Escola', 'SAMU', 'Trânsito']
   }
 
 ];

@@ -857,3 +857,24 @@ input, select {
 .protocol-card strong, .settings-card strong { font-size: 16px; }
 .protocol-card span, .settings-card span { color: var(--muted); line-height: 1.45; font-size: 14px; }
 #screen-manual .screen-inner, #screen-config .screen-inner { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
+
+
+/* v0.5.0 shift, queue and radio operational layer */
+.shift-setup-panel { overflow: hidden; }
+.shift-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 12px; }
+.shift-option {
+  text-align: left;
+  min-height: 78px;
+  padding: 11px 12px;
+  border-radius: 16px;
+  color: var(--text);
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.075);
+}
+.shift-option strong { display: block; font-size: 14px; margin-bottom: 4px; }
+.shift-option span { display: block; color: var(--muted); font-size: 11px; line-height: 1.25; }
+.shift-option.is-active { border-color: rgba(255,179,71,0.55); background: linear-gradient(180deg, rgba(50, 72, 103, .74), rgba(18, 30, 45, .92)); box-shadow: 0 0 0 3px rgba(255,179,71,0.10); }
+.radio-feed { padding: 10px 12px; border-radius: 14px; background: rgba(0,0,0,.24); border: 1px solid rgba(68,208,123,.18); color: #cfe8d8; font-size: 12px; line-height: 1.35; }
+.map-chip { border-color: rgba(255,179,71,.22); }
+.dispatch-map::after, .mini-map::after { content: ''; position: absolute; inset: 35% 18% 30% 24%; border-top: 2px dashed rgba(45,140,255,.42); transform: rotate(-14deg); pointer-events: none; }
+@media (max-width: 380px) { .shift-selector { grid-template-columns: 1fr; } .shift-option { min-height: 62px; } }
