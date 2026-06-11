@@ -1,16 +1,37 @@
 {
+  "id": "central-190-vale-games",
   "name": "Central 190",
   "short_name": "Central 190",
-  "description": "Simulador mobile-first de atendimento e despacho 190.",
+  "description": "International mobile-first emergency call, triage and dispatch simulator in Portuguese, English and Spanish.",
+  "lang": "pt-BR",
   "start_url": "./index.html",
   "scope": "./",
   "display": "fullscreen",
-  "display_override": ["fullscreen", "standalone", "minimal-ui", "browser"],
-  "orientation": "portrait-primary",
-  "background_color": "#050b12",
-  "theme_color": "#050b12",
+  "display_override": [
+    "fullscreen",
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+  "orientation": "any",
+  "background_color": "#06111d",
+  "theme_color": "#06111d",
+  "categories": [
+    "games",
+    "simulation"
+  ],
   "icons": [
-    { "src": "assets/icons/icon-alert.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "assets/icons/icon-alert.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }

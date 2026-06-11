@@ -1,48 +1,43 @@
-# Central 190 - Build v0.4.0
+# Central 190 — v0.10.0
 
-Vale Games • Mobile-first • Site estático para GitHub Pages/Vercel.
+**Build ID:** `CENTRAL190-0100-20260611-1907-BRT`  
+**Fase:** 4 de 20 — Reconstrução visual premium  
+**Data:** 11/06/2026 às 19:07 BRT
 
-## Destaques v0.4.0
+Esta build preserva a fundação anti-quebra, o save v2, a internacionalização PT-BR / EN / ES, o foco mobile, a PWA e a acessibilidade das fases anteriores. A Fase 4 adiciona uma identidade operacional premium e reorganiza a composição das telas para celular, tablet e PC.
 
-- Carreira local expandida com histórico de relatórios.
-- Nota técnica por ocorrência: A, B, C ou D.
-- Progresso de patente com barra visual no lobby.
-- Manual de Protocolo 190 dentro do jogo.
-- Tela de configurações de simulação ultra realista.
-- Banco de ocorrências ampliado com casos críticos de São Paulo.
-- Mantém botão de despacho acessível e perguntas limitadas a duas por rodada.
+## Como abrir
 
-## Publicação
+Abra `index.html` em um navegador moderno ou hospede esta pasta em um servidor estático. Para fullscreen real e melhor comportamento offline, instale a PWA quando o navegador oferecer essa opção.
 
-Envie todos os arquivos da pasta para GitHub Pages ou Vercel como site estático. Não há backend obrigatório.
+## Principais novidades
 
-## Regra da build
+- Nova camada visual isolada em `css/premium-v010.css`.
+- Identidade de central operacional com moldura técnica, sigilo visual e status do sistema.
+- Home cinematográfica redesenhada.
+- Painéis, botões, cards, mapas, chats e relatórios com hierarquia visual unificada.
+- Composições próprias para mobile, tablet e desktop.
+- Lobby desktop reorganizado em dashboard operacional.
+- Plantão e despacho com leitura tática mais clara.
+- Perfil e seleção de avatar aprimorados.
+- Assets pesados otimizados de aproximadamente 16,7 MB para 4,7 MB.
+- Remoção de três arquivos sem uso na interface.
+- Continuidade integral de PT-BR, EN-US e ES-419.
+- Versão, fase, data e hora visíveis no jogo.
 
-Versão, data, hora e módulo aparecem no rodapé do app conforme padrão Vale Games.
+## Testes
 
+Execute:
 
-## Build v0.5.0
-- Sistema de turnos: manhã, tarde, noite e madrugada.
-- Fila dinâmica de chamadas no plantão.
-- Ocorrências filtradas por horário, com pressão operacional e rádio de supervisão.
-- Penalidade leve por fila pendente e avaliação de gestão do plantão no relatório.
-- Ajustes visuais mobile-first no painel de plantão e mapa.
+```bash
+npm test
+```
 
-## Build v0.6.0 — Correção estrutural full screen
+## Documentação
 
-Esta build é uma fase de fundação visual e de usabilidade. O foco foi corrigir o comportamento de tela para o jogo operar como app mobile-first:
-
-- app shell ocupando 100% da viewport;
-- bloqueio de rolagem global do documento;
-- rolagem interna por tela;
-- tela de plantão com chat rolando internamente;
-- botões críticos sempre acessíveis;
-- layout de despacho com mapa e ações sem sobreposição;
-- metadados PWA iniciais (`manifest.webmanifest` e `sw.js`);
-- versão, data, hora e módulo preservados no rodapé.
-
-Os caminhos de assets existentes foram mantidos.
-
-
-## v0.6.0
-Correção da tela de atendimento com mapa tático visível no mobile e despacho visual refinado. Caminhos de assets preservados.
+- `CHANGELOG.md`
+- `BUILD-REPORT.md`
+- `TEST-REPORT.md`
+- `docs/build-v0.10.0-premium-visual.md`
+- `docs/asset-manifest.md`
+- `reports/visual-audit-v0.10.0.json`

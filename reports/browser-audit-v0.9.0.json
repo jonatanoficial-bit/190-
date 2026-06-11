@@ -1,0 +1,41 @@
+{
+  "buildId": "CENTRAL190-090-20260611-1842-BRT",
+  "version": "v0.9.0",
+  "phase": "Fase 3 de 20 — Mobile, fullscreen, PWA e acessibilidade",
+  "tests": [
+    {
+      "name": "npm test",
+      "status": "pass",
+      "coverage": "JS syntax, content integrity, i18n catalogs, save manager, build sync, local paths"
+    },
+    {
+      "name": "static mobile CSS audit",
+      "status": "pass",
+      "coverage": "touch targets >=48px, safe-area, 100dvh/app-height, sticky action bars, landscape media query"
+    },
+    {
+      "name": "a11y controls audit",
+      "status": "pass",
+      "coverage": "large text, high contrast, reduced motion, install prompt controls and ARIA pressed states"
+    },
+    {
+      "name": "PWA manifest audit",
+      "status": "pass",
+      "coverage": "fullscreen display, theme color, 192/512 icons, service worker cache build id"
+    },
+    {
+      "name": "browser automation note",
+      "status": "not-run",
+      "coverage": "Playwright/Chromium navigation was blocked by administrator in this environment; static and unit audits completed."
+    }
+  ],
+  "viewportsPlanned": [
+    "360x640",
+    "390x844",
+    "412x915",
+    "768x1024",
+    "844x390 landscape",
+    "1366x768"
+  ],
+  "result": "approved with environment limitation: no automated browser screenshot due administrator block"
+}

@@ -7,10 +7,10 @@ export const avatars = [
 ];
 
 export const ranks = [
-  { minXp: 0, title: 'Atendente I', insignia: 'assets/insignias/insignia-rank-01-basic.png' },
-  { minXp: 160, title: 'Atendente II', insignia: 'assets/insignias/insignia-rank-02-intermediate.png' },
-  { minXp: 360, title: 'Atendente III', insignia: 'assets/insignias/insignia-rank-03-advanced.png' },
-  { minXp: 700, title: 'Supervisor de Plantão', insignia: 'assets/insignias/insignia-rank-04-elite.png' }
+  { id: 'attendant-1', minXp: 0, title: 'Atendente I', insignia: 'assets/insignias/insignia-rank-01-basic.png' },
+  { id: 'attendant-2', minXp: 160, title: 'Atendente II', insignia: 'assets/insignias/insignia-rank-02-intermediate.png' },
+  { id: 'attendant-3', minXp: 360, title: 'Atendente III', insignia: 'assets/insignias/insignia-rank-03-advanced.png' },
+  { id: 'shift-supervisor', minXp: 700, title: 'Supervisor de Plantão', insignia: 'assets/insignias/insignia-rank-04-elite.png' }
 ];
 
 export const units = [

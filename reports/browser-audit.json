@@ -1,0 +1,421 @@
+[
+  {
+    "locale": "pt-BR",
+    "viewport": [
+      390,
+      844
+    ],
+    "home": {
+      "lang": "pt-BR",
+      "newGame": "Novo Jogo",
+      "continueText": "Continuar",
+      "title": "Central 190 • Build v0.8.0",
+      "health": "2 alerta(s)",
+      "overflow": false,
+      "active": "screen-home",
+      "langValue": "pt-BR",
+      "fullscreen": "Tela cheia"
+    },
+    "profile": {
+      "confirm": "Confirmar operador",
+      "country": "Brasil",
+      "countryValue": "BR",
+      "overflow": false,
+      "button": {
+        "top": 708,
+        "bottom": 762,
+        "left": 200,
+        "right": 356.1875,
+        "inViewport": true
+      }
+    },
+    "lobby": {
+      "country": "Brasil",
+      "mode": "Carreira",
+      "start": "Iniciar Plantão",
+      "overflow": false,
+      "button": {
+        "top": 881,
+        "bottom": 935,
+        "left": 29.8125,
+        "right": 360.1875,
+        "inViewport": false
+      }
+    },
+    "shift": {
+      "title": "Colisão grave com vítima presa",
+      "severity": "Prioridade alta",
+      "question": "Confirmar localização e referência",
+      "chat": "OPERADOR: 190, qual é a sua emergência?RENATO: Teve uma batida forte. Uma pessoa está presa no carro e não responde. Tem cheiro de combustível.PROTOCOLO: localização, risco imediato, vítimas e segurança do solicitante devem ser confirmados ",
+      "overflow": false,
+      "dispatch": {
+        "top": 732,
+        "bottom": 788,
+        "left": 200,
+        "right": 361.1875,
+        "inViewport": true
+      }
+    },
+    "dispatch": {
+      "finish": "Finalizar despacho",
+      "units": [
+        "Viatura policial",
+        "Ambulância SAMU",
+        "Apoio aéreo"
+      ],
+      "overflow": false,
+      "button": {
+        "top": 746,
+        "bottom": 802,
+        "left": 200,
+        "right": 379.1875,
+        "inViewport": true
+      }
+    },
+    "result": {
+      "headline": "Resolvida com ressalvas operacionais • Nota C",
+      "feedback": "Despacho subdimensionadoExigido: Viatura policial, Ambulância SAMU. Selecionado: Viatura policial.Coleta de dados críticos1/3 protocolos relevantes confirmados antes do despacho.Tempo de resposta operacionalDespacho em 00:00. Janela ideal: até 00:38.Uso proporcional de recursosNão houve sobrecarga desnecessária de recu",
+      "overflow": false
+    },
+    "resultBottom": {
+      "scrollTop": 273,
+      "scrollHeight": 1117,
+      "clientHeight": 844,
+      "returnButton": {
+        "top": 748.46875,
+        "bottom": 802.46875,
+        "left": 10.8125,
+        "right": 190,
+        "inViewport": true
+      },
+      "endButton": {
+        "top": 748.46875,
+        "bottom": 802.46875,
+        "left": 200,
+        "right": 379.1875,
+        "inViewport": true
+      },
+      "overflow": false
+    },
+    "errors": 0
+  },
+  {
+    "locale": "en-US",
+    "viewport": [
+      360,
+      640
+    ],
+    "home": {
+      "lang": "en-US",
+      "newGame": "New Game",
+      "continueText": "Continue",
+      "title": "Central 190 • Build v0.8.0",
+      "health": "2 warning(s)",
+      "overflow": false,
+      "active": "screen-home",
+      "langValue": "en-US",
+      "fullscreen": "Fullscreen"
+    },
+    "profile": {
+      "confirm": "Confirm operator",
+      "country": "Brazil",
+      "countryValue": "BR",
+      "overflow": false,
+      "button": {
+        "top": 836,
+        "bottom": 890,
+        "left": 185,
+        "right": 327.328125,
+        "inViewport": false
+      }
+    },
+    "lobby": {
+      "country": "Brazil",
+      "mode": "Career",
+      "start": "Start Shift",
+      "overflow": false,
+      "button": {
+        "top": 1097,
+        "bottom": 1151,
+        "left": 28.671875,
+        "right": 331.328125,
+        "inViewport": false
+      }
+    },
+    "shift": {
+      "title": "Serious collision with trapped victim",
+      "severity": "High priority",
+      "question": "Check victims and injuries",
+      "chat": "OPERATOR: 190, what is your emergency?RENATO: There was a major crash. One person is trapped in the car and is not responding. I can smell fuel.PROTOCOL: location, immediate risk, victims and caller safety must be confirmed whenever the ope",
+      "overflow": false,
+      "dispatch": {
+        "top": 536,
+        "bottom": 592,
+        "left": 185,
+        "right": 332.328125,
+        "inViewport": true
+      }
+    },
+    "dispatch": {
+      "finish": "Complete dispatch",
+      "units": [
+        "Police patrol unit",
+        "SAMU ambulance",
+        "Air support"
+      ],
+      "overflow": false,
+      "button": {
+        "top": 550,
+        "bottom": 606,
+        "left": 185,
+        "right": 350.328125,
+        "inViewport": true
+      }
+    },
+    "result": {
+      "headline": "Resolved with operational caveats • Grade C",
+      "feedback": "Dispatch is under-resourcedRequired: Police patrol unit, SAMU ambulance. Selected: Police patrol unit.Critical data collection1/3 relevant protocols confirmed before dispatch.Operational response timeDispatched in 00:00. Ideal window: up to 00:38.Proportionate resource useNo unnecessary resource overload.Escalation con",
+      "overflow": false
+    },
+    "resultBottom": {
+      "scrollTop": 516,
+      "scrollHeight": 1156,
+      "clientHeight": 640,
+      "returnButton": {
+        "top": 552.015625,
+        "bottom": 606.015625,
+        "left": 9.671875,
+        "right": 175,
+        "inViewport": true
+      },
+      "endButton": {
+        "top": 552.015625,
+        "bottom": 606.015625,
+        "left": 185,
+        "right": 350.328125,
+        "inViewport": true
+      },
+      "overflow": false
+    },
+    "errors": 0
+  },
+  {
+    "locale": "es-419",
+    "viewport": [
+      412,
+      915
+    ],
+    "home": {
+      "lang": "es-419",
+      "newGame": "Nuevo juego",
+      "continueText": "Continuar",
+      "title": "Central 190 • Build v0.8.0",
+      "health": "2 alerta(s)",
+      "overflow": false,
+      "active": "screen-home",
+      "langValue": "es-419",
+      "fullscreen": "Pantalla completa"
+    },
+    "profile": {
+      "confirm": "Confirmar operador",
+      "country": "Brasil",
+      "countryValue": "BR",
+      "overflow": false,
+      "button": {
+        "top": 708,
+        "bottom": 762,
+        "left": 211,
+        "right": 377.359375,
+        "inViewport": true
+      }
+    },
+    "lobby": {
+      "country": "Brasil",
+      "mode": "Carrera",
+      "start": "Iniciar turno",
+      "overflow": false,
+      "button": {
+        "top": 845,
+        "bottom": 899,
+        "left": 30.640625,
+        "right": 381.359375,
+        "inViewport": true
+      }
+    },
+    "shift": {
+      "title": "Intento de secuestro frente a una escuela",
+      "severity": "Prioridad crítica",
+      "question": "Confirmar ubicación y referencia",
+      "chat": "OPERADOR: 190, ¿cuál es su emergencia?PATRÍCIA: Un hombre intenta meter a una niña en un auto. La madre está gritando. Es frente a la escuela.PROTOCOLO: la ubicación, el riesgo inmediato, las víctimas y la seguridad del solicitante deben co",
+      "overflow": false,
+      "dispatch": {
+        "top": 803,
+        "bottom": 859,
+        "left": 211,
+        "right": 382.359375,
+        "inViewport": true
+      }
+    },
+    "dispatch": {
+      "finish": "Finalizar despacho",
+      "units": [
+        "Patrulla policial",
+        "Ambulancia SAMU",
+        "Apoyo aéreo"
+      ],
+      "overflow": false,
+      "button": {
+        "top": 817,
+        "bottom": 873,
+        "left": 211,
+        "right": 400.359375,
+        "inViewport": true
+      }
+    },
+    "result": {
+      "headline": "Resuelto con observaciones operativas • Nota C",
+      "feedback": "Despacho insuficienteRequerido: Patrulla policial, Apoyo aéreo. Seleccionado: Patrulla policial.Recolección de datos críticos1/4 protocolos relevantes confirmados antes del despacho.Tiempo de respuesta operativaDespacho en 00:00. Ventana ideal: hasta 00:24.Uso proporcional de recursosNo hubo sobrecarga innecesaria de r",
+      "overflow": false
+    },
+    "resultBottom": {
+      "scrollTop": 202,
+      "scrollHeight": 1117,
+      "clientHeight": 915,
+      "returnButton": {
+        "top": 819.46875,
+        "bottom": 873.46875,
+        "left": 11.640625,
+        "right": 201,
+        "inViewport": true
+      },
+      "endButton": {
+        "top": 819.46875,
+        "bottom": 873.46875,
+        "left": 211,
+        "right": 400.359375,
+        "inViewport": true
+      },
+      "overflow": false
+    },
+    "errors": 0
+  },
+  {
+    "locale": "en-US",
+    "viewport": [
+      768,
+      1024
+    ],
+    "home": {
+      "lang": "en-US",
+      "newGame": "New Game",
+      "continueText": "Continue",
+      "title": "Central 190 • Build v0.8.0",
+      "health": "2 warning(s)",
+      "overflow": false,
+      "active": "screen-home",
+      "langValue": "en-US",
+      "fullscreen": "Fullscreen"
+    },
+    "errors": 0
+  },
+  {
+    "locale": "es-419",
+    "viewport": [
+      1366,
+      768
+    ],
+    "home": {
+      "lang": "es-419",
+      "newGame": "Nuevo juego",
+      "continueText": "Continuar",
+      "title": "Central 190 • Build v0.8.0",
+      "health": "2 alerta(s)",
+      "overflow": false,
+      "active": "screen-home",
+      "langValue": "es-419",
+      "fullscreen": "Pantalla completa"
+    },
+    "profile": {
+      "confirm": "Confirmar operador",
+      "country": "Brasil",
+      "countryValue": "BR",
+      "overflow": false,
+      "button": {
+        "top": 708,
+        "bottom": 762,
+        "left": 683,
+        "right": 1072,
+        "inViewport": true
+      }
+    },
+    "lobby": {
+      "country": "Brasil",
+      "mode": "Carrera",
+      "start": "Iniciar turno",
+      "overflow": false,
+      "button": {
+        "top": 845,
+        "bottom": 899,
+        "left": 280,
+        "right": 1076,
+        "inViewport": false
+      }
+    },
+    "shift": {
+      "title": "Atropello cerca de una escuela",
+      "severity": "Prioridad alta",
+      "question": "Confirmar ubicación y referencia",
+      "chat": "OPERADOR: 190, ¿cuál es su emergencia?EDSON: Un niño fue atropellado cerca del cruce peatonal. El conductor se detuvo, pero mucha gente rodeó el auto.PROTOCOLO: la ubicación, el riesgo inmediato, las víctimas y la seguridad del solicitante ",
+      "overflow": false,
+      "dispatch": {
+        "top": 656,
+        "bottom": 712,
+        "left": 415.828125,
+        "right": 692.671875,
+        "inViewport": true
+      }
+    },
+    "dispatch": {
+      "finish": "Finalizar despacho",
+      "units": [
+        "Patrulla policial",
+        "Ambulancia SAMU",
+        "Apoyo aéreo"
+      ],
+      "overflow": false,
+      "button": {
+        "top": 541.6875,
+        "bottom": 716,
+        "left": 1036,
+        "right": 1225,
+        "inViewport": true
+      }
+    },
+    "result": {
+      "headline": "Resuelto con observaciones operativas • Nota C",
+      "feedback": "Despacho insuficienteRequerido: Patrulla policial, Ambulancia SAMU. Seleccionado: Patrulla policial.Recolección de datos críticos1/3 protocolos relevantes confirmados antes del despacho.Tiempo de respuesta operativaDespacho en 00:01. Ventana ideal: hasta 00:36.Uso proporcional de recursosNo hubo sobrecarga innecesaria ",
+      "overflow": false
+    },
+    "resultBottom": {
+      "scrollTop": 230,
+      "scrollHeight": 998,
+      "clientHeight": 768,
+      "returnButton": {
+        "top": 672,
+        "bottom": 726,
+        "left": 261,
+        "right": 673,
+        "inViewport": true
+      },
+      "endButton": {
+        "top": 672,
+        "bottom": 726,
+        "left": 683,
+        "right": 1095,
+        "inViewport": true
+      },
+      "overflow": false
+    },
+    "errors": 0
+  }
+]

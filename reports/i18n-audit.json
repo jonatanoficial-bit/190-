@@ -1,0 +1,20 @@
+{
+  "version": "v0.8.0",
+  "buildId": "CENTRAL190-080-20260611-1806-BRT",
+  "status": "PASS",
+  "locales": ["pt-BR", "en-US", "es-419"],
+  "uiKeysPerLocale": 246,
+  "catalogKeyEquality": true,
+  "content": {
+    "incidents": 8,
+    "protocolQuestions": 5,
+    "units": 3,
+    "avatars": 5,
+    "ranks": 4
+  },
+  "missingUiKeys": [],
+  "missingContentTranslations": [],
+  "duplicateHtmlIds": [],
+  "runtimeErrors": 0,
+  "horizontalOverflowFailures": 0
+}
