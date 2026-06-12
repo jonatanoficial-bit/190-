@@ -1,0 +1,33 @@
+{
+  "build": "CENTRAL190-0140-20260612-1702-BRT",
+  "automatedSuite": "passed",
+  "runtimeAudit": {
+    "viewportsPassed": 5,
+    "viewportsTotal": 5,
+    "recoveryPassed": true,
+    "runtimeErrors": 0,
+    "status": "approved"
+  },
+  "saveSchema": 6,
+  "tacticalMap": {
+    "profiles": 8,
+    "districts": 5,
+    "routeModes": 3
+  },
+  "notes": [
+    "Auditoria final de hashes e instalação limpa executada após o fechamento dos arquivos."
+  ],
+  "automatedTests": [
+    "content",
+    "i18n",
+    "training",
+    "branching",
+    "triage",
+    "tactical-map",
+    "save-manager",
+    "build",
+    "visual-structure",
+    "paths"
+  ],
+  "status": "approved"
+}

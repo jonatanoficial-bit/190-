@@ -1569,6 +1569,7 @@ body {
 .diagnostic-actions .btn { min-height: 46px; font-size: 12px; padding: 8px; }
 
 .system-toast {
+  pointer-events: none;
   position: fixed;
   z-index: 1000;
   left: 50%;

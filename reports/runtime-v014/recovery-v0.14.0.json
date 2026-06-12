@@ -1,0 +1,27 @@
+{
+  "before": {
+    "screen": "dispatch",
+    "scale": "130%",
+    "route": "Más segura ★",
+    "transform": "transform: translate(13.6364%, 10.7143%) scale(1.3);",
+    "locale": "es-419"
+  },
+  "after": {
+    "screen": "dispatch",
+    "scale": "130%",
+    "route": "Más segura ★",
+    "transform": "transform:translate(13.636363636363635%,10.714285714285714%) scale(1.2999999999999998)",
+    "locale": "es-419",
+    "continueEnabled": true,
+    "errors": [],
+    "transformRestored": true,
+    "ok": true
+  },
+  "storedKeys": [
+    "central190_accessibility_v090",
+    "central190-language-v1",
+    "central190-save-v140",
+    "central190-save-v140-recovery",
+    "central190-save-v140-backup"
+  ]
+}

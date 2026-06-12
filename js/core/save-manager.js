@@ -1,12 +1,13 @@
 import { checksumFNV1a, safeInteger, safeString, stableStringify, uniqueStrings } from './utils.js';
 import { CALL_APPROACH_IDS, normalizeBranchHistory, normalizeCallerState, normalizeQuestionQuality } from './call-branching.js';
 import { normalizeTriageState } from '../data/triage.js';
+import { normalizeMapState } from '../data/tactical-map.js';
 
 export const SAVE_KEYS = Object.freeze({
-  primary: 'central190-save-v130',
-  backup: 'central190-save-v130-backup',
-  recovery: 'central190-save-v130-recovery',
-  legacy: ['central190-save-v120','central190-save-v110','central190-save-v080','central190-save-v070','central190-save-v052','central190-save-v050','central190-save-v040','central190-save-v030','central190-save-v020','central190-save-v010']
+  primary: 'central190-save-v140',
+  backup: 'central190-save-v140-backup',
+  recovery: 'central190-save-v140-recovery',
+  legacy: ['central190-save-v130','central190-save-v120','central190-save-v110','central190-save-v080','central190-save-v070','central190-save-v052','central190-save-v050','central190-save-v040','central190-save-v030','central190-save-v020','central190-save-v010']
 });
 
 const COUNTRY_CODES = new Set(['BR','AR','CL','PT','US']);
@@ -87,6 +88,7 @@ export function normalizeSession(session, { incidentIds = new Set(), unitIds = n
     discoveredIntel: (Array.isArray(session.discoveredIntel) ? session.discoveredIntel : []).map((v) => safeString(v, '', 40)).filter(Boolean).filter((v,i,a) => a.indexOf(v) === i).slice(0,40),
     branchHistory: normalizeBranchHistory(session.branchHistory, questionIds),
     triageState: normalizeTriageState(session.triageState),
+    tacticalMapState: normalizeMapState(session.tacticalMapState, session.incidentId),
     savedAt: new Date(savedAt).toISOString()
   };
 }
@@ -174,7 +176,7 @@ export class SafeSaveManager {
         const payload = normalizeSavePayload(parsed?.payload || parsed, this.context);
         if (!payload) throw new Error('legacyInvalid');
         this.save(payload);
-        warnings.push(this.message('legacyMigrated', { key }, `Save legado ${key} migrado para v0.13.0.`));
+        warnings.push(this.message('legacyMigrated', { key }, `Save legado ${key} migrado para v0.14.0.`));
         this.lastStatus = { source:'legacy', warnings };
         return { ...payload, source:'legacy', warnings };
       } catch (error) { warnings.push(`${key}: ${error.message}`); }

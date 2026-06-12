@@ -1,4 +1,4 @@
-# Central 190 — Asset Manifest v0.13.0
+# Central 190 — Asset Manifest v0.14.0
 
 ## Backgrounds ativos
 
@@ -66,3 +66,8 @@ Esta fase não adiciona imagens rasterizadas. O console emocional, medidores, po
 ## v0.13.0 — Triagem profissional
 
 Esta fase não adiciona imagens rasterizadas. Prioridades, naturezas, protocolos, confiança e estados de classificação foram construídos em HTML/CSS. A decisão preserva leveza, acessibilidade, adaptação mobile e tradução dinâmica nos três idiomas.
+
+
+## v0.14.0 — Mapa tático funcional
+
+Esta fase não adiciona imagens rasterizadas. Distritos, estradas, rotas, tráfego, bloqueios, marcadores, controles e alertas são renderizados por HTML, CSS e SVG dinâmico. Os três arquivos de unidades existentes são reutilizados como marcadores, evitando aumento significativo do pacote e mantendo textos traduzíveis.

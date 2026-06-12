@@ -11,6 +11,7 @@ import { SUPPORTED_LOCALES, TRANSLATIONS } from './i18n/translations.js';
 import { localizeGameContent, validateContentTranslations } from './i18n/content-translations.js';
 import { CALL_APPROACH_IDS, createInitialCallerState, emotionFromState, getCallBranchProfile, resolveCallBranch, validateCallBranchProfiles } from './core/call-branching.js';
 import { TRIAGE_NATURE_IDS, TRIAGE_PRIORITIES, TRIAGE_PROTOCOL_IDS, assessTriage, calculateTriageConfidence, createInitialTriageState, getTriageProfile, normalizeTriageState, triageText, validateTriageProfiles } from './data/triage.js';
+import { MAP_ROUTE_MODE_IDS, TACTICAL_DISTRICTS, UNIT_BASES, assessTacticalPlan, calculateUnitRoute, createInitialMapState, getTacticalMapProfile, getTacticalRoutes, normalizeMapState, setMapViewport, setUnitRouteMode, validateTacticalMapProfiles } from './data/tactical-map.js';
 
 const VALID_SCREENS = new Set(['home', 'profile', 'lobby', 'shift', 'dispatch', 'academy', 'manual', 'config', 'result']);
 const REQUIRED_DOM_IDS = [
@@ -19,7 +20,8 @@ const REQUIRED_DOM_IDS = [
   'btnConfirmDispatch', 'feedbackList', 'footerVersion', 'footerDateTime', 'footerModule',
   'btnAcademy', 'academyModuleGrid', 'academyProgressFill', 'academyLesson', 'btnAcademyContinue',
   'callBranchConsole', 'callerEmotionBadge', 'approachSelector', 'intelStatus',
-  'triagePanel', 'triagePriorityGrid', 'triageNatureGrid', 'triageProtocolGrid', 'btnSubmitTriage', 'triageStatusBadge'
+  'triagePanel', 'triagePriorityGrid', 'triageNatureGrid', 'triageProtocolGrid', 'btnSubmitTriage', 'triageStatusBadge',
+  'mapTrafficValue', 'mapBlockageValue', 'mapScaleValue', 'routePlanner', 'routeModeGrid', 'routeMetrics', 'routeWarning'
 ];
 
 const baseContent = Object.freeze({ avatars: baseAvatars, ranks: baseRanks, units: baseUnits, incidents: baseIncidents, protocolQuestions: baseProtocolQuestions });
@@ -30,14 +32,16 @@ const gameContentReport = validateGameContent(baseContent);
 const trainingReport = validateTrainingCourse(SUPPORTED_LOCALES);
 const branchingReport = validateCallBranchProfiles(baseIncidents.map((item) => item.id), baseProtocolQuestions.map((item) => item.id));
 const triageReport = validateTriageProfiles(baseIncidents.map((item) => item.id));
+const tacticalMapReport = validateTacticalMapProfiles(baseIncidents.map((item) => item.id));
 const contentReport = Object.freeze({
   ...gameContentReport,
-  ok: gameContentReport.ok && trainingReport.ok && branchingReport.ok && triageReport.ok,
-  errors: [...gameContentReport.errors, ...trainingReport.errors, ...branchingReport.errors, ...triageReport.errors],
-  warnings: [...(gameContentReport.warnings || []), ...(trainingReport.warnings || []), ...(branchingReport.warnings || [])],
+  ok: gameContentReport.ok && trainingReport.ok && branchingReport.ok && triageReport.ok && tacticalMapReport.ok,
+  errors: [...gameContentReport.errors, ...trainingReport.errors, ...branchingReport.errors, ...triageReport.errors, ...tacticalMapReport.errors],
+  warnings: [...(gameContentReport.warnings || []), ...(trainingReport.warnings || []), ...(branchingReport.warnings || []), ...(tacticalMapReport.warnings || [])],
   training: trainingReport,
   branching: branchingReport,
-  triage: triageReport
+  triage: triageReport,
+  tacticalMap: tacticalMapReport
 });
 const localeReport = validateContentTranslations(baseContent, SUPPORTED_LOCALES);
 const trainingStepIds = getTrainingStepIds();
@@ -49,7 +53,8 @@ const saveContext = {
   trainingStepIds: new Set(trainingStepIds),
   triagePriorityIds: new Set(TRIAGE_PRIORITIES.map((item) => item.id)),
   triageNatureIds: new Set(TRIAGE_NATURE_IDS),
-  triageProtocolIds: new Set(TRIAGE_PROTOCOL_IDS)
+  triageProtocolIds: new Set(TRIAGE_PROTOCOL_IDS),
+  routeModeIds: new Set(MAP_ROUTE_MODE_IDS)
 };
 const saveManager = new SafeSaveManager({
   appVersion: BUILD_INFO.version,
@@ -140,6 +145,18 @@ const dom = {
   btnOpenDispatch: document.getElementById('btnOpenDispatch'),
   dispatchDistrict: document.getElementById('dispatchDistrict'),
   dispatchMap: document.getElementById('dispatchMap'),
+  mapTrafficValue: document.getElementById('mapTrafficValue'),
+  mapBlockageValue: document.getElementById('mapBlockageValue'),
+  mapScaleValue: document.getElementById('mapScaleValue'),
+  btnMapZoomOut: document.getElementById('btnMapZoomOut'),
+  btnMapCenter: document.getElementById('btnMapCenter'),
+  btnMapZoomIn: document.getElementById('btnMapZoomIn'),
+  routePlanner: document.getElementById('routePlanner'),
+  routeActiveUnit: document.getElementById('routeActiveUnit'),
+  routeRecommendationBadge: document.getElementById('routeRecommendationBadge'),
+  routeModeGrid: document.getElementById('routeModeGrid'),
+  routeMetrics: document.getElementById('routeMetrics'),
+  routeWarning: document.getElementById('routeWarning'),
   unitGrid: document.getElementById('unitGrid'),
   btnConfirmDispatch: document.getElementById('btnConfirmDispatch'),
   resultHeadline: document.getElementById('resultHeadline'),
@@ -233,7 +250,9 @@ const appState = {
   questionQuality: {},
   discoveredIntel: new Set(),
   branchHistory: [],
-  triageState: createInitialTriageState()
+  triageState: createInitialTriageState(),
+  tacticalMapState: createInitialMapState(''),
+  mapDrag: null
 };
 
 let toastHandle = null;
@@ -340,7 +359,7 @@ function applyLocale(locale, { persist = true, announce = false } = {}) {
   applyAccessibilityPrefs({ announce: false });
   renderAcademyChrome();
   if (appState.player) { renderAcademy(); updateGuidanceCoach(); }
-  if (appState.activeIncident) renderTriagePanel();
+  if (appState.activeIncident) { renderTriagePanel(); renderMiniMap(); renderDispatchMap(); renderRoutePlanner(); renderUnits(); }
   if (announce) notify(t('language.changed'), 'success');
 }
 
@@ -409,6 +428,7 @@ function buildSessionCheckpoint(screen = appState.activeScreen) {
     discoveredIntel: [...appState.discoveredIntel],
     branchHistory: appState.branchHistory,
     triageState: appState.triageState,
+    tacticalMapState: appState.tacticalMapState,
     savedAt: new Date().toISOString()
   };
 }
@@ -455,6 +475,8 @@ function clearActiveSession({ persist = true } = {}) {
   appState.discoveredIntel = new Set();
   appState.branchHistory = [];
   appState.triageState = createInitialTriageState();
+  appState.tacticalMapState = createInitialMapState('');
+  appState.mapDrag = null;
   if (persist && appState.player) persistGame({ includeSession: false });
 }
 
@@ -879,6 +901,8 @@ function resetIncidentState() {
   appState.discoveredIntel = new Set();
   appState.branchHistory = [];
   appState.triageState = createInitialTriageState();
+  appState.tacticalMapState = createInitialMapState('');
+  appState.mapDrag = null;
   if (appState.timerHandle) clearInterval(appState.timerHandle);
   appState.timerHandle = null;
 }
@@ -1082,6 +1106,7 @@ function prepareIncidentView({ restored = false } = {}) {
   renderQuestionButtons();
   renderMiniMap();
   renderDispatchMap();
+  renderRoutePlanner();
   renderUnits();
   updateRadioFeed(t('shift.currentQueue', { radio: shift.radio, count: 1 + appState.callQueue.length, recovered: restored ? t('shift.recoveredSuffix') : '' }, `${shift.radio} ${1 + appState.callQueue.length}`));
   updateGuidanceCoach();
@@ -1110,6 +1135,7 @@ function startShift() {
   appState.questionQuality = {};
   appState.branchHistory = [];
   appState.triageState = createInitialTriageState();
+  appState.tacticalMapState = createInitialMapState(appState.activeIncident.id);
   appState.discoveredIntel = new Set(getCallBranchProfile(appState.activeIncident.id).initialIntel || []);
   prepareIncidentView();
   startTimer();
@@ -1135,6 +1161,7 @@ function restoreSession(session) {
   appState.discoveredIntel = new Set(session.discoveredIntel || getCallBranchProfile(incident.id).initialIntel || []);
   appState.branchHistory = Array.isArray(session.branchHistory) ? [...session.branchHistory] : [];
   appState.triageState = normalizeTriageState(session.triageState);
+  appState.tacticalMapState = normalizeMapState(session.tacticalMapState, incident.id);
   setShift(session.selectedShift, { persist: false });
   prepareIncidentView({ restored: true });
   startTimer();
@@ -1202,42 +1229,128 @@ function renderQuestionButtons() {
     : `<div class="quick-pill is-used">${escapeHtml(t('shift.questionsDone'))}</div>`;
 }
 
-function tacticalMapLayers(compact = false) {
-  const labelSize = compact ? '9px' : '10px';
-  return `<span class="map-road r1"></span><span class="map-road r2"></span><span class="map-road r3"></span>
-    <span class="map-zone-label" style="left:7%;top:13%;font-size:${labelSize}">${escapeHtml(t('dispatch.center'))}</span>
-    <span class="map-zone-label" style="right:8%;top:18%;font-size:${labelSize}">${escapeHtml(t('dispatch.east'))}</span>
-    <span class="map-zone-label" style="left:10%;bottom:13%;font-size:${labelSize}">${escapeHtml(t('dispatch.marginal'))}</span>`;
+function unitById(id) { return units.find((unit) => unit.id === id) || units[0]; }
+function unitMapAlt(id) { return t(`map.unitAlt.${id}`, {}, unitById(id)?.name || id); }
+function mapModeLabel(id) { return t(`map.routeModes.${id}.title`, {}, id); }
+function mapBlockageIcon(type) { return ({ roadworks:'⚒', collision:'✕', closure:'⛔', hazard:'!', school:'◆', crowd:'●' })[type] || '!'; }
+
+function mapRoadNetwork() {
+  return `<svg class="map-road-network" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path class="map-road-main" d="M4 76 C24 70 30 53 49 49 S75 42 96 19"/>
+    <path class="map-road-main" d="M12 16 C33 28 35 42 50 53 S70 75 91 85"/>
+    <path class="map-road-main" d="M3 45 C23 42 39 39 55 43 S78 57 98 55"/>
+    <path class="map-road-secondary" d="M18 4 L21 94 M38 2 L42 96 M67 5 L62 95 M84 8 L79 91"/>
+    <path class="map-road-secondary" d="M5 28 L96 31 M6 66 L95 70 M14 86 L87 12"/>
+  </svg>`;
+}
+
+function routePathMarkup(route, activeId, selectedIds) {
+  const selected = selectedIds.has(route.unitId);
+  const isActive = activeId === route.unitId;
+  const path = `M ${route.start.x} ${route.start.y} C ${route.controlA.x} ${route.controlA.y}, ${route.controlB.x} ${route.controlB.y}, ${route.end.x} ${route.end.y}`;
+  return `<path class="map-route-path route-${escapeHtml(route.unitId)} ${isActive?'is-active':''} ${selectedIds.size && !selected?'is-muted':''}" d="${path}" data-route-unit="${escapeHtml(route.unitId)}"/>`;
+}
+
+function tacticalMapWorldMarkup({ compact = false } = {}) {
+  if (!appState.activeIncident) return '';
+  const profile = getTacticalMapProfile(appState.activeIncident.id);
+  const state = normalizeMapState(appState.tacticalMapState, appState.activeIncident.id);
+  const routes = getTacticalRoutes(appState.activeIncident.id, state);
+  const selected = appState.selectedUnits;
+  const districtMarkup = TACTICAL_DISTRICTS.map((district) => `<div class="map-district ${profile.districtId===district.id?'is-active':''}" style="left:${district.x}%;top:${district.y}%;width:${district.w}%;height:${district.h}%"><span class="map-district-label">${escapeHtml(t(`map.districts.${district.id}`))}</span></div>`).join('');
+  const routeMarkup = compact ? routePathMarkup(routes.find((route)=>route.unitId==='police'), 'police', new Set(['police'])) : routes.map((route)=>routePathMarkup(route,state.selectedUnitId,selected)).join('');
+  const unitMarkup = routes.filter((route)=>!compact || route.unitId!=='helicopter').map((route) => {
+    const base=UNIT_BASES[route.unitId];
+    const unit=unitById(route.unitId);
+    return `<button class="tactical-unit-marker ${state.selectedUnitId===route.unitId?'is-active':''} ${selected.has(route.unitId)?'is-selected':''}" data-map-unit="${escapeHtml(route.unitId)}" type="button" style="left:${base.x}%;top:${base.y}%" aria-label="${escapeHtml(t('map.selectUnit',{unit:unit.name,eta:route.etaMinutes}))}"><img src="${escapeHtml(unit.src)}" alt="${escapeHtml(unitMapAlt(route.unitId))}"><span class="marker-eta">${route.etaMinutes} min</span></button>`;
+  }).join('');
+  const blockages = compact ? '' : profile.blockages.map((item)=>`<span class="map-blockage severity-${item.severity}" style="left:${item.x}%;top:${item.y}%" title="${escapeHtml(t(`map.blockageTypes.${item.type}`))}" aria-label="${escapeHtml(t(`map.blockageTypes.${item.type}`))}">${mapBlockageIcon(item.type)}</span>`).join('');
+  const trafficSegments = compact ? '' : `<span class="map-traffic-segment" style="left:20%;top:47%;width:31%;transform:rotate(-7deg)"></span><span class="map-traffic-segment" style="left:53%;top:60%;width:25%;transform:rotate(21deg)"></span>`;
+  const incident = `<span class="tactical-incident-marker" style="left:${profile.incident.x}%;top:${profile.incident.y}%"><img src="assets/icons/icon-incident-marker.png" alt="${escapeHtml(t('dispatch.incidentAlt'))}"></span>`;
+  const legend = compact ? '' : `<div class="map-legend-inline"><span>${escapeHtml(appState.activeIncident.district)}</span>${appState.activeIncident.mapChips.map((chip)=>`<span>${escapeHtml(chip)}</span>`).join('')}</div>`;
+  return `<div class="tactical-map-world" style="transform:translate(${state.panX}%,${state.panY}%) scale(${state.zoom})">${districtMarkup}${mapRoadNetwork()}<svg class="map-road-network" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${routeMarkup}</svg>${trafficSegments}${blockages}${incident}${unitMarkup}${legend}</div>`;
 }
 
 function renderMiniMap() {
+  if (!dom.miniMap || !appState.activeIncident) return;
   dom.miniMap.classList.add('tactical-grid');
-  dom.miniMap.innerHTML = `${tacticalMapLayers(true)}
-    <div class="map-chip" style="left:8px;top:8px"><img src="assets/icons/icon-radar.png" alt="Radar"><span>${escapeHtml(t('common.live'))}</span></div>
-    <span class="map-pulse" style="left:51%;top:55%"></span>
-    <img class="map-marker" src="assets/icons/icon-incident-marker.png" alt="${escapeHtml(t('dispatch.incidentAlt'))}" style="left:51%;top:55%;transform:translate(-50%,-50%)">
-    <img class="map-unit small" src="assets/units/unit-police-cruiser.png" alt="${escapeHtml(t('dispatch.patrolAlt'))}" style="left:20%;top:66%">
-    <span class="unit-eta" style="left:13%;top:84%">3 min</span>
-    <img class="map-unit small" src="assets/units/unit-ambulance-samu.png" alt="${escapeHtml(t('dispatch.ambulanceAlt'))}" style="left:66%;top:25%">
-    <span class="unit-eta" style="left:61%;top:9%">6 min</span>`;
+  dom.miniMap.innerHTML = `${tacticalMapWorldMarkup({compact:true})}<div class="map-chip" style="left:8px;top:8px"><img src="assets/icons/icon-radar.png" alt="Radar"><span>${escapeHtml(t('common.live'))}</span></div>`;
+}
+
+function applyDispatchMapTransform() {
+  const world = dom.dispatchMap?.querySelector('.tactical-map-world');
+  if (!world || !appState.activeIncident) return;
+  const state = normalizeMapState(appState.tacticalMapState, appState.activeIncident.id);
+  world.style.transform = `translate(${state.panX}%,${state.panY}%) scale(${state.zoom})`;
+  if (dom.mapScaleValue) dom.mapScaleValue.textContent = `${Math.round(state.zoom*100)}%`;
 }
 
 function renderDispatchMap() {
-  const chips = appState.activeIncident.mapChips.map((chip, index) => `<div class="map-chip" style="left:${12 + index * 10}px;top:${12 + index * 32}px">${escapeHtml(chip)}</div>`).join('');
+  if (!dom.dispatchMap || !appState.activeIncident) return;
+  const profile = getTacticalMapProfile(appState.activeIncident.id);
+  appState.tacticalMapState = normalizeMapState(appState.tacticalMapState, appState.activeIncident.id);
   dom.dispatchMap.classList.add('tactical-grid');
-  dom.dispatchMap.innerHTML = `${tacticalMapLayers(false)}${chips}
-    <span class="map-pulse" style="left:52%;top:52%"></span>
-    <img class="map-marker" src="assets/icons/icon-incident-marker.png" alt="${escapeHtml(t('dispatch.incidentAlt'))}" style="left:52%;top:52%;transform:translate(-50%,-50%)">
-    <img class="map-unit" src="assets/units/unit-police-cruiser.png" alt="${escapeHtml(t('dispatch.patrolAlt'))}" style="left:12%;top:64%">
-    <span class="unit-eta" style="left:10%;top:82%">${escapeHtml(t('dispatch.patrolEta'))}</span>
-    <img class="map-unit" src="assets/units/unit-ambulance-samu.png" alt="${escapeHtml(t('dispatch.ambulanceAlt'))}" style="left:66%;top:16%;width:64px;height:64px">
-    <span class="unit-eta" style="left:60%;top:5%">${escapeHtml(t('dispatch.samuEta'))}</span>
-    <img class="map-unit" src="assets/units/unit-helicopter-police.png" alt="${escapeHtml(t('dispatch.helicopterAlt'))}" style="left:62%;top:62%;width:76px;height:76px">
-    <span class="unit-eta" style="left:58%;top:79%">${escapeHtml(t('dispatch.eagleEta'))}</span>`;
+  dom.dispatchMap.innerHTML = tacticalMapWorldMarkup();
+  if (dom.mapTrafficValue) dom.mapTrafficValue.textContent = t(`map.trafficLevels.${profile.trafficLevel}`);
+  if (dom.mapBlockageValue) dom.mapBlockageValue.textContent = String(profile.blockages.length);
+  if (dom.mapScaleValue) dom.mapScaleValue.textContent = `${Math.round(appState.tacticalMapState.zoom*100)}%`;
+}
+
+function renderRoutePlanner() {
+  if (!dom.routePlanner || !appState.activeIncident) return;
+  const state = normalizeMapState(appState.tacticalMapState, appState.activeIncident.id);
+  const unitId = state.selectedUnitId;
+  const unit = unitById(unitId);
+  const route = calculateUnitRoute(appState.activeIncident.id, unitId, state.routeModes[unitId]);
+  dom.routeActiveUnit.textContent = unit.name;
+  dom.routeRecommendationBadge.textContent = route.recommended ? t('map.recommended') : t('map.alternative');
+  dom.routeRecommendationBadge.classList.toggle('is-warning', !route.recommended);
+  dom.routeModeGrid.innerHTML = MAP_ROUTE_MODE_IDS.map((modeId)=>`<button class="route-mode-btn ${route.modeId===modeId?'is-active':''} ${route.recommendedMode===modeId?'is-recommended':''}" data-route-mode="${modeId}" type="button" aria-pressed="${route.modeId===modeId}"><strong>${escapeHtml(mapModeLabel(modeId))}${route.recommendedMode===modeId?' ★':''}</strong><span>${escapeHtml(t(`map.routeModes.${modeId}.description`))}</span></button>`).join('');
+  dom.routeMetrics.innerHTML = [
+    [t('map.distance'),`${route.distanceKm.toFixed(1)} km`],
+    [t('map.eta'),`${route.etaMinutes} min`],
+    [t('map.delay'),`${Math.max(0,Math.round((route.trafficDelay-1)*100))}%`],
+    [t('map.routeRisk'),`${route.routeRisk}%`]
+  ].map(([label,value])=>`<div class="route-metric"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`).join('');
+  const warningKey = route.blockageIds.length ? 'map.warningBlockage' : route.recommended ? 'map.warningSafe' : 'map.warningAlternative';
+  dom.routeWarning.textContent = t(warningKey,{count:route.blockageIds.length,mode:mapModeLabel(route.recommendedMode)});
+  dom.routeWarning.className = `route-warning ${route.blockageIds.length?'is-danger':route.recommended?'is-safe':''}`;
+}
+
+function focusMapUnit(unitId, {persist=true} = {}) {
+  if (!appState.activeIncident || !UNIT_BASES[unitId]) return;
+  appState.tacticalMapState = normalizeMapState({...appState.tacticalMapState,selectedUnitId:unitId,interactions:(appState.tacticalMapState?.interactions||0)+1},appState.activeIncident.id);
+  renderDispatchMap(); renderRoutePlanner(); renderUnits();
+  if (persist) persistGame({includeSession:true});
+}
+
+function selectRouteMode(modeId) {
+  if (!appState.activeIncident || !MAP_ROUTE_MODE_IDS.includes(modeId)) return;
+  const unitId=normalizeMapState(appState.tacticalMapState,appState.activeIncident.id).selectedUnitId;
+  appState.tacticalMapState=setUnitRouteMode(appState.tacticalMapState,unitId,modeId,appState.activeIncident.id);
+  renderDispatchMap(); renderRoutePlanner(); renderUnits(); persistGame({includeSession:true});
+}
+
+function adjustMapZoom(delta) {
+  if (!appState.activeIncident) return;
+  const state=normalizeMapState(appState.tacticalMapState,appState.activeIncident.id);
+  appState.tacticalMapState=setMapViewport(state,{zoom:state.zoom+delta},appState.activeIncident.id);
+  renderDispatchMap(); persistGame({includeSession:true});
+}
+
+function centerTacticalMap() {
+  if (!appState.activeIncident) return;
+  appState.tacticalMapState=setMapViewport(appState.tacticalMapState,{zoom:1,panX:0,panY:0},appState.activeIncident.id);
+  renderDispatchMap(); persistGame({includeSession:true});
 }
 
 function renderUnits() {
-  dom.unitGrid.innerHTML = units.map((unit) => `<button class="unit-card ${appState.selectedUnits.has(unit.id) ? 'is-selected' : ''}" data-unit-id="${escapeHtml(unit.id)}"><img src="${escapeHtml(unit.src)}" alt="${escapeHtml(unit.name)}"><div><strong>${escapeHtml(unit.name)}</strong><span>${escapeHtml(unit.description)}</span></div><span class="unit-toggle" aria-hidden="true"></span></button>`).join('');
+  if (!appState.activeIncident) return;
+  const state=normalizeMapState(appState.tacticalMapState,appState.activeIncident.id);
+  dom.unitGrid.innerHTML = units.map((unit) => {
+    const route=calculateUnitRoute(appState.activeIncident.id,unit.id,state.routeModes[unit.id]);
+    return `<button class="unit-card ${appState.selectedUnits.has(unit.id)?'is-selected':''} ${state.selectedUnitId===unit.id?'is-route-focus':''}" data-unit-id="${escapeHtml(unit.id)}"><img src="${escapeHtml(unit.src)}" alt="${escapeHtml(unit.name)}"><div><strong>${escapeHtml(unit.name)}</strong><span>${escapeHtml(unit.description)}</span><div class="unit-route-meta"><span>${route.distanceKm.toFixed(1)} km</span><span>${route.etaMinutes} min</span><span>${escapeHtml(mapModeLabel(route.modeId))}</span>${route.blockageIds.length?`<span class="unit-route-alert">${escapeHtml(t('map.blocked'))}</span>`:''}</div></div><span class="unit-toggle" aria-hidden="true"></span></button>`;
+  }).join('');
   updateGuidanceCoach();
 }
 
@@ -1263,9 +1376,11 @@ function buildDispatchResult() {
   const queuePressure = appState.callQueue.length * 2;
   const triageAssessment = assessTriage(incident.id, appState.triageState);
   const triageScore = triageAssessment ? (triageAssessment.priorityCorrect ? 22 : Math.max(-18, 10 - triageAssessment.priorityDistance * 14)) + (triageAssessment.natureCorrect ? 12 : -8) + Math.round(triageAssessment.protocolRatio * 22) - Math.max(0, appState.triageState.revisions - 1) * 2 : -30;
-  const total = Math.max(0, 25 + protocolScore + branchScore + timeScore + dispatchScore + triageScore - riskPenalty - queuePressure);
-  const grade = total >= 130 ? 'A' : total >= 100 ? 'B' : total >= 70 ? 'C' : 'D';
-  const headline = total >= 130 ? t('result.exemplary') : total >= 100 ? t('result.safe') : total >= 70 ? t('result.caveats') : t('result.criticalFailures');
+  const tacticalAssessment = assessTacticalPlan(incident.id, [...selected], appState.tacticalMapState);
+  const tacticalScore = tacticalAssessment.score;
+  const total = Math.max(0, 25 + protocolScore + branchScore + timeScore + dispatchScore + triageScore + tacticalScore - riskPenalty - queuePressure);
+  const grade = total >= 145 ? 'A' : total >= 112 ? 'B' : total >= 76 ? 'C' : 'D';
+  const headline = total >= 145 ? t('result.exemplary') : total >= 112 ? t('result.safe') : total >= 76 ? t('result.caveats') : t('result.criticalFailures');
   const names = (ids) => ids.map((id) => units.find((unit) => unit.id === id)?.name || id).join(', ');
   const coverageText = t('branching.coverageText', { coverage: coveragePercent, asked: idealAsked.length, total: incident.idealQuestions.length });
   const feedback = [
@@ -1273,12 +1388,13 @@ function buildDispatchResult() {
     { ok: coverageRatio >= 0.62, title: t('result.criticalData'), text: t('result.criticalDataText', { asked: idealAsked.length, total: incident.idealQuestions.length, coverageText }) },
     { ok: averageQuality >= 0.62 && callerState.interruptions <= 1, title: t('branching.branchQualityTitle'), text: t('branching.branchQualityText', { quality: Math.round(averageQuality * 100), trust: callerState.trust, stress: callerState.stress, clarity: callerState.clarity, interruptions: callerState.interruptions }) },
     { ok: Boolean(triageAssessment?.priorityCorrect && triageAssessment?.natureCorrect && triageAssessment?.protocolRatio >= 0.66), title: triageText(i18n.locale, 'scoreTitle'), text: triageText(i18n.locale, 'scoreText', { priorityResult: triageAssessment?.priorityCorrect ? triageText(i18n.locale, 'correct') : triageText(i18n.locale, 'incorrect'), natureResult: triageAssessment?.natureCorrect ? triageText(i18n.locale, 'correct') : triageText(i18n.locale, 'incorrect'), covered: triageAssessment?.covered ?? 0, required: triageAssessment?.required ?? 0, confidence: appState.triageState?.confidence ?? 0 }) },
+    { ok: tacticalAssessment.ok, title: t('map.resultTitle'), text: t('map.resultText', { score:tacticalScore, recommended:tacticalAssessment.recommendedCount, total:tacticalAssessment.routeCount, eta:tacticalAssessment.averageEtaMinutes, blockages:tacticalAssessment.blockadeHits }) },
     { ok: appState.timerSeconds <= incident.urgencyLimit, title: t('result.responseTime'), text: t('result.responseTimeText', { time: formatTime(appState.timerSeconds), limit: formatTime(incident.urgencyLimit) }) },
     { ok: extra.length === 0, title: t('result.proportional'), text: extra.length ? t('result.excessive', { extra: names(extra) }) : t('result.noOverload') },
     { ok: appState.risk < 90 || appState.timerSeconds <= incident.urgencyLimit, title: t('result.escalation'), text: t('result.escalationText', { risk: appState.risk }) },
     { ok: appState.callQueue.length <= 2, title: t('result.queue'), text: t('result.queueText', { shift: shiftProfile(appState.selectedShift).label, count: appState.callQueue.length }) }
   ];
-  return { total, feedback, headline, grade, incidentId: incident.id, incidentTitle: incident.title, time: formatTime(appState.timerSeconds), averageQuality: Math.round(averageQuality * 100), coveragePercent, triageScore };
+  return { total, feedback, headline, grade, incidentId: incident.id, incidentTitle: incident.title, time: formatTime(appState.timerSeconds), averageQuality: Math.round(averageQuality * 100), coveragePercent, triageScore, tacticalScore, tacticalAssessment };
 }
 
 function renderResult() {
@@ -1450,6 +1566,27 @@ function attachEvents() {
   dom.btnHighContrast?.addEventListener('click', () => toggleAccessibilityPref('highContrast'));
   dom.btnReduceMotion?.addEventListener('click', () => toggleAccessibilityPref('reduceMotion'));
   dom.btnInstallApp?.addEventListener('click', promptInstallApp);
+  dom.btnMapZoomOut?.addEventListener('click', () => adjustMapZoom(-.15));
+  dom.btnMapZoomIn?.addEventListener('click', () => adjustMapZoom(.15));
+  dom.btnMapCenter?.addEventListener('click', centerTacticalMap);
+  dom.dispatchMap?.addEventListener('pointerdown', (event) => {
+    if (!appState.activeIncident || event.target.closest('button')) return;
+    const state=normalizeMapState(appState.tacticalMapState,appState.activeIncident.id);
+    appState.mapDrag={pointerId:event.pointerId,startX:event.clientX,startY:event.clientY,startPanX:state.panX,startPanY:state.panY};
+    dom.dispatchMap.classList.add('is-dragging');
+    dom.dispatchMap.setPointerCapture?.(event.pointerId);
+  });
+  dom.dispatchMap?.addEventListener('pointermove', (event) => {
+    const drag=appState.mapDrag; if(!drag || drag.pointerId!==event.pointerId || !appState.activeIncident) return;
+    const rect=dom.dispatchMap.getBoundingClientRect();
+    const panX=drag.startPanX+(event.clientX-drag.startX)/Math.max(1,rect.width)*100;
+    const panY=drag.startPanY+(event.clientY-drag.startY)/Math.max(1,rect.height)*100;
+    appState.tacticalMapState=normalizeMapState({...appState.tacticalMapState,panX,panY},appState.activeIncident.id);
+    applyDispatchMapTransform();
+  });
+  const finishMapDrag=(event)=>{ if(!appState.mapDrag || appState.mapDrag.pointerId!==event.pointerId)return; appState.mapDrag=null; dom.dispatchMap.classList.remove('is-dragging'); persistGame({includeSession:true}); };
+  dom.dispatchMap?.addEventListener('pointerup',finishMapDrag);
+  dom.dispatchMap?.addEventListener('pointercancel',finishMapDrag);
   window.addEventListener('beforeinstallprompt', (event) => { event.preventDefault(); deferredInstallPrompt = event; updateInstallButton(); });
   window.addEventListener('appinstalled', () => { deferredInstallPrompt = null; updateInstallButton(); notify(t('accessibility.installed'), 'success'); });
   [dom.languageSelector, dom.configLanguageSelector].forEach((select) => select?.addEventListener('change', (event) => applyLocale(event.target.value, { persist:true, announce:true })));
@@ -1471,6 +1608,8 @@ function attachEvents() {
   dom.btnExportDiagnostics?.addEventListener('click', () => downloadDiagnosticReport(refreshDiagnostics(), runtimeGuard.getReport(), `central190-${i18n.locale}-diagnostics-${Date.now()}.json`));
   dom.btnRestoreBackup?.addEventListener('click', restoreBackupFromUi);
   document.body.addEventListener('click', (event) => {
+    const mapUnit=event.target.closest('[data-map-unit]'); if(mapUnit){focusMapUnit(mapUnit.dataset.mapUnit);return;}
+    const routeMode=event.target.closest('[data-route-mode]'); if(routeMode){selectRouteMode(routeMode.dataset.routeMode);return;}
     const triagePriority=event.target.closest('[data-triage-priority]'); if(triagePriority){selectTriagePriority(triagePriority.dataset.triagePriority);return;}
     const triageNature=event.target.closest('[data-triage-nature]'); if(triageNature){selectTriageNature(triageNature.dataset.triageNature);return;}
     const triageProtocol=event.target.closest('[data-triage-protocol]'); if(triageProtocol){toggleTriageProtocol(triageProtocol.dataset.triageProtocol);return;}
@@ -1479,7 +1618,7 @@ function attachEvents() {
     const academyOption=event.target.closest('[data-academy-option]'); if(academyOption){answerAcademyOption(academyOption.dataset.academyOption);return;}
     const nav=event.target.closest('[data-nav]'); if(nav){setActiveScreen(nav.dataset.nav);return;}
     const question=event.target.closest('[data-question]'); if(question){handleQuestion(question.dataset.question);return;}
-    const unitCard=event.target.closest('[data-unit-id]'); if(unitCard){const {unitId}=unitCard.dataset; if(appState.selectedUnits.has(unitId))appState.selectedUnits.delete(unitId);else appState.selectedUnits.add(unitId);renderUnits();persistGame({includeSession:true});}
+    const unitCard=event.target.closest('[data-unit-id]'); if(unitCard){const {unitId}=unitCard.dataset; if(appState.selectedUnits.has(unitId))appState.selectedUnits.delete(unitId);else appState.selectedUnits.add(unitId); appState.tacticalMapState=normalizeMapState({...appState.tacticalMapState,selectedUnitId:unitId,interactions:(appState.tacticalMapState?.interactions||0)+1},appState.activeIncident?.id); renderDispatchMap();renderRoutePlanner();renderUnits();persistGame({includeSession:true});}
   });
   window.addEventListener('beforeunload', () => { if(appState.player)persistGame({includeSession:Boolean(appState.activeIncident)}); });
   document.addEventListener('visibilitychange', () => { if(document.visibilityState==='hidden'&&appState.player)persistGame({includeSession:Boolean(appState.activeIncident)}); });
@@ -1518,4 +1657,4 @@ function init() {
 
 init();
 
-export { contentReport, trainingReport, saveManager, SAVE_KEYS };
+export { contentReport, trainingReport, tacticalMapReport, saveManager, SAVE_KEYS };

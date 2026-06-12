@@ -1,0 +1,122 @@
+{
+  "buildId": "CENTRAL190-0140-20260612-1702-BRT",
+  "version": "v0.14.0",
+  "phase": "Fase 8 de 20",
+  "module": "Mapa tático funcional e planejamento de rotas",
+  "method": {
+    "runtime": "Chromium com HTML, CSS e JavaScript reais em documento autônomo",
+    "assets": "Imagens pesadas substituídas por placeholders somente no harness; caminhos e hashes dos assets reais validados separadamente",
+    "localNavigationConstraint": "Navegação localhost/file bloqueada por política administrativa do ambiente"
+  },
+  "viewports": [
+    {
+      "viewport": "1366x768",
+      "screen": "dispatch",
+      "modes": 3,
+      "initialScale": "100%",
+      "zoomScale": "115%",
+      "route": "Safest ★",
+      "dragChanged": true,
+      "documentOverflow": false,
+      "screenOverflow": false,
+      "finishVisible": true,
+      "toastPointerEvents": "none",
+      "errors": [],
+      "ok": true
+    },
+    {
+      "viewport": "360x640",
+      "screen": "dispatch",
+      "modes": 3,
+      "initialScale": "100%",
+      "zoomScale": "115%",
+      "route": "Safest",
+      "dragChanged": true,
+      "documentOverflow": false,
+      "screenOverflow": false,
+      "finishVisible": true,
+      "toastPointerEvents": "none",
+      "errors": [],
+      "ok": true
+    },
+    {
+      "viewport": "390x844",
+      "screen": "dispatch",
+      "modes": 3,
+      "initialScale": "100%",
+      "zoomScale": "115%",
+      "route": "Safest ★",
+      "dragChanged": true,
+      "documentOverflow": false,
+      "screenOverflow": false,
+      "finishVisible": true,
+      "toastPointerEvents": "none",
+      "errors": [],
+      "ok": true
+    },
+    {
+      "viewport": "412x915",
+      "screen": "dispatch",
+      "modes": 3,
+      "initialScale": "100%",
+      "zoomScale": "115%",
+      "route": "Safest ★",
+      "dragChanged": true,
+      "documentOverflow": false,
+      "screenOverflow": false,
+      "finishVisible": true,
+      "toastPointerEvents": "none",
+      "errors": [],
+      "ok": true
+    },
+    {
+      "viewport": "768x1024",
+      "screen": "dispatch",
+      "modes": 3,
+      "initialScale": "100%",
+      "zoomScale": "115%",
+      "route": "Safest",
+      "dragChanged": true,
+      "documentOverflow": false,
+      "screenOverflow": false,
+      "finishVisible": true,
+      "toastPointerEvents": "none",
+      "errors": [],
+      "ok": true
+    }
+  ],
+  "recovery": {
+    "before": {
+      "screen": "dispatch",
+      "scale": "130%",
+      "route": "Más segura ★",
+      "transform": "transform: translate(13.6364%, 10.7143%) scale(1.3);",
+      "locale": "es-419"
+    },
+    "after": {
+      "screen": "dispatch",
+      "scale": "130%",
+      "route": "Más segura ★",
+      "transform": "transform:translate(13.636363636363635%,10.714285714285714%) scale(1.2999999999999998)",
+      "locale": "es-419",
+      "continueEnabled": true,
+      "errors": [],
+      "transformRestored": true,
+      "ok": true
+    },
+    "storedKeys": [
+      "central190_accessibility_v090",
+      "central190-language-v1",
+      "central190-save-v140",
+      "central190-save-v140-recovery",
+      "central190-save-v140-backup"
+    ]
+  },
+  "summary": {
+    "viewportsPassed": 5,
+    "viewportsTotal": 5,
+    "recoveryPassed": true,
+    "runtimeErrors": 0,
+    "status": "approved"
+  }
+}
