@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>Central 190 • Build v0.13.0</title>
-<meta content="Central 190 v0.13.0 — Triagem profissional e protocolos operacionais" name="description"/>
+<title>Central 190 • Build v0.14.0</title>
+<meta content="Central 190 v0.14.0 — Mapa tático funcional e planejamento de rotas" name="description"/>
 <meta content="#050b12" name="theme-color"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
@@ -20,6 +20,7 @@
 <link href="css/training-v011.css" rel="stylesheet"/>
 <link href="css/branching-v012.css" rel="stylesheet"/>
 <link href="css/triage-v013.css" rel="stylesheet"/>
+<link href="css/tactical-map-v014.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="app-shell" id="appShell" data-screen="home">
@@ -296,7 +297,27 @@
 </div>
 <div class="chip" id="dispatchDistrict">República</div>
 </div>
-<div class="dispatch-map" id="dispatchMap"></div>
+<div class="tactical-map-status" aria-live="polite">
+  <div><span data-i18n="map.traffic">Trânsito</span><strong id="mapTrafficValue">Moderado</strong></div>
+  <div><span data-i18n="map.blockages">Bloqueios</span><strong id="mapBlockageValue">0</strong></div>
+  <div><span data-i18n="map.scale">Escala</span><strong id="mapScaleValue">100%</strong></div>
+</div>
+<div class="dispatch-map tactical-map-interactive" id="dispatchMap" aria-label="Mapa tático interativo" data-i18n-aria="map.mapAria"></div>
+<div class="tactical-map-toolbar" role="group" aria-label="Controles do mapa" data-i18n-aria="map.controlsAria">
+  <button class="map-control-btn" id="btnMapZoomOut" type="button" aria-label="Reduzir zoom" data-i18n-aria="map.zoomOut">−</button>
+  <button class="map-control-btn" id="btnMapCenter" type="button" aria-label="Centralizar mapa" data-i18n-aria="map.centerMap">◎</button>
+  <button class="map-control-btn" id="btnMapZoomIn" type="button" aria-label="Aumentar zoom" data-i18n-aria="map.zoomIn">+</button>
+  <span class="map-drag-hint" data-i18n="map.dragHint">Arraste o mapa com o dedo ou mouse</span>
+</div>
+</div>
+<div class="panel compact route-planner" id="routePlanner">
+  <div class="route-planner-head">
+    <div><span class="eyebrow" data-i18n="map.routePlanner">Planejamento de rota</span><strong id="routeActiveUnit">Viatura policial</strong></div>
+    <span class="chip" id="routeRecommendationBadge">Recomendada</span>
+  </div>
+  <div class="route-mode-grid" id="routeModeGrid" role="group" aria-label="Estratégias de rota" data-i18n-aria="map.routeModesAria"></div>
+  <div class="route-metrics" id="routeMetrics"></div>
+  <div class="route-warning" id="routeWarning" role="status"></div>
 </div>
 <div class="training-coach panel compact" hidden id="dispatchCoach" aria-live="polite">
   <div class="training-coach-mark" aria-hidden="true">T</div>
@@ -381,8 +402,8 @@
 <div class="screen-inner stack-gap">
 <div class="panel">
 <span class="eyebrow" data-i18n="config.eyebrow">Configuração e integridade</span>
-<h3 id="configBuildTitle">Central 190 v0.13.0</h3>
-<p class="manual-intro" id="configBuildMeta">Fase 7 • Triagem profissional e protocolos operacionais</p>
+<h3 id="configBuildTitle">Central 190 v0.14.0</h3>
+<p class="manual-intro" id="configBuildMeta">Fase 8 • Mapa tático funcional e planejamento de rotas</p>
 <p class="manual-intro" data-i18n="config.description">Perfil atual: ultra realista. Esta build apresenta um sistema visual operacional premium sem perder carreira, recuperação, idiomas ou proteção anti-quebra.</p>
 </div>
 <div class="panel compact settings-card"><strong data-i18n="config.evaluationTitle">Modo de avaliação</strong><span data-i18n="config.evaluationText">Rigor alto: tempo, protocolo, proporcionalidade e agravamento contam no resultado.</span></div>
@@ -445,9 +466,9 @@
 </section>
 </main>
 <footer class="build-footer" id="buildFooter">
-<span id="footerVersion">v0.13.0</span>
-<span id="footerDateTime">12/06/2026 • 16:41 BRT</span>
-<span id="footerModule">Fase 7 de 20 • Triagem profissional e protocolos operacionais</span>
+<span id="footerVersion">v0.14.0</span>
+<span id="footerDateTime">12/06/2026 • 17:02 BRT</span>
+<span id="footerModule">Fase 8 de 20 • Mapa tático funcional e planejamento de rotas</span>
 </footer>
 </div>
 <div aria-live="polite" class="system-toast" hidden="" id="systemToast" role="status"></div>

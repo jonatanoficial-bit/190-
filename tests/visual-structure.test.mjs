@@ -6,7 +6,8 @@ const premiumCss = fs.readFileSync(new URL('../css/premium-v010.css', import.met
 const trainingCss = fs.readFileSync(new URL('../css/training-v011.css', import.meta.url), 'utf8');
 const branchingCss = fs.readFileSync(new URL('../css/branching-v012.css', import.meta.url), 'utf8');
 const triageCss = fs.readFileSync(new URL('../css/triage-v013.css', import.meta.url), 'utf8');
-const css = `${premiumCss}\n${trainingCss}\n${branchingCss}\n${triageCss}`;
+const mapCss = fs.readFileSync(new URL('../css/tactical-map-v014.css', import.meta.url), 'utf8');
+const css = `${premiumCss}\n${trainingCss}\n${branchingCss}\n${triageCss}\n${mapCss}`;
 
 const requiredScreens = ['home', 'profile', 'lobby', 'shift', 'dispatch', 'academy', 'manual', 'config', 'result'];
 for (const screen of requiredScreens) assert.match(html, new RegExp(`id=["']screen-${screen}["']`));
@@ -14,11 +15,11 @@ for (const screen of requiredScreens) assert.match(html, new RegExp(`id=["']scre
 const criticalSelectors = [
   '.topbar', '.panel', '.btn', '.avatar-card', '.shift-panel', '.dispatch-map', '.unit-card',
   '.result-score', '.build-footer', '.system-toast', '.recovery-card', '.academy-module-grid',
-  '.academy-lesson', '.academy-option', '.training-coach', '.call-branch-console', '.approach-selector', '.caller-state-meters', '.triage-panel', '.triage-priority-grid', '.triage-protocol-grid'
+  '.academy-lesson', '.academy-option', '.training-coach', '.call-branch-console', '.approach-selector', '.caller-state-meters', '.triage-panel', '.triage-priority-grid', '.triage-protocol-grid', '.tactical-map-interactive', '.route-planner', '.route-mode-grid', '.map-route-path'
 ];
 for (const selector of criticalSelectors) assert.ok(css.includes(selector), `Selector visual ausente: ${selector}`);
 
-const academyIds = ['academyProgressFill','academyModuleGrid','academyLesson','academyOptions','btnAcademyContinue','btnToggleAssistance','callBranchConsole','approachSelector','callerEmotionBadge','intelStatus','triagePanel','triagePriorityGrid','triageNatureGrid','triageProtocolGrid','btnSubmitTriage'];
+const academyIds = ['academyProgressFill','academyModuleGrid','academyLesson','academyOptions','btnAcademyContinue','btnToggleAssistance','callBranchConsole','approachSelector','callerEmotionBadge','intelStatus','triagePanel','triagePriorityGrid','triageNatureGrid','triageProtocolGrid','btnSubmitTriage','mapTrafficValue','mapBlockageValue','routePlanner','routeModeGrid','routeMetrics','btnMapZoomIn'];
 for (const id of academyIds) assert.match(html, new RegExp(`id=["']${id}["']`));
 
-console.log('PASS visual structure: telas premium, academia, console ramificado e triagem responsiva validados.');
+console.log('PASS visual structure: telas premium, academia, triagem e mapa tático responsivo validados.');

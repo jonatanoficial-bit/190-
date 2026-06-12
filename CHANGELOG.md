@@ -1,38 +1,39 @@
-# Changelog — Central 190 v0.13.0
+# Changelog — Central 190 v0.14.0
 
-## Fase 7 de 20 — Triagem profissional e protocolos operacionais
+## Fase 8 de 20 — Mapa tático funcional e planejamento de rotas
 
 ### Adicionado
 
-- Motor de triagem com quatro níveis de prioridade.
-- Sete naturezas operacionais de ocorrência.
-- Onze protocolos de atendimento e despacho.
-- Perfil de triagem específico para cada uma das oito ocorrências.
-- Indicador dinâmico de confiança da classificação.
-- Avaliação de cobertura dos protocolos obrigatórios.
-- Detecção de subtriagem e supertriagem.
-- Revisão da triagem durante a ligação.
-- Bloqueio seguro do despacho enquanto a triagem não estiver registrada.
-- Feedback de triagem no relatório pós-despacho.
-- Catálogos completos de triagem em português, inglês e espanhol.
-- Teste automatizado exclusivo da estrutura de triagem.
+- Motor tático com cinco zonas operacionais.
+- Oito perfis de mapa vinculados às ocorrências existentes.
+- Três estratégias de rota: rápida, equilibrada e segura.
+- Cálculo individual de distância, ETA, atraso e risco para cada unidade.
+- Trânsito por distrito, bloqueios viários e modificadores de percurso.
+- Rotas visuais animadas para polícia, ambulância e apoio aéreo.
+- Controles de zoom, centralização e arraste por toque ou mouse.
+- Seleção de unidade diretamente no mapa.
+- Planejador de rota com recomendação e aviso contextual.
+- Avaliação tática integrada ao resultado e à pontuação.
+- Teste automatizado exclusivo do motor do mapa.
 
 ### Alterado
 
-- Build atualizada para `CENTRAL190-0130-20260612-1641-BRT`.
-- Save atualizado do schema v4 para o schema v5.
-- Sessão ativa passa a persistir prioridade, natureza, protocolos, confiança, revisões e última avaliação.
-- Cálculo de desempenho passa a considerar a qualidade da triagem.
-- Risco operacional pode aumentar quando ocorre subtriagem.
-- Cache PWA atualizado para incluir o módulo e o CSS da triagem.
-- Rodapé e diagnóstico atualizados para a Fase 7.
+- Build atualizada para `CENTRAL190-0140-20260612-1702-BRT`.
+- Save atualizado do schema v5 para o schema v6.
+- Sessão ativa passa a persistir zoom, deslocamento, unidade em foco e estratégia de cada recurso.
+- Cartões das unidades passam a exibir distância, ETA e rota escolhida.
+- Despacho deixa de usar posições e tempos meramente fixos.
+- Cache PWA atualizado para incluir o módulo e o CSS do mapa tático.
+- Rodapé, configurações e diagnóstico atualizados para a Fase 8.
 
 ### Corrigido
 
-- Garantida rolagem interna em telas pequenas após a inclusão do painel de triagem.
-- Botões de registrar triagem e abrir despacho permanecem alcançáveis em 360×640.
-- Removida importação sem uso no controlador principal.
+- Removido conflito com a grade antiga que comprimira o mapa dinâmico no mobile.
+- Tela de despacho reconstruída como fluxo rolável em celular e grade ampliada em desktop.
+- Avisos temporários passaram a ignorar eventos de toque, evitando bloquear botões.
+- Helicóptero deixa de receber penalidade indevida por bloqueios rodoviários.
+- Controles finais permanecem alcançáveis em 360×640.
 
 ### Compatibilidade
 
-Saves das versões anteriores são migrados automaticamente. Quando uma sessão antiga não contém triagem, o jogo cria um estado seguro não classificado sem apagar o progresso existente.
+Saves das versões anteriores são migrados automaticamente. Sessões antigas recebem um estado tático seguro, mantendo carreira, ocorrência, triagem e progresso já existentes.
