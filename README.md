@@ -1,28 +1,30 @@
-# Central 190 — v0.10.0
+# Central 190 — v0.13.0
 
-**Build ID:** `CENTRAL190-0100-20260611-1907-BRT`  
-**Fase:** 4 de 20 — Reconstrução visual premium  
-**Data:** 11/06/2026 às 19:07 BRT
+**Build ID:** `CENTRAL190-0130-20260612-1641-BRT`  
+**Fase:** 7 de 20 — Triagem profissional e protocolos operacionais  
+**Data:** 12/06/2026 às 16:41 BRT
 
-Esta build preserva a fundação anti-quebra, o save v2, a internacionalização PT-BR / EN / ES, o foco mobile, a PWA e a acessibilidade das fases anteriores. A Fase 4 adiciona uma identidade operacional premium e reorganiza a composição das telas para celular, tablet e PC.
+Esta build preserva a Fundação Anti-Quebra, os três idiomas, o foco mobile, fullscreen/PWA, acessibilidade, identidade visual premium, Academia Operacional e ligações ramificadas das fases anteriores. A Fase 7 adiciona uma triagem obrigatória antes do despacho, com prioridade, natureza, protocolos e avaliação de risco integrados ao resultado.
 
 ## Como abrir
 
-Abra `index.html` em um navegador moderno ou hospede esta pasta em um servidor estático. Para fullscreen real e melhor comportamento offline, instale a PWA quando o navegador oferecer essa opção.
+Abra `index.html` em um navegador moderno ou hospede a pasta em um servidor estático. Para fullscreen real, atualização controlada e melhor funcionamento offline, instale a PWA quando o navegador oferecer essa opção.
 
 ## Principais novidades
 
-- Nova camada visual isolada em `css/premium-v010.css`.
-- Identidade de central operacional com moldura técnica, sigilo visual e status do sistema.
-- Home cinematográfica redesenhada.
-- Painéis, botões, cards, mapas, chats e relatórios com hierarquia visual unificada.
-- Composições próprias para mobile, tablet e desktop.
-- Lobby desktop reorganizado em dashboard operacional.
-- Plantão e despacho com leitura tática mais clara.
-- Perfil e seleção de avatar aprimorados.
-- Assets pesados otimizados de aproximadamente 16,7 MB para 4,7 MB.
-- Remoção de três arquivos sem uso na interface.
-- Continuidade integral de PT-BR, EN-US e ES-419.
+- Quatro níveis operacionais de prioridade: P1, P2, P3 e P4.
+- Sete naturezas de ocorrência.
+- Onze protocolos selecionáveis.
+- Confiança da triagem calculada pelos dados realmente confirmados.
+- Triagem obrigatória antes da abertura do despacho.
+- Revisão da classificação enquanto a ocorrência permanece ativa.
+- Detecção de subtriagem e supertriagem.
+- Penalidade por prioridade inadequada, protocolo insuficiente ou uso excessivo da rede.
+- Integração com risco, despacho, nota e relatório técnico.
+- Estado completo da triagem recuperado após recarregar o jogo.
+- Save atualizado para schema v5, com checksum, backup e migração automática.
+- Interface e conteúdo completos em PT-BR, EN-US e ES-419.
+- Layout mobile com rolagem interna e controles finais alcançáveis.
 - Versão, fase, data e hora visíveis no jogo.
 
 ## Testes
@@ -38,6 +40,7 @@ npm test
 - `CHANGELOG.md`
 - `BUILD-REPORT.md`
 - `TEST-REPORT.md`
-- `docs/build-v0.10.0-premium-visual.md`
+- `docs/build-v0.13.0-professional-triage.md`
 - `docs/asset-manifest.md`
-- `reports/visual-audit-v0.10.0.json`
+- `reports/audit-v0.13.0.json`
+- `reports/runtime-v013/runtime-audit-v0.13.0.json`

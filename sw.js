@@ -1,4 +1,4 @@
-const BUILD_ID = 'CENTRAL190-0100-20260611-1907-BRT';
+const BUILD_ID = 'CENTRAL190-0130-20260612-1641-BRT';
 const CACHE_PREFIX = 'central190-';
 const CACHE_NAME = `${CACHE_PREFIX}${BUILD_ID}`;
 const APP_SHELL = [
@@ -6,10 +6,16 @@ const APP_SHELL = [
   './index.html',
   './css/style.css',
   './css/premium-v010.css',
+  './css/training-v011.css',
+  './css/branching-v012.css',
+  './css/triage-v013.css',
   './js/app.js',
   './js/build-info.js',
   './js/data/content.js',
+  './js/data/training.js',
+  './js/data/triage.js',
   './js/core/utils.js',
+  './js/core/call-branching.js',
   './js/core/content-validator.js',
   './js/core/save-manager.js',
   './js/core/runtime-guard.js',

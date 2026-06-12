@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>Central 190 • Build v0.10.0</title>
-<meta content="Central 190 v0.10.0 — Reconstrução visual premium" name="description"/>
+<title>Central 190 • Build v0.13.0</title>
+<meta content="Central 190 v0.13.0 — Triagem profissional e protocolos operacionais" name="description"/>
 <meta content="#050b12" name="theme-color"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
@@ -17,6 +17,9 @@
 <link href="assets/icons/icon-alert.png" rel="icon" type="image/png"/>
 <link href="css/style.css" rel="stylesheet"/>
 <link href="css/premium-v010.css" rel="stylesheet"/>
+<link href="css/training-v011.css" rel="stylesheet"/>
+<link href="css/branching-v012.css" rel="stylesheet"/>
+<link href="css/triage-v013.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="app-shell" id="appShell" data-screen="home">
@@ -145,6 +148,10 @@
 <span data-i18n="lobby.expansion">Expansão</span>
 <strong data-i18n="lobby.dlcReady">Pronta para DLC</strong>
 </div>
+<div class="summary-item academy-summary-item">
+<span id="academySummaryLabel">Certificação operacional</span>
+<strong id="academySummaryValue">Não iniciado</strong>
+</div>
 <div class="summary-item">
 <span data-i18n="lobby.average">Nota média</span>
 <strong id="statAverage">--</strong>
@@ -176,6 +183,7 @@
 </div>
 <div class="action-column panel compact">
 <button class="btn btn-warning" data-i18n="lobby.startShift" id="btnStartShift">Iniciar Plantão</button>
+<button class="btn btn-primary academy-entry-btn" id="btnAcademy" type="button">Academia Operacional</button>
 <button class="btn btn-secondary" data-i18n="lobby.manual" data-nav="manual">Manual de Protocolo</button>
 <button class="btn btn-secondary" data-i18n="lobby.settings" id="btnConfig">Configurações</button>
 </div>
@@ -198,6 +206,10 @@
 <strong id="timerValue">00:00</strong>
 </div>
 </div>
+<div class="training-coach panel compact" hidden id="trainingCoach" aria-live="polite">
+  <div class="training-coach-mark" aria-hidden="true">T</div>
+  <div><span class="eyebrow" id="trainingCoachTitle">Instrutor operacional</span><p id="trainingCoachText"></p></div>
+</div>
 <div class="panel shift-panel">
 <div class="panel-head split">
 <div>
@@ -207,16 +219,61 @@
 <div class="severity-badge" data-i18n="shift.highPriority" id="severityBadge">Prioridade alta</div>
 </div>
 <div class="chat-log" id="chatLog"></div>
+<div class="call-branch-console" id="callBranchConsole">
+  <div class="caller-state-head">
+    <div><span class="eyebrow" data-i18n="branching.callerState">Estado do solicitante</span><strong id="callerEmotionBadge">Tenso</strong></div>
+    <span class="line-status" id="lineStatusBadge">Linha estável</span>
+  </div>
+  <div class="caller-state-meters" aria-live="polite">
+    <div class="caller-meter"><span data-i18n="branching.trust">Confiança</span><div><i id="callerTrustFill"></i></div><b id="callerTrustValue">50</b></div>
+    <div class="caller-meter"><span data-i18n="branching.stress">Estresse</span><div><i id="callerStressFill"></i></div><b id="callerStressValue">70</b></div>
+    <div class="caller-meter"><span data-i18n="branching.clarity">Clareza</span><div><i id="callerClarityFill"></i></div><b id="callerClarityValue">45</b></div>
+  </div>
+  <div class="approach-block">
+    <span class="section-label" data-i18n="branching.chooseApproach">Postura de comunicação</span>
+    <div class="approach-selector" id="approachSelector" role="group" aria-label="Postura de comunicação">
+      <button class="approach-option" data-approach="calm" type="button"><strong data-i18n="branching.approaches.calm">Acolhedora</strong><span data-i18n="branching.approaches.calmShort">reduz estresse</span></button>
+      <button class="approach-option is-active" data-approach="direct" type="button"><strong data-i18n="branching.approaches.direct">Objetiva</strong><span data-i18n="branching.approaches.directShort">equilíbrio</span></button>
+      <button class="approach-option" data-approach="urgent" type="button"><strong data-i18n="branching.approaches.urgent">Urgente</strong><span data-i18n="branching.approaches.urgentShort">ganha tempo</span></button>
+    </div>
+    <p class="approach-hint" id="approachHint"></p>
+  </div>
+</div>
 <div class="quick-actions" id="questionActions"></div>
 <div class="action-row top-gap sticky-action-row shift-sticky-actions">
 <button class="btn btn-secondary" data-i18n="shift.backLobby" id="btnBackLobby">Voltar ao lobby</button>
 <button class="btn btn-warning" data-i18n="shift.openDispatch" id="btnOpenDispatch">Abrir despacho</button>
 </div>
 </div>
+<div class="panel triage-panel" id="triagePanel">
+  <div class="panel-head split triage-panel-head">
+    <div><span class="eyebrow" data-triage-eyebrow>Classificação operacional</span><h3 data-triage-title>Triagem profissional</h3></div>
+    <span class="triage-status-badge" id="triageStatusBadge">Não classificada</span>
+  </div>
+  <div class="triage-confidence-row">
+    <span id="triageConfidenceLabel">Confiança da triagem</span>
+    <div class="triage-confidence-meter"><i id="triageConfidenceFill"></i></div>
+    <strong id="triageConfidenceValue">0%</strong>
+  </div>
+  <div class="triage-section">
+    <div class="section-label" id="triagePriorityLabel">Nível de prioridade</div>
+    <div class="triage-priority-grid" id="triagePriorityGrid"></div>
+  </div>
+  <div class="triage-section">
+    <div class="section-label" id="triageNatureLabel">Natureza principal</div>
+    <div class="triage-nature-grid" id="triageNatureGrid"></div>
+  </div>
+  <div class="triage-section">
+    <div class="section-label" id="triageProtocolLabel">Protocolos operacionais</div>
+    <div class="triage-protocol-grid" id="triageProtocolGrid"></div>
+  </div>
+  <div class="triage-assessment" id="triageAssessment" data-tone="info">Colete informações antes de classificar.</div>
+  <div class="action-row triage-actions"><button class="btn btn-primary" id="btnSubmitTriage" type="button">Registrar triagem</button></div>
+</div>
 <div class="grid-2 shift-support-grid">
 <div class="panel compact">
-<div class="section-label" data-i18n="shift.operationalSummary">Resumo operacional</div>
-<ul class="info-list" id="incidentFacts"></ul>
+<div class="panel-head split intel-panel-head"><div class="section-label" data-i18n="branching.confirmedIntel">Informações confirmadas</div><span class="chip" id="intelStatus">0 confirmadas</span></div>
+<ul class="info-list intel-list" id="incidentFacts"></ul>
 </div>
 <div class="panel compact risk-panel">
 <div class="section-label" data-i18n="shift.realtimeRisk">Risco em tempo real</div>
@@ -241,11 +298,62 @@
 </div>
 <div class="dispatch-map" id="dispatchMap"></div>
 </div>
+<div class="training-coach panel compact" hidden id="dispatchCoach" aria-live="polite">
+  <div class="training-coach-mark" aria-hidden="true">T</div>
+  <div><span class="eyebrow" id="dispatchCoachTitle">Instrutor operacional</span><p id="dispatchCoachText"></p></div>
+</div>
 <div class="unit-grid" id="unitGrid"></div>
 <div class="action-row sticky-action-row">
 <button class="btn btn-secondary" data-i18n="common.back" data-nav="shift">Voltar</button>
 <button class="btn btn-primary" data-i18n="dispatch.finish" id="btnConfirmDispatch">Finalizar despacho</button>
 </div>
+</div>
+</section>
+<section class="screen" data-bg="hall" id="screen-academy">
+<div class="screen-bg bg-hall"></div>
+<div class="screen-overlay strong"></div>
+<div class="screen-inner stack-gap academy-screen-inner">
+  <div class="panel academy-hero">
+    <div>
+      <span class="eyebrow" id="academyEyebrow">Formação interna</span>
+      <h3 id="academyTitle">Academia Operacional 190</h3>
+      <p class="manual-intro" id="academyIntro"></p>
+    </div>
+    <div class="academy-cert-badge" id="academyCertBadge" aria-live="polite">Não iniciado</div>
+  </div>
+  <div class="panel compact academy-progress-panel">
+    <div class="panel-head split">
+      <div><span class="section-label" id="academyProgressLabel">Progresso da certificação</span><strong id="academyProgressText">0 de 10 decisões concluídas</strong></div>
+      <span class="chip" id="academyAccuracy">0%</span>
+    </div>
+    <div class="career-meter academy-meter"><span id="academyProgressFill"></span></div>
+    <div class="academy-reward" id="academyReward"></div>
+  </div>
+  <div class="panel compact academy-assistance-card">
+    <div><strong id="academyAssistanceTitle">Modo assistido de plantão</strong><span id="academyAssistanceText"></span></div>
+    <button class="btn btn-secondary" id="btnToggleAssistance" type="button" aria-pressed="true">Orientação ativada</button>
+  </div>
+  <div class="academy-module-grid" id="academyModuleGrid"></div>
+  <div class="panel academy-lesson" hidden id="academyLesson">
+    <div class="academy-lesson-head">
+      <div><span class="eyebrow" id="academyLessonKicker"></span><h3 id="academyLessonTitle"></h3></div>
+      <span class="chip" id="academyLessonAttempts"></span>
+    </div>
+    <div class="academy-scenario-block"><span id="academyScenarioLabel">Cenário</span><p id="academyScenario"></p></div>
+    <div class="academy-objective-block"><span id="academyObjectiveLabel">Objetivo operacional</span><p id="academyObjective"></p></div>
+    <div class="academy-question"><span id="academyDecisionLabel">Sua decisão</span><strong id="academyPrompt"></strong></div>
+    <div class="academy-options" id="academyOptions" role="group"></div>
+    <div class="academy-feedback" hidden id="academyFeedback" role="status"></div>
+    <div class="action-row top-gap">
+      <button class="btn btn-secondary" id="btnAcademyLessonBack" type="button">Voltar aos módulos</button>
+      <button class="btn btn-primary" hidden id="btnAcademyNext" type="button">Próxima decisão</button>
+    </div>
+  </div>
+  <div class="action-row sticky-action-row academy-main-actions">
+    <button class="btn btn-secondary" id="btnAcademyExit" type="button">Voltar ao lobby</button>
+    <button class="btn btn-danger" id="btnAcademyReset" type="button">Reiniciar academia</button>
+    <button class="btn btn-warning" id="btnAcademyContinue" type="button">Iniciar treinamento</button>
+  </div>
 </div>
 </section>
 <section class="screen" data-bg="hall" id="screen-manual">
@@ -255,7 +363,7 @@
 <div class="panel">
 <span class="eyebrow" data-i18n="manual.eyebrow">Treinamento interno</span>
 <h3 data-i18n="manual.title">Manual de Protocolo 190</h3>
-<p class="manual-intro" data-i18n="manual.intro">A próxima fase adiciona camada de treinamento: o jogador precisa equilibrar triagem, segurança do solicitante e despacho proporcional. O protocolo não é para travar o jogador, mas para avaliar qualidade operacional.</p>
+<p class="manual-intro" data-i18n="manual.intro" id="manualIntro">A próxima fase adiciona camada de treinamento: o jogador precisa equilibrar triagem, segurança do solicitante e despacho proporcional. O protocolo não é para travar o jogador, mas para avaliar qualidade operacional.</p>
 </div>
 <div class="protocol-list">
 <div class="panel compact protocol-card"><strong data-i18n="manual.item1Title">1. Localização</strong><span data-i18n="manual.item1Text">Confirmar bairro, referência, direção de fuga e melhor acesso da viatura.</span></div>
@@ -264,7 +372,7 @@
 <div class="panel compact protocol-card"><strong data-i18n="manual.item4Title">4. Segurança</strong><span data-i18n="manual.item4Text">Orientar abrigo, manter distância, não perseguir suspeitos e preservar a linha.</span></div>
 <div class="panel compact protocol-card"><strong data-i18n="manual.item5Title">5. Despacho proporcional</strong><span data-i18n="manual.item5Text">Enviar recurso suficiente sem sobrecarregar a rede operacional.</span></div>
 </div>
-<div class="action-row sticky-action-row"><button class="btn btn-secondary" data-i18n="manual.backLobby" data-nav="lobby">Voltar ao lobby</button><button class="btn btn-warning" data-i18n="manual.start" id="btnManualStart">Iniciar plantão</button></div>
+<div class="action-row sticky-action-row"><button class="btn btn-secondary" data-i18n="manual.backLobby" data-nav="lobby">Voltar ao lobby</button><button class="btn btn-primary" id="btnManualAcademy" type="button">Academia Operacional</button><button class="btn btn-warning" data-i18n="manual.start" id="btnManualStart">Iniciar plantão</button></div>
 </div>
 </section>
 <section class="screen" data-bg="lobby" id="screen-config">
@@ -273,8 +381,8 @@
 <div class="screen-inner stack-gap">
 <div class="panel">
 <span class="eyebrow" data-i18n="config.eyebrow">Configuração e integridade</span>
-<h3 id="configBuildTitle">Central 190 v0.10.0</h3>
-<p class="manual-intro" id="configBuildMeta">Fase 4 • Reconstrução visual premium</p>
+<h3 id="configBuildTitle">Central 190 v0.13.0</h3>
+<p class="manual-intro" id="configBuildMeta">Fase 7 • Triagem profissional e protocolos operacionais</p>
 <p class="manual-intro" data-i18n="config.description">Perfil atual: ultra realista. Esta build apresenta um sistema visual operacional premium sem perder carreira, recuperação, idiomas ou proteção anti-quebra.</p>
 </div>
 <div class="panel compact settings-card"><strong data-i18n="config.evaluationTitle">Modo de avaliação</strong><span data-i18n="config.evaluationText">Rigor alto: tempo, protocolo, proporcionalidade e agravamento contam no resultado.</span></div>
@@ -337,9 +445,9 @@
 </section>
 </main>
 <footer class="build-footer" id="buildFooter">
-<span id="footerVersion">v0.10.0</span>
-<span id="footerDateTime">11/06/2026 • 19:07 BRT</span>
-<span id="footerModule">Fase 4 de 20 • Reconstrução visual premium</span>
+<span id="footerVersion">v0.13.0</span>
+<span id="footerDateTime">12/06/2026 • 16:41 BRT</span>
+<span id="footerModule">Fase 7 de 20 • Triagem profissional e protocolos operacionais</span>
 </footer>
 </div>
 <div aria-live="polite" class="system-toast" hidden="" id="systemToast" role="status"></div>

@@ -1,40 +1,64 @@
-# Test Report — Central 190 v0.10.0
+# Test Report — Central 190 v0.13.0
 
-## Resultado geral
+**Build:** CENTRAL190-0130-20260612-1641-BRT  
+**Resultado:** APROVADA
 
-**APROVADO** para continuidade da evolução.
+## Testes automatizados
 
-## Testes automatizados executados
+- Sintaxe do controlador principal, Academia, ramificações, triagem e service worker.
+- Banco com oito ocorrências válidas.
+- Paridade entre PT-BR, EN-US e ES-419.
+- Academia com cinco módulos e dez decisões.
+- Oito perfis de ligação e três posturas de comunicação.
+- Oito perfis de triagem.
+- Quatro prioridades, sete naturezas e onze protocolos.
+- Referências válidas entre ocorrências e classificações.
+- Save schema v5.
+- Checksum, backup, recuperação e migração.
+- Estrutura HTML sem IDs duplicados.
+- Manifesto PWA, cache e caminhos locais.
+- Presença dos controles e estilos responsivos da triagem.
 
-- Sintaxe de `js/app.js` e `sw.js`.
-- Integridade das 8 ocorrências.
-- Paridade de chaves entre PT-BR, EN-US e ES-419.
-- Save schema v2, checksum, backup, recuperação e migração.
-- Identificação da build e fase.
-- Ausência de IDs HTML duplicados.
-- Manifesto PWA 192×192 e 512×512.
-- Cache sincronizado com a build.
-- Presença da camada visual premium.
-- Presença dos componentes visuais críticos.
-- Limpeza dos assets obsoletos.
-- Referências e caminhos locais.
+## Auditoria jogável
 
-## Auditoria visual
+Método: execução da própria build em documento autônomo pelo Chrome DevTools Protocol, incorporando os HTML, CSS, JavaScript e assets reais. Essa abordagem foi necessária porque a política administrativa do Chromium do ambiente bloqueou navegação em endereços locais.
 
-Foram geradas evidências estáticas em:
+### Fluxo auditado
 
-- 390×844;
+1. Início do plantão.
+2. Coleta de quatro informações críticas.
+3. Classificação P1.
+4. Seleção da natureza correta.
+5. Aplicação dos seis protocolos exigidos no caso auditado.
+6. Registro e recuperação do save.
+7. Troca entre os três idiomas.
+8. Abertura do despacho.
+9. Seleção de recursos.
+10. Relatório final.
+
+### Resultado observado
+
+- Confiança inicial: 14%.
+- Confiança após confirmação e classificação: 81%.
+- Avaliação de prioridade: correta.
+- Avaliação de natureza: correta.
+- Cobertura de protocolos: 6 de 6.
+- Save recuperado: schema v5, checksum válido e triagem integral.
+- Nota final do fluxo auditado: A.
+- XP do fluxo auditado: 210.
+- Erros de execução: 0.
+- Rolagem horizontal: 0 px.
+
+## Resoluções auditadas
+
 - 360×640;
+- 390×844;
+- 412×915;
 - 768×1024;
 - 1366×768.
 
-Telas verificadas: home, perfil, lobby, plantão, despacho e resultado. O teste representativo de 8 combinações confirmou:
+Em todas as resoluções, o botão de registrar/atualizar triagem e o botão de abrir despacho ficaram alcançáveis após a rolagem.
 
-- ausência de rolagem horizontal no documento;
-- ações principais alcançáveis;
-- ausência de erros de renderização no harness;
-- compatibilidade da composição mobile e desktop.
+## Instalação limpa
 
-## Limitação do ambiente
-
-A política administrativa do navegador bloqueou navegação para `http://127.0.0.1` e `file://`. Por isso, a auditoria visual foi executada por um harness estático com HTML, CSS e assets incorporados via `page.set_content`. A lógica foi validada separadamente pelos testes Node/Python do projeto.
+O pacote final é acompanhado por manifesto SHA-256. A auditoria de entrega inclui extração em diretório limpo, conferência dos hashes internos e repetição integral de `npm test`.

@@ -1,9 +1,9 @@
 {
   "name": "central-190",
   "private": true,
-  "version": "0.10.0",
+  "version": "0.13.0",
   "type": "module",
   "scripts": {
-    "test": "node --check js/app.js && node --check sw.js && node tests/content.test.mjs && node tests/i18n.test.mjs && node tests/save-manager.test.mjs && node tests/build.test.mjs && node tests/visual-structure.test.mjs && python3 tests/paths_test.py"
+    "test": "node --check js/app.js && node --check js/data/training.js && node --check js/core/call-branching.js && node --check js/data/triage.js && node --check sw.js && node tests/content.test.mjs && node tests/i18n.test.mjs && node tests/training.test.mjs && node tests/branching.test.mjs && node tests/triage.test.mjs && node tests/save-manager.test.mjs && node tests/build.test.mjs && node tests/visual-structure.test.mjs && python3 tests/paths_test.py"
   }
 }
