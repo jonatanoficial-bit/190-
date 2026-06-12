@@ -1,0 +1,118 @@
+{
+  "method": "standalone CDP execution with real project HTML/CSS/JS and inlined assets",
+  "initial": {
+    "emotion": "Agitated",
+    "trust": 62,
+    "stress": 76,
+    "clarity": 53,
+    "intel": "1 confirmed",
+    "questions": 3,
+    "overflow": 0
+  },
+  "afterCalm": {
+    "emotion": "Tense",
+    "trust": 74,
+    "stress": 63,
+    "clarity": 57,
+    "intel": "1 confirmed"
+  },
+  "branch": {
+    "line": "Unstable line",
+    "emotion": "Panicked",
+    "history": 5
+  },
+  "recovered": {
+    "intel": "3 confirmed",
+    "history": 5,
+    "approach": "urgent"
+  },
+  "languages": {
+    "en-US": {
+      "state": "Caller state",
+      "approach": "Supportive",
+      "intel": "Confirmed intelligence"
+    },
+    "es-419": {
+      "state": "Estado del solicitante",
+      "approach": "Contenedora",
+      "intel": "Información confirmada"
+    },
+    "pt-BR": {
+      "state": "Estado do solicitante",
+      "approach": "Acolhedora",
+      "intel": "Informações confirmadas"
+    }
+  },
+  "responsive": [
+    {
+      "w": 360,
+      "h": 640,
+      "doc": 360,
+      "client": 360,
+      "screen": "screen-shift",
+      "visibleButtons": 7,
+      "target": [
+        360,
+        640
+      ]
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "doc": 390,
+      "client": 390,
+      "screen": "screen-shift",
+      "visibleButtons": 7,
+      "target": [
+        390,
+        844
+      ]
+    },
+    {
+      "w": 412,
+      "h": 915,
+      "doc": 412,
+      "client": 412,
+      "screen": "screen-shift",
+      "visibleButtons": 7,
+      "target": [
+        412,
+        915
+      ]
+    },
+    {
+      "w": 768,
+      "h": 1024,
+      "doc": 768,
+      "client": 768,
+      "screen": "screen-shift",
+      "visibleButtons": 7,
+      "target": [
+        768,
+        1024
+      ]
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "doc": 1366,
+      "client": 1366,
+      "screen": "screen-shift",
+      "visibleButtons": 7,
+      "target": [
+        1366,
+        768
+      ]
+    }
+  ],
+  "runtimeErrors": 0,
+  "mobileReachability": {
+    "viewport": "390x844",
+    "scrollHeight": 1381,
+    "clientHeight": 844,
+    "maximumScrollTop": 537,
+    "questionsVisibleAtBottom": true,
+    "dispatchActionsVisibleAtBottom": true,
+    "horizontalOverflow": 0
+  }
+}

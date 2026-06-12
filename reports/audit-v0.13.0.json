@@ -1,0 +1,39 @@
+{
+  "buildId": "CENTRAL190-0130-20260612-1641-BRT",
+  "version": "v0.13.0",
+  "phase": "Fase 7 de 20",
+  "module": "Triagem profissional e protocolos operacionais",
+  "status": "approved",
+  "automatedTests": {
+    "incidents": 8,
+    "languages": 3,
+    "trainingModules": 5,
+    "trainingDecisions": 10,
+    "branchingProfiles": 8,
+    "communicationApproaches": 3,
+    "triageProfiles": 8,
+    "priorityLevels": 4,
+    "natures": 7,
+    "protocols": 11,
+    "saveSchema": 5
+  },
+  "runtimeAudit": {
+    "runtimeErrors": 0,
+    "horizontalOverflow": 0,
+    "testedViewports": ["360x640", "390x844", "412x915", "768x1024", "1366x768"],
+    "triageInitialConfidence": 14,
+    "triageSubmittedConfidence": 81,
+    "triagePersisted": true,
+    "checksumValid": true,
+    "languagesChecked": ["pt-BR", "en-US", "es-419"],
+    "finalGrade": "A",
+    "finalXp": 210
+  },
+  "knownEnvironmentConstraint": "Local URL navigation was blocked by Chromium administrative policy. Runtime validation used the real build embedded in an autonomous document through Chrome DevTools Protocol.",
+  "artifacts": [
+    "reports/runtime-v013/runtime-audit-v0.13.0.json",
+    "reports/runtime-v013/mobile-390x844-triage.png",
+    "reports/runtime-v013/mobile-390x844-result.png",
+    "reports/runtime-v013/desktop-1366x768-triage.png"
+  ]
+}

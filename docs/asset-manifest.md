@@ -1,4 +1,4 @@
-# Central 190 — Asset Manifest v0.10.0
+# Central 190 — Asset Manifest v0.13.0
 
 ## Backgrounds ativos
 
@@ -52,3 +52,17 @@ Todas foram redimensionadas para 512×512 com transparência preservada.
 ## Resultado
 
 O diretório de assets foi reduzido de aproximadamente 16,67 MB para 4,69 MB, sem remover nenhum recurso usado pelo jogo.
+
+## v0.11.0 — Academia operacional
+
+Esta fase não adiciona imagens rasterizadas. Toda a nova interface da academia, módulos, progresso, feedback e orientação foi construída em HTML/CSS para manter leveza, responsividade e compatibilidade com os três idiomas.
+
+
+## v0.12.0 — Ligações ramificadas
+
+Esta fase não adiciona imagens rasterizadas. O console emocional, medidores, posturas, inteligência confirmada e estados da linha foram construídos em HTML/CSS. Isso preserva a tradução dinâmica, reduz peso e evita produzir três versões de cada elemento visual.
+
+
+## v0.13.0 — Triagem profissional
+
+Esta fase não adiciona imagens rasterizadas. Prioridades, naturezas, protocolos, confiança e estados de classificação foram construídos em HTML/CSS. A decisão preserva leveza, acessibilidade, adaptação mobile e tradução dinâmica nos três idiomas.

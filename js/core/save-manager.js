@@ -1,10 +1,12 @@
 import { checksumFNV1a, safeInteger, safeString, stableStringify, uniqueStrings } from './utils.js';
+import { CALL_APPROACH_IDS, normalizeBranchHistory, normalizeCallerState, normalizeQuestionQuality } from './call-branching.js';
+import { normalizeTriageState } from '../data/triage.js';
 
 export const SAVE_KEYS = Object.freeze({
-  primary: 'central190-save-v080',
-  backup: 'central190-save-v080-backup',
-  recovery: 'central190-save-v080-recovery',
-  legacy: ['central190-save-v070','central190-save-v052','central190-save-v050','central190-save-v040','central190-save-v030','central190-save-v020','central190-save-v010']
+  primary: 'central190-save-v130',
+  backup: 'central190-save-v130-backup',
+  recovery: 'central190-save-v130-recovery',
+  legacy: ['central190-save-v120','central190-save-v110','central190-save-v080','central190-save-v070','central190-save-v052','central190-save-v050','central190-save-v040','central190-save-v030','central190-save-v020','central190-save-v010']
 });
 
 const COUNTRY_CODES = new Set(['BR','AR','CL','PT','US']);
@@ -20,7 +22,22 @@ const SESSION_SCREENS = new Set(['shift','dispatch']);
 function normalizeCountry(value) { return COUNTRY_CODES.has(value) ? value : (COUNTRY_ALIASES[value] || 'BR'); }
 function normalizeLanguage(value) { return LANGUAGES.has(value) ? value : 'pt-BR'; }
 
-export function normalizePlayer(player, { avatarIds = new Set(), incidentIds = new Set() } = {}) {
+function normalizeTraining(training, { trainingStepIds = new Set() } = {}) {
+  const source = training && typeof training === 'object' ? training : {};
+  const completedSteps = uniqueStrings(source.completedSteps, trainingStepIds, 40);
+  const allCompleted = trainingStepIds.size > 0 && completedSteps.length >= trainingStepIds.size;
+  return {
+    completedSteps,
+    attempts: safeInteger(source.attempts, 0, 1000000, 0),
+    firstTryCorrect: safeInteger(source.firstTryCorrect, 0, Math.max(trainingStepIds.size, 100), 0),
+    certified: Boolean(source.certified) || allCompleted,
+    rewardClaimed: Boolean(source.rewardClaimed),
+    assistedMode: source.assistedMode !== false,
+    completedAt: source.completedAt ? safeString(source.completedAt, '', 40) : null
+  };
+}
+
+export function normalizePlayer(player, { avatarIds = new Set(), incidentIds = new Set(), trainingStepIds = new Set() } = {}) {
   if (!player || typeof player !== 'object') return null;
   const fallbackAvatar = [...avatarIds][0] || 'avatar-operator-01-lead';
   const avatarId = avatarIds.has(player.avatarId) ? player.avatarId : fallbackAvatar;
@@ -44,7 +61,8 @@ export function normalizePlayer(player, { avatarIds = new Set(), incidentIds = n
     history,
     safeStreak: safeInteger(player.safeStreak, 0, 1000000, 0),
     createdAt: safeString(player.createdAt, new Date().toISOString(), 40),
-    preferredShift: SHIFTS.has(player.preferredShift) ? player.preferredShift : 'manha'
+    preferredShift: SHIFTS.has(player.preferredShift) ? player.preferredShift : 'manha',
+    training: normalizeTraining(player.training, { trainingStepIds })
   };
 }
 
@@ -63,6 +81,12 @@ export function normalizeSession(session, { incidentIds = new Set(), unitIds = n
     risk: safeInteger(session.risk, 0, 100, 0),
     triggeredEvents: (Array.isArray(session.triggeredEvents) ? session.triggeredEvents : []).map((v) => safeInteger(v, 0, 1000, 0)).filter((v,i,a) => a.indexOf(v) === i).slice(0,100),
     selectedShift: SHIFTS.has(session.selectedShift) ? session.selectedShift : 'manha',
+    selectedApproach: CALL_APPROACH_IDS.includes(session.selectedApproach) ? session.selectedApproach : 'direct',
+    callerState: normalizeCallerState(session.callerState, session.incidentId),
+    questionQuality: normalizeQuestionQuality(session.questionQuality, questionIds),
+    discoveredIntel: (Array.isArray(session.discoveredIntel) ? session.discoveredIntel : []).map((v) => safeString(v, '', 40)).filter(Boolean).filter((v,i,a) => a.indexOf(v) === i).slice(0,40),
+    branchHistory: normalizeBranchHistory(session.branchHistory, questionIds),
+    triageState: normalizeTriageState(session.triageState),
     savedAt: new Date(savedAt).toISOString()
   };
 }
@@ -150,7 +174,7 @@ export class SafeSaveManager {
         const payload = normalizeSavePayload(parsed?.payload || parsed, this.context);
         if (!payload) throw new Error('legacyInvalid');
         this.save(payload);
-        warnings.push(this.message('legacyMigrated', { key }, `Save legado ${key} migrado para v0.8.0.`));
+        warnings.push(this.message('legacyMigrated', { key }, `Save legado ${key} migrado para v0.13.0.`));
         this.lastStatus = { source:'legacy', warnings };
         return { ...payload, source:'legacy', warnings };
       } catch (error) { warnings.push(`${key}: ${error.message}`); }

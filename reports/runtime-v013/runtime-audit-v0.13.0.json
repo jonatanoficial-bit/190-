@@ -1,0 +1,226 @@
+{
+  "method": "Chrome DevTools Protocol using autonomous build with real HTML/CSS/JS/assets",
+  "incident": "Tentativa de sequestro na saída de escola",
+  "initial": {
+    "screen": "screen-shift",
+    "doc": 390,
+    "client": 390,
+    "inner": [
+      390,
+      844
+    ],
+    "title": "Tentativa de sequestro na saída de escola",
+    "triage": "Não classificada",
+    "confidence": "14%",
+    "assessment": "Colete localização, risco imediato e vítimas antes de classificar.",
+    "triageRect": {
+      "top": 120,
+      "bottom": 1504.5625,
+      "height": 1384.5625
+    },
+    "dispatchRect": {
+      "top": 2722.203125,
+      "bottom": 2778.203125
+    }
+  },
+  "submitted": {
+    "screen": "screen-shift",
+    "doc": 390,
+    "client": 390,
+    "inner": [
+      390,
+      844
+    ],
+    "title": "Tentativa de sequestro na saída de escola",
+    "triage": "Classificada",
+    "confidence": "81%",
+    "assessment": "Classificação compatível com os indícios confirmados. Alta confiança: os dados essenciais foram confirmados.",
+    "triageRect": {
+      "top": 120,
+      "bottom": 1490.5,
+      "height": 1370.5
+    },
+    "dispatchRect": {
+      "top": 2658.078125,
+      "bottom": 2714.078125
+    }
+  },
+  "recovered": {
+    "schemaVersion": 5,
+    "appVersion": "v0.13.0",
+    "checksum": true,
+    "screen": "shift",
+    "incidentId": "kidnapping-attempt-school",
+    "triage": {
+      "priorityId": "P1",
+      "natureId": "child-risk",
+      "protocolIds": [
+        "confirm-location",
+        "life-threat",
+        "protect-vulnerable",
+        "broadcast-alert",
+        "caller-safety",
+        "keep-line"
+      ],
+      "submitted": true,
+      "revisions": 0,
+      "confidence": 81,
+      "lastAssessment": {
+        "priorityCorrect": true,
+        "natureCorrect": true,
+        "covered": 6,
+        "required": 6,
+        "undertriage": false,
+        "overtriage": false
+      }
+    }
+  },
+  "languages": {
+    "en-US": {
+      "title": "Professional triage",
+      "priority": "Priority level",
+      "submit": "Update triage",
+      "status": "Classified"
+    },
+    "es-419": {
+      "title": "Triaje profesional",
+      "priority": "Nivel de prioridad",
+      "submit": "Actualizar triaje",
+      "status": "Clasificada"
+    },
+    "pt-BR": {
+      "title": "Triagem profissional",
+      "priority": "Nível de prioridade",
+      "submit": "Atualizar triagem",
+      "status": "Classificada"
+    }
+  },
+  "responsive": [
+    {
+      "w": 360,
+      "h": 640,
+      "doc": 360,
+      "client": 360,
+      "screen": "screen-shift",
+      "innerScrollHeight": 2640,
+      "innerClientHeight": 640,
+      "innerMaxScroll": 2000,
+      "priorityButtons": 4,
+      "protocolButtons": 11,
+      "submit": {
+        "top": 496,
+        "bottom": 544,
+        "visible": true
+      },
+      "openDispatch": {
+        "top": 504,
+        "bottom": 560,
+        "visible": true
+      }
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "doc": 390,
+      "client": 390,
+      "screen": "screen-shift",
+      "innerScrollHeight": 2794,
+      "innerClientHeight": 844,
+      "innerMaxScroll": 1950,
+      "priorityButtons": 4,
+      "protocolButtons": 11,
+      "submit": {
+        "top": 700,
+        "bottom": 748,
+        "visible": true
+      },
+      "openDispatch": {
+        "top": 708,
+        "bottom": 764,
+        "visible": true
+      }
+    },
+    {
+      "w": 412,
+      "h": 915,
+      "doc": 412,
+      "client": 412,
+      "screen": "screen-shift",
+      "innerScrollHeight": 2774,
+      "innerClientHeight": 915,
+      "innerMaxScroll": 1859,
+      "priorityButtons": 4,
+      "protocolButtons": 11,
+      "submit": {
+        "top": 771,
+        "bottom": 819,
+        "visible": true
+      },
+      "openDispatch": {
+        "top": 779,
+        "bottom": 835,
+        "visible": true
+      }
+    },
+    {
+      "w": 768,
+      "h": 1024,
+      "doc": 768,
+      "client": 768,
+      "screen": "screen-shift",
+      "innerScrollHeight": 2599,
+      "innerClientHeight": 1024,
+      "innerMaxScroll": 1575,
+      "priorityButtons": 4,
+      "protocolButtons": 11,
+      "submit": {
+        "top": 880,
+        "bottom": 928,
+        "visible": true
+      },
+      "openDispatch": {
+        "top": 884,
+        "bottom": 940,
+        "visible": true
+      }
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "doc": 1366,
+      "client": 1366,
+      "screen": "screen-shift",
+      "innerScrollHeight": 1239,
+      "innerClientHeight": 768,
+      "innerMaxScroll": 471,
+      "priorityButtons": 4,
+      "protocolButtons": 11,
+      "submit": {
+        "top": 659,
+        "bottom": 707,
+        "visible": true
+      },
+      "openDispatch": {
+        "top": 168,
+        "bottom": 224,
+        "visible": true
+      }
+    }
+  ],
+  "result": {
+    "headline": "Atuação profissional exemplar • Nota A",
+    "score": "210",
+    "feedback": [
+      "Despacho compatível com risco",
+      "Coleta de dados críticos",
+      "Condução da ligação",
+      "Triagem e protocolo",
+      "Tempo de resposta operacional",
+      "Uso proporcional de recursos",
+      "Controle de agravamento",
+      "Gestão de fila do plantão"
+    ],
+    "overflow": 0
+  },
+  "runtimeErrors": 0
+}

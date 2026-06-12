@@ -1,0 +1,55 @@
+{
+  "buildId": "CENTRAL190-0120-20260612-1607-BRT",
+  "version": "v0.12.0",
+  "phase": "Fase 6 de 20",
+  "generatedAt": "2026-06-12T16:07:00-03:00",
+  "status": "approved",
+  "automated": {
+    "javascriptSyntax": true,
+    "incidentContent": 8,
+    "uiLocales": 3,
+    "trainingModules": 5,
+    "trainingSteps": 10,
+    "branchProfiles": 8,
+    "communicationApproaches": 3,
+    "saveSchema": 4,
+    "saveMigration": true,
+    "checksum": true,
+    "backupRecovery": true,
+    "duplicateHtmlIds": false,
+    "pwaCacheSynchronized": true,
+    "localPaths": true
+  },
+  "runtime": {
+    "method": "standalone CDP execution with real project HTML, CSS, modules and inlined assets",
+    "runtimeErrors": 0,
+    "saveReloadRecovery": true,
+    "localeSwitching": true,
+    "testedViewports": [
+      "360x640",
+      "390x844",
+      "412x915",
+      "768x1024",
+      "1366x768"
+    ],
+    "horizontalOverflow": 0,
+    "mobileReachability": {
+      "viewport": "390x844",
+      "scrollHeight": 1381,
+      "clientHeight": 844,
+      "maximumScrollTop": 537,
+      "questionsVisibleAtBottom": true,
+      "dispatchActionsVisibleAtBottom": true
+    }
+  },
+  "knownWarnings": [
+    "O banco principal permanece com 8 ocorrências e será expandido em fase posterior.",
+    "A política administrativa do Chromium bloqueou URLs locais; a execução foi realizada em documento isolado por CDP com os arquivos reais incorporados."
+  ],
+  "packageVerification": {
+    "cleanExtraction": false,
+    "internalSha256Entries": 0,
+    "testsFromExtractedCopy": false,
+    "archiveRoot": "CENTRAL-190-v0.12.0/"
+  }
+}

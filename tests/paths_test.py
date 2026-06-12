@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 
 root = Path(__file__).resolve().parents[1]
-files = [root/'index.html', root/'css/style.css', root/'css/premium-v010.css', root/'js/app.js', root/'js/data/content.js', root/'sw.js', root/'manifest.webmanifest']
+files = [root/'index.html', root/'css/style.css', root/'css/premium-v010.css', root/'css/training-v011.css', root/'js/app.js', root/'js/data/content.js', root/'js/data/training.js', root/'sw.js', root/'manifest.webmanifest']
 patterns = [
     re.compile(r"(?:src|href)=['\"]([^'\"#?]+)"),
     re.compile(r"url\(['\"]?([^)'\"?#]+)"),
