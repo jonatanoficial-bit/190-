@@ -1,0 +1,205 @@
+{
+  "version": "v0.17.0",
+  "profiles": {
+    "360x640": {
+      "initial": {
+        "screen": "field",
+        "docWidth": 360,
+        "clientWidth": 360,
+        "activeScrollHeight": 643,
+        "activeClientHeight": 640,
+        "actions": 3,
+        "completeDisabled": true,
+        "completeRect": {
+          "top": 583.125,
+          "bottom": 631.125,
+          "left": 185,
+          "right": 350
+        }
+      },
+      "bottom": {
+        "screen": "field",
+        "docWidth": 360,
+        "clientWidth": 360,
+        "activeScrollHeight": 643,
+        "activeClientHeight": 640,
+        "actions": 3,
+        "completeDisabled": true,
+        "completeRect": {
+          "top": 580.125,
+          "bottom": 628.125,
+          "left": 185,
+          "right": 350
+        }
+      },
+      "errors": [],
+      "consoleErrors": []
+    },
+    "390x844": {
+      "initial": {
+        "screen": "field",
+        "docWidth": 390,
+        "clientWidth": 390,
+        "activeScrollHeight": 848,
+        "activeClientHeight": 844,
+        "actions": 3,
+        "completeDisabled": true,
+        "completeRect": {
+          "top": 757,
+          "bottom": 805,
+          "left": 200,
+          "right": 380
+        }
+      },
+      "bottom": {
+        "screen": "field",
+        "docWidth": 390,
+        "clientWidth": 390,
+        "activeScrollHeight": 848,
+        "activeClientHeight": 844,
+        "actions": 3,
+        "completeDisabled": true,
+        "completeRect": {
+          "top": 753,
+          "bottom": 801,
+          "left": 200,
+          "right": 380
+        }
+      },
+      "errors": [],
+      "consoleErrors": []
+    },
+    "412x915": {
+      "initial": {
+        "screen": "field",
+        "docWidth": 412,
+        "clientWidth": 412,
+        "activeScrollHeight": 920,
+        "activeClientHeight": 915,
+        "actions": 3,
+        "completeDisabled": true,
+        "completeRect": {
+          "top": 828,
+          "bottom": 876,
+          "left": 211,
+          "right": 402
+        }
+      },
+      "bottom": {
+        "screen": "field",
+        "docWidth": 412,
+        "clientWidth": 412,
+        "activeScrollHeight": 920,
+        "activeClientHeight": 915,
+        "actions": 3,
+        "completeDisabled": true,
+        "completeRect": {
+          "top": 823,
+          "bottom": 871,
+          "left": 211,
+          "right": 402
+        }
+      },
+      "errors": [],
+      "consoleErrors": []
+    },
+    "768x1024": {
+      "initial": {
+        "screen": "field",
+        "docWidth": 768,
+        "clientWidth": 768,
+        "activeScrollHeight": 1029,
+        "activeClientHeight": 1024,
+        "actions": 3,
+        "completeDisabled": true,
+        "completeRect": {
+          "top": 838.59375,
+          "bottom": 886.59375,
+          "left": 389,
+          "right": 758
+        }
+      },
+      "bottom": {
+        "screen": "field",
+        "docWidth": 768,
+        "clientWidth": 768,
+        "activeScrollHeight": 1029,
+        "activeClientHeight": 1024,
+        "actions": 3,
+        "completeDisabled": true,
+        "completeRect": {
+          "top": 833.59375,
+          "bottom": 881.59375,
+          "left": 389,
+          "right": 758
+        }
+      },
+      "errors": [],
+      "consoleErrors": []
+    },
+    "1366x768": {
+      "initial": {
+        "screen": "field",
+        "docWidth": 1366,
+        "clientWidth": 1366,
+        "activeScrollHeight": 772,
+        "activeClientHeight": 768,
+        "actions": 3,
+        "completeDisabled": true,
+        "completeRect": {
+          "top": 678,
+          "bottom": 726,
+          "left": 688,
+          "right": 1265
+        }
+      },
+      "bottom": {
+        "screen": "field",
+        "docWidth": 1366,
+        "clientWidth": 1366,
+        "activeScrollHeight": 772,
+        "activeClientHeight": 768,
+        "actions": 3,
+        "completeDisabled": true,
+        "completeRect": {
+          "top": 674,
+          "bottom": 722,
+          "left": 688,
+          "right": 1265
+        }
+      },
+      "errors": [],
+      "consoleErrors": []
+    }
+  },
+  "recovery": {
+    "screen": "field",
+    "phaseBefore": "PHASE 2 OF 3",
+    "phaseAfter": "PHASE 2 OF 3",
+    "radioDecisionEntries": 1,
+    "errors": [],
+    "consoleErrors": []
+  },
+  "fullFlow": {
+    "screen": "result",
+    "score": "230",
+    "horizontalOverflow": false,
+    "fieldEnd": {
+      "screen": "field",
+      "docWidth": 390,
+      "clientWidth": 390,
+      "activeScrollHeight": 848,
+      "activeClientHeight": 844,
+      "actions": 0,
+      "completeDisabled": false,
+      "completeRect": {
+        "top": 768.4375,
+        "bottom": 816.4375,
+        "left": 200,
+        "right": 380
+      }
+    }
+  },
+  "ok": true,
+  "errors": []
+}

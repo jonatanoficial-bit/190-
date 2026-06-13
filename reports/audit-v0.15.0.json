@@ -1,0 +1,233 @@
+{
+  "version": "v0.15.0",
+  "buildId": "CENTRAL190-0150-20260613-0906-BRT",
+  "phase": 9,
+  "status": "approved",
+  "automatedTests": "passed",
+  "runtimeErrors": [],
+  "fleet": {
+    "resources": 8,
+    "statuses": 5,
+    "types": 3,
+    "availableAtStart": 4,
+    "unavailableAtStart": 4
+  },
+  "save": {
+    "exists": true,
+    "schema": 7,
+    "selectedStatuses": [
+      {
+        "id": "police-p201",
+        "status": "returning",
+        "missions": 1
+      },
+      {
+        "id": "ambulance-a12",
+        "status": "returning",
+        "missions": 1
+      }
+    ],
+    "checksum": true
+  },
+  "runtime": {
+    "locale": "pt-BR",
+    "afterProfile": "screen-academy",
+    "lobby": {
+      "screen": "screen-lobby",
+      "cards": 8,
+      "statuses": [
+        "available",
+        "occupied",
+        "available",
+        "returning",
+        "available",
+        "enroute",
+        "maintenance",
+        "available"
+      ],
+      "summary": "100% • Cobertura da rede",
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "errors": []
+    },
+    "dispatchInitial": {
+      "screen": "screen-dispatch",
+      "cards": 8,
+      "available": 4,
+      "unavailable": 4,
+      "selected": 0,
+      "warning": "Cobertura da rede: 100%",
+      "scrollWidth": 390,
+      "clientWidth": 390
+    },
+    "unavailableTest": {
+      "id": "police-p317",
+      "selected": 0,
+      "toast": "P-317 está indisponível: Ocupada."
+    },
+    "selectTest": {
+      "selected": [
+        "police-p201",
+        "ambulance-a12"
+      ],
+      "summary": "2 • Reservadas",
+      "warning": "O despacho deixará a rede sem cobertura de atendimento médico."
+    },
+    "result": {
+      "screen": "screen-result",
+      "score": "87",
+      "resourceFeedback": "Gestão da central de recursos\nPontuação 19/30. 2 equipe(s) mobilizada(s), cobertura residual 67% e prontidão média 93%.",
+      "errors": []
+    },
+    "save": {
+      "exists": true,
+      "schema": 7,
+      "selectedStatuses": [
+        {
+          "id": "police-p201",
+          "status": "returning",
+          "missions": 1
+        },
+        {
+          "id": "ambulance-a12",
+          "status": "returning",
+          "missions": 1
+        }
+      ],
+      "checksum": true
+    },
+    "desktop": {
+      "screen": "screen-lobby",
+      "cards": 8,
+      "scrollWidth": 1366,
+      "clientWidth": 1366,
+      "bodyOverflow": "hidden"
+    }
+  },
+  "viewports": {
+    "360x640": {
+      "lobby": {
+        "screen": "screen-lobby",
+        "cards": 8,
+        "visibleCards": 8,
+        "panelHeight": 936,
+        "scrollHeight": 2968,
+        "clientHeight": 640,
+        "hOverflow": false,
+        "errors": []
+      },
+      "dispatch": {
+        "cards": 8,
+        "available": 4,
+        "visibleCards": 8,
+        "scrollHeight": 2444,
+        "clientHeight": 640,
+        "confirmExists": true,
+        "confirmWidth": 165,
+        "hOverflow": false,
+        "errors": []
+      },
+      "pass": true
+    },
+    "390x844": {
+      "lobby": {
+        "screen": "screen-lobby",
+        "cards": 8,
+        "visibleCards": 8,
+        "panelHeight": 652,
+        "scrollHeight": 2253,
+        "clientHeight": 844,
+        "hOverflow": false,
+        "errors": []
+      },
+      "dispatch": {
+        "cards": 8,
+        "available": 4,
+        "visibleCards": 8,
+        "scrollHeight": 2510,
+        "clientHeight": 844,
+        "confirmExists": true,
+        "confirmWidth": 180,
+        "hOverflow": false,
+        "errors": []
+      },
+      "pass": true
+    },
+    "412x915": {
+      "lobby": {
+        "screen": "screen-lobby",
+        "cards": 8,
+        "visibleCards": 8,
+        "panelHeight": 624,
+        "scrollHeight": 2225,
+        "clientHeight": 915,
+        "hOverflow": false,
+        "errors": []
+      },
+      "dispatch": {
+        "cards": 8,
+        "available": 4,
+        "visibleCards": 8,
+        "scrollHeight": 2465,
+        "clientHeight": 915,
+        "confirmExists": true,
+        "confirmWidth": 191,
+        "hOverflow": false,
+        "errors": []
+      },
+      "pass": true
+    },
+    "768x1024": {
+      "lobby": {
+        "screen": "screen-lobby",
+        "cards": 8,
+        "visibleCards": 8,
+        "panelHeight": 600,
+        "scrollHeight": 2262,
+        "clientHeight": 1024,
+        "hOverflow": false,
+        "errors": []
+      },
+      "dispatch": {
+        "cards": 8,
+        "available": 4,
+        "visibleCards": 8,
+        "scrollHeight": 2229,
+        "clientHeight": 1024,
+        "confirmExists": true,
+        "confirmWidth": 369,
+        "hOverflow": false,
+        "errors": []
+      },
+      "pass": true
+    },
+    "1366x768": {
+      "lobby": {
+        "screen": "screen-lobby",
+        "cards": 8,
+        "visibleCards": 8,
+        "panelHeight": 399,
+        "scrollHeight": 991,
+        "clientHeight": 768,
+        "hOverflow": false,
+        "errors": []
+      },
+      "dispatch": {
+        "cards": 8,
+        "available": 4,
+        "visibleCards": 8,
+        "scrollHeight": 1899,
+        "clientHeight": 768,
+        "confirmExists": true,
+        "confirmWidth": 592,
+        "hOverflow": false,
+        "errors": []
+      },
+      "pass": true
+    }
+  },
+  "notes": [
+    "Lobby mobile flex compression detected and fixed before packaging.",
+    "Local URL navigation blocked by Chromium administrative policy; standalone harness used with real project files."
+  ]
+}

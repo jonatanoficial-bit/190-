@@ -1,0 +1,75 @@
+{
+  "locale": "pt-BR",
+  "afterProfile": "screen-academy",
+  "lobby": {
+    "screen": "screen-lobby",
+    "cards": 8,
+    "statuses": [
+      "available",
+      "occupied",
+      "available",
+      "returning",
+      "available",
+      "enroute",
+      "maintenance",
+      "available"
+    ],
+    "summary": "100% • Cobertura da rede",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "errors": []
+  },
+  "dispatchInitial": {
+    "screen": "screen-dispatch",
+    "cards": 8,
+    "available": 4,
+    "unavailable": 4,
+    "selected": 0,
+    "warning": "Cobertura da rede: 100%",
+    "scrollWidth": 390,
+    "clientWidth": 390
+  },
+  "unavailableTest": {
+    "id": "police-p317",
+    "selected": 0,
+    "toast": "P-317 está indisponível: Ocupada."
+  },
+  "selectTest": {
+    "selected": [
+      "police-p201",
+      "ambulance-a12"
+    ],
+    "summary": "2 • Reservadas",
+    "warning": "O despacho deixará a rede sem cobertura de atendimento médico."
+  },
+  "result": {
+    "screen": "screen-result",
+    "score": "87",
+    "resourceFeedback": "Gestão da central de recursos\nPontuação 19/30. 2 equipe(s) mobilizada(s), cobertura residual 67% e prontidão média 93%.",
+    "errors": []
+  },
+  "save": {
+    "exists": true,
+    "schema": 7,
+    "selectedStatuses": [
+      {
+        "id": "police-p201",
+        "status": "returning",
+        "missions": 1
+      },
+      {
+        "id": "ambulance-a12",
+        "status": "returning",
+        "missions": 1
+      }
+    ],
+    "checksum": true
+  },
+  "desktop": {
+    "screen": "screen-lobby",
+    "cards": 8,
+    "scrollWidth": 1366,
+    "clientWidth": 1366,
+    "bodyOverflow": "hidden"
+  }
+}
