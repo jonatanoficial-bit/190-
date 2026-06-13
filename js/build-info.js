@@ -1,13 +1,13 @@
 export const BUILD_INFO = Object.freeze({
   product: 'Central 190',
-  version: 'v0.14.0',
-  buildDate: '12/06/2026',
-  buildTime: '17:02 BRT',
-  buildIso: '2026-06-12T17:02:00-03:00',
-  buildId: 'CENTRAL190-0140-20260612-1702-BRT',
-  module: 'Mapa tático funcional e planejamento de rotas',
-  phase: 'Fase 8 de 20',
-  saveSchema: 6,
+  version: 'v0.18.0',
+  buildDate: '13/06/2026',
+  buildTime: '12:21 BRT',
+  buildIso: '2026-06-13T12:21:00-03:00',
+  buildId: 'CENTRAL190-0180-20260613-1221-BRT',
+  module: 'Plantão contínuo, fila viva e relatório consolidado',
+  phase: 'Fase 12 de 20',
+  saveSchema: 10,
   contentSchema: 2,
   localeSchema: 2,
   accessibilitySchema: 1,
@@ -15,5 +15,9 @@ export const BUILD_INFO = Object.freeze({
   trainingSchema: 1,
   branchingSchema: 1,
   triageSchema: 1,
-  tacticalMapSchema: 1
+  tacticalMapSchema: 1,
+  resourceManagementSchema: 1,
+  professionalDispatchSchema: 1,
+  fieldOperationsSchema: 1,
+  continuousShiftSchema: 1
 });

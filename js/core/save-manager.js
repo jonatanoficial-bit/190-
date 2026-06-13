@@ -2,12 +2,16 @@ import { checksumFNV1a, safeInteger, safeString, stableStringify, uniqueStrings 
 import { CALL_APPROACH_IDS, normalizeBranchHistory, normalizeCallerState, normalizeQuestionQuality } from './call-branching.js';
 import { normalizeTriageState } from '../data/triage.js';
 import { normalizeMapState } from '../data/tactical-map.js';
+import { createInitialResourceNetwork, getBestAvailableResource, normalizeResourceNetwork, normalizeSelectedResourceIds } from '../data/resource-management.js';
+import { normalizeDispatchCommandState } from '../data/dispatch-professional.js';
+import { normalizeFieldOperationState } from '../data/field-operations.js';
+import { normalizeContinuousShift } from '../data/continuous-shift.js';
 
 export const SAVE_KEYS = Object.freeze({
-  primary: 'central190-save-v140',
-  backup: 'central190-save-v140-backup',
-  recovery: 'central190-save-v140-recovery',
-  legacy: ['central190-save-v130','central190-save-v120','central190-save-v110','central190-save-v080','central190-save-v070','central190-save-v052','central190-save-v050','central190-save-v040','central190-save-v030','central190-save-v020','central190-save-v010']
+  primary: 'central190-save-v180',
+  backup: 'central190-save-v180-backup',
+  recovery: 'central190-save-v180-recovery',
+  legacy: ['central190-save-v170','central190-save-v160','central190-save-v150','central190-save-v140','central190-save-v130','central190-save-v120','central190-save-v110','central190-save-v080','central190-save-v070','central190-save-v052','central190-save-v050','central190-save-v040','central190-save-v030','central190-save-v020','central190-save-v010']
 });
 
 const COUNTRY_CODES = new Set(['BR','AR','CL','PT','US']);
@@ -18,7 +22,7 @@ const COUNTRY_ALIASES = Object.freeze({
 const MODES = new Set(['carreira','sandbox']);
 const SHIFTS = new Set(['manha','tarde','noite','madrugada']);
 const LANGUAGES = new Set(['pt-BR','en-US','es-419']);
-const SESSION_SCREENS = new Set(['shift','dispatch']);
+const SESSION_SCREENS = new Set(['lobby','shift','dispatch','field','result','shiftreport']);
 
 function normalizeCountry(value) { return COUNTRY_CODES.has(value) ? value : (COUNTRY_ALIASES[value] || 'BR'); }
 function normalizeLanguage(value) { return LANGUAGES.has(value) ? value : 'pt-BR'; }
@@ -50,6 +54,20 @@ export function normalizePlayer(player, { avatarIds = new Set(), incidentIds = n
     time: /^\d{2,3}:\d{2}$/.test(item?.time || '') ? item.time : '00:00',
     at: safeString(item?.at, new Date(0).toISOString(), 40)
   }));
+  const shiftHistory = (Array.isArray(player.shiftHistory) ? player.shiftHistory : []).slice(0, 6).map((item) => ({
+    shiftRunId: safeString(item?.shiftRunId, 'shift', 120),
+    shiftId: SHIFTS.has(item?.shiftId) ? item.shiftId : 'manha',
+    endedAt: safeString(item?.endedAt, new Date(0).toISOString(), 40),
+    summary: {
+      calls: safeInteger(item?.summary?.calls, 0, 10, 0),
+      completed: safeInteger(item?.summary?.completed, 0, 10, 0),
+      abandoned: safeInteger(item?.summary?.abandoned, 0, 10, 0),
+      averageScore: safeInteger(item?.summary?.averageScore, 0, 100000, 0),
+      totalScore: safeInteger(item?.summary?.totalScore, 0, 1000000, 0),
+      serviceLevel: safeInteger(item?.summary?.serviceLevel, 0, 100, 0),
+      grade: ['A','B','C','D'].includes(item?.summary?.grade) ? item.summary.grade : 'D'
+    }
+  }));
   return {
     name: safeString(player.name, 'Operador', 22),
     country: normalizeCountry(player.country),
@@ -60,35 +78,49 @@ export function normalizePlayer(player, { avatarIds = new Set(), incidentIds = n
     resolved: safeInteger(player.resolved, 0, 10000000, 0),
     bestTime: player.bestTime == null ? null : safeInteger(player.bestTime, 0, 86400, 0),
     history,
+    shiftHistory,
     safeStreak: safeInteger(player.safeStreak, 0, 1000000, 0),
     createdAt: safeString(player.createdAt, new Date().toISOString(), 40),
     preferredShift: SHIFTS.has(player.preferredShift) ? player.preferredShift : 'manha',
-    training: normalizeTraining(player.training, { trainingStepIds })
+    training: normalizeTraining(player.training, { trainingStepIds }),
+    resources: normalizeResourceNetwork(player.resources || createInitialResourceNetwork())
   };
 }
 
-export function normalizeSession(session, { incidentIds = new Set(), unitIds = new Set(), questionIds = new Set() } = {}) {
+export function normalizeSession(session, context = {}) {
+  const { incidentIds = new Set(), unitIds = new Set(), questionIds = new Set() } = context;
   if (!session || typeof session !== 'object') return null;
-  if (!SESSION_SCREENS.has(session.screen) || !incidentIds.has(session.incidentId)) return null;
+  if (!SESSION_SCREENS.has(session.screen)) return null;
   const savedAt = Date.parse(session.savedAt || '');
   if (!Number.isFinite(savedAt) || Date.now() - savedAt > 24 * 60 * 60 * 1000) return null;
+  const continuousShift = normalizeContinuousShift(session.continuousShift, incidentIds);
+  const incidentId = incidentIds.has(session.incidentId) ? session.incidentId : null;
+  const operationalScreen = ['shift','dispatch','field','result'].includes(session.screen);
+  if (operationalScreen && !incidentId) return null;
+  if (!incidentId && !continuousShift && ['lobby','shiftreport'].includes(session.screen)) return null;
+  const resourceNetwork = normalizeResourceNetwork(session.resourceNetwork || createInitialResourceNetwork());
   return {
     screen: session.screen,
-    incidentId: session.incidentId,
+    incidentId,
     callQueueIds: uniqueStrings(session.callQueueIds, incidentIds, 10),
     selectedUnitIds: uniqueStrings(session.selectedUnitIds, unitIds, 20),
+    selectedResourceIds: normalizeSelectedResourceIds((Array.isArray(session.selectedResourceIds) && session.selectedResourceIds.length) ? session.selectedResourceIds : uniqueStrings(session.selectedUnitIds, unitIds, 20).map((typeId) => getBestAvailableResource(resourceNetwork, typeId)?.id).filter(Boolean), resourceNetwork),
     askedQuestionIds: uniqueStrings(session.askedQuestionIds, questionIds, 20),
     timerSeconds: safeInteger(session.timerSeconds, 0, 86400, 0),
     risk: safeInteger(session.risk, 0, 100, 0),
     triggeredEvents: (Array.isArray(session.triggeredEvents) ? session.triggeredEvents : []).map((v) => safeInteger(v, 0, 1000, 0)).filter((v,i,a) => a.indexOf(v) === i).slice(0,100),
-    selectedShift: SHIFTS.has(session.selectedShift) ? session.selectedShift : 'manha',
+    selectedShift: SHIFTS.has(session.selectedShift) ? session.selectedShift : (continuousShift?.shiftId || 'manha'),
     selectedApproach: CALL_APPROACH_IDS.includes(session.selectedApproach) ? session.selectedApproach : 'direct',
-    callerState: normalizeCallerState(session.callerState, session.incidentId),
+    callerState: incidentId ? normalizeCallerState(session.callerState, incidentId) : null,
     questionQuality: normalizeQuestionQuality(session.questionQuality, questionIds),
     discoveredIntel: (Array.isArray(session.discoveredIntel) ? session.discoveredIntel : []).map((v) => safeString(v, '', 40)).filter(Boolean).filter((v,i,a) => a.indexOf(v) === i).slice(0,40),
     branchHistory: normalizeBranchHistory(session.branchHistory, questionIds),
     triageState: normalizeTriageState(session.triageState),
-    tacticalMapState: normalizeMapState(session.tacticalMapState, session.incidentId),
+    tacticalMapState: normalizeMapState(session.tacticalMapState, incidentId || ''),
+    resourceNetwork,
+    dispatchCommandState: normalizeDispatchCommandState(session.dispatchCommandState, incidentId || ''),
+    fieldOperationState: normalizeFieldOperationState(session.fieldOperationState, incidentId || ''),
+    continuousShift,
     savedAt: new Date(savedAt).toISOString()
   };
 }
@@ -176,7 +208,7 @@ export class SafeSaveManager {
         const payload = normalizeSavePayload(parsed?.payload || parsed, this.context);
         if (!payload) throw new Error('legacyInvalid');
         this.save(payload);
-        warnings.push(this.message('legacyMigrated', { key }, `Save legado ${key} migrado para v0.14.0.`));
+        warnings.push(this.message('legacyMigrated', { key }, `Save legado ${key} migrado para v0.18.0.`));
         this.lastStatus = { source:'legacy', warnings };
         return { ...payload, source:'legacy', warnings };
       } catch (error) { warnings.push(`${key}: ${error.message}`); }

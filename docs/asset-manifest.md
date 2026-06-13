@@ -1,4 +1,4 @@
-# Central 190 — Asset Manifest v0.14.0
+# Central 190 — Asset Manifest v0.18.0
 
 ## Backgrounds ativos
 
@@ -71,3 +71,21 @@ Esta fase não adiciona imagens rasterizadas. Prioridades, naturezas, protocolos
 ## v0.14.0 — Mapa tático funcional
 
 Esta fase não adiciona imagens rasterizadas. Distritos, estradas, rotas, tráfego, bloqueios, marcadores, controles e alertas são renderizados por HTML, CSS e SVG dinâmico. Os três arquivos de unidades existentes são reutilizados como marcadores, evitando aumento significativo do pacote e mantendo textos traduzíveis.
+
+
+## v0.15.0 — Central de recursos
+
+A Fase 9 reutiliza os sprites transparentes existentes de viatura, ambulância e helicóptero. Identidade, prefixo, base, condição e status são gerados em código para manter a interface trilíngue e evitar imagens com texto. Nenhum novo asset raster obrigatório foi adicionado.
+
+## v0.16.0 — Despacho profissional
+
+A Fase 10 não adiciona imagens rasterizadas. Prioridades, ordens, linha do tempo, redirecionamento e cancelamento foram construídos em HTML/CSS para preservar acessibilidade, baixo peso e tradução dinâmica.
+
+## v0.17.0 — Operação de campo
+
+A Fase 11 reutiliza os sprites das equipes e os fundos operacionais existentes. Canal de rádio, métricas, cartões de equipe, ações, estados e desfechos são renderizados em HTML/CSS, sem texto incorporado em imagem. Nenhum novo asset raster obrigatório foi adicionado.
+
+
+## v0.18.0 — Plantão contínuo
+
+A Fase 12 não exige novos arquivos raster. Fila, prioridades, estados, relógio, cartões e relatório consolidado são renderizados em HTML/CSS para manter os três idiomas, acessibilidade e baixo peso. Os assets existentes de avatares, unidades, insígnias e fundos foram preservados.
