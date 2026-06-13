@@ -1,9 +1,9 @@
 {
   "name": "central-190",
   "private": true,
-  "version": "0.14.0",
+  "version": "0.18.0",
   "type": "module",
   "scripts": {
-    "test": "node --check js/app.js && node --check js/data/training.js && node --check js/core/call-branching.js && node --check js/data/triage.js && node --check js/data/tactical-map.js && node --check sw.js && node tests/content.test.mjs && node tests/i18n.test.mjs && node tests/training.test.mjs && node tests/branching.test.mjs && node tests/triage.test.mjs && node tests/tactical-map.test.mjs && node tests/save-manager.test.mjs && node tests/build.test.mjs && node tests/visual-structure.test.mjs && python3 tests/paths_test.py"
+    "test": "node --check js/app.js && node --check js/data/training.js && node --check js/core/call-branching.js && node --check js/data/triage.js && node --check js/data/tactical-map.js && node --check js/data/resource-management.js && node --check js/data/dispatch-professional.js && node --check js/data/field-operations.js && node --check js/data/continuous-shift.js && node --check sw.js && node tests/content.test.mjs && node tests/i18n.test.mjs && node tests/training.test.mjs && node tests/branching.test.mjs && node tests/triage.test.mjs && node tests/tactical-map.test.mjs && node tests/resource-management.test.mjs && node tests/dispatch-professional.test.mjs && node tests/field-operations.test.mjs && node tests/continuous-shift.test.mjs && node tests/save-manager.test.mjs && node tests/build.test.mjs && node tests/visual-structure.test.mjs && python3 tests/paths_test.py"
   }
 }

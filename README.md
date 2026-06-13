@@ -1,47 +1,22 @@
-# Central 190 — v0.14.0
+# Central 190 — v0.19.0 — Fase 13
 
-**Build ID:** `CENTRAL190-0140-20260612-1702-BRT`  
-**Fase:** 8 de 20 — Mapa tático funcional e planejamento de rotas  
-**Data:** 12/06/2026 às 17:02 BRT
+Build: `CENTRAL190-0190-F13-20260613-1259-BRT`  
+Compilação: `13/06/2026 12:59:23 BRT`  
+Save: schema 11, com migração automática dos saves v10 e chaves legadas.
 
-Esta build preserva a Fundação Anti-Quebra, os três idiomas, o foco mobile, fullscreen/PWA, acessibilidade, identidade visual premium, Academia Operacional, ligações ramificadas e triagem profissional. A Fase 8 substitui o mapa estático por um sistema tático interativo que calcula distância, tempo de chegada, trânsito, bloqueios e risco para cada unidade.
+## Conteúdo principal
+- Carreira completa com 7 patentes, XP, reputação e critérios reais de promoção.
+- Advertências com reincidência, perda de reputação e expiração por plantões.
+- 7 cursos, 4 especializações, 6 metas e 10 conquistas.
+- Plantão contínuo preservado: 3 chamadas por turno, entrada progressiva, fila viva, espera, escalada, pausa, retomada, abandono e relatório consolidado.
+- PT-BR, inglês e espanhol; PWA offline; layout mobile-first; tela cheia.
+- Proteção anti-quebra com checksum, backup local, migração, diagnóstico e captura de erros.
 
-## Como abrir
-
-Abra `index.html` em um navegador moderno ou hospede a pasta em um servidor estático. Para fullscreen real, atualização controlada e melhor funcionamento offline, instale a PWA quando o navegador oferecer essa opção.
-
-## Principais novidades
-
-- Cinco zonas operacionais conectadas ao banco de ocorrências.
-- Oito perfis táticos, um para cada ocorrência disponível.
-- Rotas individuais para viatura, ambulância e apoio aéreo.
-- Estratégias rápida, equilibrada e segura.
-- Cálculo de distância, ETA, atraso, trânsito e risco de rota.
-- Bloqueios viários e corredores congestionados representados no mapa.
-- Zoom, centralização e arraste por toque ou mouse.
-- Seleção de unidade diretamente no mapa e nos cartões.
-- Recomendação dinâmica de rota conforme o cenário.
-- Avaliação tática integrada à nota e ao relatório final.
-- Estado do mapa recuperado após fechar ou recarregar o jogo.
-- Save atualizado para schema v6, com checksum, backup e migração automática.
-- Interface completa em PT-BR, EN-US e ES-419.
-- Layout mobile rolável e composição tática própria para desktop.
-- Versão, fase, data e hora visíveis no jogo.
-
-## Testes
-
-Execute:
+## Execução
+Hospede a pasta em um servidor HTTP estático. Para teste local:
 
 ```bash
-npm test
+python -m http.server 8080
 ```
 
-## Documentação
-
-- `CHANGELOG.md`
-- `BUILD-REPORT.md`
-- `TEST-REPORT.md`
-- `docs/build-v0.14.0-tactical-map.md`
-- `docs/asset-manifest.md`
-- `reports/audit-v0.14.0.json`
-- `reports/runtime-v014/runtime-audit-v0.14.0.json`
+Abra `http://localhost:8080`.

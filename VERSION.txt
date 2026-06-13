@@ -1,0 +1,6 @@
+Central 190
+Version: 0.19.0
+Phase: 13 — Carreira Completa
+Build ID: CENTRAL190-0190-F13-20260613-1259-BRT
+Built: 13/06/2026 12:59:23 BRT
+Save schema: 11

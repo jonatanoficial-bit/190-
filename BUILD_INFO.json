@@ -1,0 +1,20 @@
+{
+  "game": "Central 190",
+  "version": "0.19.0",
+  "phase": 13,
+  "phase_name": "Carreira Completa",
+  "build_id": "CENTRAL190-0190-F13-20260613-1259-BRT",
+  "built_at": "2026-06-13T12:59:23-03:00",
+  "built_at_display": "13/06/2026 12:59:23 BRT",
+  "timezone": "America/Sao_Paulo",
+  "save_schema": 11,
+  "previous_compatibility": "v0.18.0 / save schema v10",
+  "languages": [
+    "pt-BR",
+    "en",
+    "es"
+  ],
+  "mobile_first": true,
+  "pwa": true,
+  "status": "AUDITED_COMPATIBILITY_RECONSTRUCTION_PASS"
+}

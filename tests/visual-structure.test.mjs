@@ -7,19 +7,25 @@ const trainingCss = fs.readFileSync(new URL('../css/training-v011.css', import.m
 const branchingCss = fs.readFileSync(new URL('../css/branching-v012.css', import.meta.url), 'utf8');
 const triageCss = fs.readFileSync(new URL('../css/triage-v013.css', import.meta.url), 'utf8');
 const mapCss = fs.readFileSync(new URL('../css/tactical-map-v014.css', import.meta.url), 'utf8');
-const css = `${premiumCss}\n${trainingCss}\n${branchingCss}\n${triageCss}\n${mapCss}`;
+const resourceCss = fs.readFileSync(new URL('../css/resource-management-v015.css', import.meta.url), 'utf8');
+const fieldCss = fs.readFileSync(new URL('../css/field-operations-v017.css', import.meta.url), 'utf8');
+const shiftCss = fs.readFileSync(new URL('../css/continuous-shift-v018.css', import.meta.url), 'utf8');
+const css = `${premiumCss}\n${trainingCss}\n${branchingCss}\n${triageCss}\n${mapCss}
+${resourceCss}
+${fieldCss}
+${shiftCss}`;
 
-const requiredScreens = ['home', 'profile', 'lobby', 'shift', 'dispatch', 'academy', 'manual', 'config', 'result'];
+const requiredScreens = ['home', 'profile', 'lobby', 'shift', 'dispatch', 'field', 'academy', 'manual', 'config', 'result', 'shiftreport'];
 for (const screen of requiredScreens) assert.match(html, new RegExp(`id=["']screen-${screen}["']`));
 
 const criticalSelectors = [
   '.topbar', '.panel', '.btn', '.avatar-card', '.shift-panel', '.dispatch-map', '.unit-card',
   '.result-score', '.build-footer', '.system-toast', '.recovery-card', '.academy-module-grid',
-  '.academy-lesson', '.academy-option', '.training-coach', '.call-branch-console', '.approach-selector', '.caller-state-meters', '.triage-panel', '.triage-priority-grid', '.triage-protocol-grid', '.tactical-map-interactive', '.route-planner', '.route-mode-grid', '.map-route-path'
+  '.academy-lesson', '.academy-option', '.training-coach', '.call-branch-console', '.approach-selector', '.caller-state-meters', '.triage-panel', '.triage-priority-grid', '.triage-protocol-grid', '.tactical-map-interactive', '.route-planner', '.route-mode-grid', '.map-route-path', '.resource-command-panel', '.resource-card', '.resource-status-summary', '.field-operation-panel', '.field-action-grid', '.field-radio-log', '.continuous-shift-panel', '.queue-call-card', '.shift-report-grid'
 ];
 for (const selector of criticalSelectors) assert.ok(css.includes(selector), `Selector visual ausente: ${selector}`);
 
-const academyIds = ['academyProgressFill','academyModuleGrid','academyLesson','academyOptions','btnAcademyContinue','btnToggleAssistance','callBranchConsole','approachSelector','callerEmotionBadge','intelStatus','triagePanel','triagePriorityGrid','triageNatureGrid','triageProtocolGrid','btnSubmitTriage','mapTrafficValue','mapBlockageValue','routePlanner','routeModeGrid','routeMetrics','btnMapZoomIn'];
+const academyIds = ['academyProgressFill','academyModuleGrid','academyLesson','academyOptions','btnAcademyContinue','btnToggleAssistance','callBranchConsole','approachSelector','callerEmotionBadge','intelStatus','triagePanel','triagePriorityGrid','triageNatureGrid','triageProtocolGrid','btnSubmitTriage','mapTrafficValue','mapBlockageValue','routePlanner','routeModeGrid','routeMetrics','btnMapZoomIn','resourceCommandPanel','resourceLobbyGrid','resourceDispatchPanel','resourceDispatchSummary','fieldOperationPanel','fieldControlValue','fieldDangerValue','fieldRadioLog','fieldActionGrid','btnCompleteFieldOperation','continuousShiftPanel','liveQueueList','continuousShiftLobbyPanel','resultShiftPanel','shiftReportMetrics','shiftReportCalls','btnShiftReportLobby'];
 for (const id of academyIds) assert.match(html, new RegExp(`id=["']${id}["']`));
 
-console.log('PASS visual structure: telas premium, academia, triagem e mapa tático responsivo validados.');
+console.log('PASS visual structure: telas premium, academia, triagem, mapa tático e central de recursos, operação de campo e plantão contínuo responsivos validados.');

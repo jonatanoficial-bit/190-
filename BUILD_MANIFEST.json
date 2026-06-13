@@ -1,0 +1,117 @@
+{
+  "build_id": "CENTRAL190-0190-F13-20260613-1259-BRT",
+  "generated_at": "2026-06-13T12:59:23-03:00",
+  "file_count": 23,
+  "files": [
+    {
+      "path": "AUDIT_F13.md",
+      "bytes": 1532,
+      "sha256": "fb957812d95c84bebf6bce01fd4c0da3e20e2c40de8b32051329af06e96d8d66"
+    },
+    {
+      "path": "BUILD_INFO.json",
+      "bytes": 512,
+      "sha256": "2cf2248ffa1442524c88c3351d0e8eb328c42d38e527f5d827a01b983cd347e8"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 844,
+      "sha256": "2882bdb92a0900f628ca4931353203454652a69a07dfc6dfc4693a73d11e3457"
+    },
+    {
+      "path": "CHECKLIST.md",
+      "bytes": 668,
+      "sha256": "8339441a474afa3ca0a62b60a3098bc149a7103129c57dec6ee88e294b4a783c"
+    },
+    {
+      "path": "README.md",
+      "bytes": 940,
+      "sha256": "32d64859b52a92e7f1be15018a5faee97d327affb8b45c267e0e54b521aed4e2"
+    },
+    {
+      "path": "VERSION.txt",
+      "bytes": 155,
+      "sha256": "91d7d6dbf20750208e2a7cec54f979e00d3a3e4d28001055f8020b1da53c43e3"
+    },
+    {
+      "path": "assets/icons/icon.svg",
+      "bytes": 703,
+      "sha256": "fc432782c33165acd3bc98a1e4a0e209961f11f18a5316ac9c934eccd05dfb1c"
+    },
+    {
+      "path": "css/style.css",
+      "bytes": 11635,
+      "sha256": "daeb583f8bed20415d244301641245f0102dc51bc2fbcd48bc2586be98834d9d"
+    },
+    {
+      "path": "docs/CARREIRA_F13.md",
+      "bytes": 1230,
+      "sha256": "08cf4465450c425e5bbf4c8f32f91938f48f1a93b97fd33152e87a42381b280f"
+    },
+    {
+      "path": "index.html",
+      "bytes": 11745,
+      "sha256": "92d18f38b2309352335d80d4714260cfcd5b16f1ea191b87c948ad4eeaa9cb5e"
+    },
+    {
+      "path": "js/anti-break.js",
+      "bytes": 1779,
+      "sha256": "2f19d3a9b54dce5f7546c29175f78ba1a87b0e20ba77f373b142f7ea4ced4122"
+    },
+    {
+      "path": "js/app.js",
+      "bytes": 15447,
+      "sha256": "cc8db3e37b5bf137c891bd9321ccd9746d853e572151663715a15b1c04fbffce"
+    },
+    {
+      "path": "js/career.js",
+      "bytes": 10964,
+      "sha256": "4c47328e3f376739d4fc5cc0273b8117045e1b8366cff0f04929141013ff54af"
+    },
+    {
+      "path": "js/dispatch.js",
+      "bytes": 7103,
+      "sha256": "cf72def93c21502da0c19c233c9f2ae70cdc94ff76de50b0169e3b435b1b9506"
+    },
+    {
+      "path": "js/i18n.js",
+      "bytes": 7742,
+      "sha256": "f10b282de41b88dd146eda0c31eea96e595c1df0a411c7ca1fce198eca378d45"
+    },
+    {
+      "path": "js/save-manager.js",
+      "bytes": 4296,
+      "sha256": "437fe2fc227c1f4a01fbd5dba9f28a23a1d8635efca6ca4c7615c50aab72af1f"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "bytes": 379,
+      "sha256": "41da45d3d435d7100ed3f74c1e5ba05d0938b5f0f7019de1b6d8ad502a2c0455"
+    },
+    {
+      "path": "sw.js",
+      "bytes": 820,
+      "sha256": "25fffe155293b553e638eccba65fea3a5c4a258523bdbbc099d294c060a45511"
+    },
+    {
+      "path": "tests/BROWSER_AUDIT.json",
+      "bytes": 797,
+      "sha256": "1b8cbfab3e77559d513b65b82fc07abea55d342faf1b1149d37c37c37629531f"
+    },
+    {
+      "path": "tests/ROTEIRO_TESTE_JOGAVEL.md",
+      "bytes": 819,
+      "sha256": "7aaf5cdb052e746a5a202829678e3f6310e120b094a3ad787fe197eba857a2f7"
+    },
+    {
+      "path": "tests/audit.py",
+      "bytes": 1530,
+      "sha256": "772b92a46ede8a07974eedabf49d7ef9669ba48955f566401a350c9480c69bb9"
+    },
+    {
+      "path": "tests/logic-test.js",
+      "bytes": 2767,
+      "sha256": "e09549f71cccb232fbc04ce63d0bc519f4e816153043964ec5f34b1a20a4325c"
+    }
+  ]
+}
