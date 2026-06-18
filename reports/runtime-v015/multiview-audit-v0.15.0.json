@@ -1,0 +1,122 @@
+{
+  "360x640": {
+    "lobby": {
+      "screen": "screen-lobby",
+      "cards": 8,
+      "visibleCards": 8,
+      "panelHeight": 936,
+      "scrollHeight": 2968,
+      "clientHeight": 640,
+      "hOverflow": false,
+      "errors": []
+    },
+    "dispatch": {
+      "cards": 8,
+      "available": 4,
+      "visibleCards": 8,
+      "scrollHeight": 2444,
+      "clientHeight": 640,
+      "confirmExists": true,
+      "confirmWidth": 165,
+      "hOverflow": false,
+      "errors": []
+    },
+    "pass": true
+  },
+  "390x844": {
+    "lobby": {
+      "screen": "screen-lobby",
+      "cards": 8,
+      "visibleCards": 8,
+      "panelHeight": 652,
+      "scrollHeight": 2253,
+      "clientHeight": 844,
+      "hOverflow": false,
+      "errors": []
+    },
+    "dispatch": {
+      "cards": 8,
+      "available": 4,
+      "visibleCards": 8,
+      "scrollHeight": 2510,
+      "clientHeight": 844,
+      "confirmExists": true,
+      "confirmWidth": 180,
+      "hOverflow": false,
+      "errors": []
+    },
+    "pass": true
+  },
+  "412x915": {
+    "lobby": {
+      "screen": "screen-lobby",
+      "cards": 8,
+      "visibleCards": 8,
+      "panelHeight": 624,
+      "scrollHeight": 2225,
+      "clientHeight": 915,
+      "hOverflow": false,
+      "errors": []
+    },
+    "dispatch": {
+      "cards": 8,
+      "available": 4,
+      "visibleCards": 8,
+      "scrollHeight": 2465,
+      "clientHeight": 915,
+      "confirmExists": true,
+      "confirmWidth": 191,
+      "hOverflow": false,
+      "errors": []
+    },
+    "pass": true
+  },
+  "768x1024": {
+    "lobby": {
+      "screen": "screen-lobby",
+      "cards": 8,
+      "visibleCards": 8,
+      "panelHeight": 600,
+      "scrollHeight": 2262,
+      "clientHeight": 1024,
+      "hOverflow": false,
+      "errors": []
+    },
+    "dispatch": {
+      "cards": 8,
+      "available": 4,
+      "visibleCards": 8,
+      "scrollHeight": 2229,
+      "clientHeight": 1024,
+      "confirmExists": true,
+      "confirmWidth": 369,
+      "hOverflow": false,
+      "errors": []
+    },
+    "pass": true
+  },
+  "1366x768": {
+    "lobby": {
+      "screen": "screen-lobby",
+      "cards": 8,
+      "visibleCards": 8,
+      "panelHeight": 399,
+      "scrollHeight": 991,
+      "clientHeight": 768,
+      "hOverflow": false,
+      "errors": []
+    },
+    "dispatch": {
+      "cards": 8,
+      "available": 4,
+      "visibleCards": 8,
+      "scrollHeight": 1899,
+      "clientHeight": 768,
+      "confirmExists": true,
+      "confirmWidth": 592,
+      "hOverflow": false,
+      "errors": []
+    },
+    "pass": true
+  }
+}

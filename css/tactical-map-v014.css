@@ -1,0 +1,81 @@
+/* Central 190 v0.14.0 — mapa tático funcional */
+.tactical-map-status{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 8px}.tactical-map-status>div{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid rgba(115,206,255,.18);border-radius:10px;background:rgba(5,17,29,.72)}.tactical-map-status span{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted,#9fb5c9)}.tactical-map-status strong{font-size:.78rem;color:#eaf8ff}
+.tactical-map-interactive{position:relative;overflow:hidden;touch-action:none;min-height:310px;cursor:grab;isolation:isolate;border:1px solid rgba(92,199,255,.35);box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),inset 0 0 45px rgba(0,0,0,.42)}.tactical-map-interactive.is-dragging{cursor:grabbing}.tactical-map-world{position:absolute;inset:0;transform-origin:center;transition:transform .18s ease}.pref-reduce-motion .tactical-map-world{transition:none}
+.map-district{position:absolute;border:1px solid rgba(100,206,255,.16);background:linear-gradient(145deg,rgba(17,48,72,.34),rgba(3,17,30,.22));border-radius:14px;overflow:hidden}.map-district::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0 18px,rgba(104,211,255,.025) 18px 19px)}.map-district.is-active{border-color:rgba(255,177,63,.58);background:linear-gradient(145deg,rgba(75,49,18,.42),rgba(11,29,42,.30));box-shadow:0 0 22px rgba(255,177,63,.12)}.map-district-label{position:absolute;z-index:2;left:8px;top:7px;font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;color:rgba(215,239,252,.68);pointer-events:none}.map-district.is-active .map-district-label{color:#ffd28a}
+.map-road-network{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}.map-road-main{fill:none;stroke:rgba(83,177,222,.22);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:2.5 1.8}.map-road-secondary{fill:none;stroke:rgba(116,167,194,.13);stroke-width:.8}.map-route-path{fill:none;stroke-width:2.1;stroke-linecap:round;stroke-dasharray:4 2;filter:drop-shadow(0 0 2px rgba(72,205,255,.5));animation:route-flow 2.6s linear infinite}.map-route-path.route-police{stroke:#63d9ff}.map-route-path.route-ambulance{stroke:#7fffb2}.map-route-path.route-helicopter{stroke:#ffd16a;stroke-dasharray:2 2}.map-route-path.is-muted{opacity:.22}.map-route-path.is-active{stroke-width:3.2;opacity:1;filter:drop-shadow(0 0 5px currentColor)}@keyframes route-flow{to{stroke-dashoffset:-12}}.pref-reduce-motion .map-route-path{animation:none}
+.tactical-unit-marker,.tactical-incident-marker{position:absolute;z-index:8;transform:translate(-50%,-50%);border:0;background:transparent;padding:0;touch-action:manipulation}.tactical-unit-marker{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;cursor:pointer}.tactical-unit-marker img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 4px 6px rgba(0,0,0,.58));transition:transform .18s ease,filter .18s ease}.tactical-unit-marker:hover img,.tactical-unit-marker:focus-visible img{transform:scale(1.08)}.tactical-unit-marker.is-active{outline:2px solid #67d8ff;outline-offset:2px;background:rgba(8,45,67,.48)}.tactical-unit-marker.is-selected::after{content:"✓";position:absolute;right:-1px;top:-2px;width:19px;height:19px;border-radius:50%;display:grid;place-items:center;background:#67e6aa;color:#04261a;font-size:.7rem;font-weight:900}.tactical-unit-marker .marker-eta{position:absolute;left:50%;top:47px;transform:translateX(-50%);white-space:nowrap;padding:2px 6px;border-radius:6px;background:rgba(2,12,21,.9);border:1px solid rgba(117,211,255,.26);font-size:.61rem;font-weight:800;color:#e9f9ff}
+.tactical-incident-marker{width:46px;height:46px}.tactical-incident-marker img{width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,88,74,.75));animation:incident-pulse 1.8s ease-in-out infinite}.tactical-incident-marker::after{content:"";position:absolute;inset:6px;border:1px solid rgba(255,98,81,.68);border-radius:50%;animation:incident-ring 1.8s ease-out infinite}@keyframes incident-pulse{50%{transform:scale(1.08)}}@keyframes incident-ring{to{transform:scale(1.65);opacity:0}}.pref-reduce-motion .tactical-incident-marker img,.pref-reduce-motion .tactical-incident-marker::after{animation:none}
+.map-blockage{position:absolute;z-index:7;transform:translate(-50%,-50%);width:25px;height:25px;border-radius:7px;display:grid;place-items:center;background:rgba(116,37,29,.92);border:1px solid rgba(255,136,111,.72);box-shadow:0 4px 10px rgba(0,0,0,.36);font-size:.74rem;color:#fff}.map-blockage.severity-1{opacity:.78;transform:translate(-50%,-50%) scale(.85)}.map-blockage.severity-3{background:rgba(151,42,28,.96);box-shadow:0 0 14px rgba(255,77,54,.35)}.map-traffic-segment{position:absolute;z-index:3;height:4px;border-radius:99px;transform-origin:left center;background:linear-gradient(90deg,rgba(99,235,171,.5),rgba(255,198,74,.74),rgba(255,91,74,.82));opacity:.75;pointer-events:none}.map-legend-inline{position:absolute;z-index:10;right:8px;bottom:8px;display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;max-width:74%}.map-legend-inline span{padding:3px 6px;border-radius:6px;background:rgba(2,12,21,.84);border:1px solid rgba(113,196,235,.18);font-size:.57rem;color:#c9e2ef}
+.tactical-map-toolbar{display:flex;align-items:center;gap:7px;margin-top:8px}.map-control-btn{width:42px;height:38px;border-radius:9px;border:1px solid rgba(99,210,255,.28);background:rgba(5,25,39,.88);color:#e5f8ff;font-size:1.05rem;font-weight:900;cursor:pointer;touch-action:manipulation}.map-control-btn:hover,.map-control-btn:focus-visible{border-color:#6fdbff;background:rgba(12,55,78,.94)}.map-drag-hint{margin-left:auto;color:var(--muted,#9fb5c9);font-size:.68rem}
+.route-planner{display:grid;gap:10px}.route-planner-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.route-planner-head>div{display:grid;gap:2px}.route-mode-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.route-mode-btn{display:grid;gap:3px;min-height:64px;padding:9px;border-radius:10px;border:1px solid rgba(111,202,241,.18);background:rgba(4,20,32,.72);color:#e8f7ff;text-align:left;cursor:pointer;touch-action:manipulation}.route-mode-btn strong{font-size:.78rem}.route-mode-btn span{font-size:.66rem;color:var(--muted,#9fb5c9);line-height:1.25}.route-mode-btn.is-active{border-color:#65d8ff;background:linear-gradient(145deg,rgba(13,70,98,.88),rgba(6,31,47,.82));box-shadow:0 0 0 1px rgba(101,216,255,.14)}.route-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.route-metric{display:grid;gap:2px;padding:8px;border-radius:9px;background:rgba(3,17,28,.66);border:1px solid rgba(102,193,232,.14)}.route-metric span{font-size:.61rem;text-transform:uppercase;color:var(--muted,#9fb5c9)}.route-metric strong{font-size:.82rem;color:#effbff}.route-warning{min-height:36px;padding:8px 10px;border-radius:9px;border:1px solid rgba(255,192,86,.25);background:rgba(73,48,9,.24);font-size:.71rem;line-height:1.35;color:#f6db9c}.route-warning.is-safe{border-color:rgba(91,231,162,.26);background:rgba(16,68,45,.25);color:#aef1cf}.route-warning.is-danger{border-color:rgba(255,97,80,.35);background:rgba(90,27,20,.3);color:#ffc0b7}
+.unit-card .unit-route-meta{grid-column:2/3;display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}.unit-route-meta span{font-size:.61rem;padding:2px 5px;border-radius:5px;background:rgba(5,26,40,.75);border:1px solid rgba(111,205,244,.14);color:#bcdcea}.unit-card.is-route-focus{outline:2px solid rgba(100,218,255,.58);outline-offset:1px}.unit-card .unit-route-alert{color:#ffbd8f;border-color:rgba(255,139,82,.26)}
+.result-routing-score{font-weight:800}.pref-high-contrast .map-route-path{stroke-width:3}.pref-high-contrast .map-district{border-color:#fff}.pref-high-contrast .route-mode-btn,.pref-high-contrast .map-control-btn{border-color:#fff}
+@media(max-width:700px){.tactical-map-status{gap:5px}.tactical-map-status>div{padding:7px 6px;display:grid;justify-items:center;text-align:center}.tactical-map-status span{font-size:.57rem}.tactical-map-status strong{font-size:.67rem}.tactical-map-interactive{min-height:280px}.map-drag-hint{font-size:.59rem}.route-mode-grid{gap:5px}.route-mode-btn{min-height:68px;padding:7px}.route-mode-btn strong{font-size:.69rem}.route-mode-btn span{font-size:.58rem}.route-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.tactical-unit-marker{width:48px;height:48px}.tactical-unit-marker img{width:41px;height:41px}.tactical-unit-marker .marker-eta{top:42px;font-size:.55rem}.map-legend-inline{max-width:84%}.map-legend-inline span{font-size:.51rem}}
+@media(max-width:380px){.tactical-map-interactive{min-height:250px}.map-drag-hint{display:none}.route-planner-head{align-items:flex-start}.route-mode-btn span{display:none}.route-mode-btn{min-height:48px}.tactical-map-toolbar{justify-content:center}.route-metrics{gap:5px}}
+@media(min-width:1000px){#screen-dispatch .screen-inner{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(330px,.65fr);align-items:start}#screen-dispatch .screen-inner>.panel:first-child{grid-row:1/4}#screen-dispatch .route-planner{grid-column:2}#screen-dispatch #dispatchCoach{grid-column:2}#screen-dispatch .unit-grid{grid-column:2}#screen-dispatch .action-row{grid-column:1/-1}.tactical-map-interactive{min-height:480px}}
+
+/* v0.14.0 layout reset: the previous compact dispatch grid only supported a
+   static map. The tactical map adds status, controls and a route planner, so
+   the screen must become a real scrollable flow on touch devices. */
+#screen-dispatch .screen-inner{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  height:var(--app-height);
+  overflow-y:auto;
+  overflow-x:hidden;
+  align-items:stretch;
+}
+#screen-dispatch .screen-inner>.panel:first-child{
+  display:block;
+  min-height:auto;
+  overflow:visible;
+  flex:0 0 auto;
+}
+#screen-dispatch .dispatch-map.tactical-map-interactive{
+  display:block;
+  min-height:310px;
+  height:310px;
+}
+#screen-dispatch .unit-grid{
+  max-height:none;
+  overflow:visible;
+  flex:0 0 auto;
+}
+#screen-dispatch .route-planner,
+#screen-dispatch #dispatchCoach,
+#screen-dispatch .sticky-action-row{flex:0 0 auto}
+
+@media(max-width:700px){
+  #screen-dispatch .dispatch-map.tactical-map-interactive{
+    min-height:280px;
+    height:280px;
+  }
+}
+@media(max-width:380px){
+  #screen-dispatch .dispatch-map.tactical-map-interactive{
+    min-height:250px;
+    height:250px;
+  }
+}
+@media(min-width:1000px){
+  #screen-dispatch .screen-inner{
+    display:grid;
+    grid-template-columns:minmax(0,1.35fr) minmax(330px,.65fr);
+    grid-template-rows:auto auto auto auto;
+    align-items:start;
+    gap:16px;
+  }
+  #screen-dispatch .screen-inner>.panel:first-child{
+    grid-column:1;
+    grid-row:1 / span 3;
+  }
+  #screen-dispatch .route-planner{grid-column:2;grid-row:1}
+  #screen-dispatch #dispatchCoach{grid-column:2;grid-row:2}
+  #screen-dispatch .unit-grid{grid-column:2;grid-row:3}
+  #screen-dispatch .sticky-action-row{grid-column:1/-1;grid-row:4}
+  #screen-dispatch .dispatch-map.tactical-map-interactive{
+    min-height:480px;
+    height:480px;
+  }
+}

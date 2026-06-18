@@ -1,0 +1,22 @@
+# CENTRAL 190 — ASSET_PATHS_REQUIRED.txt
+# Fase 17 — Restauração Visual Oficial e Asset Recovery
+# Build: CENTRAL190-1100-F17-ASSET-RECOVERY-20260618-100837-BRT
+
+## Assets obrigatórios carregados pela interface
+assets/badges/central190-brand.svg
+assets/backgrounds/bg-central-190.svg
+assets/backgrounds/bg-dashboard.svg
+assets/backgrounds/bg-dispatch.svg
+assets/backgrounds/bg-map.svg
+assets/backgrounds/bg-career.svg
+assets/backgrounds/bg-settings.svg
+assets/ui/panel-noise.svg
+assets/ui/topbar-glow.svg
+assets/ui/radio-waves.svg
+assets/illustrations/operator-desk.svg
+assets/icons/icon.svg
+assets/icons/icon-192.png
+assets/icons/icon-512.png
+
+## Observação importante
+O ZIP de base v1.0.0 RC continha apenas assets de ícones e Leaflet. Nenhum fundo original do jogo 190 inicial estava no pacote recebido nesta conversa. Quando o pacote visual original for reenviado, substituir/adicionar os arquivos mantendo estes caminhos ou registrar os novos caminhos aqui.

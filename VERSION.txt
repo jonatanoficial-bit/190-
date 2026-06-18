@@ -1,0 +1,3 @@
+v1.4.0 Fase 20 — Mapa operacional jogável com localização progressiva
+Build: CENTRAL190-1400-F20-PROGRESSIVE-MAP-20260618-120900-BRT
+Compilação: 18/06/2026 12:09:00 BRT

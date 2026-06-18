@@ -1,0 +1,151 @@
+{
+  "build": "v0.10.0",
+  "mode": "static visual harness via page.set_content (network navigation blocked by environment policy)",
+  "results": [
+    {
+      "viewport": "mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "screen": "home",
+      "horizontalOverflow": false,
+      "actionsReachable": true,
+      "metrics": {
+        "docWidth": 390,
+        "innerWidth": 390,
+        "activeWidth": 390,
+        "activeClient": 390,
+        "scrollHeight": 844,
+        "clientHeight": 844
+      },
+      "pageErrors": [],
+      "screenshot": "reports/visual-audit-v010/mobile-390x844-home.png"
+    },
+    {
+      "viewport": "mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "screen": "profile",
+      "horizontalOverflow": false,
+      "actionsReachable": true,
+      "metrics": {
+        "docWidth": 390,
+        "innerWidth": 390,
+        "activeWidth": 392,
+        "activeClient": 390,
+        "scrollHeight": 844,
+        "clientHeight": 844
+      },
+      "pageErrors": [],
+      "screenshot": "reports/visual-audit-v010/mobile-390x844-profile.png"
+    },
+    {
+      "viewport": "mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "screen": "shift",
+      "horizontalOverflow": false,
+      "actionsReachable": true,
+      "metrics": {
+        "docWidth": 390,
+        "innerWidth": 390,
+        "activeWidth": 392,
+        "activeClient": 390,
+        "scrollHeight": 844,
+        "clientHeight": 844
+      },
+      "pageErrors": [],
+      "screenshot": "reports/visual-audit-v010/mobile-390x844-shift.png"
+    },
+    {
+      "viewport": "mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "screen": "dispatch",
+      "horizontalOverflow": false,
+      "actionsReachable": true,
+      "metrics": {
+        "docWidth": 390,
+        "innerWidth": 390,
+        "activeWidth": 392,
+        "activeClient": 390,
+        "scrollHeight": 844,
+        "clientHeight": 844
+      },
+      "pageErrors": [],
+      "screenshot": "reports/visual-audit-v010/mobile-390x844-dispatch.png"
+    },
+    {
+      "viewport": "mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "screen": "result",
+      "horizontalOverflow": false,
+      "actionsReachable": true,
+      "metrics": {
+        "docWidth": 390,
+        "innerWidth": 390,
+        "activeWidth": 392,
+        "activeClient": 390,
+        "scrollHeight": 844,
+        "clientHeight": 844
+      },
+      "pageErrors": [],
+      "screenshot": "reports/visual-audit-v010/mobile-390x844-result.png"
+    },
+    {
+      "viewport": "desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "screen": "lobby",
+      "horizontalOverflow": false,
+      "actionsReachable": true,
+      "metrics": {
+        "docWidth": 1366,
+        "innerWidth": 1366,
+        "activeWidth": 1373,
+        "activeClient": 1366,
+        "scrollHeight": 768,
+        "clientHeight": 768
+      },
+      "pageErrors": [],
+      "screenshot": "reports/visual-audit-v010/desktop-1366x768-lobby.png"
+    },
+    {
+      "viewport": "desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "screen": "shift",
+      "horizontalOverflow": false,
+      "actionsReachable": true,
+      "metrics": {
+        "docWidth": 1366,
+        "innerWidth": 1366,
+        "activeWidth": 1373,
+        "activeClient": 1366,
+        "scrollHeight": 768,
+        "clientHeight": 768
+      },
+      "pageErrors": [],
+      "screenshot": "reports/visual-audit-v010/desktop-1366x768-shift.png"
+    },
+    {
+      "viewport": "desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "screen": "dispatch",
+      "horizontalOverflow": false,
+      "actionsReachable": true,
+      "metrics": {
+        "docWidth": 1366,
+        "innerWidth": 1366,
+        "activeWidth": 1373,
+        "activeClient": 1366,
+        "scrollHeight": 768,
+        "clientHeight": 768
+      },
+      "pageErrors": [],
+      "screenshot": "reports/visual-audit-v010/desktop-1366x768-dispatch.png"
+    }
+  ],
+  "passed": true
+}

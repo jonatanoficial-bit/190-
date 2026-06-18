@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "checks": 350,
+  "files": 84,
+  "total_bytes": 7647067,
+  "logic": {
+    "status": "PASS",
+    "checks": 150,
+    "schema": 18,
+    "visualAssets": 14,
+    "templates": 32,
+    "cities": 9,
+    "specials": 5,
+    "reports": 2
+  },
+  "browser_viewports": 2,
+  "errors": []
+}

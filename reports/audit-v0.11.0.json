@@ -1,0 +1,32 @@
+{
+  "buildId": "CENTRAL190-0110-20260612-1249-BRT",
+  "version": "v0.11.0",
+  "phase": "Fase 5 de 20",
+  "generatedAt": "2026-06-12T12:49:00-03:00",
+  "status": "approved",
+  "automated": {
+    "javascriptSyntax": true,
+    "incidentContent": true,
+    "uiLocales": 3,
+    "trainingLocales": 3,
+    "trainingModules": 5,
+    "trainingSteps": 10,
+    "saveSchema": 3,
+    "saveMigration": true,
+    "checksum": true,
+    "backupRecovery": true,
+    "duplicateHtmlIds": false,
+    "pwaCacheSynchronized": true,
+    "localPaths": true
+  },
+  "knownWarnings": [
+    "O banco principal permanece com 8 ocorrências e será expandido em fase posterior.",
+    "A política administrativa do Chromium do ambiente bloqueou navegação local e impediu a auditoria visual automatizada real."
+  ],
+  "packageVerification": {
+    "cleanExtraction": true,
+    "internalSha256Entries": 72,
+    "testsFromExtractedCopy": true,
+    "archiveRoot": "CENTRAL-190-v0.11.0/"
+  }
+}

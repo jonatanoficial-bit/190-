@@ -1,0 +1,19 @@
+{
+  "version": "v0.16.0",
+  "buildId": "CENTRAL190-0160-20260613-1028-BRT",
+  "phase": "Fase 10 de 20",
+  "module": "Despacho profissional, ordens e acompanhamento operacional",
+  "tests": {
+    "automatedSuite": "PASS",
+    "incidents": 8,
+    "languages": 3,
+    "dispatchProfiles": 8,
+    "dispatchOrders": 7,
+    "dispatchPriorities": 4,
+    "dispatchTimelineEvents": 6,
+    "saveSchema": 8,
+    "mobileStaticStructure": "PASS"
+  },
+  "resolutionsPlanned": ["360x640","390x844","412x915","768x1024","1366x768"],
+  "notes": "Suíte estrutural, dados, i18n, PWA, save e caminhos aprovada. Navegação visual local pode depender de política administrativa do Chromium do ambiente."
+}

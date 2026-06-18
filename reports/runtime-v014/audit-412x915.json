@@ -1,0 +1,15 @@
+{
+  "viewport": "412x915",
+  "screen": "dispatch",
+  "modes": 3,
+  "initialScale": "100%",
+  "zoomScale": "115%",
+  "route": "Safest ★",
+  "dragChanged": true,
+  "documentOverflow": false,
+  "screenOverflow": false,
+  "finishVisible": true,
+  "toastPointerEvents": "none",
+  "errors": [],
+  "ok": true
+}

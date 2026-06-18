@@ -1,0 +1,23 @@
+export const BUILD_INFO = Object.freeze({
+  product: 'Central 190',
+  version: 'v0.18.0',
+  buildDate: '13/06/2026',
+  buildTime: '12:21 BRT',
+  buildIso: '2026-06-13T12:21:00-03:00',
+  buildId: 'CENTRAL190-0180-20260613-1221-BRT',
+  module: 'Plantão contínuo, fila viva e relatório consolidado',
+  phase: 'Fase 12 de 20',
+  saveSchema: 10,
+  contentSchema: 2,
+  localeSchema: 2,
+  accessibilitySchema: 1,
+  visualSchema: 1,
+  trainingSchema: 1,
+  branchingSchema: 1,
+  triageSchema: 1,
+  tacticalMapSchema: 1,
+  resourceManagementSchema: 1,
+  professionalDispatchSchema: 1,
+  fieldOperationsSchema: 1,
+  continuousShiftSchema: 1
+});

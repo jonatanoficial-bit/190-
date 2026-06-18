@@ -1,0 +1,179 @@
+[
+  {
+    "locale": "pt-BR",
+    "subtitle": "LINHA DE VIDA",
+    "expectedSubtitle": "LINHA DE VIDA",
+    "profileButton": {
+      "before": {
+        "top": 836,
+        "bottom": 890,
+        "inViewport": false
+      },
+      "afterScroll": {
+        "top": 533,
+        "bottom": 587,
+        "inViewport": true
+      }
+    },
+    "lobbyButtons": {
+      "btnStartShift": {
+        "top": 409,
+        "bottom": 463,
+        "inViewport": true
+      },
+      "btnConfig": {
+        "top": 537,
+        "bottom": 591,
+        "inViewport": true
+      }
+    },
+    "manualButton": {
+      "top": 473,
+      "bottom": 527,
+      "inViewport": true
+    },
+    "manual": {
+      "title": "Manual de Protocolo 190",
+      "start": "Iniciar plantão",
+      "startRect": {
+        "top": 552.484375,
+        "bottom": 606.484375,
+        "inViewport": true
+      }
+    },
+    "config": {
+      "title": "Idioma da operação",
+      "options": [
+        "Português",
+        "Inglês",
+        "Espanhol"
+      ],
+      "auditButtons": 1,
+      "resetRect": {
+        "top": 552.359375,
+        "bottom": 606.359375,
+        "inViewport": true
+      },
+      "overflow": false
+    },
+    "errors": 0
+  },
+  {
+    "locale": "en-US",
+    "subtitle": "LIFELINE",
+    "expectedSubtitle": "LIFELINE",
+    "profileButton": {
+      "before": {
+        "top": 836,
+        "bottom": 890,
+        "inViewport": false
+      },
+      "afterScroll": {
+        "top": 533,
+        "bottom": 587,
+        "inViewport": true
+      }
+    },
+    "lobbyButtons": {
+      "btnStartShift": {
+        "top": 409,
+        "bottom": 463,
+        "inViewport": true
+      },
+      "btnConfig": {
+        "top": 537,
+        "bottom": 591,
+        "inViewport": true
+      }
+    },
+    "manualButton": {
+      "top": 473,
+      "bottom": 527,
+      "inViewport": true
+    },
+    "manual": {
+      "title": "Emergency Protocol Manual",
+      "start": "Start shift",
+      "startRect": {
+        "top": 551.6875,
+        "bottom": 605.6875,
+        "inViewport": true
+      }
+    },
+    "config": {
+      "title": "Operation language",
+      "options": [
+        "Portuguese",
+        "English",
+        "Spanish"
+      ],
+      "auditButtons": 1,
+      "resetRect": {
+        "top": 552.0625,
+        "bottom": 606.0625,
+        "inViewport": true
+      },
+      "overflow": false
+    },
+    "errors": 0
+  },
+  {
+    "locale": "es-419",
+    "subtitle": "LÍNEA DE VIDA",
+    "expectedSubtitle": "LÍNEA DE VIDA",
+    "profileButton": {
+      "before": {
+        "top": 836,
+        "bottom": 890,
+        "inViewport": false
+      },
+      "afterScroll": {
+        "top": 533,
+        "bottom": 587,
+        "inViewport": true
+      }
+    },
+    "lobbyButtons": {
+      "btnStartShift": {
+        "top": 409,
+        "bottom": 463,
+        "inViewport": true
+      },
+      "btnConfig": {
+        "top": 537,
+        "bottom": 591,
+        "inViewport": true
+      }
+    },
+    "manualButton": {
+      "top": 473,
+      "bottom": 527,
+      "inViewport": true
+    },
+    "manual": {
+      "title": "Manual de protocolo de emergencias",
+      "start": "Iniciar turno",
+      "startRect": {
+        "top": 552.484375,
+        "bottom": 606.484375,
+        "inViewport": true
+      }
+    },
+    "config": {
+      "title": "Idioma de operación",
+      "options": [
+        "Portugués",
+        "Inglés",
+        "Español"
+      ],
+      "auditButtons": 1,
+      "resetRect": {
+        "top": 552.15625,
+        "bottom": 606.15625,
+        "inViewport": true
+      },
+      "overflow": false
+    },
+    "errors": 0
+  }
+]

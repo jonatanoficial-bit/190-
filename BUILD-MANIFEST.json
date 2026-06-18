@@ -1,0 +1,32 @@
+{
+  "product": "Central 190",
+  "version": "v0.18.0",
+  "buildId": "CENTRAL190-0180-20260613-1221-BRT",
+  "phase": "Fase 12 de 20 — Plantão contínuo, fila viva e relatório consolidado",
+  "builtAt": "2026-06-13T12:21:00-03:00",
+  "saveSchema": 10,
+  "continuousShiftSchema": 1,
+  "status": "approved",
+  "expectedFileCountIncludingManifests": 160,
+  "auditedResolutions": [
+    "360x640",
+    "390x844",
+    "412x915",
+    "768x1024",
+    "1366x768"
+  ],
+  "runtimeChecks": {
+    "queueCards": 3,
+    "callStates": 6,
+    "reportMetrics": 6,
+    "fullFlow": true,
+    "pageErrors": 0,
+    "consoleErrors": 0
+  },
+  "languages": [
+    "pt-BR",
+    "en-US",
+    "es-419"
+  ],
+  "testCommand": "npm test"
+}

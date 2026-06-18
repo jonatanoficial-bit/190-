@@ -1,0 +1,63 @@
+.continuous-shift-panel,.queue-dock,.shift-report-panel{position:relative;overflow:hidden}.continuous-shift-panel::before,.shift-report-panel::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(180deg,#ffb31f,#ff5f32)}
+.continuous-shift-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.continuous-shift-head h3{margin:.2rem 0 0}.shift-live-chip{display:inline-flex;align-items:center;gap:7px}.shift-live-chip::before{content:"";width:8px;height:8px;border-radius:50%;background:#ff4d4d;box-shadow:0 0 12px #ff4d4d;animation:queuePulse 1.5s infinite}.shift-live-chip.is-complete::before{background:#4bd08b;box-shadow:0 0 12px #4bd08b;animation:none}
+.continuous-shift-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.continuous-shift-stat{padding:10px;border:1px solid rgba(138,181,214,.18);border-radius:12px;background:rgba(4,13,22,.5)}.continuous-shift-stat span{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}.continuous-shift-stat strong{display:block;margin-top:4px;font-size:1rem}
+.live-queue-list{display:grid;gap:9px;margin-top:12px}.queue-call-card{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:11px;border:1px solid rgba(133,177,210,.2);border-radius:13px;background:rgba(3,11,18,.66);transition:border-color .2s,transform .2s,background .2s}.queue-call-card.is-active{border-color:rgba(255,177,31,.8);background:linear-gradient(90deg,rgba(255,177,31,.12),rgba(3,11,18,.68))}.queue-call-card.is-escalated{box-shadow:inset 0 0 0 1px rgba(255,93,71,.4)}.queue-call-card.is-abandoned{opacity:.68;border-color:rgba(255,93,71,.45)}.queue-call-card.is-completed{border-color:rgba(75,208,139,.42)}.queue-priority{display:grid;place-items:center;min-width:48px;height:36px;padding:0 8px;border-radius:9px;font-weight:900;font-size:.72rem;letter-spacing:.05em;background:#314254}.queue-priority[data-priority="critical"]{background:#9f2632;color:#fff}.queue-priority[data-priority="high"]{background:#a45b15;color:#fff}.queue-priority[data-priority="medium"]{background:#9a7b16;color:#fff}.queue-priority[data-priority="low"]{background:#235d76;color:#fff}.queue-call-main{min-width:0}.queue-call-main strong,.queue-call-main span{display:block}.queue-call-main strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.queue-call-main span{margin-top:3px;color:var(--muted);font-size:.78rem}.queue-call-actions{display:flex;align-items:center;gap:7px}.queue-call-actions button{min-height:36px;padding:7px 10px;font-size:.76rem}.queue-status-pill{display:inline-flex;align-items:center;justify-content:center;min-width:78px;padding:6px 8px;border-radius:999px;background:rgba(139,177,206,.12);font-size:.72rem;font-weight:800}
+.queue-compact-strip{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border:1px solid rgba(255,179,31,.25);border-radius:12px;background:rgba(4,12,20,.72)}.queue-compact-strip strong{font-size:.86rem}.queue-compact-strip span{color:var(--muted);font-size:.76rem}.queue-compact-strip button{min-height:36px}
+.active-shift-lobby-note{padding:10px 12px;margin-top:10px;border-left:3px solid #ffb31f;background:rgba(255,179,31,.08);color:#dce9f3;font-size:.84rem}
+.shift-report-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.shift-report-metric{padding:14px 10px;text-align:center;border:1px solid rgba(132,178,211,.2);border-radius:14px;background:rgba(3,11,18,.58)}.shift-report-metric span{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase}.shift-report-metric strong{display:block;margin-top:7px;font-size:1.35rem}.shift-report-grade{display:grid;place-items:center;width:88px;height:88px;margin:10px auto;border-radius:50%;border:2px solid #ffb31f;background:radial-gradient(circle,rgba(255,179,31,.2),rgba(3,11,18,.8));font-size:2.4rem;font-weight:900;color:#ffcc68}.shift-report-calls{display:grid;gap:9px}.shift-report-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;padding:11px;border-bottom:1px solid rgba(135,177,208,.14)}.shift-report-row:last-child{border-bottom:0}.shift-report-row span{color:var(--muted);font-size:.78rem}.shift-report-row b[data-status="abandoned"]{color:#ff7768}.shift-report-row b[data-status="completed"]{color:#65d89d}
+@keyframes queuePulse{50%{opacity:.35;transform:scale(.75)}}
+@media (max-width:760px){.continuous-shift-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.queue-call-card{grid-template-columns:auto 1fr}.queue-call-actions{grid-column:1/-1;justify-content:flex-end}.shift-report-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.shift-report-row{grid-template-columns:1fr auto}.shift-report-row span{grid-column:1/-1}.continuous-shift-head{align-items:center}.queue-compact-strip{align-items:flex-start;flex-direction:column}.queue-compact-strip button{width:100%}}
+@media (max-width:390px){.queue-call-card{padding:9px}.queue-priority{min-width:42px}.queue-call-actions button{width:100%}.queue-call-actions{display:grid;grid-template-columns:1fr}.shift-report-grid{gap:7px}.shift-report-metric{padding:11px 7px}}
+.pref-reduce-motion .shift-live-chip::before{animation:none}
+.pref-high-contrast .queue-call-card,.pref-high-contrast .continuous-shift-stat{border-color:#fff}
+
+/* Fase 12 — ordem natural e anti-compressão no plantão. */
+@media (max-width:779px){
+  #screen-shift .shift-top{order:1!important;flex:0 0 auto!important}
+  #screen-shift #continuousShiftPanel{order:2!important;flex:0 0 auto!important;width:100%;height:auto!important;min-height:0!important;overflow:visible!important}
+  #screen-shift #trainingCoach{order:3!important;flex:0 0 auto!important}
+  #screen-shift .shift-panel{order:4!important;flex:0 0 auto!important}
+  #screen-shift .triage-panel{order:5!important;flex:0 0 auto!important;width:100%;height:auto!important;min-height:0!important}
+  #screen-shift .shift-support-grid{order:6!important;flex:0 0 auto!important}
+  #screen-shift #continuousShiftPanel .live-queue-list{overflow:visible}
+}
+@media (min-width:780px){
+  #screen-shift .screen-inner.shift-screen-inner{
+    display:grid!important;
+    grid-template-columns:minmax(0,1.12fr) minmax(340px,.88fr)!important;
+    grid-template-rows:auto auto auto auto auto!important;
+    align-content:start;
+    height:var(--app-height);
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+  }
+  #screen-shift .shift-top{grid-column:1/-1!important;grid-row:1!important}
+  #screen-shift #continuousShiftPanel{grid-column:1/-1!important;grid-row:2!important;height:auto!important;min-height:0!important}
+  #screen-shift #trainingCoach{grid-column:1/-1!important;grid-row:3!important}
+  #screen-shift .shift-panel{grid-column:1!important;grid-row:4!important;height:auto!important;min-height:620px}
+  #screen-shift .triage-panel{grid-column:2!important;grid-row:4!important;height:max-content}
+  #screen-shift .shift-support-grid{grid-column:1/-1!important;grid-row:5!important;display:grid!important;grid-template-columns:1fr 1fr!important;grid-template-rows:auto!important;height:auto!important;min-height:260px}
+  #screen-shift #continuousShiftPanel .live-queue-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #screen-shift #continuousShiftPanel .queue-call-card{grid-template-columns:auto minmax(0,1fr);align-content:start}
+  #screen-shift #continuousShiftPanel .queue-call-actions{grid-column:1/-1;justify-content:flex-end}
+}
+
+/* Fase 12 — correção anti-compressão da fila em tablet/desktop. */
+@media (min-width:780px){
+  #screen-shift .screen-inner.shift-screen-inner{
+    grid-template-rows:max-content max-content max-content max-content max-content!important;
+    grid-auto-rows:max-content!important;
+    align-items:start!important;
+  }
+  #screen-shift #continuousShiftPanel{
+    height:max-content!important;
+    min-height:286px!important;
+    overflow:visible!important;
+    align-self:start!important;
+  }
+  #screen-shift #trainingCoach{
+    height:max-content!important;
+    min-height:0!important;
+    align-self:start!important;
+  }
+}

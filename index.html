@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"
+    />
+    <meta name="theme-color" content="#07131f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <title>Central 190 — v1.4.0 Fase 20</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="fatalFallback" class="fatal-fallback" hidden>
+      <h1>Central 190</h1>
+      <p>
+        O sistema iniciou em modo seguro. Recarregue a página ou limpe apenas o
+        save corrompido nas Configurações.
+      </p>
+    </div>
+
+    <div id="app" class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <button id="menuToggle" class="icon-btn" aria-label="Abrir menu">
+            ☰
+          </button>
+          <div>
+            <img class="brand-logo" src="assets/badges/central190-brand.svg" alt="Central 190" /><strong>Central 190</strong>
+            <span id="screenSubtitle" data-i18n="subtitle.dashboard"
+              >Comando operacional</span
+            >
+          </div>
+        </div>
+        <div class="top-actions">
+          <button
+            id="fullscreenBtn"
+            class="compact-btn"
+            data-i18n="actions.fullscreen"
+          >
+            Tela cheia
+          </button>
+          <select id="languageSelect" aria-label="Idioma">
+            <option value="pt-BR">PT</option>
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+          </select>
+        </div>
+      </header>
+
+      <aside id="sidebar" class="sidebar" aria-label="Navegação principal">
+        <nav>
+          <button class="nav-btn active" data-screen="dashboard">
+            <span>⌂</span><b data-i18n="nav.dashboard">Painel</b>
+          </button>
+          <button class="nav-btn" data-screen="dispatch">
+            <span>☎</span><b data-i18n="nav.dispatch">Plantão</b>
+          </button>
+          <button class="nav-btn" data-screen="map">
+            <span>⌖</span><b data-i18n="nav.map">Mapa</b>
+          </button>
+          <button class="nav-btn" data-screen="content">
+            <span>∞</span><b data-i18n="nav.content">Operações</b>
+          </button>
+          <button class="nav-btn" data-screen="statistics">
+            <span>▥</span><b data-i18n="nav.statistics">Estatísticas</b>
+          </button>
+          <button class="nav-btn" data-screen="career">
+            <span>★</span><b data-i18n="nav.career">Carreira</b>
+          </button>
+          <button class="nav-btn" data-screen="training">
+            <span>▣</span><b data-i18n="nav.training">Cursos</b>
+          </button>
+          <button class="nav-btn" data-screen="goals">
+            <span>✓</span><b data-i18n="nav.goals">Metas</b>
+          </button>
+          <button class="nav-btn" data-screen="achievements">
+            <span>◆</span><b data-i18n="nav.achievements">Conquistas</b>
+          </button>
+          <button class="nav-btn" data-screen="reports">
+            <span>▤</span><b data-i18n="nav.reports">Relatórios</b>
+          </button>
+          <button class="nav-btn" data-screen="release">
+            <span>◉</span><b data-i18n="nav.release">Lançamento</b>
+          </button>
+          <button class="nav-btn" data-screen="settings">
+            <span>⚙</span><b data-i18n="nav.settings">Configurações</b>
+          </button>
+        </nav>
+        <div class="version-chip">
+          <span>v1.4.0 · Fase 20</span>
+          <small id="buildLabel">18/06/2026 12:09:00 BRT</small>
+        </div>
+      </aside>
+
+      <main id="mainContent" class="main-content" tabindex="-1">
+        <section id="screen-dashboard" class="screen active">
+          <div id="careerSetup" class="hero-card setup-card">
+            <div>
+              <span class="eyebrow" data-i18n="setup.eyebrow"
+                >NOVA CARREIRA</span
+              >
+              <h1 data-i18n="setup.title">Assuma seu posto na Central 190</h1>
+              <p data-i18n="setup.desc">
+                Crie seu perfil operacional. Suas decisões afetam reputação,
+                promoções, advertências e especializações.
+              </p>
+            </div>
+            <form id="careerForm" class="setup-form">
+              <label
+                ><span data-i18n="setup.name">Nome do operador</span
+                ><input
+                  id="operatorName"
+                  maxlength="24"
+                  autocomplete="name"
+                  required
+              /></label>
+              <label
+                ><span data-i18n="setup.callsign">Nome de guerra</span
+                ><input id="callSign" maxlength="16" required
+              /></label>
+              <label
+                ><span data-i18n="setup.difficulty">Dificuldade</span>
+                <select id="difficulty">
+                  <option value="assistido" data-i18n="difficulty.assisted">
+                    Assistido
+                  </option>
+                  <option
+                    value="realista"
+                    selected
+                    data-i18n="difficulty.realistic"
+                  >
+                    Realista
+                  </option>
+                  <option value="especialista" data-i18n="difficulty.expert">
+                    Especialista
+                  </option>
+                </select>
+              </label>
+              <button class="primary-btn" type="submit" data-i18n="setup.start">
+                Iniciar carreira
+              </button>
+            </form>
+          </div>
+
+          <div id="dashboardContent" hidden>
+            <div class="hero-card career-hero">
+              <div>
+                <span class="eyebrow" data-i18n="dashboard.careerActive"
+                  >CARREIRA ATIVA</span
+                >
+                <h1 id="welcomeTitle">Operador</h1>
+                <p id="careerSummary"></p>
+              </div>
+              <div class="rank-emblem" aria-label="Patente atual">
+                <span id="rankIcon">I</span><small id="rankName"></small>
+              </div>
+            </div>
+            <div class="metric-grid">
+              <article class="metric-card">
+                <span data-i18n="career.reputation">Reputação</span
+                ><strong id="metricReputation">0</strong>
+                <div class="progress"><i id="repBar"></i></div>
+              </article>
+              <article class="metric-card">
+                <span data-i18n="career.xp">Experiência</span
+                ><strong id="metricXp">0 XP</strong>
+                <div class="progress"><i id="xpBar"></i></div>
+              </article>
+              <article class="metric-card">
+                <span data-i18n="career.shifts">Plantões</span
+                ><strong id="metricShifts">0</strong
+                ><small id="metricResolved">0 atendimentos</small>
+              </article>
+              <article class="metric-card">
+                <span data-i18n="career.discipline">Disciplina</span
+                ><strong id="metricWarnings">Sem advertências</strong
+                ><small id="metricConduct">Conduta excelente</small>
+              </article>
+            </div>
+            <div class="dashboard-columns">
+              <article class="panel">
+                <header>
+                  <h2 data-i18n="dashboard.nextPromotion">Próxima promoção</h2>
+                </header>
+                <div id="promotionPreview"></div>
+              </article>
+              <article class="panel">
+                <header>
+                  <h2 data-i18n="dashboard.activeGoals">Metas ativas</h2>
+                </header>
+                <div id="goalPreview" class="stack-list"></div>
+              </article>
+              <article class="panel wide">
+                <header>
+                  <h2 data-i18n="dashboard.recentEvents">Histórico recente</h2>
+                </header>
+                <div id="eventTimeline" class="timeline"></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="screen-dispatch" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="dispatch.eyebrow"
+                >PLANTÃO CONTÍNUO</span
+              >
+              <h1 data-i18n="dispatch.title">Central de ocorrências</h1>
+            </div>
+            <button
+              id="startShiftBtn"
+              class="primary-btn"
+              data-i18n="dispatch.startShift"
+            >
+              Iniciar plantão
+            </button>
+          </div>
+          <div id="shiftStatus" class="status-strip"></div>
+          <div class="dispatch-layout">
+            <article class="panel queue-panel">
+              <header>
+                <h2 data-i18n="dispatch.queue">Fila viva</h2>
+                <span id="queueCount" class="badge">0</span>
+              </header>
+              <div id="callQueue" class="call-list"></div>
+            </article>
+            <article class="panel">
+              <header>
+                <h2 data-i18n="dispatch.activeCase">Atendimento ativo</h2>
+              </header>
+              <div id="activeCall"></div>
+            </article>
+            <article class="panel">
+              <header>
+                <h2 data-i18n="dispatch.paused">Ocorrências pausadas</h2>
+              </header>
+              <div id="pausedCalls" class="call-list compact"></div>
+            </article>
+            <article class="panel map-panel dispatch-map-panel">
+              <header>
+                <div>
+                  <h2 data-i18n="map.liveTitle">Mapa operacional ao vivo</h2>
+                  <small class="map-status" data-map-status
+                    >Inicializando mapa...</small
+                  >
+                </div>
+                <button
+                  id="openMapScreenBtn"
+                  class="action-btn primary"
+                  data-i18n="map.openFull"
+                >
+                  Abrir mapa completo
+                </button>
+              </header>
+              <div class="map-stage compact-stage">
+                <div
+                  id="dispatchMap"
+                  class="map-canvas compact-map"
+                  aria-label="Mapa real das ocorrências"
+                ></div>
+                <div
+                  id="dispatchMapFallback"
+                  class="tactical-map compact-map"
+                  hidden
+                  aria-label="Mapa tático das ocorrências"
+                ></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="screen-map" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="map.eyebrow"
+                >GEORREFERENCIAMENTO OPERACIONAL</span
+              >
+              <h1 data-i18n="map.title">Mapa real de ocorrências</h1>
+            </div>
+            <div class="map-heading-actions">
+              <span class="map-status large" data-map-status
+                >Inicializando mapa...</span
+              ><button id="mapFitBtn" class="secondary-btn" data-i18n="map.fit">
+                Enquadrar ocorrências
+              </button>
+            </div>
+          </div>
+          <div class="map-toolbar panel">
+            <label
+              ><span data-i18n="map.mode">Modo do mapa</span
+              ><select id="mapModeSelect">
+                <option value="auto" data-i18n="map.modeAuto">
+                  Automático
+                </option>
+                <option value="real" data-i18n="map.modeReal">
+                  Real online
+                </option>
+                <option value="tactical" data-i18n="map.modeTactical">
+                  Tático offline
+                </option>
+              </select></label
+            >
+            <label
+              ><span data-i18n="map.region">Região operacional</span
+              ><select id="mapRegionSelect">
+                <option value="sp">São Paulo — SP</option>
+                <option value="rio">Rio de Janeiro — RJ</option>
+                <option value="brasilia">Brasília — DF</option>
+                <option value="bh">Belo Horizonte — MG</option>
+                <option value="recife">Recife — PE</option>
+                <option value="poa">Porto Alegre — RS</option>
+                <option value="salvador">Salvador — BA</option>
+                <option value="curitiba">Curitiba — PR</option>
+                <option value="manaus">Manaus — AM</option>
+                <option value="custom">Região personalizada</option>
+              </select></label
+            >
+            <button
+              id="useMyRegionBtn"
+              class="secondary-btn"
+              data-i18n="map.myRegion"
+            >
+              Usar minha região aproximada
+            </button>
+            <button
+              id="retryRealMapBtn"
+              class="secondary-btn"
+              data-i18n="map.retry"
+            >
+              Tentar mapa real novamente
+            </button>
+          </div>
+          <div class="operations-map-layout">
+            <article class="panel map-panel full-map-panel">
+              <header>
+                <div>
+                  <h2 id="mapRegionLabel">São Paulo — SP</h2>
+                  <small data-i18n="map.privacy"
+                    >A localização do jogador só é solicitada ao tocar no botão
+                    e é arredondada para preservar a privacidade.</small
+                  >
+                </div>
+              </header>
+              <div class="map-stage full-stage">
+                <div
+                  id="operationsMap"
+                  class="map-canvas full-map"
+                  aria-label="Mapa real operacional"
+                ></div>
+                <div
+                  id="operationsMapFallback"
+                  class="tactical-map full-map"
+                  hidden
+                  aria-label="Mapa tático operacional"
+                ></div>
+                <div class="map-legend" aria-label="Legenda do mapa">
+                  <span><i class="legend-dot critical"></i>Crítica</span
+                  ><span><i class="legend-dot high"></i>Alta</span
+                  ><span><i class="legend-dot normal"></i>Normal</span
+                  ><span><i class="legend-dot central"></i>Central 190</span><span><i class="legend-dot resource"></i>Viaturas/apoios</span><span><i class="legend-dot area"></i>Área estimada</span>
+                </div>
+              </div>
+              <p class="map-attribution-note">
+                Mapa real: Leaflet + dados © OpenStreetMap contributors. O modo
+                tático funciona sem internet e é ativado automaticamente em caso
+                de falha.
+              </p>
+            </article>
+            <aside class="map-side-column">
+              <article class="panel">
+                <header>
+                  <h2 data-i18n="map.incidents">Ocorrências no mapa</h2>
+                  <span id="mapIncidentCount" class="badge">0</span>
+                </header>
+                <div id="mapIncidentList" class="map-incident-list"></div>
+              </article>
+              <article class="panel">
+                <header>
+                  <h2 data-i18n="map.selected">Ocorrência selecionada</h2>
+                </header>
+                <div id="mapSelectedCall"></div>
+              </article>
+            </aside>
+          </div>
+        </section>
+
+
+        <section id="screen-content" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="content.eyebrow">LONGEVIDADE OPERACIONAL</span>
+              <h1 data-i18n="content.title">Central de operações e conteúdo</h1>
+            </div>
+            <button id="launchCareerFromContentBtn" class="primary-btn" data-i18n="content.careerShift">Plantão de carreira</button>
+          </div>
+
+          <div class="content-intro panel">
+            <div>
+              <strong data-i18n="content.introTitle">Escolha como deseja jogar</strong>
+              <p data-i18n="content.introText">Desafios e operações especiais avançam a carreira. O Sandbox é livre e não altera XP, reputação, advertências ou promoções.</p>
+            </div>
+            <span id="contentActiveCity" class="content-city-badge">São Paulo — SP</span>
+          </div>
+
+          <div class="commercial-grid">
+            <article class="panel challenge-panel">
+              <header><h2 data-i18n="content.challenges">Desafios rotativos</h2><span class="badge">24h / 7d</span></header>
+              <div id="challengeGrid" class="challenge-grid"></div>
+            </article>
+
+            <article class="panel sandbox-panel">
+              <header><h2 data-i18n="content.sandbox">Sandbox verdadeiro</h2><span class="badge neutral">SEM IMPACTO</span></header>
+              <p data-i18n="content.sandboxDesc">Configure quantidade, ritmo, prioridade, categoria e cidade. Os relatórios contam nas estatísticas gerais, mas não alteram a carreira.</p>
+              <div class="sandbox-controls">
+                <label><span data-i18n="content.callCount">Chamadas</span><input id="sandboxCallCount" type="number" min="1" max="12" value="5" /></label>
+                <label><span data-i18n="content.arrivalGap">Intervalo</span><select id="sandboxArrivalGap"><option value="6">Intenso · 6s</option><option value="12" selected>Normal · 12s</option><option value="24">Calmo · 24s</option></select></label>
+                <label><span data-i18n="content.priority">Prioridade</span><select id="sandboxPriority"><option value="mixed">Mista</option><option value="critical">Somente crítica</option><option value="high">Somente alta</option><option value="normal">Somente normal</option></select></label>
+                <label><span data-i18n="content.category">Categoria</span><select id="sandboxCategory"><option value="all">Todas</option><option value="protection">Proteção</option><option value="traffic">Trânsito</option><option value="event">Eventos</option><option value="weather">Clima</option><option value="critical">Alto risco</option></select></label>
+                <label><span data-i18n="content.city">Cidade</span><select id="sandboxCity"></select></label>
+              </div>
+              <button id="launchSandboxBtn" class="primary-btn" data-i18n="content.launchSandbox">Iniciar Sandbox</button>
+            </article>
+          </div>
+
+          <article class="panel content-section">
+            <header><div><h2 data-i18n="content.specialOps">Operações especiais</h2><small data-i18n="content.specialDesc">Casos conectados, requisitos de patente e recompensa única por primeira conclusão.</small></div><span id="specialProgress" class="badge">0/5</span></header>
+            <div id="specialOperationsGrid" class="special-operations-grid"></div>
+          </article>
+
+          <article class="panel content-section">
+            <header><div><h2 data-i18n="content.cityModules">Módulos de cidades</h2><small data-i18n="content.cityDesc">Cada cidade altera o centro do mapa e favorece perfis próprios de ocorrência.</small></div><span id="cityModuleProgress" class="badge">0/9</span></header>
+            <div id="cityModulesGrid" class="city-modules-grid"></div>
+          </article>
+
+          <article class="panel content-section">
+            <header><div><h2 data-i18n="content.expansions">Arquitetura de expansões</h2><small data-i18n="content.expansionDesc">Slots internos preparados e validados para futuros pacotes sem quebrar saves existentes.</small></div><span class="badge neutral">API 1</span></header>
+            <div id="expansionRegistry" class="expansion-grid"></div>
+          </article>
+        </section>
+
+        <section id="screen-statistics" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="stats.eyebrow">ANÁLISE DE LONGO PRAZO</span>
+              <h1 data-i18n="stats.title">Estatísticas avançadas</h1>
+            </div>
+          </div>
+          <div id="statisticsMetrics" class="metric-grid stats-metrics"></div>
+          <div class="statistics-layout">
+            <article class="panel"><header><h2 data-i18n="stats.modes">Modos jogados</h2></header><div id="modeStatistics" class="bar-stat-list"></div></article>
+            <article class="panel"><header><h2 data-i18n="stats.grades">Distribuição de notas</h2></header><div id="gradeStatistics" class="bar-stat-list"></div></article>
+            <article class="panel wide"><header><h2 data-i18n="stats.cities">Desempenho por cidade</h2></header><div id="cityStatistics" class="city-stat-table"></div></article>
+            <article class="panel wide"><header><h2 data-i18n="stats.timeline">Últimos resultados</h2></header><div id="recentResults" class="report-list compact-reports"></div></article>
+          </div>
+        </section>
+
+        <section id="screen-career" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="career.eyebrow"
+                >PROGRESSÃO PROFISSIONAL</span
+              >
+              <h1 data-i18n="career.title">Patentes e reputação</h1>
+            </div>
+          </div>
+          <div class="career-layout">
+            <article class="panel">
+              <header>
+                <h2 data-i18n="career.rankTrack">Linha de patentes</h2>
+              </header>
+              <div id="rankTrack" class="rank-track"></div>
+            </article>
+            <article class="panel">
+              <header>
+                <h2 data-i18n="career.performance">Avaliação de desempenho</h2>
+              </header>
+              <div id="performanceBreakdown"></div>
+            </article>
+            <article class="panel">
+              <header><h2 data-i18n="career.warnings">Advertências</h2></header>
+              <div id="warningList" class="stack-list"></div>
+            </article>
+            <article class="panel">
+              <header>
+                <h2 data-i18n="career.specializations">Especializações</h2>
+              </header>
+              <div id="specializationList" class="specialization-grid"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="screen-training" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="training.eyebrow"
+                >CAPACITAÇÃO</span
+              >
+              <h1 data-i18n="training.title">Cursos e certificações</h1>
+            </div>
+          </div>
+          <div id="courseGrid" class="course-grid"></div>
+        </section>
+
+        <section id="screen-goals" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="goals.eyebrow"
+                >GESTÃO DE DESEMPENHO</span
+              >
+              <h1 data-i18n="goals.title">Metas de carreira</h1>
+            </div>
+          </div>
+          <div id="goalsGrid" class="goal-grid"></div>
+        </section>
+
+        <section id="screen-achievements" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="achievements.eyebrow"
+                >RECONHECIMENTO</span
+              >
+              <h1 data-i18n="achievements.title">Conquistas</h1>
+            </div>
+          </div>
+          <div id="achievementGrid" class="achievement-grid"></div>
+        </section>
+
+        <section id="screen-reports" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="reports.eyebrow"
+                >HISTÓRICO OPERACIONAL</span
+              >
+              <h1 data-i18n="reports.title">Relatórios consolidados</h1>
+            </div>
+          </div>
+          <div id="reportList" class="report-list"></div>
+        </section>
+
+
+        <section id="screen-release" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="release.eyebrow">RELEASE CANDIDATE</span>
+              <h1 data-i18n="release.title">Central de lançamento v1.3.0</h1>
+            </div>
+            <span id="releaseStatusBadge" class="release-badge">AUDITANDO</span>
+          </div>
+          <div class="release-hero hero-card">
+            <div>
+              <span class="eyebrow">BUILD COMERCIAL</span>
+              <h2 data-i18n="release.heroTitle">Pronto para homologação final</h2>
+              <p data-i18n="release.heroText">Esta tela reúne compatibilidade, modo offline, privacidade, acessibilidade, balanceamento e créditos do jogo.</p>
+            </div>
+            <div class="release-version">
+              <strong>v1.3.0</strong>
+              <span>Triagem e Despacho</span>
+              <small>Save schema 17</small>
+            </div>
+          </div>
+          <div id="releaseMetrics" class="metric-grid release-metrics"></div>
+          <div class="release-layout">
+            <article class="panel">
+              <header><h2 data-i18n="release.checklist">Checklist de lançamento</h2></header>
+              <div id="releaseChecklist" class="release-checklist"></div>
+              <button id="runReleaseAuditBtn" class="secondary-btn" data-i18n="release.runAudit">Executar auditoria do aparelho</button>
+            </article>
+            <article class="panel">
+              <header><h2 data-i18n="release.device">Compatibilidade do aparelho</h2></header>
+              <div id="deviceAuditOutput" class="release-checklist"></div>
+            </article>
+            <article class="panel">
+              <header><h2 data-i18n="release.offline">Instalação e modo offline</h2></header>
+              <div id="offlineReleaseStatus" class="release-info-card"></div>
+              <div class="button-row">
+                <button id="installAppBtn" class="primary-btn" data-i18n="release.install">Instalar aplicativo</button>
+                <button id="refreshOfflineBtn" class="secondary-btn" data-i18n="release.refresh">Atualizar status</button>
+              </div>
+            </article>
+            <article class="panel">
+              <header><h2 data-i18n="release.balance">Balanceamento atual</h2></header>
+              <div id="balanceProfileCard" class="release-info-card"></div>
+            </article>
+            <article class="panel">
+              <header><h2 data-i18n="release.privacy">Privacidade e dados locais</h2></header>
+              <div id="privacyReleaseCard" class="release-info-card"></div>
+              <button id="clearApproxLocationBtn" class="secondary-btn" data-i18n="release.clearLocation">Remover região aproximada</button>
+            </article>
+            <article class="panel">
+              <header><h2 data-i18n="release.credits">Créditos e licenças</h2></header>
+              <div class="credits-list">
+                <p><strong>Central 190</strong><br><span>Vale Games · simulador fictício de atendimento emergencial.</span></p>
+                <p><strong>Leaflet 1.9.4</strong><br><span>Biblioteca BSD-2-Clause incluída localmente.</span></p>
+                <p><strong>OpenStreetMap</strong><br><span>Dados cartográficos © colaboradores OpenStreetMap, licença ODbL.</span></p>
+              </div>
+              <button id="markReleaseNotesBtn" class="secondary-btn" data-i18n="release.notes">Marcar notas como lidas</button>
+            </article>
+          </div>
+        </section>
+
+        <section id="screen-settings" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow" data-i18n="settings.eyebrow">SISTEMA</span>
+              <h1 data-i18n="settings.title">Configurações e segurança</h1>
+            </div>
+          </div>
+          <div class="settings-grid">
+            <article class="panel">
+              <h2 data-i18n="settings.interface">Interface</h2>
+              <label class="toggle-row"
+                ><span data-i18n="settings.largeText">Texto ampliado</span
+                ><input id="largeTextToggle" type="checkbox" /></label
+              ><label class="toggle-row"
+                ><span data-i18n="settings.reduceMotion">Reduzir animações</span
+                ><input id="reduceMotionToggle" type="checkbox"
+              /></label><label class="toggle-row"
+                ><span data-i18n="settings.highContrast">Alto contraste</span
+                ><input id="highContrastToggle" type="checkbox"
+              /></label><label class="toggle-row"
+                ><span data-i18n="settings.largeTargets">Botões ampliados</span
+                ><input id="largeTargetsToggle" type="checkbox"
+              /></label><label class="toggle-row"
+                ><span data-i18n="settings.readerHints">Dicas para leitor de tela</span
+                ><input id="screenReaderHintsToggle" type="checkbox"
+              /></label>
+            </article>
+            <article class="panel">
+              <h2 data-i18n="settings.save">Save e proteção</h2>
+              <p id="saveStatus"></p>
+              <div class="button-row">
+                <button
+                  id="exportSaveBtn"
+                  class="secondary-btn"
+                  data-i18n="settings.export"
+                >
+                  Exportar save</button
+                ><label class="secondary-btn file-btn"
+                  ><span data-i18n="settings.import">Importar save</span
+                  ><input
+                    id="importSaveInput"
+                    type="file"
+                    accept="application/json" /></label
+                ><button id="restoreBackupBtn" class="secondary-btn" data-i18n="settings.restore">Restaurar backup</button
+                ><button
+                  id="resetSaveBtn"
+                  class="danger-btn"
+                  data-i18n="settings.reset"
+                >
+                  Reiniciar carreira
+                </button>
+              </div>
+            </article>
+            <article class="panel">
+              <h2 data-i18n="settings.map">Mapa e conectividade</h2>
+              <p id="mapSettingsSummary"></p>
+              <button
+                id="openMapSettingsBtn"
+                class="secondary-btn"
+                data-i18n="settings.openMap"
+              >
+                Abrir configurações do mapa
+              </button>
+            </article>
+            <article class="panel wide visual-audit-card">
+              <h2>Identidade visual e assets</h2>
+              <p id="assetAuditSummary">Verificando fundos, ícones e camadas visuais...</p>
+              <div id="assetAuditList" class="asset-audit-list"></div>
+            </article>
+            <article class="panel wide">
+              <h2 data-i18n="settings.diagnostics">Diagnóstico anti-quebra</h2>
+              <pre id="diagnosticOutput"></pre>
+              <button
+                id="runDiagnosticsBtn"
+                class="secondary-btn"
+                data-i18n="settings.runDiagnostics"
+              >
+                Executar diagnóstico
+              </button>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+      <dialog id="promotionDialog" class="modal">
+        <div class="modal-icon">★</div>
+        <h2 id="promotionTitle"></h2>
+        <p id="promotionText"></p>
+        <button
+          id="closePromotionBtn"
+          class="primary-btn"
+          data-i18n="actions.continue"
+        >
+          Continuar
+        </button>
+      </dialog>
+      <dialog id="shiftReportDialog" class="modal wide-modal">
+        <h2 data-i18n="reports.shiftComplete">Plantão concluído</h2>
+        <div id="shiftReportContent"></div>
+        <button
+          id="closeReportBtn"
+          class="primary-btn"
+          data-i18n="actions.continue"
+        >
+          Continuar
+        </button>
+      </dialog>
+    </div>
+
+    <script src="vendor/leaflet/leaflet.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/assets.js"></script>
+    <script src="js/release.js"></script>
+    <script src="js/content.js"></script>
+    <script src="js/call-protocol.js"></script>
+    <script src="js/triage.js"></script>
+    <script src="js/location-intel.js"></script>
+    <script src="js/save-manager.js"></script>
+    <script src="js/career.js"></script>
+    <script src="js/dispatch.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/anti-break.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

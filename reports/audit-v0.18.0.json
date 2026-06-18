@@ -1,0 +1,110 @@
+{
+  "version": "v0.18.0",
+  "buildId": "CENTRAL190-0180-20260613-1221-BRT",
+  "phase": "Fase 12 de 20",
+  "builtAt": "2026-06-13T12:21:00-03:00",
+  "status": "approved",
+  "automatedTests": {
+    "status": "passed",
+    "incidents": 8,
+    "locales": 3,
+    "shiftCalls": 3,
+    "callStates": 6,
+    "saveSchema": 10
+  },
+  "runtime": {
+    "version": "v0.18.0",
+    "dimensions": {
+      "360x640": {
+        "docWidth": 360,
+        "clientWidth": 360,
+        "panelHeight": 536,
+        "panelWidth": 332,
+        "cards": 3,
+        "switchButtons": 1,
+        "scrollHeight": 3360,
+        "clientHeight": 640,
+        "active": "screen-shift",
+        "noHorizontalOverflow": true
+      },
+      "390x844": {
+        "docWidth": 390,
+        "clientWidth": 390,
+        "panelHeight": 536,
+        "panelWidth": 362,
+        "cards": 3,
+        "switchButtons": 1,
+        "scrollHeight": 3408,
+        "clientHeight": 844,
+        "active": "screen-shift",
+        "noHorizontalOverflow": true
+      },
+      "412x915": {
+        "docWidth": 412,
+        "clientWidth": 412,
+        "panelHeight": 548,
+        "panelWidth": 384,
+        "cards": 3,
+        "switchButtons": 1,
+        "scrollHeight": 3422,
+        "clientHeight": 915,
+        "active": "screen-shift",
+        "noHorizontalOverflow": true
+      },
+      "768x1024": {
+        "docWidth": 768,
+        "clientWidth": 768,
+        "panelHeight": 364,
+        "panelWidth": 740,
+        "cards": 3,
+        "switchButtons": 1,
+        "scrollHeight": 3062,
+        "clientHeight": 1024,
+        "active": "screen-shift",
+        "noHorizontalOverflow": true
+      },
+      "1366x768": {
+        "docWidth": 1366,
+        "clientWidth": 1366,
+        "panelHeight": 286,
+        "panelWidth": 1196,
+        "cards": 3,
+        "switchButtons": 1,
+        "scrollHeight": 1940,
+        "clientHeight": 768,
+        "active": "screen-shift",
+        "noHorizontalOverflow": true
+      }
+    },
+    "queue": {
+      "firstTitle": "Serious collision with trapped victim",
+      "switchedTitle": "Pedestrian struck near a school",
+      "resumedTitle": "Pedestrian struck near a school",
+      "lobbyCards": 3,
+      "switchWorked": true
+    },
+    "recovery": {
+      "screen": "screen-lobby",
+      "cards": 3,
+      "title": "Pedestrian struck near a school",
+      "matches": true
+    },
+    "report": {
+      "metrics": 6,
+      "rows": 3,
+      "grade": "D",
+      "noHorizontalOverflow": true
+    },
+    "errors": [],
+    "console": []
+  },
+  "fullFlow": {
+    "screen": "screen-shift",
+    "resultCards": 3,
+    "nextTitle": "Pedestrian struck near a school",
+    "errors": [],
+    "console": [],
+    "overflow": false
+  },
+  "environmentNote": "Direct localhost and file navigation were blocked by Chromium administrative policy; runtime used a self-contained document built from the actual project sources. Assets and paths were validated separately."
+}

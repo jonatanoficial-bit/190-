@@ -1,0 +1,61 @@
+{
+  "version": "v0.17.0",
+  "buildId": "CENTRAL190-0170-20260613-1145-BRT",
+  "phase": "Fase 11 de 20",
+  "status": "approved",
+  "automated": {
+    "incidents": 8,
+    "locales": 3,
+    "fieldProfiles": 8,
+    "fieldStages": 24,
+    "fieldActions": 9,
+    "fieldOutcomes": 4,
+    "saveSchema": 9
+  },
+  "runtime": {
+    "ok": true,
+    "resolutions": [
+      "360x640",
+      "390x844",
+      "412x915",
+      "768x1024",
+      "1366x768"
+    ],
+    "recovery": {
+      "screen": "field",
+      "phaseBefore": "PHASE 2 OF 3",
+      "phaseAfter": "PHASE 2 OF 3",
+      "radioDecisionEntries": 1,
+      "errors": [],
+      "consoleErrors": []
+    },
+    "fullFlow": {
+      "screen": "result",
+      "score": "230",
+      "horizontalOverflow": false,
+      "fieldEnd": {
+        "screen": "field",
+        "docWidth": 390,
+        "clientWidth": 390,
+        "activeScrollHeight": 848,
+        "activeClientHeight": 844,
+        "actions": 0,
+        "completeDisabled": false,
+        "completeRect": {
+          "top": 768.4375,
+          "bottom": 816.4375,
+          "left": 200,
+          "right": 380
+        }
+      }
+    },
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "horizontalOverflow": false
+  },
+  "corrections": [
+    "Migrated professional dispatch rules to current incident IDs",
+    "Aligned field-operation profiles with the current incident catalog",
+    "Hardened out-of-range field-stage recovery"
+  ]
+}

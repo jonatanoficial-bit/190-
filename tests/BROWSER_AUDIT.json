@@ -1,0 +1,734 @@
+{
+  "status": "PASS",
+  "tested_at": "2026-06-18T10:55:00-03:00",
+  "build": "CENTRAL190-1400-F20-PROGRESSIVE-MAP-20260618-120900-BRT",
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1366,
+      "height": 768,
+      "page_errors": 0,
+      "console_errors": 0,
+      "horizontal_overflow_initial": false,
+      "horizontal_overflow_content": false,
+      "horizontal_overflow_final": false,
+      "diagnostics": true,
+      "diagnostics_detail_initial": [
+        {
+          "name": "DOM essencial",
+          "ok": true,
+          "detail": "Todos os elementos essenciais presentes"
+        },
+        {
+          "name": "Save schema",
+          "ok": true,
+          "detail": "schema=18"
+        },
+        {
+          "name": "Release Candidate",
+          "ok": true,
+          "detail": "v1.4.0 · balance 2"
+        },
+        {
+          "name": "Estrutura da carreira",
+          "ok": true,
+          "detail": "Módulo de carreira disponível"
+        },
+        {
+          "name": "Motor de atendimento e triagem",
+          "ok": true,
+          "detail": "Protocolo v2 · triagem v1"
+        },
+        {
+          "name": "Classificação operacional",
+          "ok": true,
+          "detail": "12 naturezas · 4 órgãos"
+        },
+        {
+          "name": "Mapa progressivo",
+          "ok": true,
+          "detail": "5 estágios de precisão"
+        },
+        {
+          "name": "Conteúdo comercial",
+          "ok": true,
+          "detail": "cidade=sp · relatórios=0"
+        },
+        {
+          "name": "Módulos de cidades",
+          "ok": true,
+          "detail": "9 módulos registrados"
+        },
+        {
+          "name": "Operações especiais",
+          "ok": true,
+          "detail": "5 operações registradas"
+        },
+        {
+          "name": "Sandbox isolado",
+          "ok": true,
+          "detail": "configuração=5 chamadas"
+        },
+        {
+          "name": "Registro de expansões",
+          "ok": true,
+          "detail": "API 1"
+        },
+        {
+          "name": "Biblioteca de mapa",
+          "ok": true,
+          "detail": "Leaflet 1.9.4 carregado localmente"
+        },
+        {
+          "name": "Fallback tático",
+          "ok": true,
+          "detail": "modo efetivo=real"
+        },
+        {
+          "name": "Coordenadas das ocorrências",
+          "ok": true,
+          "detail": "Todas as ocorrências ativas possuem coordenadas válidas"
+        },
+        {
+          "name": "Configuração geográfica",
+          "ok": true,
+          "detail": "auto · São Paulo — SP"
+        },
+        {
+          "name": "Identidade visual / assets",
+          "ok": true,
+          "detail": "14/14 assets carregados"
+        },
+        {
+          "name": "LocalStorage",
+          "ok": true,
+          "detail": "Leitura e escrita local"
+        },
+        {
+          "name": "Erros capturados",
+          "ok": true,
+          "detail": "Nenhum erro em tempo de execução"
+        }
+      ],
+      "diagnostics_detail_final": [
+        {
+          "name": "DOM essencial",
+          "ok": true,
+          "detail": "Todos os elementos essenciais presentes"
+        },
+        {
+          "name": "Save schema",
+          "ok": true,
+          "detail": "schema=18"
+        },
+        {
+          "name": "Release Candidate",
+          "ok": true,
+          "detail": "v1.4.0 · balance 2"
+        },
+        {
+          "name": "Estrutura da carreira",
+          "ok": true,
+          "detail": "Módulo de carreira disponível"
+        },
+        {
+          "name": "Motor de atendimento e triagem",
+          "ok": true,
+          "detail": "Protocolo v2 · triagem v1"
+        },
+        {
+          "name": "Classificação operacional",
+          "ok": true,
+          "detail": "12 naturezas · 4 órgãos"
+        },
+        {
+          "name": "Mapa progressivo",
+          "ok": true,
+          "detail": "5 estágios de precisão"
+        },
+        {
+          "name": "Conteúdo comercial",
+          "ok": true,
+          "detail": "cidade=sp · relatórios=0"
+        },
+        {
+          "name": "Módulos de cidades",
+          "ok": true,
+          "detail": "9 módulos registrados"
+        },
+        {
+          "name": "Operações especiais",
+          "ok": true,
+          "detail": "5 operações registradas"
+        },
+        {
+          "name": "Sandbox isolado",
+          "ok": true,
+          "detail": "configuração=4 chamadas"
+        },
+        {
+          "name": "Registro de expansões",
+          "ok": true,
+          "detail": "API 1"
+        },
+        {
+          "name": "Biblioteca de mapa",
+          "ok": true,
+          "detail": "Leaflet 1.9.4 carregado localmente"
+        },
+        {
+          "name": "Fallback tático",
+          "ok": true,
+          "detail": "modo efetivo=tactical"
+        },
+        {
+          "name": "Coordenadas das ocorrências",
+          "ok": true,
+          "detail": "Todas as ocorrências ativas possuem coordenadas válidas"
+        },
+        {
+          "name": "Configuração geográfica",
+          "ok": true,
+          "detail": "tactical · São Paulo — SP"
+        },
+        {
+          "name": "Identidade visual / assets",
+          "ok": true,
+          "detail": "14/14 assets carregados"
+        },
+        {
+          "name": "LocalStorage",
+          "ok": true,
+          "detail": "Leitura e escrita local"
+        },
+        {
+          "name": "Erros capturados",
+          "ok": true,
+          "detail": "Nenhum erro em tempo de execução"
+        }
+      ],
+      "leaflet_loaded": true,
+      "assets_module_loaded": true,
+      "asset_count": 14,
+      "release_module_loaded": true,
+      "call_protocol_module_loaded": true,
+      "question_count": 18,
+      "content_module_loaded": true,
+      "city_modules": 9,
+      "special_operations": 5,
+      "content_screen": {
+        "active": true,
+        "challengeCards": 2,
+        "specialCards": 5,
+        "cityCards": 9,
+        "expansionCards": 3,
+        "overflow": false
+      },
+      "sandbox": {
+        "activeScreen": true,
+        "active": true,
+        "mode": "sandbox",
+        "affectsCareer": false,
+        "callCount": 4,
+        "careerShifts": 0,
+        "statusText": "Sandbox personalizado · 2s · resolvidas 0 · falhas 0 · abandonadas 0 · sem impacto na carreira",
+        "overflow": false
+      },
+      "protocol": {
+        "ok": true,
+        "questionButtons": 18,
+        "triageButtons": 21,
+        "triageSelected": 3,
+        "triageGrade": "S",
+        "triageScore": 100,
+        "chatLines": 5,
+        "locationRevealed": true,
+        "asked": 2,
+        "mapButtonDisabled": false,
+        "overflow": false
+      },
+      "tactical_fallback_visible_after_force": true,
+      "statistics": {
+        "statsActive": true,
+        "metricCount": 6,
+        "horizontalOverflow": false,
+        "diagnostics": true,
+        "diagnosticsDetail": [
+          {
+            "name": "DOM essencial",
+            "ok": true,
+            "detail": "Todos os elementos essenciais presentes"
+          },
+          {
+            "name": "Save schema",
+            "ok": true,
+            "detail": "schema=18"
+          },
+          {
+            "name": "Release Candidate",
+            "ok": true,
+            "detail": "v1.4.0 · balance 2"
+          },
+          {
+            "name": "Estrutura da carreira",
+            "ok": true,
+            "detail": "Módulo de carreira disponível"
+          },
+          {
+            "name": "Motor de atendimento e triagem",
+            "ok": true,
+            "detail": "Protocolo v2 · triagem v1"
+          },
+          {
+            "name": "Classificação operacional",
+            "ok": true,
+            "detail": "12 naturezas · 4 órgãos"
+          },
+          {
+            "name": "Mapa progressivo",
+            "ok": true,
+            "detail": "5 estágios de precisão"
+          },
+          {
+            "name": "Conteúdo comercial",
+            "ok": true,
+            "detail": "cidade=sp · relatórios=0"
+          },
+          {
+            "name": "Módulos de cidades",
+            "ok": true,
+            "detail": "9 módulos registrados"
+          },
+          {
+            "name": "Operações especiais",
+            "ok": true,
+            "detail": "5 operações registradas"
+          },
+          {
+            "name": "Sandbox isolado",
+            "ok": true,
+            "detail": "configuração=4 chamadas"
+          },
+          {
+            "name": "Registro de expansões",
+            "ok": true,
+            "detail": "API 1"
+          },
+          {
+            "name": "Biblioteca de mapa",
+            "ok": true,
+            "detail": "Leaflet 1.9.4 carregado localmente"
+          },
+          {
+            "name": "Fallback tático",
+            "ok": true,
+            "detail": "modo efetivo=tactical"
+          },
+          {
+            "name": "Coordenadas das ocorrências",
+            "ok": true,
+            "detail": "Todas as ocorrências ativas possuem coordenadas válidas"
+          },
+          {
+            "name": "Configuração geográfica",
+            "ok": true,
+            "detail": "tactical · São Paulo — SP"
+          },
+          {
+            "name": "Identidade visual / assets",
+            "ok": true,
+            "detail": "14/14 assets carregados"
+          },
+          {
+            "name": "LocalStorage",
+            "ok": true,
+            "detail": "Leitura e escrita local"
+          },
+          {
+            "name": "Erros capturados",
+            "ok": true,
+            "detail": "Nenhum erro em tempo de execução"
+          }
+        ]
+      },
+      "release": {
+        "active": true,
+        "metrics": 4,
+        "checks": 11,
+        "deviceChecks": 6,
+        "schema": 18,
+        "version": "1.4.0",
+        "balanceVersion": 2,
+        "telemetry": false,
+        "highContrastControl": true,
+        "restoreBackupControl": true,
+        "overflow": false
+      },
+      "screenshot": "tests/F20-desktop.png"
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "page_errors": 0,
+      "console_errors": 0,
+      "horizontal_overflow_initial": false,
+      "horizontal_overflow_content": false,
+      "horizontal_overflow_final": false,
+      "diagnostics": true,
+      "diagnostics_detail_initial": [
+        {
+          "name": "DOM essencial",
+          "ok": true,
+          "detail": "Todos os elementos essenciais presentes"
+        },
+        {
+          "name": "Save schema",
+          "ok": true,
+          "detail": "schema=18"
+        },
+        {
+          "name": "Release Candidate",
+          "ok": true,
+          "detail": "v1.4.0 · balance 2"
+        },
+        {
+          "name": "Estrutura da carreira",
+          "ok": true,
+          "detail": "Módulo de carreira disponível"
+        },
+        {
+          "name": "Motor de atendimento e triagem",
+          "ok": true,
+          "detail": "Protocolo v2 · triagem v1"
+        },
+        {
+          "name": "Classificação operacional",
+          "ok": true,
+          "detail": "12 naturezas · 4 órgãos"
+        },
+        {
+          "name": "Mapa progressivo",
+          "ok": true,
+          "detail": "5 estágios de precisão"
+        },
+        {
+          "name": "Conteúdo comercial",
+          "ok": true,
+          "detail": "cidade=sp · relatórios=0"
+        },
+        {
+          "name": "Módulos de cidades",
+          "ok": true,
+          "detail": "9 módulos registrados"
+        },
+        {
+          "name": "Operações especiais",
+          "ok": true,
+          "detail": "5 operações registradas"
+        },
+        {
+          "name": "Sandbox isolado",
+          "ok": true,
+          "detail": "configuração=5 chamadas"
+        },
+        {
+          "name": "Registro de expansões",
+          "ok": true,
+          "detail": "API 1"
+        },
+        {
+          "name": "Biblioteca de mapa",
+          "ok": true,
+          "detail": "Leaflet 1.9.4 carregado localmente"
+        },
+        {
+          "name": "Fallback tático",
+          "ok": true,
+          "detail": "modo efetivo=real"
+        },
+        {
+          "name": "Coordenadas das ocorrências",
+          "ok": true,
+          "detail": "Todas as ocorrências ativas possuem coordenadas válidas"
+        },
+        {
+          "name": "Configuração geográfica",
+          "ok": true,
+          "detail": "auto · São Paulo — SP"
+        },
+        {
+          "name": "Identidade visual / assets",
+          "ok": true,
+          "detail": "14/14 assets carregados"
+        },
+        {
+          "name": "LocalStorage",
+          "ok": true,
+          "detail": "Leitura e escrita local"
+        },
+        {
+          "name": "Erros capturados",
+          "ok": true,
+          "detail": "Nenhum erro em tempo de execução"
+        }
+      ],
+      "diagnostics_detail_final": [
+        {
+          "name": "DOM essencial",
+          "ok": true,
+          "detail": "Todos os elementos essenciais presentes"
+        },
+        {
+          "name": "Save schema",
+          "ok": true,
+          "detail": "schema=18"
+        },
+        {
+          "name": "Release Candidate",
+          "ok": true,
+          "detail": "v1.4.0 · balance 2"
+        },
+        {
+          "name": "Estrutura da carreira",
+          "ok": true,
+          "detail": "Módulo de carreira disponível"
+        },
+        {
+          "name": "Motor de atendimento e triagem",
+          "ok": true,
+          "detail": "Protocolo v2 · triagem v1"
+        },
+        {
+          "name": "Classificação operacional",
+          "ok": true,
+          "detail": "12 naturezas · 4 órgãos"
+        },
+        {
+          "name": "Mapa progressivo",
+          "ok": true,
+          "detail": "5 estágios de precisão"
+        },
+        {
+          "name": "Conteúdo comercial",
+          "ok": true,
+          "detail": "cidade=sp · relatórios=0"
+        },
+        {
+          "name": "Módulos de cidades",
+          "ok": true,
+          "detail": "9 módulos registrados"
+        },
+        {
+          "name": "Operações especiais",
+          "ok": true,
+          "detail": "5 operações registradas"
+        },
+        {
+          "name": "Sandbox isolado",
+          "ok": true,
+          "detail": "configuração=4 chamadas"
+        },
+        {
+          "name": "Registro de expansões",
+          "ok": true,
+          "detail": "API 1"
+        },
+        {
+          "name": "Biblioteca de mapa",
+          "ok": true,
+          "detail": "Leaflet 1.9.4 carregado localmente"
+        },
+        {
+          "name": "Fallback tático",
+          "ok": true,
+          "detail": "modo efetivo=tactical"
+        },
+        {
+          "name": "Coordenadas das ocorrências",
+          "ok": true,
+          "detail": "Todas as ocorrências ativas possuem coordenadas válidas"
+        },
+        {
+          "name": "Configuração geográfica",
+          "ok": true,
+          "detail": "tactical · São Paulo — SP"
+        },
+        {
+          "name": "Identidade visual / assets",
+          "ok": true,
+          "detail": "14/14 assets carregados"
+        },
+        {
+          "name": "LocalStorage",
+          "ok": true,
+          "detail": "Leitura e escrita local"
+        },
+        {
+          "name": "Erros capturados",
+          "ok": true,
+          "detail": "Nenhum erro em tempo de execução"
+        }
+      ],
+      "leaflet_loaded": true,
+      "assets_module_loaded": true,
+      "asset_count": 14,
+      "release_module_loaded": true,
+      "call_protocol_module_loaded": true,
+      "question_count": 18,
+      "content_module_loaded": true,
+      "city_modules": 9,
+      "special_operations": 5,
+      "content_screen": {
+        "active": true,
+        "challengeCards": 2,
+        "specialCards": 5,
+        "cityCards": 9,
+        "expansionCards": 3,
+        "overflow": false
+      },
+      "sandbox": {
+        "activeScreen": true,
+        "active": true,
+        "mode": "sandbox",
+        "affectsCareer": false,
+        "callCount": 4,
+        "careerShifts": 0,
+        "statusText": "Sandbox personalizado · 2s · resolvidas 0 · falhas 0 · abandonadas 0 · sem impacto na carreira",
+        "overflow": false
+      },
+      "protocol": {
+        "ok": true,
+        "questionButtons": 18,
+        "triageButtons": 21,
+        "triageSelected": 3,
+        "triageGrade": "S",
+        "triageScore": 100,
+        "chatLines": 5,
+        "locationRevealed": true,
+        "asked": 2,
+        "mapButtonDisabled": false,
+        "overflow": false
+      },
+      "tactical_fallback_visible_after_force": true,
+      "statistics": {
+        "statsActive": true,
+        "metricCount": 6,
+        "horizontalOverflow": false,
+        "diagnostics": true,
+        "diagnosticsDetail": [
+          {
+            "name": "DOM essencial",
+            "ok": true,
+            "detail": "Todos os elementos essenciais presentes"
+          },
+          {
+            "name": "Save schema",
+            "ok": true,
+            "detail": "schema=18"
+          },
+          {
+            "name": "Release Candidate",
+            "ok": true,
+            "detail": "v1.4.0 · balance 2"
+          },
+          {
+            "name": "Estrutura da carreira",
+            "ok": true,
+            "detail": "Módulo de carreira disponível"
+          },
+          {
+            "name": "Motor de atendimento e triagem",
+            "ok": true,
+            "detail": "Protocolo v2 · triagem v1"
+          },
+          {
+            "name": "Classificação operacional",
+            "ok": true,
+            "detail": "12 naturezas · 4 órgãos"
+          },
+          {
+            "name": "Mapa progressivo",
+            "ok": true,
+            "detail": "5 estágios de precisão"
+          },
+          {
+            "name": "Conteúdo comercial",
+            "ok": true,
+            "detail": "cidade=sp · relatórios=0"
+          },
+          {
+            "name": "Módulos de cidades",
+            "ok": true,
+            "detail": "9 módulos registrados"
+          },
+          {
+            "name": "Operações especiais",
+            "ok": true,
+            "detail": "5 operações registradas"
+          },
+          {
+            "name": "Sandbox isolado",
+            "ok": true,
+            "detail": "configuração=4 chamadas"
+          },
+          {
+            "name": "Registro de expansões",
+            "ok": true,
+            "detail": "API 1"
+          },
+          {
+            "name": "Biblioteca de mapa",
+            "ok": true,
+            "detail": "Leaflet 1.9.4 carregado localmente"
+          },
+          {
+            "name": "Fallback tático",
+            "ok": true,
+            "detail": "modo efetivo=tactical"
+          },
+          {
+            "name": "Coordenadas das ocorrências",
+            "ok": true,
+            "detail": "Todas as ocorrências ativas possuem coordenadas válidas"
+          },
+          {
+            "name": "Configuração geográfica",
+            "ok": true,
+            "detail": "tactical · São Paulo — SP"
+          },
+          {
+            "name": "Identidade visual / assets",
+            "ok": true,
+            "detail": "14/14 assets carregados"
+          },
+          {
+            "name": "LocalStorage",
+            "ok": true,
+            "detail": "Leitura e escrita local"
+          },
+          {
+            "name": "Erros capturados",
+            "ok": true,
+            "detail": "Nenhum erro em tempo de execução"
+          }
+        ]
+      },
+      "release": {
+        "active": true,
+        "metrics": 4,
+        "checks": 11,
+        "deviceChecks": 6,
+        "schema": 18,
+        "version": "1.4.0",
+        "balanceVersion": 2,
+        "telemetry": false,
+        "highContrastControl": true,
+        "restoreBackupControl": true,
+        "overflow": false
+      },
+      "screenshot": "tests/F20-mobile.png"
+    }
+  ],
+  "errors": []
+}
