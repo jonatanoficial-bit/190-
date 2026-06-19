@@ -2728,9 +2728,8 @@ body[data-visual-screen="dashboard"] .app-shell::before {
   background-image:
     linear-gradient(90deg, rgba(2, 8, 14, 0.56), rgba(2, 8, 14, 0.10) 47%, rgba(2, 8, 14, 0.58)),
     radial-gradient(circle at 80% 20%, rgba(45, 212, 191, 0.18), transparent 34%),
-    var(--asset-bg-home-city),
-    var(--asset-bg-control-lobby),
-    var(--asset-bg-dashboard);
+    var(--asset-bg-dashboard),
+    var(--asset-bg-control-lobby);
 }
 body[data-visual-screen="dispatch"] .app-shell::before,
 body[data-visual-screen="reports"] .app-shell::before {
@@ -2824,8 +2823,7 @@ dialog {
   background-image:
     linear-gradient(135deg, rgba(3, 14, 24, 0.54), rgba(4, 25, 39, 0.30)),
     var(--asset-ui-panel-kit),
-    var(--asset-bg-home-clean2),
-    var(--asset-bg-home-clean),
+    var(--asset-bg-control-lobby),
     var(--asset-bg-dashboard) !important;
   background-size: cover, min(58vw, 760px) auto, cover, cover, cover !important;
   background-position: center, right bottom, center, center, center !important;
@@ -2834,7 +2832,7 @@ dialog {
 #screen-dashboard .panel {
   background-image:
     linear-gradient(145deg, rgba(13, 46, 66, 0.46), rgba(3, 15, 25, 0.48)),
-    var(--asset-bg-home-reference),
+    var(--asset-panel-noise),
     var(--asset-bg-dashboard) !important;
   background-size: cover, cover, cover !important;
   background-position: center, center, center !important;
@@ -2912,5 +2910,251 @@ body.asset-safe-mode .app-shell::before {
   #activeCall .active-protocol-card,
   .field-radio-panel {
     background-color: rgba(4, 19, 30, 0.50) !important;
+  }
+}
+
+
+/* Fase 23.2 — CURADORIA VISUAL OFICIAL DOS ASSETS
+   Decisão: usar as imagens cinematográficas certas por função. As imagens com UI/menu já desenhado
+   ficam preservadas como referência/marketing, mas não entram atrás dos controles vivos do jogo. */
+:root {
+  --asset-bg-central-curated: url("../assets/backgrounds/bg-control-room-hall.webp");
+  --asset-bg-lobby-curated: url("../assets/backgrounds/bg-control-room-lobby.webp");
+  --asset-bg-dashboard-curated: url("../assets/backgrounds/bg-dashboard-room.webp");
+  --asset-bg-dispatch-curated: url("../assets/backgrounds/bg-dispatch-immersive.webp");
+  --asset-bg-map-curated: url("../assets/backgrounds/bg-map-ops.webp");
+  --asset-bg-career-curated: url("../assets/backgrounds/bg-career-room.webp");
+  --asset-bg-settings-curated: url("../assets/backgrounds/bg-settings-room.webp");
+  --asset-bg-central-fallback-curated: url("../assets/backgrounds/bg-central-room.webp");
+  --asset-reference-home-city: url("../assets/backgrounds/bg-home-city-night.webp");
+  --asset-reference-home-clean: url("../assets/backgrounds/bg-home-hero-clean.png");
+  --asset-reference-home-clean2: url("../assets/backgrounds/bg-home-hero-clean2.png");
+  --asset-reference-home-layout: url("../assets/backgrounds/bg-home-reference.png");
+  --curated-glass: rgba(4, 18, 30, 0.72);
+  --curated-glass-strong: rgba(4, 18, 30, 0.82);
+  --curated-border: rgba(94, 234, 212, 0.18);
+}
+html,
+body {
+  background-color: #020914 !important;
+  background-image:
+    linear-gradient(180deg, rgba(2, 8, 14, 0.58), rgba(2, 8, 14, 0.90)),
+    var(--asset-bg-central-curated),
+    var(--asset-bg-central-fallback-curated) !important;
+  background-size: cover, cover, cover !important;
+  background-position: center, center, center !important;
+  background-attachment: scroll !important;
+}
+.app-shell::before {
+  display: block !important;
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.72), rgba(2,8,14,.28) 48%, rgba(2,8,14,.72)),
+    radial-gradient(circle at 22% 18%, rgba(45,212,191,.14), transparent 30%),
+    var(--asset-bg-central-curated),
+    var(--asset-bg-central-fallback-curated) !important;
+  background-size: cover, cover, cover, cover !important;
+  background-position: center, center, center, center !important;
+  background-repeat: no-repeat !important;
+  filter: saturate(1.04) contrast(1.02);
+  opacity: 1 !important;
+}
+body[data-visual-screen="dashboard"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.70), rgba(2,8,14,.30) 48%, rgba(2,8,14,.72)),
+    radial-gradient(circle at 78% 18%, rgba(45,212,191,.12), transparent 34%),
+    var(--asset-bg-dashboard-curated),
+    var(--asset-bg-lobby-curated) !important;
+}
+body[data-visual-screen="dispatch"] .app-shell::before,
+body[data-visual-screen="reports"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.74), rgba(2,8,14,.24) 50%, rgba(2,8,14,.76)),
+    radial-gradient(circle at 24% 20%, rgba(20,184,166,.16), transparent 34%),
+    var(--asset-bg-dispatch-curated) !important;
+}
+body[data-visual-screen="map"] .app-shell::before,
+body[data-visual-screen="content"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.64), rgba(2,8,14,.22) 50%, rgba(2,8,14,.68)),
+    radial-gradient(circle at 48% 36%, rgba(96,165,250,.15), transparent 42%),
+    var(--asset-bg-map-curated) !important;
+}
+body[data-visual-screen="career"] .app-shell::before,
+body[data-visual-screen="training"] .app-shell::before,
+body[data-visual-screen="goals"] .app-shell::before,
+body[data-visual-screen="achievements"] .app-shell::before,
+body[data-visual-screen="statistics"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.70), rgba(2,8,14,.28) 50%, rgba(2,8,14,.72)),
+    radial-gradient(circle at 82% 20%, rgba(245,158,11,.12), transparent 34%),
+    var(--asset-bg-career-curated) !important;
+}
+body[data-visual-screen="settings"] .app-shell::before,
+body[data-visual-screen="release"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.74), rgba(2,8,14,.30) 48%, rgba(2,8,14,.74)),
+    radial-gradient(circle at 78% 16%, rgba(96,165,250,.14), transparent 38%),
+    var(--asset-bg-settings-curated) !important;
+}
+.topbar,
+.sidebar,
+.main-content,
+.toast-region,
+dialog {
+  position: relative;
+  z-index: 2;
+}
+.topbar {
+  background-color: rgba(2,10,18,.84) !important;
+  background-image:
+    linear-gradient(90deg, rgba(2,10,18,.90), rgba(7,31,48,.76)),
+    var(--asset-topbar-glow) !important;
+  background-size: auto, 100% 100% !important;
+  background-position: center !important;
+  backdrop-filter: blur(18px) saturate(135%) !important;
+}
+.sidebar {
+  background-color: rgba(3,15,25,.86) !important;
+  background-image:
+    linear-gradient(180deg, rgba(3,15,25,.90), rgba(3,15,25,.82)),
+    var(--asset-panel-noise) !important;
+  background-size: auto, 220px 220px !important;
+  background-position: center !important;
+  backdrop-filter: blur(18px) saturate(126%) !important;
+}
+.main-content,
+.screen {
+  background: transparent !important;
+}
+.screen.active::before {
+  background: linear-gradient(180deg, rgba(2,8,14,.16), rgba(2,8,14,.06)) !important;
+  border-color: rgba(94,234,212,.06) !important;
+  box-shadow: 0 22px 70px rgba(0,0,0,.14) !important;
+}
+.hero-card,
+.panel,
+.metric-card,
+.course-card,
+.goal-card,
+.achievement-card,
+.report-card,
+.call-card,
+.warning-card,
+.list-item,
+.timeline-item,
+.rank-item,
+.triage-panel,
+.resource-dispatch-panel,
+.field-radio-panel,
+.academy-panel {
+  background-color: var(--curated-glass) !important;
+  background-image:
+    linear-gradient(145deg, rgba(13,46,66,.54), rgba(3,15,25,.66)),
+    var(--asset-panel-noise) !important;
+  background-size: auto, 220px 220px !important;
+  background-position: center, center !important;
+  backdrop-filter: blur(10px) saturate(120%) !important;
+  border-color: var(--curated-border) !important;
+}
+#careerSetup.hero-card {
+  background-color: rgba(3,15,25,.70) !important;
+  background-image:
+    linear-gradient(135deg, rgba(3,14,24,.80), rgba(4,25,39,.52)),
+    var(--asset-bg-lobby-curated),
+    var(--asset-bg-dashboard-curated) !important;
+  background-size: cover, cover, cover !important;
+  background-position: center, center, center !important;
+}
+#dashboardContent .career-hero {
+  background-image:
+    linear-gradient(135deg, rgba(3,14,24,.72), rgba(4,25,39,.54)),
+    var(--asset-bg-dashboard-curated) !important;
+  background-size: cover, cover !important;
+  background-position: center !important;
+}
+#screen-dashboard .metric-card,
+#screen-dashboard .panel {
+  background-image:
+    linear-gradient(145deg, rgba(13,46,66,.58), rgba(3,15,25,.70)),
+    var(--asset-panel-noise) !important;
+  background-size: auto, 220px 220px !important;
+}
+#screen-dispatch .panel,
+#activeCall .active-protocol-card,
+#fieldRadioPanel,
+.field-radio-panel,
+#screen-reports .panel {
+  background-color: rgba(4,19,30,.76) !important;
+  background-image:
+    linear-gradient(160deg, rgba(1,9,16,.78), rgba(8,31,48,.58)),
+    var(--asset-panel-noise) !important;
+  background-size: auto, 220px 220px !important;
+}
+#screen-map .panel,
+#screen-content .panel,
+.resource-dispatch-panel {
+  background-image:
+    linear-gradient(160deg, rgba(2,10,18,.74), rgba(7,33,49,.56)),
+    var(--asset-panel-noise) !important;
+  background-size: auto, 220px 220px !important;
+}
+.map-stage,
+.leaflet-container {
+  background-color: rgba(2,10,18,.70) !important;
+}
+#screen-career .panel,
+#screen-training .panel,
+#screen-training .course-card,
+#screen-goals .goal-card,
+#screen-achievements .achievement-card,
+#screen-statistics .metric-card {
+  background-image:
+    linear-gradient(145deg, rgba(13,46,66,.56), rgba(3,15,25,.68)),
+    var(--asset-panel-noise) !important;
+  background-size: auto, 220px 220px !important;
+}
+#screen-settings .panel,
+#screen-release .panel,
+#screen-release .hero-card {
+  background-image:
+    linear-gradient(145deg, rgba(13,46,66,.58), rgba(3,15,25,.70)),
+    var(--asset-panel-noise) !important;
+  background-size: auto, 220px 220px !important;
+}
+.call-chat,
+.radio-log {
+  background:
+    linear-gradient(180deg, rgba(2,10,18,.78), rgba(2,10,18,.56)),
+    var(--asset-panel-noise) !important;
+  background-size: auto, 220px 220px !important;
+  background-position: center !important;
+}
+/* Galeria técnica: estes assets são preservados no pacote, mas não são usados como fundo jogável
+   porque têm menu/texto já desenhado e poderiam duplicar a UI viva do jogo. */
+.visual-reference-bg-home-city { background-image: var(--asset-reference-home-city); }
+.visual-reference-bg-home-clean { background-image: var(--asset-reference-home-clean); }
+.visual-reference-bg-home-clean2 { background-image: var(--asset-reference-home-clean2); }
+.visual-reference-bg-home-layout { background-image: var(--asset-reference-home-layout); }
+@media (max-width: 760px) {
+  .app-shell::before {
+    background-position: center top, center top, center top, center top !important;
+  }
+  .panel,
+  .call-card,
+  .list-item,
+  .hero-card,
+  .course-card,
+  .goal-card,
+  .achievement-card,
+  .report-card {
+    background-color: var(--curated-glass-strong) !important;
+  }
+  .call-chat {
+    max-height: 320px !important;
   }
 }

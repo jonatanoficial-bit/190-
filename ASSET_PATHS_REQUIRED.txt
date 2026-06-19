@@ -1,30 +1,27 @@
 CENTRAL 190 — ASSET_PATHS_REQUIRED
-Build: CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT
-Versão: v1.7.1 — Fase 23.1 Hotfix Visual de aplicação real dos fundos
+Build: CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT
+Versão: v1.7.2 — Fase 23.2 Curadoria visual real dos assets
 
 OBJETIVO
-Garantir que o jogo use fundos cinematográficos WEBP/PNG como camada visual principal. Os antigos SVGs continuam na pasta como legado, mas não são mais o fundo ativo das telas.
+Usar cada imagem no lugar correto após análise visual dos arquivos existentes em assets/backgrounds. O hotfix anterior ligou fundos, mas ainda usava imagens de referência atrás de controles vivos. Esta fase separa fundo jogável, fundo de ambiente e arte de referência.
 
-FUNDOS PRINCIPAIS OBRIGATÓRIOS — usados ativamente no CSS:
-assets/backgrounds/bg-central-room.webp        -> fundo global/central/fallback principal
-assets/backgrounds/bg-dashboard-room.webp      -> painel inicial/dashboard quando os fundos extras não estiverem presentes
+FUNDOS ATIVOS POR TELA — usados de verdade no CSS:
+assets/backgrounds/bg-control-room-hall.webp   -> fundo global/default; ambiente de central escuro e imersivo
+assets/backgrounds/bg-control-room-lobby.webp  -> card de início de carreira / ambiente interno sem UI impressa
+assets/backgrounds/bg-dashboard-room.webp      -> painel inicial/dashboard; imagem gráfica limpa para métricas
 assets/backgrounds/bg-dispatch-immersive.webp  -> plantão, atendimento, chat, rádio e relatórios
-assets/backgrounds/bg-map-ops.webp             -> mapa, conteúdo, operações e despacho de unidades
+assets/backgrounds/bg-map-ops.webp             -> mapa, operações, conteúdo e despacho de unidades
 assets/backgrounds/bg-career-room.webp         -> carreira, cursos, academia, metas, conquistas e estatísticas
 assets/backgrounds/bg-settings-room.webp       -> configurações e central de lançamento
+assets/backgrounds/bg-central-room.webp        -> fallback global se algum fundo cinematográfico falhar
 
-FUNDOS CINEMATOGRÁFICOS OPCIONAIS — usados automaticamente se existirem na pasta:
-assets/backgrounds/bg-control-room-hall.webp   -> camada global/topbar/ambiente de central
-assets/backgrounds/bg-control-room-lobby.webp  -> sidebar e dashboard/lobby
-assets/backgrounds/bg-home-city-night.webp     -> fundo da tela inicial/dashboard
-assets/backgrounds/bg-home-hero-clean.png      -> card principal da home
-assets/backgrounds/bg-home-hero-clean2.png     -> card principal da home, prioridade sobre clean
-assets/backgrounds/bg-home-reference.png       -> cards de resumo do dashboard
+IMAGENS PRESERVADAS COMO REFERÊNCIA/MARKETING — NÃO ficam atrás da UI viva:
+assets/backgrounds/bg-home-city-night.webp     -> cidade vertical/cinemática; boa para pôster/splash, ruim atrás de formulário desktop
+assets/backgrounds/bg-home-hero-clean.png      -> arte com botões/texto já desenhados; preservada, mas não usada como fundo de jogo
+assets/backgrounds/bg-home-hero-clean2.png     -> arte com botões/texto já desenhados; preservada, mas não usada como fundo de jogo
+assets/backgrounds/bg-home-reference.png       -> referência de layout com texto/menu; preservada para guia visual, não para gameplay
 
-IMPORTANTE
-Os fundos opcionais foram vistos na pasta local do PC do usuário. Se eles estiverem presentes, o CSS vai usá-los. Se algum não existir, o jogo não quebra e cai nos WEBP obrigatórios.
-
-FUNDOS ANTIGOS / LEGADO — mantidos apenas como arquivos históricos, sem prioridade visual:
+FUNDOS ANTIGOS / LEGADO — mantidos só por compatibilidade histórica:
 assets/backgrounds/bg-central-190.svg
 assets/backgrounds/bg-dashboard.svg
 assets/backgrounds/bg-dispatch.svg
@@ -51,20 +48,8 @@ assets/units/unit-ambulance-samu.png
 assets/units/unit-fire-rescue.png
 assets/units/unit-helicopter-police.png
 
-MAPEAMENTO DE TELAS NO CSS
-body/app global: bg-central-room.webp + opcional bg-control-room-hall.webp
-dashboard: bg-dashboard-room.webp + opcionais bg-home-city-night.webp e bg-control-room-lobby.webp
-home hero: opcionais bg-home-hero-clean2.png, bg-home-hero-clean.png + fallback bg-dashboard-room.webp
-cards do dashboard: opcional bg-home-reference.png + fallback bg-dashboard-room.webp
-dispatch/reports: bg-dispatch-immersive.webp
-map/content/resource-dispatch: bg-map-ops.webp
-career/training/goals/achievements/statistics: bg-career-room.webp
-settings/release: bg-settings-room.webp
-
-CORREÇÕES F23.1
-1. Variáveis --asset-bg-* agora apontam para os WEBP principais, não mais para SVGs.
-2. CSS ganhou bloco final definitivo F23.1 com prioridade sobre fases anteriores.
-3. Service Worker mudou cache para central190-v1.7.1-f23-1-hotfix-fundos-cinematicos.
-4. Service Worker guarda os fundos obrigatórios e tenta cachear opcionais com Promise.allSettled, sem quebrar se faltar algum.
-5. js/assets.js separa assets obrigatórios, fundos cinematográficos opcionais e legado.
-6. Painel Configurações > Identidade visual passa a mostrar obrigatórios e opcionais.
+REGRA DE CURADORIA F23.2
+1. Imagem com UI/texto/botão impresso não deve ficar atrás de botão/formulário real.
+2. Cada tela usa um fundo com função temática: atendimento usa central/dispatch; mapa usa mapa; carreira usa carreira; configurações usa servidores.
+3. Os painéis usam vidro + noise, não fotos repetidas, para melhorar leitura.
+4. O service worker foi atualizado para recache obrigatório: central190-v1.7.2-f23-2-curadoria-visual-assets.

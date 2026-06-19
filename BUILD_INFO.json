@@ -1,29 +1,26 @@
 {
   "name": "Central 190",
-  "version": "1.7.1",
-  "phase": "23.1",
-  "build": "CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT",
-  "compiledAt": "2026-06-19T17:35:00-03:00",
+  "version": "1.7.2",
+  "phase": "23.2",
+  "build": "CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT",
+  "compiledAt": "2026-06-19T18:15:00-03:00",
   "saveSchema": 21,
-  "title": "Fase 23.1 — Hotfix de fundos cinematográficos",
+  "title": "Fase 23.2 — Curadoria visual real dos assets",
   "features": [
-    "variáveis CSS principais apontando para fundos WEBP/PNG cinematográficos",
-    "SVGs antigos removidos da prioridade visual e mantidos apenas como legado",
-    "mapeamento explícito de fundo por tela",
-    "service worker com cache novo para forçar atualização no GitHub Pages",
-    "fundos opcionais detectados quando presentes na pasta local/repositório",
-    "auditoria de assets obrigatórios e opcionais no painel de configurações"
+    "análise dos backgrounds reais",
+    "mapeamento correto por tela",
+    "fundos com UI impressa preservados como referência",
+    "painéis limpos sem imagem duplicada",
+    "cache PWA atualizado"
   ],
   "preserved": [
     "Academia 190",
-    "treinamento",
     "rádio operacional",
     "despacho de unidades",
     "mapa progressivo",
     "triagem",
     "atendimento por chat",
     "carreira",
-    "PWA",
     "save schema 21"
   ]
 }

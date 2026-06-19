@@ -1,10 +1,10 @@
 window.C190_Release = (() => {
   "use strict";
 
-  const VERSION = "1.7.1";
+  const VERSION = "1.7.2";
   const PHASE = 23;
   const BALANCE_VERSION = 2;
-  const BUILD = "CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT";
+  const BUILD = "CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT";
   const DEFAULT_CITY = { lat: -23.55052, lng: -46.63331, label: "São Paulo — SP" };
   let deferredInstallPrompt = null;
 

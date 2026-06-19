@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT";
+  const BUILD = "CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;

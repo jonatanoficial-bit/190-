@@ -27,8 +27,8 @@ window.C190_Save = (() => {
     "c190_save",
   ];
   const SCHEMA = 21;
-  const VERSION = "1.7.1";
-  const BUILD = "CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT";
+  const VERSION = "1.7.2";
+  const BUILD = "CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,

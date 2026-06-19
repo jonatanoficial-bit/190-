@@ -1,4 +1,4 @@
-const CACHE = "central190-v1.7.1-f23-1-hotfix-fundos-cinematicos";
+const CACHE = "central190-v1.7.2-f23-2-curadoria-visual-assets";
 const ASSETS = [
   "./",
   "./index.html",
@@ -41,6 +41,8 @@ const ASSETS = [
   "./assets/backgrounds/bg-map-ops.webp",
   "./assets/backgrounds/bg-career-room.webp",
   "./assets/backgrounds/bg-settings-room.webp",
+  "./assets/backgrounds/bg-control-room-hall.webp",
+  "./assets/backgrounds/bg-control-room-lobby.webp",
   "./assets/ui/ui-panel-kit.png",
   "./assets/units/unit-police-cruiser.png",
   "./assets/units/unit-ambulance-samu.png",
@@ -49,8 +51,6 @@ const ASSETS = [
 ];
 
 const OPTIONAL_ASSETS = [
-  "./assets/backgrounds/bg-control-room-hall.webp",
-  "./assets/backgrounds/bg-control-room-lobby.webp",
   "./assets/backgrounds/bg-home-city-night.webp",
   "./assets/backgrounds/bg-home-hero-clean.png",
   "./assets/backgrounds/bg-home-hero-clean2.png",

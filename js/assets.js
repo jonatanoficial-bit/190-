@@ -1,8 +1,8 @@
 window.C190_Assets = (() => {
   "use strict";
-  const VERSION = "1.7.1";
-  const PHASE = "23.1";
-  const BUILD = "CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT";
+  const VERSION = "1.7.2";
+  const PHASE = "23.2";
+  const BUILD = "CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT";
   const required = [
     "assets/badges/central190-brand.svg",
     "assets/backgrounds/bg-central-room.webp",
@@ -11,6 +11,8 @@ window.C190_Assets = (() => {
     "assets/backgrounds/bg-map-ops.webp",
     "assets/backgrounds/bg-career-room.webp",
     "assets/backgrounds/bg-settings-room.webp",
+    "assets/backgrounds/bg-control-room-hall.webp",
+    "assets/backgrounds/bg-control-room-lobby.webp",
     "assets/ui/panel-noise.svg",
     "assets/ui/topbar-glow.svg",
     "assets/ui/radio-waves.svg",
@@ -25,8 +27,6 @@ window.C190_Assets = (() => {
     "assets/icons/icon-512.png"
   ];
   const optionalCinematic = [
-    "assets/backgrounds/bg-control-room-hall.webp",
-    "assets/backgrounds/bg-control-room-lobby.webp",
     "assets/backgrounds/bg-home-city-night.webp",
     "assets/backgrounds/bg-home-hero-clean.png",
     "assets/backgrounds/bg-home-hero-clean2.png",
