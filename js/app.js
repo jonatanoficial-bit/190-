@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-1600-F22-FIELD-RADIO-20260619-153200-BRT";
+  const BUILD = "CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
@@ -440,7 +440,50 @@
         }),
     );
   }
+  function renderTrainingAcademy() {
+    const academy = window.C190_TrainingAcademy;
+    if (!academy) return;
+    const summary = academy.summary(state);
+    const panel = $("#academyOverview");
+    if (panel) {
+      panel.innerHTML = `<div class="academy-metric"><b>${summary.certificates}</b><span>Certificações</span></div><div class="academy-metric"><b>${summary.passed}</b><span>Simulações aprovadas</span></div><div class="academy-metric"><b>${summary.bestScore}</b><span>Melhor nota</span></div><div class="academy-metric"><b>${summary.effectLabel}</b><span>Efeito na carreira</span></div>`;
+    }
+    const effectBox = $("#trainingEffects");
+    if (effectBox) {
+      effectBox.innerHTML = academy.effectCards(state).map((item) => `<div class="training-effect ${item.active ? "active" : "locked"}"><strong>${esc(item.label)}</strong><span>${esc(item.detail)}</span></div>`).join("");
+    }
+    const modules = $("#trainingModules");
+    if (modules) {
+      modules.innerHTML = academy.MODULES.map((m) => {
+        const cert = academy.hasCertificate(state, m.id);
+        const ready = academy.moduleReadiness(state, m);
+        return `<article class="training-module-card ${cert ? "certified" : ""}"><div class="card-icon">${esc(m.icon)}</div><h3>${esc(m.name)}</h3><p>${esc(m.desc)}</p><div class="tag-row"><span class="tag">${esc(m.focus)}</span><span class="tag">Nota mínima ${m.passScore}</span></div><small>${esc(ready.detail)}</small><button class="action-btn primary" data-training-module="${esc(m.id)}">${cert ? "Refazer simulação" : "Iniciar simulação"}</button></article>`;
+      }).join("");
+    }
+    const certs = $("#certificationGrid");
+    if (certs) {
+      const certificates = academy.certificates(state);
+      certs.innerHTML = certificates.length ? certificates.map((c) => `<div class="certificate-card"><strong>${esc(c.name)}</strong><span>${new Date(c.earnedAt).toLocaleString()} · nota ${c.score}</span></div>`).join("") : '<div class="list-item">Nenhuma certificação prática concluída ainda.</div>';
+    }
+    const log = $("#simulationLog");
+    if (log) {
+      const simulations = (state.training?.simulations || []).slice(0, 8);
+      log.innerHTML = simulations.length ? simulations.map((r) => `<div class="timeline-item"><time>${new Date(r.at).toLocaleString()}</time><div><strong>${esc(r.moduleName)}</strong><div>${esc(r.grade)} · ${r.score}/100 · ${r.passed ? "aprovado" : "revisar"}</div><small>${esc(r.feedback.join(" · "))}</small></div></div>`).join("") : '<div class="list-item">Faça uma simulação para gerar relatório de treinamento.</div>';
+    }
+    $$('[data-training-module]').forEach((b) => (b.onclick = () => {
+      const out = academy.runSimulation(state, b.dataset.trainingModule);
+      if (out.ok) {
+        persist();
+        toast(out.result.passed ? `Certificação registrada · ${out.result.grade} (${out.result.score}/100)` : `Treinamento concluído · ${out.result.grade} (${out.result.score}/100)`, out.result.passed ? "success" : "warning");
+      } else {
+        toast("Não foi possível iniciar esta simulação.", "warning");
+      }
+    }));
+  }
+
   function renderCourses() {
+    window.C190_TrainingAcademy?.normalize?.(state);
+    renderTrainingAcademy();
     $("#courseGrid").innerHTML = C190_Career.courses
       .map((c) => {
         const done = state.career.completedCourses.includes(c.id);
@@ -790,13 +833,17 @@
       return;
     }
     summary.textContent = d.ok
-      ? `Identidade visual ativa: ${d.loaded}/${d.required} assets carregados.`
-      : `Modo seguro visual: ${d.missing.length} asset(s) ausente(s), sem quebrar o jogo.`;
-    const rows = window.C190_Assets.required.map((src) => {
+      ? `Identidade visual ativa: ${d.loaded}/${d.required} assets obrigatórios carregados · ${d.optionalLoaded || 0}/${d.optional || 0} fundos cinematográficos opcionais detectados.`
+      : `Modo seguro visual: ${d.missing.length} asset(s) obrigatório(s) ausente(s), sem quebrar o jogo.`;
+    const requiredRows = window.C190_Assets.required.map((src) => {
       const ok = !d.missing.includes(src);
-      return `<div class="asset-row ${ok ? "ok" : "warn"}"><strong>${ok ? "✓" : "!"}</strong> ${esc(src)}</div>`;
+      return `<div class="asset-row ${ok ? "ok" : "warn"}"><strong>${ok ? "✓" : "!"}</strong> obrigatório · ${esc(src)}</div>`;
     }).join("");
-    list.innerHTML = rows;
+    const optionalRows = (window.C190_Assets.optionalCinematic || []).map((src) => {
+      const ok = !(d.optionalMissing || []).includes(src);
+      return `<div class="asset-row ${ok ? "ok" : "warn"}"><strong>${ok ? "✓" : "○"}</strong> cinematográfico opcional · ${esc(src)}</div>`;
+    }).join("");
+    list.innerHTML = requiredRows + optionalRows;
   }
 
   function renderSettings() {
@@ -1090,7 +1137,7 @@
     window.C190_AppDebug = { state: () => state, renderAll, renderDispatch };
     C190_I18N.init();
     $("#languageSelect").value = C190_I18N.language;
-    $("#buildLabel").textContent = `${BUILD} · 18/06/2026 13:17:00 BRT`;
+    $("#buildLabel").textContent = `${BUILD} · 19/06/2026 16:24:00 BRT`;
     initEvents();
     renderAll();
     const requestedScreen = location.hash.replace("#", "");

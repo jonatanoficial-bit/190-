@@ -1,8 +1,8 @@
 {
   "id": "central-190",
-  "name": "Central 190 — Simulador Operacional v1.6.0",
+  "name": "Central 190 — Simulador Operacional v1.7.0",
   "short_name": "Central 190",
-  "description": "Simulador Central 190 com chamada real, triagem, localização progressiva, despacho e rádio operacional de campo.",
+  "description": "Simulador Central 190 com chamada real, triagem, localização progressiva, despacho, rádio e treinamento profissional.",
   "lang": "pt-BR",
   "start_url": "./index.html",
   "scope": "./",
@@ -56,6 +56,17 @@
       "name": "Abrir mapa",
       "short_name": "Mapa",
       "url": "./index.html#map",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Academia 190",
+      "short_name": "Cursos",
+      "url": "./index.html#training",
       "icons": [
         {
           "src": "assets/icons/icon-192.png",

@@ -47,6 +47,11 @@ window.C190_AntiBreak = (() => {
       "restoreBackupBtn",
       "assetAuditSummary",
       "assetAuditList",
+      "academyOverview",
+      "trainingModules",
+      "trainingEffects",
+      "certificationGrid",
+      "simulationLog",
     ];
     const missing = essentialIds.filter((id) => !document.getElementById(id));
     const mapDiagnostics = window.C190_Map?.diagnostics(state) || {
@@ -77,12 +82,12 @@ window.C190_AntiBreak = (() => {
       },
       {
         name: "Save schema",
-        ok: state?.schema === 19,
+        ok: state?.schema === 21,
         detail: `schema=${state?.schema}`,
       },
       {
         name: "Release Candidate",
-        ok: !!window.C190_Release && state?.release?.balanceVersion === 2 && state?.release?.visualRecovery === 1 && state?.settings?.telemetry === false && state?.release?.callProtocolVersion === 2 && state?.release?.triageVersion === 1 && state?.release?.locationIntelVersion === 1 && state?.release?.resourceDispatchVersion === 1 && !!window.C190_ResourceDispatch,
+        ok: !!window.C190_Release && state?.release?.balanceVersion === 2 && state?.release?.visualRecovery === 1 && state?.settings?.telemetry === false && state?.release?.callProtocolVersion === 2 && state?.release?.triageVersion === 1 && state?.release?.locationIntelVersion === 1 && state?.release?.resourceDispatchVersion === 1 && state?.release?.fieldRadioVersion === 1 && state?.release?.trainingAcademyVersion === 1 && !!window.C190_ResourceDispatch && !!window.C190_FieldRadio && !!window.C190_TrainingAcademy,
         detail: `v${window.C190_Release?.VERSION || "?"} · balance ${state?.release?.balanceVersion || "?"}`,
       },
       {
@@ -93,7 +98,7 @@ window.C190_AntiBreak = (() => {
       {
         name: "Motor de atendimento e triagem",
         ok: !!state?.dispatch && Array.isArray(state.dispatch.reports) && !!window.C190_CallProtocol && !!window.C190_Triage,
-        detail: `Protocolo v${window.C190_CallProtocol?.VERSION || "?"} · triagem v${window.C190_Triage?.VERSION || "?"} · recursos v${window.C190_ResourceDispatch?.VERSION || "?"}`,
+        detail: `Protocolo v${window.C190_CallProtocol?.VERSION || "?"} · triagem v${window.C190_Triage?.VERSION || "?"} · recursos v${window.C190_ResourceDispatch?.VERSION || "?"} · rádio v${window.C190_FieldRadio?.VERSION || "?"} · academia v${window.C190_TrainingAcademy?.VERSION || "?"}`,
       },
       {
         name: "Classificação operacional",
@@ -109,6 +114,12 @@ window.C190_AntiBreak = (() => {
         name: "Despacho de unidades",
         ok: !!window.C190_ResourceDispatch && Array.isArray(window.C190_ResourceDispatch.UNIT_BLUEPRINTS) && window.C190_ResourceDispatch.UNIT_BLUEPRINTS.length >= 9,
         detail: `${window.C190_ResourceDispatch?.UNIT_BLUEPRINTS?.length || 0} unidades operacionais`,
+      },
+
+      {
+        name: "Academia e certificações",
+        ok: !!window.C190_TrainingAcademy && Array.isArray(window.C190_TrainingAcademy.MODULES) && window.C190_TrainingAcademy.MODULES.length >= 8 && !!state?.training,
+        detail: `${window.C190_TrainingAcademy?.MODULES?.length || 0} módulos · ${(state?.training?.certificates || []).length} certificado(s)`,
       },
       {
         name: "Conteúdo comercial",

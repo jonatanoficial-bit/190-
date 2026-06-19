@@ -1,4 +1,4 @@
-const CACHE = "central190-v1.6.0-f22-field-radio";
+const CACHE = "central190-v1.7.1-f23-1-hotfix-fundos-cinematicos";
 const ASSETS = [
   "./",
   "./index.html",
@@ -11,6 +11,7 @@ const ASSETS = [
   "./js/triage.js",
   "./js/resource-dispatch.js",
   "./js/field-radio.js",
+  "./js/training-academy.js",
   "./js/location-intel.js",
   "./js/save-manager.js",
   "./js/career.js",
@@ -30,12 +31,6 @@ const ASSETS = [
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png",
   "./assets/badges/central190-brand.svg",
-  "./assets/backgrounds/bg-central-190.svg",
-  "./assets/backgrounds/bg-dashboard.svg",
-  "./assets/backgrounds/bg-dispatch.svg",
-  "./assets/backgrounds/bg-map.svg",
-  "./assets/backgrounds/bg-career.svg",
-  "./assets/backgrounds/bg-settings.svg",
   "./assets/ui/panel-noise.svg",
   "./assets/ui/topbar-glow.svg",
   "./assets/ui/radio-waves.svg",
@@ -53,8 +48,21 @@ const ASSETS = [
   "./assets/units/unit-helicopter-police.png"
 ];
 
+const OPTIONAL_ASSETS = [
+  "./assets/backgrounds/bg-control-room-hall.webp",
+  "./assets/backgrounds/bg-control-room-lobby.webp",
+  "./assets/backgrounds/bg-home-city-night.webp",
+  "./assets/backgrounds/bg-home-hero-clean.png",
+  "./assets/backgrounds/bg-home-hero-clean2.png",
+  "./assets/backgrounds/bg-home-reference.png"
+];
+
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
+  event.waitUntil(
+    caches.open(CACHE)
+      .then((cache) => cache.addAll(ASSETS).then(() => Promise.allSettled(OPTIONAL_ASSETS.map((src) => cache.add(src)))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", (event) => {

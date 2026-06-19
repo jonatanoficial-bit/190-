@@ -1,3 +1,2 @@
-Central 190 v1.6.0 — Fase 22
-Build: CENTRAL190-1600-F22-FIELD-RADIO-20260619-153200-BRT
-Save schema: 20
+Central 190 v1.7.1 — Fase 23.1 — Hotfix de fundos cinematográficos e aplicação real dos assets
+Build CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT

@@ -1,0 +1,46 @@
+{
+  "build": "CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT",
+  "checks": [
+    {
+      "name": "Save schema 21",
+      "ok": true
+    },
+    {
+      "name": "Build v1.7.0",
+      "ok": true
+    },
+    {
+      "name": "Training Academy script",
+      "ok": true
+    },
+    {
+      "name": "UI Academia",
+      "ok": true
+    },
+    {
+      "name": "Cursos adicionados",
+      "ok": true
+    },
+    {
+      "name": "Training no resultado final",
+      "ok": true
+    },
+    {
+      "name": "SW cache training",
+      "ok": true
+    },
+    {
+      "name": "Assets obrigatórios",
+      "ok": true,
+      "missing": []
+    },
+    {
+      "name": "IDs críticos",
+      "ok": true,
+      "missing": []
+    }
+  ],
+  "ok": true,
+  "files": 115,
+  "assetsRequired": 25
+}

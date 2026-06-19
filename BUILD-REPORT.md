@@ -1,13 +1,6 @@
-# Build Report — Central 190 v1.6.0 Fase 22
+# Build Report — Central 190 v1.7.0 Fase 23
 
-Build: `CENTRAL190-1600-F22-FIELD-RADIO-20260619-153200-BRT`
+Build: `CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT`
+Save schema: 21
 
-Arquivos: 112
-
-## Principais mudanças
-
-- Rádio operacional pós-despacho.
-- Ocorrência viva após envio de unidades.
-- Ações do operador em campo: linha aberta, reforço PM, SAMU, Bombeiros, Defesa Civil, redirecionamento e encerramento.
-- Relatório registra nota e log de rádio.
-- Save schema 20.
+Fase: Treinamento, cursos e avaliação profissional.

@@ -1,17 +1,22 @@
-# Central 190 — v1.6.0 Fase 22
+# Central 190 — v1.7.0 Fase 23
 
-Simulador operacional mobile-first de atendimento 190 com carreira, mapa real, triagem, localização progressiva, despacho de unidades e rádio de campo.
+Build: `CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT`
 
-## Fase 22
-
-Esta build adiciona o acompanhamento pós-despacho: a ocorrência continua viva no rádio, as equipes informam deslocamento, chegada e situação no local, e o jogador decide reforços, apoio médico, Bombeiros, Defesa Civil, redirecionamento e encerramento.
+Fase 23 adiciona Academia 190, simulações práticas, certificações profissionais e efeitos reais dos cursos no atendimento, triagem, mapa, despacho e rádio.
 
 ## Execução
 
-Abra `index.html` em um servidor local ou publique no GitHub Pages. O jogo possui PWA e cache offline.
+Abra `index.html` ou publique a raiz no GitHub Pages.
 
-## Build
+## Save
 
-`CENTRAL190-1600-F22-FIELD-RADIO-20260619-153200-BRT`
+Schema 21 com migração automática dos schemas anteriores.
 
-Save schema: 20.
+
+## v1.7.1 — Fase 23.1 Hotfix de fundos cinematográficos
+
+- Corrigido mapeamento ativo dos fundos: as variáveis principais agora usam WEBP/PNG cinematográficos.
+- SVGs antigos permanecem como legado, mas não comandam mais a interface.
+- Service Worker atualizado para novo cache `CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT`.
+- Painel de assets separa obrigatórios e opcionais.
+- Save schema preservado em 21; nenhuma perda de progresso.

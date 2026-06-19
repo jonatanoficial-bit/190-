@@ -1,0 +1,8 @@
+{
+  "schema": 21,
+  "version": "1.7.0",
+  "modules": 8,
+  "courses": 10,
+  "logicFlow": "call→protocol→triage→dispatch→radio→training bonus→career",
+  "ok": true
+}

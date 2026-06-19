@@ -248,31 +248,33 @@ window.C190_Dispatch = (() => {
     const shift = state.dispatch.shift;
     if (!shift?.active || !call) return null;
     if (["resolved", "failed"].includes(call.status)) return null;
-    call.outcome = finalOutcome.resolved ? "resolved" : "failed";
+    const trainedOutcome = window.C190_TrainingAcademy?.applyOutcome?.(state, call, finalOutcome) || finalOutcome;
+    call.trainingResult = trainedOutcome.training || null;
+    call.outcome = trainedOutcome.resolved ? "resolved" : "failed";
     call.status = call.outcome;
-    call.radioResult = finalOutcome.radio || call.fieldRadio?.finalOutcome?.radio || null;
+    call.radioResult = trainedOutcome.radio || call.fieldRadio?.finalOutcome?.radio || null;
     shift.activeCallId = null;
     if (call.outcome === "resolved") shift.resolved++;
     else shift.failed++;
-    shift.qualityTotal += Number(finalOutcome.quality || 0);
+    shift.qualityTotal += Number(trainedOutcome.quality || 0);
     if (shift.affectsCareer) {
       const adjusted = window.C190_Release?.adjustOutcome?.(state, {
-        quality: finalOutcome.quality,
-        xp: finalOutcome.xp,
-        rep: finalOutcome.rep,
+        quality: trainedOutcome.quality,
+        xp: trainedOutcome.xp,
+        rep: trainedOutcome.rep,
         resolved: call.outcome === "resolved",
         failed: call.outcome === "failed",
-        reason: `${call.type}: ${choiceText} · protocolo ${finalOutcome.protocol?.grade || "N/A"} · triagem ${finalOutcome.triage?.grade || "N/A"} · despacho ${finalOutcome.resourceDispatch?.grade || "N/A"} · rádio ${finalOutcome.radio?.grade || "N/A"} (${(finalOutcome.radio?.actions || []).map((a) => a.id).join(", ") || "sem ações"})`,
+        reason: `${call.type}: ${choiceText} · protocolo ${trainedOutcome.protocol?.grade || "N/A"} · triagem ${trainedOutcome.triage?.grade || "N/A"} · despacho ${trainedOutcome.resourceDispatch?.grade || "N/A"} · rádio ${trainedOutcome.radio?.grade || "N/A"} · treinamento ${trainedOutcome.training?.label || "sem bônus"} (${(trainedOutcome.radio?.actions || []).map((a) => a.id).join(", ") || "sem ações"})`,
       }) || {
-        quality: finalOutcome.quality, xp: finalOutcome.xp, rep: finalOutcome.rep,
+        quality: trainedOutcome.quality, xp: trainedOutcome.xp, rep: trainedOutcome.rep,
         resolved: call.outcome === "resolved", failed: call.outcome === "failed",
-        reason: `${call.type}: ${choiceText}`,
+        reason: `${call.type}: ${choiceText} · treinamento ${trainedOutcome.training?.label || "sem bônus"}`,
       };
       window.C190_Career.applyOutcome(state, adjusted);
     }
     const done = shift.calls.every((item) => ["resolved", "failed", "abandoned"].includes(item.status));
     if (done) finishShift(state);
-    return { call, finalOutcome };
+    return { call, finalOutcome: trainedOutcome };
   }
 
   function choose(state, callId, index) {
@@ -382,6 +384,7 @@ window.C190_Dispatch = (() => {
         radioGrade: call.radioResult?.grade || call.fieldRadio?.grade || null,
         radioScore: call.radioResult?.finalScore || call.fieldRadio?.finalScore || null,
         radioActions: call.radioResult?.actions || call.fieldRadio?.actions || [],
+        trainingBonus: call.trainingResult || null,
         radioLog: call.radioResult?.log || call.fieldRadio?.log || [],
       })),
     };

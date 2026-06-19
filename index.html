@@ -13,7 +13,7 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <title>Central 190 — v1.6.0 Fase 22</title>
+    <title>Central 190 — v1.7.1 Fase 23.1</title>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
@@ -97,7 +97,7 @@
           </button>
         </nav>
         <div class="version-chip">
-          <span>v1.6.0 · Fase 22</span>
+          <span>v1.7.1 · Fase 23.1</span>
           <small id="buildLabel">19/06/2026 15:32:00 BRT</small>
         </div>
       </aside>
@@ -509,7 +509,33 @@
               <h1 data-i18n="training.title">Cursos e certificações</h1>
             </div>
           </div>
-          <div id="courseGrid" class="course-grid"></div>
+          <div class="training-layout">
+            <article class="panel wide academy-hero-panel">
+              <header><h2>Academia 190 — simulações práticas</h2></header>
+              <p>As certificações agora influenciam pontuação, XP, reputação e recomendações de melhoria. Faça provas práticas para validar atendimento, localização, triagem, despacho e rádio.</p>
+              <div id="academyOverview" class="academy-overview"></div>
+            </article>
+            <article class="panel wide">
+              <header><h2>Efeitos ativos dos cursos</h2></header>
+              <div id="trainingEffects" class="training-effects"></div>
+            </article>
+            <article class="panel wide">
+              <header><h2>Simulações e certificações</h2></header>
+              <div id="trainingModules" class="training-modules"></div>
+            </article>
+            <article class="panel">
+              <header><h2>Certificados conquistados</h2></header>
+              <div id="certificationGrid" class="certificate-grid"></div>
+            </article>
+            <article class="panel">
+              <header><h2>Histórico de simulações</h2></header>
+              <div id="simulationLog" class="stack-list"></div>
+            </article>
+            <article class="panel wide">
+              <header><h2>Cursos formais da carreira</h2></header>
+              <div id="courseGrid" class="course-grid"></div>
+            </article>
+          </div>
         </section>
 
         <section id="screen-goals" class="screen">
@@ -553,7 +579,7 @@
           <div class="screen-heading">
             <div>
               <span class="eyebrow" data-i18n="release.eyebrow">RELEASE CANDIDATE</span>
-              <h1 data-i18n="release.title">Central de lançamento v1.3.0</h1>
+              <h1 data-i18n="release.title">Central de lançamento v1.7.1</h1>
             </div>
             <span id="releaseStatusBadge" class="release-badge">AUDITANDO</span>
           </div>
@@ -564,9 +590,9 @@
               <p data-i18n="release.heroText">Esta tela reúne compatibilidade, modo offline, privacidade, acessibilidade, balanceamento e créditos do jogo.</p>
             </div>
             <div class="release-version">
-              <strong>v1.3.0</strong>
-              <span>Triagem e Despacho</span>
-              <small>Save schema 17</small>
+              <strong>v1.7.1</strong>
+              <span>Academia e certificações</span>
+              <small>Save schema 21</small>
             </div>
           </div>
           <div id="releaseMetrics" class="metric-grid release-metrics"></div>
@@ -729,6 +755,7 @@
     <script src="js/location-intel.js"></script>
     <script src="js/resource-dispatch.js"></script>
     <script src="js/field-radio.js"></script>
+    <script src="js/training-academy.js"></script>
     <script src="js/save-manager.js"></script>
     <script src="js/career.js"></script>
     <script src="js/dispatch.js"></script>

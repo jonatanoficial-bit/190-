@@ -1,28 +1,29 @@
 {
   "name": "Central 190",
-  "version": "1.6.0",
-  "phase": 22,
-  "build": "CENTRAL190-1600-F22-FIELD-RADIO-20260619-153200-BRT",
-  "compiledAt": "2026-06-19T15:32:00-03:00",
-  "saveSchema": 20,
-  "title": "Fase 22 — Rádio, evolução da ocorrência e consequências",
+  "version": "1.7.1",
+  "phase": "23.1",
+  "build": "CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT",
+  "compiledAt": "2026-06-19T17:35:00-03:00",
+  "saveSchema": 21,
+  "title": "Fase 23.1 — Hotfix de fundos cinematográficos",
   "features": [
-    "radio operacional pós-despacho",
-    "evolução de ocorrência em campo",
-    "pedidos de apoio",
-    "ações do operador por rádio",
-    "encerramento com nota de rádio",
-    "impacto em XP/reputação/relatório"
+    "variáveis CSS principais apontando para fundos WEBP/PNG cinematográficos",
+    "SVGs antigos removidos da prioridade visual e mantidos apenas como legado",
+    "mapeamento explícito de fundo por tela",
+    "service worker com cache novo para forçar atualização no GitHub Pages",
+    "fundos opcionais detectados quando presentes na pasta local/repositório",
+    "auditoria de assets obrigatórios e opcionais no painel de configurações"
   ],
   "preserved": [
-    "assets oficiais",
-    "mapa real Leaflet",
-    "mapa tático offline",
-    "atendimento por chat",
-    "triagem",
+    "Academia 190",
+    "treinamento",
+    "rádio operacional",
     "despacho de unidades",
+    "mapa progressivo",
+    "triagem",
+    "atendimento por chat",
     "carreira",
-    "cidades",
-    "sandbox"
+    "PWA",
+    "save schema 21"
   ]
 }

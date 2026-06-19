@@ -1,9 +1,11 @@
 window.C190_Save = (() => {
   "use strict";
 
-  const KEY = "central190_save_v20";
-  const BACKUP = "central190_save_v20_backup";
+  const KEY = "central190_save_v21";
+  const BACKUP = "central190_save_v21_backup";
   const LEGACY = [
+    "central190_save_v20",
+    "central190_save_v20_backup",
     "central190_save_v19",
     "central190_save_v19_backup",
     "central190_save_v18",
@@ -24,9 +26,9 @@ window.C190_Save = (() => {
     "central_190_save",
     "c190_save",
   ];
-  const SCHEMA = 20;
-  const VERSION = "1.6.0";
-  const BUILD = "CENTRAL190-1600-F22-FIELD-RADIO-20260619-153200-BRT";
+  const SCHEMA = 21;
+  const VERSION = "1.7.1";
+  const BUILD = "CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,
@@ -99,13 +101,14 @@ window.C190_Save = (() => {
     content: defaultContent(),
     release: {
       version: VERSION,
-      phase: 22,
+      phase: 23,
       visualRecovery: 1,
       callProtocolVersion: 2,
       triageVersion: 1,
       locationIntelVersion: 1,
       resourceDispatchVersion: 1,
       fieldRadioVersion: 1,
+      trainingAcademyVersion: 1,
       balanceVersion: 2,
       firstOpenedAt: new Date().toISOString(),
       notesSeen: false,
@@ -113,6 +116,7 @@ window.C190_Save = (() => {
       installDismissed: false,
       lastDeviceAudit: null,
     },
+    training: window.C190_TrainingAcademy?.defaultTraining?.() || { version: 1, certificates: [], simulations: [], stats: { total: 0, passed: 0, bestScore: 0 }, recommendedModuleId: null },
     settings: {
       largeText: false,
       reduceMotion: false,
@@ -225,6 +229,7 @@ window.C190_Save = (() => {
         window.C190_LocationIntel?.normalize?.(call);
         window.C190_Triage?.normalize?.(call);
         window.C190_ResourceDispatch?.normalize?.(call);
+        window.C190_FieldRadio?.normalize?.(call);
       });
     }
     return result;
@@ -285,12 +290,13 @@ window.C190_Save = (() => {
       mapPrivacy: "approximate",
     };
 
-    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 22, visualRecovery: 1, callProtocolVersion: 2, triageVersion: 1,
+    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 23, visualRecovery: 1, callProtocolVersion: 2, triageVersion: 1,
       locationIntelVersion: 1, resourceDispatchVersion: 1,
-      fieldRadioVersion: 1, balanceVersion: 2 };
+      fieldRadioVersion: 1, trainingAcademyVersion: 1, balanceVersion: 2 };
     base.settings.telemetry = false;
     base.dispatch = enrichDispatch(source.dispatch || base.dispatch, incomingCenter);
     base.content = source.content && typeof source.content === "object" ? clone(source.content) : defaultContent();
+    base.training = window.C190_TrainingAcademy?.migrate?.(source.training) || base.training || { version: 1, certificates: [], simulations: [], stats: { total: 0, passed: 0, bestScore: 0 }, recommendedModuleId: null };
     if (window.C190_Content?.normalize) window.C190_Content.normalize(base);
 
     // Vincula a cidade migrada pela coordenada conhecida, preservando centros personalizados.

@@ -1,9 +1,13 @@
-# Test Report — Central 190 v1.6.0 Fase 22
+# Test Report — Central 190 v1.7.0 Fase 23
 
-- JavaScript syntax: aprovado.
-- Fluxo lógico Node: aprovado.
-- Save schema 20: aprovado.
-- Field radio module: aprovado.
-- ZIP integrity: será validado após compactação.
+Build: `CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT`
 
-Ambiente isolado bloqueou abertura por Chromium em localhost/file, portanto a homologação visual final deve ser repetida no navegador real após upload.
+## Resultado
+
+- Sintaxe JavaScript: aprovada.
+- Auditoria estática: 9 verificações, aprovada.
+- Fluxo lógico: chamada → protocolo → triagem → despacho → rádio → bônus de treinamento → carreira.
+- Save schema: 21.
+- Cursos reconhecidos: 10.
+- Módulos da Academia 190: 8.
+- Assets obrigatórios: 25/25 presentes.

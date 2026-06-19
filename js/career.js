@@ -19,6 +19,9 @@ window.C190_Career = (() => {
     { id: "lideranca", icon: "♜", name: "Liderança operacional", desc: "Requisito para funções de supervisão e coordenação.", cost: 1200, minRank: 3 },
     { id: "negociacao", icon: "◇", name: "Negociação em alto risco", desc: "Aumenta a chance de resolução excelente em ocorrências críticas.", cost: 1450, minRank: 3 },
     { id: "auditoria", icon: "✓", name: "Auditoria e qualidade", desc: "Capacita para metas de excelência, conformidade e comando.", cost: 1800, minRank: 4 },
+    { id: "geolocalizacao", icon: "⌖", name: "Geolocalização de emergência", desc: "Melhora a precisão do mapa, leitura de referência e redução de erro de endereço.", cost: 980, minRank: 2 },
+    { id: "despacho_integrado", icon: "▣", name: "Despacho integrado PM/Bombeiros/SAMU", desc: "Aprimora seleção de recursos, despacho combinado e tempo de chegada.", cost: 1320, minRank: 3 },
+    { id: "radio_operacional", icon: "◌", name: "Rádio operacional e comando de campo", desc: "Melhora decisões após o despacho, reforços, redirecionamento e encerramento.", cost: 1560, minRank: 4 },
   ];
 
   const specs = [
@@ -44,6 +47,8 @@ window.C190_Career = (() => {
     { id: "especial_tres", icon: "◆", name: "Força-Tarefa", desc: "Conclua três operações especiais.", test: (state) => (state.content?.special?.completed || []).length >= 3 },
     { id: "desafio_duplo", icon: "✓", name: "Rotina de Elite", desc: "Resgate as recompensas diária e semanal.", test: (state) => !!state.content?.challenges?.daily?.claimed && !!state.content?.challenges?.weekly?.claimed },
     { id: "cem_relatorios", icon: "100", name: "Central Incansável", desc: "Registre cem relatórios de todos os modos.", test: (state) => Number(state.content?.stats?.totalReports || 0) >= 100 },
+    { id: "certificacao_tripla", icon: "EDU", name: "Operador Certificado", desc: "Conquiste três certificações práticas da Academia 190.", test: (state) => (state.training?.certificates || []).length >= 3 },
+    { id: "instrutor_qualidade", icon: "QA", name: "Instrutor de Qualidade", desc: "Alcance nota máxima em uma simulação de treinamento.", test: (state) => Number(state.training?.stats?.bestScore || 0) >= 95 },
   ];
 
   const goalDefs = [
