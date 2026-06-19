@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-1730-F23-3-HOTFIX-FUNDOS-FOTOGRAFICOS-20260619-184500-BRT";
+  const BUILD = "CENTRAL190-1740-F23-4-HOTFIX-LAYOUT-MOBILE-FIRST-20260619-191500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;

@@ -1,3 +1,15 @@
+# Central 190 v1.7.4 — Fase 23.4 — Hotfix layout mobile-first
+
+Build: `CENTRAL190-1740-F23-4-HOTFIX-LAYOUT-MOBILE-FIRST-20260619-191500-BRT`
+
+- Topbar e sidebar restauradas como fixas.
+- Card de nova carreira reorganizado para texto e formulário alinhados.
+- Mobile priorizado: formulário em uma coluna, botões maiores, painel compacto e rolagem natural.
+- Fundos fotográficos reais da v1.7.3 preservados.
+- Cache PWA atualizado para `central190-v1.7.4-f23-4-layout-mobile-first`.
+
+---
+
 # Central 190 — v1.7.0 Fase 23
 
 Build: `CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT`

@@ -59,3 +59,9 @@ assets/units/unit-helicopter-police.png
 
 OBSERVAÇÃO
 A v1.7.3 força fundos fotográficos/cinemáticos como prioridade. Os fundos vetoriais que causavam aparência de tela genérica foram mantidos apenas como fallback/legado.
+
+
+Fase 23.4 layout:
+- Fundos fotográficos da Fase 23.3 preservados.
+- Correção visual focada em arquitetura fixa: topbar, sidebar, main-content e card inicial mobile-first.
+- Build: CENTRAL190-1740-F23-4-HOTFIX-LAYOUT-MOBILE-FIRST-20260619-191500-BRT

@@ -1,17 +1,17 @@
 {
   "name": "Central 190",
-  "version": "1.7.3",
-  "phase": "23.3",
-  "build": "CENTRAL190-1730-F23-3-HOTFIX-FUNDOS-FOTOGRAFICOS-20260619-184500-BRT",
-  "compiledAt": "2026-06-19T18:45:00-03:00",
+  "version": "1.7.4",
+  "phase": "23.4",
+  "build": "CENTRAL190-1740-F23-4-HOTFIX-LAYOUT-MOBILE-FIRST-20260619-191500-BRT",
+  "compiledAt": "2026-06-19T19:15:00-03:00",
   "saveSchema": 21,
-  "title": "Fase 23.3 — Hotfix fundos fotográficos reais",
+  "title": "Fase 23.4 — Hotfix layout mobile-first e auditoria visual",
   "features": [
-    "análise dos backgrounds reais",
-    "mapeamento correto por tela",
-    "fundos com UI impressa preservados como referência",
-    "painéis limpos sem imagem duplicada",
-    "cache PWA atualizado"
+    "restauração de topbar e menu lateral fixos",
+    "correção do desalinhamento entre texto e formulário na tela inicial",
+    "compactação do primeiro painel para desktop, tablet e mobile",
+    "otimização de leitura e áreas de toque em mobile",
+    "preservação dos fundos fotográficos reais e cache PWA atualizado"
   ],
   "preserved": [
     "Academia 190",

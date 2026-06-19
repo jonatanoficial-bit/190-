@@ -1,4 +1,4 @@
-const CACHE = "central190-v1.7.3-f23-3-hotfix-fundos-fotograficos";
+const CACHE = "central190-v1.7.4-f23-3-hotfix-fundos-fotograficos";
 const ASSETS = [
   "./",
   "./index.html",

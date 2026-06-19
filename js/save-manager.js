@@ -27,8 +27,8 @@ window.C190_Save = (() => {
     "c190_save",
   ];
   const SCHEMA = 21;
-  const VERSION = "1.7.3";
-  const BUILD = "CENTRAL190-1730-F23-3-HOTFIX-FUNDOS-FOTOGRAFICOS-20260619-184500-BRT";
+  const VERSION = "1.7.4";
+  const BUILD = "CENTRAL190-1740-F23-4-HOTFIX-LAYOUT-MOBILE-FIRST-20260619-191500-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,

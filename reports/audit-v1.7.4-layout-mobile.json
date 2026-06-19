@@ -1,0 +1,16 @@
+{
+  "build": "CENTRAL190-1740-F23-4-HOTFIX-LAYOUT-MOBILE-FIRST-20260619-191500-BRT",
+  "version": "1.7.4",
+  "phase": "23.4",
+  "checks": {
+    "topbar_fixed_override": true,
+    "sidebar_fixed_override": true,
+    "main_content_desktop_margin": true,
+    "mobile_main_zero_margin": true,
+    "career_setup_grid": true,
+    "mobile_career_one_column": true,
+    "asset_urls_missing": true
+  },
+  "cssUrlCount": 51,
+  "missingCssUrls": []
+}
