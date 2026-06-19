@@ -1,0 +1,14 @@
+{
+  "phase": 22,
+  "version": "1.6.0",
+  "build": "CENTRAL190-1600-F22-FIELD-RADIO-20260619-153200-BRT",
+  "result": "approved",
+  "checks": [
+    "js syntax",
+    "save schema 20",
+    "dispatch starts field radio",
+    "radio actions update score",
+    "field radio finalizes call",
+    "report includes radio grade and score"
+  ]
+}

@@ -1,9 +1,13 @@
 window.C190_Save = (() => {
   "use strict";
 
-  const KEY = "central190_save_v18";
-  const BACKUP = "central190_save_v18_backup";
+  const KEY = "central190_save_v20";
+  const BACKUP = "central190_save_v20_backup";
   const LEGACY = [
+    "central190_save_v19",
+    "central190_save_v19_backup",
+    "central190_save_v18",
+    "central190_save_v18_backup",
     "central190_save_v17",
     "central190_save_v17_backup",
     "central190_save_v16",
@@ -20,9 +24,9 @@ window.C190_Save = (() => {
     "central_190_save",
     "c190_save",
   ];
-  const SCHEMA = 18;
-  const VERSION = "1.4.0";
-  const BUILD = "CENTRAL190-1400-F20-PROGRESSIVE-MAP-20260618-120900-BRT";
+  const SCHEMA = 20;
+  const VERSION = "1.6.0";
+  const BUILD = "CENTRAL190-1600-F22-FIELD-RADIO-20260619-153200-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,
@@ -95,11 +99,13 @@ window.C190_Save = (() => {
     content: defaultContent(),
     release: {
       version: VERSION,
-      phase: 20,
+      phase: 22,
       visualRecovery: 1,
       callProtocolVersion: 2,
       triageVersion: 1,
       locationIntelVersion: 1,
+      resourceDispatchVersion: 1,
+      fieldRadioVersion: 1,
       balanceVersion: 2,
       firstOpenedAt: new Date().toISOString(),
       notesSeen: false,
@@ -173,6 +179,7 @@ window.C190_Save = (() => {
       state.release.callProtocolVersion === 2 &&
       state.release.triageVersion === 1 &&
       state.release.locationIntelVersion === 1 &&
+      state.release.resourceDispatchVersion === 1 &&
       state.settings &&
       state.settings.telemetry === false &&
       ["auto", "real", "tactical"].includes(state.settings.mapMode) &&
@@ -217,6 +224,7 @@ window.C190_Save = (() => {
         window.C190_CallProtocol?.normalize?.(call);
         window.C190_LocationIntel?.normalize?.(call);
         window.C190_Triage?.normalize?.(call);
+        window.C190_ResourceDispatch?.normalize?.(call);
       });
     }
     return result;
@@ -277,8 +285,9 @@ window.C190_Save = (() => {
       mapPrivacy: "approximate",
     };
 
-    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 19, visualRecovery: 1, callProtocolVersion: 2, triageVersion: 1,
-      locationIntelVersion: 1, balanceVersion: 2 };
+    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 22, visualRecovery: 1, callProtocolVersion: 2, triageVersion: 1,
+      locationIntelVersion: 1, resourceDispatchVersion: 1,
+      fieldRadioVersion: 1, balanceVersion: 2 };
     base.settings.telemetry = false;
     base.dispatch = enrichDispatch(source.dispatch || base.dispatch, incomingCenter);
     base.content = source.content && typeof source.content === "object" ? clone(source.content) : defaultContent();

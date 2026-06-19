@@ -1,10 +1,10 @@
 window.C190_Release = (() => {
   "use strict";
 
-  const VERSION = "1.4.0";
-  const PHASE = 20;
+  const VERSION = "1.5.0";
+  const PHASE = 21;
   const BALANCE_VERSION = 2;
-  const BUILD = "CENTRAL190-1400-F20-PROGRESSIVE-MAP-20260618-120900-BRT";
+  const BUILD = "CENTRAL190-1500-F21-RESOURCE-DISPATCH-20260619-144500-BRT";
   const DEFAULT_CITY = { lat: -23.55052, lng: -46.63331, label: "São Paulo — SP" };
   let deferredInstallPrompt = null;
 
@@ -105,6 +105,7 @@ window.C190_Release = (() => {
       callProtocolVersion: 2,
       triageVersion: 1,
       locationIntelVersion: 1,
+      resourceDispatchVersion: 1,
       firstOpenedAt: state.release?.firstOpenedAt || new Date().toISOString(),
       notesSeen: !!state.release?.notesSeen,
       privacySeen: !!state.release?.privacySeen,
@@ -226,11 +227,12 @@ window.C190_Release = (() => {
     const privacy = privacySummary(state);
     const text = copy();
     return [
-      { name: text.saveMigration, ok: state.schema === 18, detail: "Compatível com schemas 10–17" },
+      { name: text.saveMigration, ok: state.schema === 19, detail: "Compatível com schemas 10–18" },
       { name: text.balance, ok: state.release.balanceVersion === BALANCE_VERSION, detail: profileFor(state).label },
       { name: text.visual, ok: window.C190_Assets?.diagnostics?.().ok !== false, detail: `${window.C190_Assets?.diagnostics?.().loaded || 0}/${window.C190_Assets?.diagnostics?.().required || 0} assets carregados` },
       { name: text.callProtocol, ok: !!window.C190_CallProtocol && state.release.callProtocolVersion === 2, detail: `${window.C190_CallProtocol?.QUESTION_BANK?.length || 0} perguntas fixas · localização progressiva` },
       { name: "Mapa progressivo", ok: !!window.C190_LocationIntel && state.release.locationIntelVersion === 1, detail: `${window.C190_LocationIntel?.STAGES?.length || 0} estágios de precisão` },
+      { name: "Despacho de unidades", ok: !!window.C190_ResourceDispatch && state.release.resourceDispatchVersion === 1, detail: `${window.C190_ResourceDispatch?.UNIT_BLUEPRINTS?.length || 0} recursos operacionais` },
       { name: text.offline, ok: "serviceWorker" in navigator, detail: navigator.onLine ? "Online com fallback" : "Executando sem conexão" },
       { name: text.privacy, ok: privacy.telemetry === false && privacy.localOnly, detail: "Sem telemetria e sem conta obrigatória" },
       { name: text.accessibility, ok: true, detail: "Contraste, alvos ampliados, teclado e redução de movimento" },

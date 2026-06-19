@@ -43,6 +43,7 @@ for (const file of [
   "js/call-protocol.js",
   "js/triage.js",
   "js/location-intel.js",
+  "js/resource-dispatch.js",
   "js/save-manager.js",
   "js/career.js",
   "js/dispatch.js",
@@ -72,6 +73,7 @@ function protocolReady(state, call) {
   C190_Dispatch.setTriage(state, call.id, "nature", rec.nature);
   C190_Dispatch.setTriage(state, call.id, "priority", rec.priority);
   C190_Dispatch.setTriage(state, call.id, "agency", rec.agency);
+  C190_Dispatch.recommendResources(state, call.id);
 }
 
 function resolveAll(state, choiceIndex = 0) {
@@ -106,8 +108,8 @@ const migrated = C190_Save.migrate({
     reports: [],
   },
 });
-assert(migrated.schema === 18, "migration schema 12 to 18");
-assert(migrated.version === "1.4.0", "migration version");
+assert(migrated.schema === 19, "migration schema 12 to 19");
+assert(migrated.version === "1.5.0", "migration version");
 assert(migrated.profile.callSign === "Atlas", "migration profile");
 assert(migrated.career.xp === 500, "migration XP");
 assert(migrated.settings.mapMode === "auto", "invalid map mode normalized");
@@ -124,8 +126,10 @@ assert(migrated.release.balanceVersion === 2, "release balance state created");
 assert(migrated.release.callProtocolVersion === 2, "call protocol release flag created");
 assert(migrated.release.locationIntelVersion === 1, "location intel release flag created");
 assert(migrated.release.triageVersion === 1, "triage release flag created");
+assert(migrated.release.resourceDispatchVersion === 1, "resource dispatch release flag created");
 assert(!!migrated.dispatch.shift.calls[0].protocol, "legacy active call enriched with call protocol");
 assert(!!migrated.dispatch.shift.calls[0].triage, "legacy active call enriched with triage");
+assert(!!migrated.dispatch.shift.calls[0].resourceDispatch, "legacy active call enriched with resource dispatch");
 assert(!!migrated.dispatch.shift.calls[0].locationIntel, "legacy active call enriched with location intel");
 assert(migrated.settings.telemetry === false, "telemetry forced off");
 assert(C190_Save.validate(migrated), "migrated save validates");
@@ -207,6 +211,7 @@ assert(C190_LocationIntel.normalize(locationCall).stage === "precise", "referenc
 const display = C190_LocationIntel.displayLocation(locationCall);
 assert(display.visible && display.precise && display.radiusMeters <= 100, "precise display location generated");
 assert(C190_LocationIntel.resourcesFor(locationState).length >= 5, "nearby resources generated");
+assert(C190_ResourceDispatch.resourcesFor(locationState).length >= 9, "operational resources generated");
 resolveAll(dispatchState);
 assert(dispatchState.career.totalShifts === 1, "career shift counted");
 assert(dispatchState.dispatch.reports.length === 1, "career report generated");
@@ -250,7 +255,7 @@ let asked = C190_Dispatch.askQuestion(protocolState, firstProtocolCall.id, "addr
 assert(asked.ok && firstProtocolCall.locationRevealed, "address question reveals location");
 asked = C190_Dispatch.askQuestion(protocolState, firstProtocolCall.id, "unsafe_confront");
 assert(asked.ok && firstProtocolCall.protocol.mistakes.length === 1, "unsafe question is penalized");
-for (const question of ["reference", "situation", "victims", "weapons", "safety", "caller"]) C190_Dispatch.askQuestion(protocolState, firstProtocolCall.id, question);
+for (const question of ["neighborhood", "street", "number", "reference", "situation", "victims", "weapons", "safety", "caller"]) C190_Dispatch.askQuestion(protocolState, firstProtocolCall.id, question);
 const protocolEvaluation = C190_CallProtocol.evaluate(firstProtocolCall);
 assert(protocolEvaluation.percent >= 75, "protocol completeness calculated");
 const recTriage = C190_Triage.evaluate(firstProtocolCall).recommended;
@@ -258,11 +263,14 @@ let triageSet = C190_Dispatch.setTriage(protocolState, firstProtocolCall.id, "na
 assert(triageSet.ok, "triage nature set");
 C190_Dispatch.setTriage(protocolState, firstProtocolCall.id, "priority", recTriage.priority);
 C190_Dispatch.setTriage(protocolState, firstProtocolCall.id, "agency", recTriage.agency);
+const recommendedResources = C190_Dispatch.recommendResources(protocolState, firstProtocolCall.id);
+assert(recommendedResources.ok && recommendedResources.evaluation.finalScore >= 55, "resource dispatch recommendation works");
 const triageEvaluation = C190_Triage.evaluate(firstProtocolCall);
 assert(triageEvaluation.finalScore >= 80, "triage score calculated");
 const protocolDecision = C190_Dispatch.choose(protocolState, firstProtocolCall.id, 0);
 assert(protocolDecision.protocol.finalProtocolScore > 0, "decision includes protocol score");
 assert(protocolDecision.triage.finalScore > 0, "decision includes triage score");
+assert(protocolDecision.resourceDispatch.finalScore > 0, "decision includes resource dispatch score");
 
 const challengeState = profile(C190_Save.defaultState(), "Desafios");
 const challenge = C190_Content.ensureChallenges(challengeState).daily;
@@ -332,7 +340,7 @@ assert(
 
 C190_Save.save(specialState);
 const loaded = C190_Save.load();
-assert(loaded.schema === 18, "schema 18 save reload");
+assert(loaded.schema === 19, "schema 19 save reload");
 assert(C190_Save.validate(loaded), "saved state checksum and structure valid");
 assert(loaded.content.special.completed.includes("cerco_bancario"), "content progression persists");
 
@@ -344,6 +352,8 @@ console.log(
       schema: loaded.schema,
       visualAssets: typeof C190_Assets === "object" ? C190_Assets.required.length : 0,
       templates: C190_Dispatch.templates.length,
+      resourceDispatchVersion: C190_ResourceDispatch.VERSION,
+      resources: C190_ResourceDispatch.resourcesFor(loaded).length,
       cities: C190_Content.cities.length,
       specials: C190_Content.specialCases.length,
       reports: loaded.content.stats.totalReports,

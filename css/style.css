@@ -2203,3 +2203,388 @@ body::after {
   .location-intel-card { font-size: .88rem; }
   .map-legend { gap: .45rem; }
 }
+
+
+/* Fase 20.1 — HOTFIX visual real e correção da rolagem do atendimento
+   Motivo: no GitHub Pages alguns fundos ficavam escondidos por camadas com z-index negativo
+   e o chat era reconstruído a cada tick, fazendo a barra de rolagem voltar. */
+:root {
+  --asset-bg-central-photo: url("../assets/backgrounds/bg-central-room.webp");
+  --asset-bg-dashboard-photo: url("../assets/backgrounds/bg-dashboard-room.webp");
+  --asset-bg-dispatch-photo: url("../assets/backgrounds/bg-dispatch-immersive.webp");
+  --asset-bg-map-photo: url("../assets/backgrounds/bg-map-ops.webp");
+  --asset-bg-career-photo: url("../assets/backgrounds/bg-career-room.webp");
+  --asset-bg-settings-photo: url("../assets/backgrounds/bg-settings-room.webp");
+  --asset-ui-panel-kit: url("../assets/ui/ui-panel-kit.png");
+}
+html,
+body {
+  background-color: #020914 !important;
+  background-image:
+    linear-gradient(180deg, rgba(2, 8, 14, 0.36), rgba(2, 8, 14, 0.78)),
+    var(--asset-bg-central-photo) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-attachment: fixed !important;
+}
+body::before,
+body::after {
+  display: none !important;
+}
+.app-shell {
+  position: relative;
+  isolation: isolate;
+  background: transparent !important;
+}
+.app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, rgba(2, 8, 14, 0.76), rgba(2, 8, 14, 0.28) 42%, rgba(2, 8, 14, 0.76)),
+    radial-gradient(circle at 18% 14%, rgba(45, 212, 191, 0.20), transparent 34%),
+    var(--asset-bg-central-photo);
+  background-size: cover, cover, cover;
+  background-position: center;
+  opacity: 1;
+  transform: translateZ(0);
+}
+body[data-visual-screen="dashboard"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2, 8, 14, 0.72), rgba(2, 8, 14, 0.20) 45%, rgba(2, 8, 14, 0.74)),
+    radial-gradient(circle at 80% 15%, rgba(45, 212, 191, 0.20), transparent 36%),
+    var(--asset-bg-dashboard-photo);
+}
+body[data-visual-screen="dispatch"] .app-shell::before,
+body[data-visual-screen="reports"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2, 8, 14, 0.78), rgba(2, 8, 14, 0.18) 48%, rgba(2, 8, 14, 0.80)),
+    radial-gradient(circle at 24% 20%, rgba(20, 184, 166, 0.22), transparent 34%),
+    var(--asset-bg-dispatch-photo);
+}
+body[data-visual-screen="map"] .app-shell::before,
+body[data-visual-screen="content"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2, 8, 14, 0.68), rgba(2, 8, 14, 0.24) 45%, rgba(2, 8, 14, 0.70)),
+    radial-gradient(circle at 50% 35%, rgba(96, 165, 250, 0.18), transparent 42%),
+    var(--asset-bg-map-photo);
+}
+body[data-visual-screen="career"] .app-shell::before,
+body[data-visual-screen="training"] .app-shell::before,
+body[data-visual-screen="goals"] .app-shell::before,
+body[data-visual-screen="achievements"] .app-shell::before,
+body[data-visual-screen="statistics"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2, 8, 14, 0.72), rgba(2, 8, 14, 0.20) 48%, rgba(2, 8, 14, 0.74)),
+    radial-gradient(circle at 82% 20%, rgba(245, 158, 11, 0.18), transparent 34%),
+    var(--asset-bg-career-photo);
+}
+body[data-visual-screen="settings"] .app-shell::before,
+body[data-visual-screen="release"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2, 8, 14, 0.78), rgba(2, 8, 14, 0.22) 45%, rgba(2, 8, 14, 0.76)),
+    radial-gradient(circle at 78% 16%, rgba(96, 165, 250, 0.18), transparent 38%),
+    var(--asset-bg-settings-photo);
+}
+.topbar,
+.sidebar,
+.main-content,
+.toast-region,
+dialog {
+  position: relative;
+  z-index: 2;
+}
+.main-content {
+  background: transparent !important;
+}
+.screen {
+  position: relative;
+}
+.screen.active::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  z-index: -1;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(2, 8, 14, 0.20), rgba(2, 8, 14, 0.10));
+  border: 1px solid rgba(94, 234, 212, 0.08);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+}
+.topbar {
+  background-color: rgba(2, 10, 18, 0.78) !important;
+  backdrop-filter: blur(18px) saturate(140%);
+}
+.sidebar {
+  background-color: rgba(3, 15, 25, 0.82) !important;
+  backdrop-filter: blur(16px) saturate(130%);
+}
+.hero-card,
+.panel,
+.metric-card,
+.course-card,
+.goal-card,
+.achievement-card,
+.report-card,
+.call-card,
+.warning-card,
+.list-item,
+.timeline-item,
+.rank-item {
+  background-color: rgba(5, 20, 32, 0.68) !important;
+  background-image:
+    linear-gradient(145deg, rgba(13, 46, 66, 0.68), rgba(3, 15, 25, 0.76)),
+    var(--asset-panel-noise) !important;
+  background-size: auto, 220px 220px !important;
+  backdrop-filter: blur(9px) saturate(128%);
+  border-color: rgba(94, 234, 212, 0.17) !important;
+}
+.hero-card {
+  background-image:
+    linear-gradient(135deg, rgba(3, 14, 24, 0.70), rgba(4, 25, 39, 0.48)),
+    var(--asset-ui-panel-kit),
+    var(--asset-bg-central-photo) !important;
+  background-size: cover, min(58vw, 760px) auto, cover !important;
+  background-position: center, right bottom, center !important;
+}
+#screen-dispatch .panel,
+#activeCall .active-protocol-card {
+  background-image:
+    linear-gradient(160deg, rgba(1, 9, 16, 0.80), rgba(8, 31, 48, 0.62)),
+    var(--asset-panel-noise),
+    var(--asset-bg-dispatch-photo) !important;
+  background-size: auto, 220px 220px, cover !important;
+  background-position: center, center, center !important;
+}
+#activeCall .active-protocol-card {
+  box-shadow:
+    inset 0 0 0 1px rgba(94, 234, 212, 0.12),
+    0 18px 60px rgba(0, 0, 0, 0.42) !important;
+}
+.call-chat {
+  max-height: min(42vh, 430px) !important;
+  min-height: 170px;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  scroll-behavior: auto !important;
+  scrollbar-gutter: stable;
+  background:
+    linear-gradient(180deg, rgba(2, 10, 18, 0.76), rgba(2, 10, 18, 0.54)),
+    var(--asset-panel-noise) !important;
+  border-color: rgba(94, 234, 212, 0.22) !important;
+}
+.chat-line {
+  background: rgba(7, 28, 44, 0.82) !important;
+  backdrop-filter: blur(4px);
+}
+.chat-line.operator {
+  background: rgba(10, 83, 91, 0.72) !important;
+}
+.question-btn,
+.triage-btn,
+.choice-btn,
+.action-btn,
+.compact-btn,
+.secondary-btn,
+.danger-btn {
+  backdrop-filter: blur(6px);
+}
+body.asset-safe-mode .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2, 8, 14, 0.72), rgba(2, 8, 14, 0.20) 45%, rgba(2, 8, 14, 0.74)),
+    var(--asset-bg-central) !important;
+}
+@media (max-width: 760px) {
+  .app-shell::before {
+    background-position: center top;
+  }
+  .panel,
+  .call-card,
+  .list-item {
+    background-color: rgba(5, 20, 32, 0.74) !important;
+  }
+  .call-chat {
+    max-height: 320px !important;
+  }
+}
+
+
+/* Fase 21 — despacho real de unidades PM/Bombeiros/SAMU/Defesa Civil */
+.resource-dispatch-panel {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(96, 165, 250, 0.20);
+  border-radius: 20px;
+  background:
+    linear-gradient(160deg, rgba(2, 10, 18, 0.76), rgba(7, 33, 49, 0.60)),
+    var(--asset-panel-noise),
+    var(--asset-bg-map-photo);
+  background-size: auto, 220px 220px, cover;
+  background-position: center;
+  box-shadow: inset 0 0 0 1px rgba(94, 234, 212, 0.08), 0 16px 45px rgba(0,0,0,.25);
+}
+.resource-dispatch-panel header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .65rem;
+}
+.resource-grade {
+  padding: .45rem .7rem;
+  border-radius: 999px;
+  background: rgba(96, 165, 250, .16);
+  border: 1px solid rgba(147, 197, 253, .24);
+  color: #bfdbfe;
+  white-space: nowrap;
+}
+.resource-unit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(142px, 1fr));
+  gap: .65rem;
+  margin: .85rem 0;
+}
+.resource-unit-card {
+  min-height: 132px;
+  border: 1px solid rgba(148, 163, 184, .18);
+  border-radius: 16px;
+  padding: .7rem;
+  background: rgba(4, 18, 30, .62);
+  color: #e5eef9;
+  text-align: left;
+  display: grid;
+  gap: .25rem;
+  cursor: pointer;
+  transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.resource-unit-card img {
+  width: 44px;
+  height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,.40));
+}
+.resource-unit-card strong { font-size: .96rem; }
+.resource-unit-card span { font-size: .82rem; opacity: .92; }
+.resource-unit-card small { color: #b6c7d8; line-height: 1.25; }
+.resource-unit-card.selected {
+  transform: translateY(-1px);
+  border-color: rgba(45, 212, 191, .62);
+  background: linear-gradient(145deg, rgba(13, 80, 86, .68), rgba(8, 30, 48, .76));
+  box-shadow: 0 0 0 2px rgba(45, 212, 191, .12), 0 12px 24px rgba(0,0,0,.28);
+}
+.resource-unit-card.type-bombeiros.selected { border-color: rgba(248, 113, 113, .64); }
+.resource-unit-card.type-samu.selected { border-color: rgba(52, 211, 153, .64); }
+.resource-unit-card.type-defesa.selected { border-color: rgba(250, 204, 21, .64); }
+.resource-score { margin-top: .75rem; }
+.resource-marker.selected {
+  box-shadow: 0 0 0 4px rgba(45, 212, 191, .22), 0 0 24px rgba(45, 212, 191, .55);
+  transform: scale(1.08);
+}
+.resource-marker.type-defesa { background: #ca8a04; }
+@media (max-width: 760px) {
+  .resource-dispatch-panel header { flex-direction: column; }
+  .resource-unit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .resource-unit-card { min-height: 124px; padding: .62rem; }
+}
+
+/* Fase 22 — Rádio operacional e evolução da ocorrência */
+.field-radio-panel {
+  margin-top: 1rem;
+  border: 1px solid rgba(72, 214, 255, 0.26);
+  background: linear-gradient(135deg, rgba(4, 20, 33, 0.92), rgba(0, 66, 78, 0.52)), url("../assets/ui/radio-waves.svg");
+  background-size: cover, 260px;
+  background-position: center, right top;
+  border-radius: 22px;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 18px 45px rgba(0,0,0,0.22);
+}
+.field-radio-panel header,
+.field-radio-panel .radio-status-grid,
+.field-radio-panel .radio-action-grid {
+  display: grid;
+  gap: .75rem;
+}
+.field-radio-panel header {
+  grid-template-columns: 1fr auto;
+  align-items: start;
+}
+.radio-grade {
+  min-width: 82px;
+  text-align: center;
+  border-radius: 999px;
+  padding: .55rem .75rem;
+  color: #e7fffe;
+  border: 1px solid rgba(48, 255, 231, .35);
+  background: rgba(0, 180, 170, .16);
+}
+.radio-status-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: .9rem 0;
+}
+.radio-status-grid span {
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: .75rem;
+  background: rgba(0,0,0,.18);
+  color: rgba(236, 252, 255, .88);
+}
+.radio-status-grid b {
+  display: block;
+  color: #52fff1;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: .25rem;
+}
+.radio-log {
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+  max-height: 280px;
+  overflow: auto;
+  padding-right: .25rem;
+  scrollbar-width: thin;
+}
+.radio-line {
+  display: grid;
+  grid-template-columns: 84px 1fr auto;
+  gap: .65rem;
+  align-items: start;
+  padding: .7rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(1, 14, 26, .72);
+}
+.radio-line b { color: #5afbf0; font-size: .72rem; letter-spacing: .08em; }
+.radio-line small { color: rgba(227, 244, 255, .58); font-size: .72rem; }
+.radio-line.success { border-color: rgba(48,255,171,.32); background: rgba(4, 59, 46, .46); }
+.radio-line.warning { border-color: rgba(255,210,88,.34); background: rgba(74, 54, 5, .38); }
+.radio-line.danger { border-color: rgba(255,91,117,.36); background: rgba(78, 14, 28, .46); }
+.radio-action-grid {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  margin-top: .65rem;
+}
+.radio-action-btn {
+  text-align: left;
+  border: 1px solid rgba(57, 221, 255, .22);
+  border-radius: 18px;
+  padding: .85rem;
+  color: #f4fdff;
+  background: linear-gradient(180deg, rgba(11, 74, 99, .72), rgba(2, 22, 38, .86));
+  cursor: pointer;
+  min-height: 86px;
+}
+.radio-action-btn strong { display: block; margin-bottom: .28rem; }
+.radio-action-btn small { color: rgba(222, 246, 255, .72); }
+.radio-action-btn.close { border-color: rgba(255, 202, 102, .38); background: linear-gradient(180deg, rgba(108, 63, 11, .62), rgba(42, 20, 3, .86)); }
+.radio-active-card .question-grid,
+.radio-active-card .triage-panel,
+.radio-active-card .resource-dispatch-panel { display: none; }
+@media (max-width: 680px) {
+  .field-radio-panel { padding: .85rem; border-radius: 18px; }
+  .field-radio-panel header, .radio-status-grid, .radio-line { grid-template-columns: 1fr; }
+  .radio-action-grid { grid-template-columns: 1fr; }
+  .radio-line small { justify-self: start; }
+}

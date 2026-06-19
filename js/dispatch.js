@@ -206,6 +206,7 @@ window.C190_Dispatch = (() => {
     window.C190_CallProtocol?.normalize?.(call);
     window.C190_LocationIntel?.normalize?.(call);
     window.C190_Triage?.normalize?.(call);
+    window.C190_ResourceDispatch?.normalize?.(call);
     shift.activeCallId = id;
     return true;
   }
@@ -230,6 +231,50 @@ window.C190_Dispatch = (() => {
     return window.C190_Triage?.set?.(call, field, value) || { ok: false, reason: "triage_unavailable" };
   }
 
+
+  function toggleResource(state, callId, resourceId) {
+    return window.C190_ResourceDispatch?.toggle?.(state, callId, resourceId) || { ok: false, reason: "resource_dispatch_unavailable" };
+  }
+
+  function recommendResources(state, callId) {
+    return window.C190_ResourceDispatch?.recommend?.(state, callId) || { ok: false, reason: "resource_dispatch_unavailable" };
+  }
+
+  function clearResources(state, callId) {
+    return window.C190_ResourceDispatch?.clear?.(state, callId) || { ok: false, reason: "resource_dispatch_unavailable" };
+  }
+
+  function applyFinalOutcome(state, call, finalOutcome, choiceText = "Acompanhamento operacional") {
+    const shift = state.dispatch.shift;
+    if (!shift?.active || !call) return null;
+    if (["resolved", "failed"].includes(call.status)) return null;
+    call.outcome = finalOutcome.resolved ? "resolved" : "failed";
+    call.status = call.outcome;
+    call.radioResult = finalOutcome.radio || call.fieldRadio?.finalOutcome?.radio || null;
+    shift.activeCallId = null;
+    if (call.outcome === "resolved") shift.resolved++;
+    else shift.failed++;
+    shift.qualityTotal += Number(finalOutcome.quality || 0);
+    if (shift.affectsCareer) {
+      const adjusted = window.C190_Release?.adjustOutcome?.(state, {
+        quality: finalOutcome.quality,
+        xp: finalOutcome.xp,
+        rep: finalOutcome.rep,
+        resolved: call.outcome === "resolved",
+        failed: call.outcome === "failed",
+        reason: `${call.type}: ${choiceText} · protocolo ${finalOutcome.protocol?.grade || "N/A"} · triagem ${finalOutcome.triage?.grade || "N/A"} · despacho ${finalOutcome.resourceDispatch?.grade || "N/A"} · rádio ${finalOutcome.radio?.grade || "N/A"} (${(finalOutcome.radio?.actions || []).map((a) => a.id).join(", ") || "sem ações"})`,
+      }) || {
+        quality: finalOutcome.quality, xp: finalOutcome.xp, rep: finalOutcome.rep,
+        resolved: call.outcome === "resolved", failed: call.outcome === "failed",
+        reason: `${call.type}: ${choiceText}`,
+      };
+      window.C190_Career.applyOutcome(state, adjusted);
+    }
+    const done = shift.calls.every((item) => ["resolved", "failed", "abandoned"].includes(item.status));
+    if (done) finishShift(state);
+    return { call, finalOutcome };
+  }
+
   function choose(state, callId, index) {
     const shift = state.dispatch.shift;
     if (!shift?.active) return null;
@@ -238,6 +283,7 @@ window.C190_Dispatch = (() => {
     window.C190_CallProtocol?.normalize?.(call);
     window.C190_LocationIntel?.normalize?.(call);
     window.C190_Triage?.normalize?.(call);
+    window.C190_ResourceDispatch?.normalize?.(call);
     const choice = call.choices[index];
     if (!choice) return null;
     const protocolOutcome = window.C190_CallProtocol?.applyDecision?.(call, choice) || {
@@ -248,34 +294,33 @@ window.C190_Dispatch = (() => {
       failed: choice.q < 1,
       protocol: null,
     };
-    const finalOutcome = window.C190_Triage?.applyDecision?.(call, protocolOutcome) || protocolOutcome;
+    const triageOutcome = window.C190_Triage?.applyDecision?.(call, protocolOutcome) || protocolOutcome;
+    const preliminaryOutcome = window.C190_ResourceDispatch?.applyDecision?.(call, triageOutcome, state) || triageOutcome;
     call.selected = index;
-    call.outcome = finalOutcome.resolved ? "resolved" : "failed";
-    call.status = call.outcome;
-    call.protocolResult = finalOutcome.protocol;
-    call.triageResult = finalOutcome.triage || call.triage?.evaluation || null;
-    shift.activeCallId = null;
-    if (call.outcome === "resolved") shift.resolved++;
-    else shift.failed++;
-    shift.qualityTotal += finalOutcome.quality;
-    if (shift.affectsCareer) {
-      const adjusted = window.C190_Release?.adjustOutcome?.(state, {
-        quality: finalOutcome.quality,
-        xp: finalOutcome.xp,
-        rep: finalOutcome.rep,
-        resolved: call.outcome === "resolved",
-        failed: call.outcome === "failed",
-        reason: `${call.type}: ${choice.text} · protocolo ${finalOutcome.protocol?.grade || "N/A"} · triagem ${finalOutcome.triage?.grade || "N/A"} (${finalOutcome.triage?.detail?.join("; ") || "sem detalhe"})`,
-      }) || {
-        quality: finalOutcome.quality, xp: finalOutcome.xp, rep: finalOutcome.rep,
-        resolved: call.outcome === "resolved", failed: call.outcome === "failed",
-        reason: `${call.type}: ${choice.text}`,
-      };
-      window.C190_Career.applyOutcome(state, adjusted);
+    call.protocolResult = preliminaryOutcome.protocol;
+    call.triageResult = preliminaryOutcome.triage || call.triage?.evaluation || null;
+    call.resourceDispatchResult = preliminaryOutcome.resourceDispatch || call.resourceDispatch?.evaluation || null;
+    const radio = window.C190_FieldRadio?.start?.(call, preliminaryOutcome, state);
+    if (radio?.ok) {
+      call.status = "active";
+      shift.activeCallId = call.id;
+      return { call, choice, protocol: preliminaryOutcome.protocol, triage: preliminaryOutcome.triage || null, resourceDispatch: preliminaryOutcome.resourceDispatch || null, radio: radio.radio, awaitingRadio: true };
     }
-    const done = shift.calls.every((item) => ["resolved", "failed", "abandoned"].includes(item.status));
-    if (done) finishShift(state);
-    return { call, choice, protocol: finalOutcome.protocol, triage: finalOutcome.triage || null };
+    const applied = applyFinalOutcome(state, call, preliminaryOutcome, choice.text);
+    return { call, choice, protocol: preliminaryOutcome.protocol, triage: preliminaryOutcome.triage || null, resourceDispatch: preliminaryOutcome.resourceDispatch || null, finalOutcome: applied?.finalOutcome || preliminaryOutcome };
+  }
+
+  function radioAction(state, callId, actionId) {
+    const shift = state.dispatch.shift;
+    if (!shift?.active) return { ok: false, reason: "shift_inactive" };
+    const call = shift.calls.find((item) => item.id === callId);
+    if (!call || call.status !== "active") return { ok: false, reason: "call_not_active" };
+    const out = window.C190_FieldRadio?.act?.(state, callId, actionId) || { ok: false, reason: "radio_unavailable" };
+    if (out?.finalized && out.finalOutcome) {
+      const applied = applyFinalOutcome(state, call, out.finalOutcome, "Acompanhamento de rádio e encerramento de campo");
+      return { ...out, call, finalOutcome: applied?.finalOutcome || out.finalOutcome };
+    }
+    return out;
   }
 
   function finishShift(state) {
@@ -331,6 +376,13 @@ window.C190_Dispatch = (() => {
         triageNature: call.triage?.nature || null,
         triagePriority: call.triage?.priority || null,
         triageAgency: call.triage?.agency || null,
+        resourceDispatchGrade: call.resourceDispatchResult?.grade || call.resourceDispatch?.evaluation?.grade || null,
+        resourceDispatchScore: call.resourceDispatchResult?.finalScore || call.resourceDispatch?.evaluation?.finalScore || null,
+        resourceDispatchSelected: call.resourceDispatchResult?.selected || call.resourceDispatch?.evaluation?.selected || [],
+        radioGrade: call.radioResult?.grade || call.fieldRadio?.grade || null,
+        radioScore: call.radioResult?.finalScore || call.fieldRadio?.finalScore || null,
+        radioActions: call.radioResult?.actions || call.fieldRadio?.actions || [],
+        radioLog: call.radioResult?.log || call.fieldRadio?.log || [],
       })),
     };
 
@@ -373,7 +425,11 @@ window.C190_Dispatch = (() => {
     pause,
     askQuestion,
     setTriage,
+    toggleResource,
+    recommendResources,
+    clearResources,
     choose,
+    radioAction,
     finishShift,
     forceFinish,
   };

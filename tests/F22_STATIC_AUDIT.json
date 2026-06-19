@@ -1,0 +1,502 @@
+{
+  "phase": 22,
+  "version": "1.6.0",
+  "checks": [
+    {
+      "check": "js syntax js/anti-break.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/app.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/assets.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/call-protocol.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/career.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/content.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/dispatch.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/field-radio.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/i18n.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/location-intel.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/map.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/release.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/resource-dispatch.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/save-manager.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "js syntax js/triage.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference vendor/leaflet/leaflet.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/i18n.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/assets.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/release.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/content.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/call-protocol.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/triage.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/location-intel.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/resource-dispatch.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/field-radio.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/save-manager.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/career.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/dispatch.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/map.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/anti-break.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference js/app.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference manifest.webmanifest",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference assets/icons/icon.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference vendor/leaflet/leaflet.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "reference css/style.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset css/style.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/i18n.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/assets.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/release.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/content.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/call-protocol.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/triage.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/resource-dispatch.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/field-radio.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/location-intel.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/save-manager.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/career.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/dispatch.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/map.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/anti-break.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset js/app.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset vendor/leaflet/leaflet.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset vendor/leaflet/leaflet.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset vendor/leaflet/images/layers.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset vendor/leaflet/images/layers-2x.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset vendor/leaflet/images/marker-icon.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset vendor/leaflet/images/marker-icon-2x.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset vendor/leaflet/images/marker-shadow.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset manifest.webmanifest",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/icons/icon.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/icons/icon-192.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/icons/icon-512.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/badges/central190-brand.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-central-190.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-dashboard.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-dispatch.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-map.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-career.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-settings.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/ui/panel-noise.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/ui/topbar-glow.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/ui/radio-waves.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/illustrations/operator-desk.svg",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-central-room.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-dashboard-room.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-dispatch-immersive.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-map-ops.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-career-room.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/backgrounds/bg-settings-room.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/ui/ui-panel-kit.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/units/unit-police-cruiser.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/units/unit-ambulance-samu.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/units/unit-fire-rescue.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset assets/units/unit-helicopter-police.png",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "sw asset index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "contains js/field-radio.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "contains CENTRAL190-1600-F22-FIELD-RADIO",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "contains central190_save_v20",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "contains fieldRadioVersion: 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "contains data-radio-action",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "asset assets/backgrounds/bg-central-room.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "asset assets/backgrounds/bg-dashboard-room.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "asset assets/backgrounds/bg-dispatch-immersive.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "asset assets/backgrounds/bg-map-ops.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "asset assets/backgrounds/bg-career-room.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "asset assets/backgrounds/bg-settings-room.webp",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "asset assets/ui/radio-waves.svg",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "failed": 0
+}

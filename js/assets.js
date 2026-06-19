@@ -1,8 +1,8 @@
 window.C190_Assets = (() => {
   "use strict";
-  const VERSION = "1.1.0";
-  const PHASE = 17;
-  const BUILD = "CENTRAL190-1100-F17-ASSET-RECOVERY-20260618-100837-BRT";
+  const VERSION = "1.5.0";
+  const PHASE = 21;
+  const BUILD = "CENTRAL190-1500-F21-RESOURCE-DISPATCH-20260619-144500-BRT";
   const required = [
     "assets/badges/central190-brand.svg",
     "assets/backgrounds/bg-central-190.svg",
@@ -15,6 +15,17 @@ window.C190_Assets = (() => {
     "assets/ui/topbar-glow.svg",
     "assets/ui/radio-waves.svg",
     "assets/illustrations/operator-desk.svg",
+    "assets/backgrounds/bg-central-room.webp",
+    "assets/backgrounds/bg-dashboard-room.webp",
+    "assets/backgrounds/bg-dispatch-immersive.webp",
+    "assets/backgrounds/bg-map-ops.webp",
+    "assets/backgrounds/bg-career-room.webp",
+    "assets/backgrounds/bg-settings-room.webp",
+    "assets/ui/ui-panel-kit.png",
+    "assets/units/unit-police-cruiser.png",
+    "assets/units/unit-ambulance-samu.png",
+    "assets/units/unit-fire-rescue.png",
+    "assets/units/unit-helicopter-police.png",
     "assets/icons/icon.svg",
     "assets/icons/icon-192.png",
     "assets/icons/icon-512.png"

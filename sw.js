@@ -1,4 +1,4 @@
-const CACHE = "central190-v1.4.0-f20-progressive-map";
+const CACHE = "central190-v1.6.0-f22-field-radio";
 const ASSETS = [
   "./",
   "./index.html",
@@ -9,6 +9,9 @@ const ASSETS = [
   "./js/content.js",
   "./js/call-protocol.js",
   "./js/triage.js",
+  "./js/resource-dispatch.js",
+  "./js/field-radio.js",
+  "./js/location-intel.js",
   "./js/save-manager.js",
   "./js/career.js",
   "./js/dispatch.js",
@@ -36,7 +39,18 @@ const ASSETS = [
   "./assets/ui/panel-noise.svg",
   "./assets/ui/topbar-glow.svg",
   "./assets/ui/radio-waves.svg",
-  "./assets/illustrations/operator-desk.svg"
+  "./assets/illustrations/operator-desk.svg",
+  "./assets/backgrounds/bg-central-room.webp",
+  "./assets/backgrounds/bg-dashboard-room.webp",
+  "./assets/backgrounds/bg-dispatch-immersive.webp",
+  "./assets/backgrounds/bg-map-ops.webp",
+  "./assets/backgrounds/bg-career-room.webp",
+  "./assets/backgrounds/bg-settings-room.webp",
+  "./assets/ui/ui-panel-kit.png",
+  "./assets/units/unit-police-cruiser.png",
+  "./assets/units/unit-ambulance-samu.png",
+  "./assets/units/unit-fire-rescue.png",
+  "./assets/units/unit-helicopter-police.png"
 ];
 
 self.addEventListener("install", (event) => {

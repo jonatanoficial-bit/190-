@@ -1,28 +1,28 @@
 {
-  "app": "Central 190",
-  "version": "1.4.0",
-  "phase": 20,
-  "phase_name": "Mapa operacional jogável com localização progressiva",
-  "save_schema": 18,
-  "build_id": "CENTRAL190-1400-F20-PROGRESSIVE-MAP-20260618-120900-BRT",
-  "compiled_at": "2026-06-18T12:09:00-03:00",
-  "status": "AUDITED_PHASE_20_PROGRESSIVE_MAP_PASS",
+  "name": "Central 190",
+  "version": "1.6.0",
+  "phase": 22,
+  "build": "CENTRAL190-1600-F22-FIELD-RADIO-20260619-153200-BRT",
+  "compiledAt": "2026-06-19T15:32:00-03:00",
+  "saveSchema": 20,
+  "title": "Fase 22 — Rádio, evolução da ocorrência e consequências",
   "features": [
-    "progressive_location",
-    "map_confidence_radius",
-    "resource_preview_pm_bombeiros_samu",
-    "offline_tactical_map",
-    "leaflet_real_map",
-    "call_protocol_v2"
+    "radio operacional pós-despacho",
+    "evolução de ocorrência em campo",
+    "pedidos de apoio",
+    "ações do operador por rádio",
+    "encerramento com nota de rádio",
+    "impacto em XP/reputação/relatório"
   ],
-  "preserved_from_previous_phases": [
-    "visual_assets",
-    "call_chat",
-    "triage_priority_agency",
-    "career",
-    "sandbox",
-    "cities",
-    "special_operations",
-    "pwa_offline"
+  "preserved": [
+    "assets oficiais",
+    "mapa real Leaflet",
+    "mapa tático offline",
+    "atendimento por chat",
+    "triagem",
+    "despacho de unidades",
+    "carreira",
+    "cidades",
+    "sandbox"
   ]
 }

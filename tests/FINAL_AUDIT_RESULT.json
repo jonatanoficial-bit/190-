@@ -1,18 +1,9 @@
 {
   "status": "PASS",
-  "checks": 350,
-  "files": 84,
-  "total_bytes": 7647067,
-  "logic": {
-    "status": "PASS",
-    "checks": 150,
-    "schema": 18,
-    "visualAssets": 14,
-    "templates": 32,
-    "cities": 9,
-    "specials": 5,
-    "reports": 2
-  },
+  "checks": 354,
+  "logic_checks": 150,
   "browser_viewports": 2,
+  "build": "CENTRAL190-1410-F20-1-HOTFIX-VISUAL-SCROLL-20260618-131700-BRT",
+  "visual_assets": 25,
   "errors": []
 }

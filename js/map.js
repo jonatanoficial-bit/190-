@@ -105,7 +105,7 @@ window.C190_Map = (() => {
     const label = resource.type === "pm" ? "PM" : resource.type === "bombeiros" ? "193" : "192";
     return window.L.divIcon({
       className: "c190-div-icon",
-      html: `<button class="resource-marker type-${escapeHtml(resource.type)}" aria-label="${escapeHtml(resource.label)}"><span>${label}</span></button>`,
+      html: `<button class="resource-marker type-${escapeHtml(resource.type)} ${resource.selected ? "selected" : ""}" aria-label="${escapeHtml(resource.label)}"><span>${label}</span></button>`,
       iconSize: compact ? [28, 28] : [34, 34],
       iconAnchor: compact ? [14, 14] : [17, 17],
       popupAnchor: [0, -16],
@@ -113,7 +113,7 @@ window.C190_Map = (() => {
   }
 
   function resourcePopup(resource) {
-    return `<div class="map-popup-card"><strong>${escapeHtml(resource.label)}</strong><span>${escapeHtml(resource.status)}</span><small>Tempo estimado até uma ocorrência próxima: ${Number(resource.etaMin || 0)} min</small></div>`;
+    return `<div class="map-popup-card"><strong>${escapeHtml(resource.label)}</strong><span>${escapeHtml(resource.selected ? "Selecionada para despacho" : resource.status)}</span><small>${escapeHtml(resource.role || "unidade operacional")} · ETA ${Number(resource.etaMin || 0)} min</small></div>`;
   }
 
 
@@ -240,7 +240,7 @@ window.C190_Map = (() => {
       .bindTooltip(escapeHtml(center.label), { direction: "top" })
       .addTo(record.centralLayer);
 
-    (window.C190_LocationIntel?.resourcesFor?.(state) || []).forEach((resource) => {
+    ((window.C190_ResourceDispatch?.resourcesFor?.(state)) || (window.C190_LocationIntel?.resourcesFor?.(state)) || []).forEach((resource) => {
       window.L.marker([Number(resource.lat), Number(resource.lng)], {
         icon: resourceIcon(resource, record.compact),
         title: resource.label,
@@ -503,7 +503,8 @@ window.C190_Map = (() => {
       protocolLocationGate: true,
       progressiveLocation: true,
       callsByLocationStage: state ? (state.dispatch?.shift?.calls || []).reduce((acc, call) => { const stage = window.C190_LocationIntel?.normalize?.(call)?.stage || "none"; acc[stage] = (acc[stage] || 0) + 1; return acc; }, {}) : {},
-      availableResources: state ? (window.C190_LocationIntel?.resourcesFor?.(state) || []).length : 0,
+      availableResources: state ? ((window.C190_ResourceDispatch?.resourcesFor?.(state)) || (window.C190_LocationIntel?.resourcesFor?.(state)) || []).length : 0,
+      resourceDispatchVersion: window.C190_ResourceDispatch?.VERSION || 0,
       provider: "OpenStreetMap Standard raster tiles",
       tileCaching: false,
     };

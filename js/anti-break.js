@@ -77,12 +77,12 @@ window.C190_AntiBreak = (() => {
       },
       {
         name: "Save schema",
-        ok: state?.schema === 18,
+        ok: state?.schema === 19,
         detail: `schema=${state?.schema}`,
       },
       {
         name: "Release Candidate",
-        ok: !!window.C190_Release && state?.release?.balanceVersion === 2 && state?.release?.visualRecovery === 1 && state?.settings?.telemetry === false && state?.release?.callProtocolVersion === 2 && state?.release?.triageVersion === 1 && state?.release?.locationIntelVersion === 1,
+        ok: !!window.C190_Release && state?.release?.balanceVersion === 2 && state?.release?.visualRecovery === 1 && state?.settings?.telemetry === false && state?.release?.callProtocolVersion === 2 && state?.release?.triageVersion === 1 && state?.release?.locationIntelVersion === 1 && state?.release?.resourceDispatchVersion === 1 && !!window.C190_ResourceDispatch,
         detail: `v${window.C190_Release?.VERSION || "?"} · balance ${state?.release?.balanceVersion || "?"}`,
       },
       {
@@ -93,7 +93,7 @@ window.C190_AntiBreak = (() => {
       {
         name: "Motor de atendimento e triagem",
         ok: !!state?.dispatch && Array.isArray(state.dispatch.reports) && !!window.C190_CallProtocol && !!window.C190_Triage,
-        detail: `Protocolo v${window.C190_CallProtocol?.VERSION || "?"} · triagem v${window.C190_Triage?.VERSION || "?"}`,
+        detail: `Protocolo v${window.C190_CallProtocol?.VERSION || "?"} · triagem v${window.C190_Triage?.VERSION || "?"} · recursos v${window.C190_ResourceDispatch?.VERSION || "?"}`,
       },
       {
         name: "Classificação operacional",
@@ -104,6 +104,11 @@ window.C190_AntiBreak = (() => {
         name: "Mapa progressivo",
         ok: !!window.C190_LocationIntel && Array.isArray(window.C190_LocationIntel.STAGES) && window.C190_LocationIntel.STAGES.length >= 5,
         detail: `${window.C190_LocationIntel?.STAGES?.length || 0} estágios de precisão`,
+      },
+      {
+        name: "Despacho de unidades",
+        ok: !!window.C190_ResourceDispatch && Array.isArray(window.C190_ResourceDispatch.UNIT_BLUEPRINTS) && window.C190_ResourceDispatch.UNIT_BLUEPRINTS.length >= 9,
+        detail: `${window.C190_ResourceDispatch?.UNIT_BLUEPRINTS?.length || 0} unidades operacionais`,
       },
       {
         name: "Conteúdo comercial",
@@ -199,8 +204,8 @@ window.C190_AntiBreak = (() => {
       map: mapDiagnostics,
       errors: [...errors],
       timestamp: new Date().toISOString(),
-      version: "1.3.0",
-      build: "CENTRAL190-1400-F20-PROGRESSIVE-MAP-20260618-120900-BRT",
+      version: "1.5.0",
+      build: "CENTRAL190-1500-F21-RESOURCE-DISPATCH-20260619-144500-BRT",
     };
   }
 

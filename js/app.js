@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-1300-F19-TRIAGE-DISPATCH-20260618-112800-BRT";
+  const BUILD = "CENTRAL190-1600-F22-FIELD-RADIO-20260619-153200-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
@@ -55,7 +55,7 @@
     const labels = {
       dashboard: "Comando operacional",
       dispatch: "Plantão contínuo",
-      map: "Mapa operacional real",
+      map: "Mapa operacional e despacho",
       content: "Operações e conteúdo",
       statistics: "Estatísticas avançadas",
       career: "Progressão profissional",
@@ -125,7 +125,34 @@
         )
         .join("") || '<div class="list-item">Nenhum evento registrado.</div>';
   }
+
+  function captureCallChatScroll() {
+    const activeBox = $("#activeCall");
+    const chat = activeBox?.querySelector(".call-chat");
+    const card = activeBox?.querySelector("[data-active-call]");
+    if (!chat || !card) return null;
+    const distanceToBottom = chat.scrollHeight - chat.scrollTop - chat.clientHeight;
+    return {
+      callId: card.dataset.activeCall,
+      top: chat.scrollTop,
+      atBottom: distanceToBottom < 18,
+    };
+  }
+  function restoreCallChatScroll(snapshot, activeCallId) {
+    const chat = $("#activeCall .call-chat");
+    if (!chat) return;
+    requestAnimationFrame(() => {
+      if (!snapshot || snapshot.callId !== activeCallId || snapshot.atBottom) {
+        chat.scrollTop = chat.scrollHeight;
+        return;
+      }
+      const maxTop = Math.max(0, chat.scrollHeight - chat.clientHeight);
+      chat.scrollTop = Math.min(snapshot.top, maxTop);
+    });
+  }
+
   function renderDispatch() {
+    const chatSnapshot = captureCallChatScroll();
     const sh = state.dispatch.shift;
     $("#startShiftBtn").textContent = sh?.active
       ? "Encerrar plantão"
@@ -142,6 +169,7 @@
     $("#activeCall").innerHTML = active
       ? activeCall(active)
       : '<div class="list-item">Nenhuma chamada em atendimento.</div>';
+    restoreCallChatScroll(chatSnapshot, active?.id || null);
     const paused = sh?.calls.filter((c) => c.status === "paused") || [];
     $("#pausedCalls").innerHTML =
       paused.map((c) => callCard(c, false)).join("") ||
@@ -184,6 +212,35 @@
       <div class="protocol-score triage-score"><span>Avaliação da triagem</span><strong>${esc(evaluation.grade)}</strong><div class="progress"><i style="width:${Math.max(0, Math.min(100, evaluation.finalScore || 0))}%"></i></div><small>${(evaluation.detail || []).map(esc).join(" · ")}</small></div>
     </section>`;
   }
+  function resourceDispatchPanel(call) {
+    const dispatch = window.C190_ResourceDispatch?.normalize?.(call);
+    const evaluation = window.C190_ResourceDispatch?.evaluate?.(call, state) || { grade: "D", finalScore: 0, required: { notes: [] }, selected: [], detail: ["despacho indisponível"], missing: [] };
+    const resources = window.C190_ResourceDispatch?.resourcesFor?.(state) || [];
+    const selected = new Set(dispatch?.selected || []);
+    const requiredText = evaluation.required?.notes?.length ? evaluation.required.notes.join(" · ") : "aguardando triagem";
+    return `<section class="resource-dispatch-panel" aria-label="Despacho de unidades">
+      <header><div><span class="eyebrow">DESPACHO DE UNIDADES</span><h4>Escolha PM, Bombeiros, SAMU ou apoio combinado</h4></div><strong class="resource-grade">${esc(evaluation.grade)} · ${Number(evaluation.finalScore || 0)}/100</strong></header>
+      <p class="protocol-warning">Recomendado pela triagem: ${esc(requiredText)}. A unidade mais próxima nem sempre é suficiente; avalie segurança da cena, vítima, fogo, água, trânsito e risco armado.</p>
+      <div class="resource-unit-grid">${resources.map((unit) => `<button class="resource-unit-card ${selected.has(unit.id) ? "selected" : ""} type-${esc(unit.type)}" data-resource-toggle="${esc(unit.id)}" data-call="${esc(call.id)}"><img src="${esc(unit.icon || "assets/units/unit-police-cruiser.png")}" alt="" loading="lazy"><strong>${esc(unit.short || unit.label)}</strong><span>${esc(unit.label)}</span><small>${esc(unit.role || unit.status)} · ETA ${Number(unit.etaMin || 0)} min</small></button>`).join("")}</div>
+      <div class="button-row"><button class="action-btn primary" data-resource-recommend="${esc(call.id)}">Selecionar despacho recomendado</button><button class="action-btn" data-resource-clear="${esc(call.id)}">Limpar unidades</button></div>
+      <div class="protocol-score resource-score"><span>Avaliação do despacho</span><strong>${esc(evaluation.grade)}</strong><div class="progress"><i style="width:${Math.max(0, Math.min(100, evaluation.finalScore || 0))}%"></i></div><small>${(evaluation.detail || []).map(esc).join(" · ")}</small></div>
+    </section>`;
+  }
+  function fieldRadioPanel(call) {
+    const radio = window.C190_FieldRadio?.normalize?.(call);
+    if (!radio?.active && !radio?.finalized) return "";
+    const actions = window.C190_FieldRadio?.availableActions?.(call) || [];
+    const stageLabel = radio.finalized ? "Encerrado" : radio.stage === 0 ? "Despacho confirmado" : radio.stage === 1 ? "Chegada aproximada" : radio.stage === 2 ? "Confirmação no local" : "Controle final";
+    const gradeText = radio.finalized ? `${radio.grade || "N/A"} · ${Number(radio.finalScore || 0)}/100` : `Δ ${radio.scoreDelta >= 0 ? "+" : ""}${Number(radio.scoreDelta || 0)} pts`;
+    return `<section class="field-radio-panel" aria-label="Rádio e acompanhamento de campo">
+      <header><div><span class="eyebrow">RÁDIO OPERACIONAL</span><h4>Evolução da ocorrência em campo</h4></div><strong class="radio-grade">${esc(gradeText)}</strong></header>
+      <p class="protocol-warning">A ocorrência não termina no despacho. Acompanhe a chegada das equipes, pedidos de apoio e encerramento real do atendimento.</p>
+      <div class="radio-status-grid"><span><b>Fase</b>${esc(stageLabel)}</span><span><b>Cenário</b>${esc(radio.scenario || "operacional")}</span><span><b>Ações</b>${radio.actions.length}</span></div>
+      <div class="radio-log">${(radio.log || []).slice(0, 8).map((line) => `<div class="radio-line ${esc(line.tone || "info")}"><b>${esc(line.source || "RÁDIO")}</b><span>${esc(line.text || "")}</span><small>${new Date(line.at || Date.now()).toLocaleTimeString()}</small></div>`).join("")}</div>
+      ${radio.finalized ? `<div class="protocol-score radio-score"><span>Avaliação do rádio</span><strong>${esc(radio.grade || "N/A")}</strong><div class="progress"><i style="width:${Math.max(0, Math.min(100, radio.finalScore || 0))}%"></i></div><small>Impacto do acompanhamento: ${radio.scoreDelta >= 0 ? "+" : ""}${Number(radio.scoreDelta || 0)} ponto(s).</small></div>` : `<h4>Ações do operador</h4><div class="radio-action-grid">${actions.map((a) => `<button class="radio-action-btn ${a.id === "close" ? "close" : ""}" data-radio-action="${esc(a.id)}" data-call="${esc(call.id)}"><strong>${esc(a.short || a.label)}</strong><small>${esc(a.hint || a.label)}</small></button>`).join("")}</div>`}
+    </section>`;
+  }
+
   function activeCall(c) {
     const protocol = window.C190_CallProtocol?.normalize?.(c);
     const evaluation = window.C190_CallProtocol?.evaluate?.(c) || { percent: 0, missing: [], grade: "D", finalProtocolScore: 0, detail: [] };
@@ -192,7 +249,23 @@
     const locationIntel = window.C190_LocationIntel?.normalize?.(c);
     const locationKnown = Number(locationIntel?.confidence || protocol?.locationConfidence || 0) > 0;
     const canMap = locationKnown ? "" : "disabled";
-    return `<div class="call-card urgent active-protocol-card">
+    const radio = window.C190_FieldRadio?.normalize?.(c);
+    if (radio?.active || radio?.finalized) {
+      return `<div class="call-card urgent active-protocol-card radio-active-card" data-active-call="${esc(c.id)}">
+        <div class="call-meta"><span>${priorityLabel(c.priority)}</span><span>${c.wait}s espera</span></div>
+        <h3>${esc(c.type)}</h3>
+        <p>${esc(c.summary)}</p>
+        <div class="protocol-data-grid">
+          ${dataChip("Precisão do mapa", locationKnown, locationIntel?.label || "bloqueado")}
+          ${dataChip("Protocolo", !!c.protocolResult, c.protocolResult?.grade || evaluation.grade || "")}
+          ${dataChip("Triagem", !!c.triageResult, c.triageResult?.grade || "")}
+          ${dataChip("Despacho", !!c.resourceDispatchResult, c.resourceDispatchResult?.grade || "")}
+        </div>
+        ${fieldRadioPanel(c)}
+        <button class="action-btn" data-focus-call="${esc(c.id)}" ${canMap}>${locationKnown ? "Localizar no mapa" : "Mapa bloqueado até coletar bairro/rua"}</button>
+      </div>`;
+    }
+    return `<div class="call-card urgent active-protocol-card" data-active-call="${esc(c.id)}">
       <div class="call-meta"><span>${priorityLabel(c.priority)}</span><span>${c.wait}s espera</span></div>
       <h3>${esc(c.type)}</h3>
       <p>${esc(c.summary)}</p>
@@ -213,8 +286,9 @@
       <h4>Perguntas fixas do operador</h4>
       <div class="question-grid">${questions.map((q) => `<button class="question-btn ${q.score < 0 ? "risk" : ""}" data-question="${esc(q.id)}" data-call="${esc(c.id)}" ${protocol?.asked?.includes(q.id) ? "disabled" : ""}><span>${esc(q.short)}</span><small>${esc(q.label)}</small></button>`).join("")}</div>
       ${triagePanel(c)}
+      ${resourceDispatchPanel(c)}
       <button class="action-btn" data-focus-call="${esc(c.id)}" ${canMap}>${locationKnown ? "Localizar no mapa" : "Mapa bloqueado até coletar bairro/rua"}</button>
-      <div class="choice-grid"><button class="choice-btn final-dispatch-btn" data-choice="0" data-call="${esc(c.id)}"><strong>Confirmar classificação e despachar</strong><small>Finaliza a ligação usando a triagem, o protocolo coletado e o despacho escolhido.</small></button></div>
+      <div class="choice-grid"><button class="choice-btn final-dispatch-btn" data-choice="0" data-call="${esc(c.id)}"><strong>Confirmar classificação e despachar</strong><small>Inicia rádio operacional: chegada das equipes, pedidos de apoio, reforço e encerramento em campo.</small></button></div>
       <button class="action-btn" data-pause="1">Pausar atendimento</button>
     </div>`;
   }
@@ -246,6 +320,32 @@
           else toast("Não foi possível atualizar a triagem.", "warning");
         }),
     );
+    $$(`[data-resource-toggle]`).forEach(
+      (b) =>
+        (b.onclick = () => {
+          const out = C190_Dispatch.toggleResource(state, b.dataset.call, b.dataset.resourceToggle);
+          persist();
+          if (out?.ok) toast(`Despacho atualizado · nota ${out.evaluation?.grade || "N/A"}.`, out.evaluation?.grade === "D" ? "warning" : "success");
+          else toast("Não foi possível selecionar essa unidade.", "warning");
+        }),
+    );
+    $$(`[data-resource-recommend]`).forEach(
+      (b) =>
+        (b.onclick = () => {
+          const out = C190_Dispatch.recommendResources(state, b.dataset.resourceRecommend);
+          persist();
+          if (out?.ok) toast(`Despacho recomendado aplicado · nota ${out.evaluation?.grade || "N/A"}.`, "success");
+          else toast("Não foi possível aplicar recomendação de despacho.", "warning");
+        }),
+    );
+    $$(`[data-resource-clear]`).forEach(
+      (b) =>
+        (b.onclick = () => {
+          const out = C190_Dispatch.clearResources(state, b.dataset.resourceClear);
+          persist();
+          if (out?.ok) toast("Unidades removidas do despacho.", "warning");
+        }),
+    );
     $$(`[data-choice]`).forEach(
       (b) =>
         (b.onclick = () => {
@@ -257,11 +357,25 @@
           persist();
           if (out)
             toast(
-              out.call.status === "resolved"
-                ? `Ocorrência resolvida · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"}.`
-                : `Falha de protocolo/triagem · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"}.`,
-              out.call.status === "resolved" ? "success" : "danger",
+              out.awaitingRadio
+                ? `Despacho confirmado · rádio operacional iniciado · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"} · despacho ${out.resourceDispatch?.grade || "N/A"}.`
+                : out.call.status === "resolved"
+                  ? `Ocorrência resolvida · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"} · despacho ${out.resourceDispatch?.grade || "N/A"}.`
+                  : `Falha de protocolo/triagem/despacho · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"} · despacho ${out.resourceDispatch?.grade || "N/A"}.`,
+              out.awaitingRadio ? "success" : out.call.status === "resolved" ? "success" : "danger",
             );
+        }),
+    );
+    $$(`[data-radio-action]`).forEach(
+      (b) =>
+        (b.onclick = () => {
+          const out = C190_Dispatch.radioAction(state, b.dataset.call, b.dataset.radioAction);
+          persist();
+          if (out?.ok) {
+            toast(out.finalized ? `Ocorrência encerrada em campo · rádio ${out.radio?.grade || out.finalOutcome?.radio?.grade || "N/A"}.` : "Atualização de rádio registrada.", out.finalized ? (out.call?.status === "resolved" ? "success" : "danger") : "success");
+          } else {
+            toast("Não foi possível registrar ação de rádio.", "warning");
+          }
         }),
     );
     $$("[data-focus-call]").forEach(
@@ -976,7 +1090,7 @@
     window.C190_AppDebug = { state: () => state, renderAll, renderDispatch };
     C190_I18N.init();
     $("#languageSelect").value = C190_I18N.language;
-    $("#buildLabel").textContent = `${BUILD} · 18/06/2026 10:55:00 BRT`;
+    $("#buildLabel").textContent = `${BUILD} · 18/06/2026 13:17:00 BRT`;
     initEvents();
     renderAll();
     const requestedScreen = location.hash.replace("#", "");

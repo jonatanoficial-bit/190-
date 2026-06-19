@@ -1,7 +1,7 @@
 {
   "status": "PASS",
-  "tested_at": "2026-06-18T10:55:00-03:00",
-  "build": "CENTRAL190-1400-F20-PROGRESSIVE-MAP-20260618-120900-BRT",
+  "tested_at": "2026-06-19T14:45:00-03:00",
+  "build": "CENTRAL190-1500-F21-RESOURCE-DISPATCH-20260619-144500-BRT",
   "viewports": [
     {
       "name": "desktop",
@@ -22,12 +22,12 @@
         {
           "name": "Save schema",
           "ok": true,
-          "detail": "schema=18"
+          "detail": "schema=19"
         },
         {
           "name": "Release Candidate",
           "ok": true,
-          "detail": "v1.4.0 · balance 2"
+          "detail": "v1.5.0 · balance 2"
         },
         {
           "name": "Estrutura da carreira",
@@ -37,7 +37,7 @@
         {
           "name": "Motor de atendimento e triagem",
           "ok": true,
-          "detail": "Protocolo v2 · triagem v1"
+          "detail": "Protocolo v2 · triagem v1 · recursos v1"
         },
         {
           "name": "Classificação operacional",
@@ -48,6 +48,11 @@
           "name": "Mapa progressivo",
           "ok": true,
           "detail": "5 estágios de precisão"
+        },
+        {
+          "name": "Despacho de unidades",
+          "ok": true,
+          "detail": "10 unidades operacionais"
         },
         {
           "name": "Conteúdo comercial",
@@ -97,7 +102,7 @@
         {
           "name": "Identidade visual / assets",
           "ok": true,
-          "detail": "14/14 assets carregados"
+          "detail": "25/25 assets carregados"
         },
         {
           "name": "LocalStorage",
@@ -119,12 +124,12 @@
         {
           "name": "Save schema",
           "ok": true,
-          "detail": "schema=18"
+          "detail": "schema=19"
         },
         {
           "name": "Release Candidate",
           "ok": true,
-          "detail": "v1.4.0 · balance 2"
+          "detail": "v1.5.0 · balance 2"
         },
         {
           "name": "Estrutura da carreira",
@@ -134,7 +139,7 @@
         {
           "name": "Motor de atendimento e triagem",
           "ok": true,
-          "detail": "Protocolo v2 · triagem v1"
+          "detail": "Protocolo v2 · triagem v1 · recursos v1"
         },
         {
           "name": "Classificação operacional",
@@ -145,6 +150,11 @@
           "name": "Mapa progressivo",
           "ok": true,
           "detail": "5 estágios de precisão"
+        },
+        {
+          "name": "Despacho de unidades",
+          "ok": true,
+          "detail": "10 unidades operacionais"
         },
         {
           "name": "Conteúdo comercial",
@@ -194,7 +204,7 @@
         {
           "name": "Identidade visual / assets",
           "ok": true,
-          "detail": "14/14 assets carregados"
+          "detail": "25/25 assets carregados"
         },
         {
           "name": "LocalStorage",
@@ -209,9 +219,11 @@
       ],
       "leaflet_loaded": true,
       "assets_module_loaded": true,
-      "asset_count": 14,
+      "asset_count": 25,
       "release_module_loaded": true,
       "call_protocol_module_loaded": true,
+      "resource_dispatch_module_loaded": true,
+      "resource_count": 10,
       "question_count": 18,
       "content_module_loaded": true,
       "city_modules": 9,
@@ -239,6 +251,10 @@
         "questionButtons": 18,
         "triageButtons": 21,
         "triageSelected": 3,
+        "resourceCards": 10,
+        "resourceSelected": 2,
+        "resourceGrade": "B",
+        "resourceScore": 76,
         "triageGrade": "S",
         "triageScore": 100,
         "chatLines": 5,
@@ -262,12 +278,12 @@
           {
             "name": "Save schema",
             "ok": true,
-            "detail": "schema=18"
+            "detail": "schema=19"
           },
           {
             "name": "Release Candidate",
             "ok": true,
-            "detail": "v1.4.0 · balance 2"
+            "detail": "v1.5.0 · balance 2"
           },
           {
             "name": "Estrutura da carreira",
@@ -277,7 +293,7 @@
           {
             "name": "Motor de atendimento e triagem",
             "ok": true,
-            "detail": "Protocolo v2 · triagem v1"
+            "detail": "Protocolo v2 · triagem v1 · recursos v1"
           },
           {
             "name": "Classificação operacional",
@@ -288,6 +304,11 @@
             "name": "Mapa progressivo",
             "ok": true,
             "detail": "5 estágios de precisão"
+          },
+          {
+            "name": "Despacho de unidades",
+            "ok": true,
+            "detail": "10 unidades operacionais"
           },
           {
             "name": "Conteúdo comercial",
@@ -337,7 +358,7 @@
           {
             "name": "Identidade visual / assets",
             "ok": true,
-            "detail": "14/14 assets carregados"
+            "detail": "25/25 assets carregados"
           },
           {
             "name": "LocalStorage",
@@ -354,17 +375,17 @@
       "release": {
         "active": true,
         "metrics": 4,
-        "checks": 11,
+        "checks": 12,
         "deviceChecks": 6,
-        "schema": 18,
-        "version": "1.4.0",
+        "schema": 19,
+        "version": "1.5.0",
         "balanceVersion": 2,
         "telemetry": false,
         "highContrastControl": true,
         "restoreBackupControl": true,
         "overflow": false
       },
-      "screenshot": "tests/F20-desktop.png"
+      "screenshot": "tests/F21-desktop.png"
     },
     {
       "name": "mobile",
@@ -385,12 +406,12 @@
         {
           "name": "Save schema",
           "ok": true,
-          "detail": "schema=18"
+          "detail": "schema=19"
         },
         {
           "name": "Release Candidate",
           "ok": true,
-          "detail": "v1.4.0 · balance 2"
+          "detail": "v1.5.0 · balance 2"
         },
         {
           "name": "Estrutura da carreira",
@@ -400,7 +421,7 @@
         {
           "name": "Motor de atendimento e triagem",
           "ok": true,
-          "detail": "Protocolo v2 · triagem v1"
+          "detail": "Protocolo v2 · triagem v1 · recursos v1"
         },
         {
           "name": "Classificação operacional",
@@ -411,6 +432,11 @@
           "name": "Mapa progressivo",
           "ok": true,
           "detail": "5 estágios de precisão"
+        },
+        {
+          "name": "Despacho de unidades",
+          "ok": true,
+          "detail": "10 unidades operacionais"
         },
         {
           "name": "Conteúdo comercial",
@@ -460,7 +486,7 @@
         {
           "name": "Identidade visual / assets",
           "ok": true,
-          "detail": "14/14 assets carregados"
+          "detail": "25/25 assets carregados"
         },
         {
           "name": "LocalStorage",
@@ -482,12 +508,12 @@
         {
           "name": "Save schema",
           "ok": true,
-          "detail": "schema=18"
+          "detail": "schema=19"
         },
         {
           "name": "Release Candidate",
           "ok": true,
-          "detail": "v1.4.0 · balance 2"
+          "detail": "v1.5.0 · balance 2"
         },
         {
           "name": "Estrutura da carreira",
@@ -497,7 +523,7 @@
         {
           "name": "Motor de atendimento e triagem",
           "ok": true,
-          "detail": "Protocolo v2 · triagem v1"
+          "detail": "Protocolo v2 · triagem v1 · recursos v1"
         },
         {
           "name": "Classificação operacional",
@@ -508,6 +534,11 @@
           "name": "Mapa progressivo",
           "ok": true,
           "detail": "5 estágios de precisão"
+        },
+        {
+          "name": "Despacho de unidades",
+          "ok": true,
+          "detail": "10 unidades operacionais"
         },
         {
           "name": "Conteúdo comercial",
@@ -557,7 +588,7 @@
         {
           "name": "Identidade visual / assets",
           "ok": true,
-          "detail": "14/14 assets carregados"
+          "detail": "25/25 assets carregados"
         },
         {
           "name": "LocalStorage",
@@ -572,9 +603,11 @@
       ],
       "leaflet_loaded": true,
       "assets_module_loaded": true,
-      "asset_count": 14,
+      "asset_count": 25,
       "release_module_loaded": true,
       "call_protocol_module_loaded": true,
+      "resource_dispatch_module_loaded": true,
+      "resource_count": 10,
       "question_count": 18,
       "content_module_loaded": true,
       "city_modules": 9,
@@ -602,6 +635,10 @@
         "questionButtons": 18,
         "triageButtons": 21,
         "triageSelected": 3,
+        "resourceCards": 10,
+        "resourceSelected": 2,
+        "resourceGrade": "A",
+        "resourceScore": 91,
         "triageGrade": "S",
         "triageScore": 100,
         "chatLines": 5,
@@ -625,12 +662,12 @@
           {
             "name": "Save schema",
             "ok": true,
-            "detail": "schema=18"
+            "detail": "schema=19"
           },
           {
             "name": "Release Candidate",
             "ok": true,
-            "detail": "v1.4.0 · balance 2"
+            "detail": "v1.5.0 · balance 2"
           },
           {
             "name": "Estrutura da carreira",
@@ -640,7 +677,7 @@
           {
             "name": "Motor de atendimento e triagem",
             "ok": true,
-            "detail": "Protocolo v2 · triagem v1"
+            "detail": "Protocolo v2 · triagem v1 · recursos v1"
           },
           {
             "name": "Classificação operacional",
@@ -651,6 +688,11 @@
             "name": "Mapa progressivo",
             "ok": true,
             "detail": "5 estágios de precisão"
+          },
+          {
+            "name": "Despacho de unidades",
+            "ok": true,
+            "detail": "10 unidades operacionais"
           },
           {
             "name": "Conteúdo comercial",
@@ -700,7 +742,7 @@
           {
             "name": "Identidade visual / assets",
             "ok": true,
-            "detail": "14/14 assets carregados"
+            "detail": "25/25 assets carregados"
           },
           {
             "name": "LocalStorage",
@@ -717,17 +759,17 @@
       "release": {
         "active": true,
         "metrics": 4,
-        "checks": 11,
+        "checks": 12,
         "deviceChecks": 6,
-        "schema": 18,
-        "version": "1.4.0",
+        "schema": 19,
+        "version": "1.5.0",
         "balanceVersion": 2,
         "telemetry": false,
         "highContrastControl": true,
         "restoreBackupControl": true,
         "overflow": false
       },
-      "screenshot": "tests/F20-mobile.png"
+      "screenshot": "tests/F21-mobile.png"
     }
   ],
   "errors": []

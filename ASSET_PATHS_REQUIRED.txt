@@ -1,22 +1,61 @@
-# CENTRAL 190 — ASSET_PATHS_REQUIRED.txt
-# Fase 17 — Restauração Visual Oficial e Asset Recovery
-# Build: CENTRAL190-1100-F17-ASSET-RECOVERY-20260618-100837-BRT
+CENTRAL 190 — ASSET_PATHS_REQUIRED
+Build: CENTRAL190-1500-F21-RESOURCE-DISPATCH-20260619-144500-BRT
+Objetivo: garantir que os fundos, UI e imagens visuais sejam usados no jogo publicado.
 
-## Assets obrigatórios carregados pela interface
-assets/badges/central190-brand.svg
+Fundos principais da fase 17 preservados:
 assets/backgrounds/bg-central-190.svg
 assets/backgrounds/bg-dashboard.svg
 assets/backgrounds/bg-dispatch.svg
 assets/backgrounds/bg-map.svg
 assets/backgrounds/bg-career.svg
 assets/backgrounds/bg-settings.svg
+
+Novos fundos imersivos obrigatórios do Hotfix F20.1:
+assets/backgrounds/bg-central-room.webp
+assets/backgrounds/bg-dashboard-room.webp
+assets/backgrounds/bg-dispatch-immersive.webp
+assets/backgrounds/bg-map-ops.webp
+assets/backgrounds/bg-career-room.webp
+assets/backgrounds/bg-settings-room.webp
+
+UI/camadas visuais:
 assets/ui/panel-noise.svg
 assets/ui/topbar-glow.svg
 assets/ui/radio-waves.svg
+assets/ui/ui-panel-kit.png
+assets/badges/central190-brand.svg
 assets/illustrations/operator-desk.svg
+
+Ícones e PWA:
 assets/icons/icon.svg
 assets/icons/icon-192.png
 assets/icons/icon-512.png
 
-## Observação importante
-O ZIP de base v1.0.0 RC continha apenas assets de ícones e Leaflet. Nenhum fundo original do jogo 190 inicial estava no pacote recebido nesta conversa. Quando o pacote visual original for reenviado, substituir/adicionar os arquivos mantendo estes caminhos ou registrar os novos caminhos aqui.
+Unidades operacionais visuais:
+assets/units/unit-police-cruiser.png
+assets/units/unit-ambulance-samu.png
+assets/units/unit-fire-rescue.png
+assets/units/unit-helicopter-police.png
+
+Correções aplicadas:
+1. Os fundos deixam de depender de pseudo-elementos com z-index negativo.
+2. A camada visual agora é aplicada em .app-shell::before, acima do background do body e atrás do conteúdo.
+3. Cada tela muda o fundo conforme body[data-visual-screen].
+4. A tela de plantão usa bg-dispatch-immersive.webp também dentro do card ativo.
+5. O chat preserva a rolagem do usuário entre os ticks do plantão.
+
+
+Fase 21 — confirmação de uso dos fundos no CSS:
+body e .app-shell::before usam assets/backgrounds/bg-central-room.webp como fallback global.
+body[data-visual-screen="dashboard"] usa assets/backgrounds/bg-dashboard-room.webp.
+body[data-visual-screen="dispatch"] e body[data-visual-screen="reports"] usam assets/backgrounds/bg-dispatch-immersive.webp.
+body[data-visual-screen="map"] e body[data-visual-screen="content"] usam assets/backgrounds/bg-map-ops.webp.
+body[data-visual-screen="career"], training, goals, achievements e statistics usam assets/backgrounds/bg-career-room.webp.
+body[data-visual-screen="settings"] e release usam assets/backgrounds/bg-settings-room.webp.
+O painel ativo de despacho de unidades também usa assets/backgrounds/bg-map-ops.webp e assets/ui/panel-noise.svg.
+
+
+# Fase 22 — Rádio operacional
+assets/ui/radio-waves.svg — camada visual do painel de rádio de campo.
+assets/backgrounds/bg-dispatch-immersive.webp — fundo principal do plantão/atendimento.
+assets/backgrounds/bg-map-ops.webp — fundo do mapa e despacho operacional.
