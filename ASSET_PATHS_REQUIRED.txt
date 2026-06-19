@@ -1,27 +1,41 @@
-CENTRAL 190 — ASSET_PATHS_REQUIRED
-Build: CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT
-Versão: v1.7.2 — Fase 23.2 Curadoria visual real dos assets
+CENTRAL 190 — ASSET PATHS REQUIRED
+Build: CENTRAL190-1730-F23-3-HOTFIX-FUNDOS-FOTOGRAFICOS-20260619-184500-BRT
+Versão: v1.7.3 — Fase 23.3 Hotfix fundos fotográficos reais
 
-OBJETIVO
-Usar cada imagem no lugar correto após análise visual dos arquivos existentes em assets/backgrounds. O hotfix anterior ligou fundos, mas ainda usava imagens de referência atrás de controles vivos. Esta fase separa fundo jogável, fundo de ambiente e arte de referência.
+FUNDOS ATIVOS PRINCIPAIS
+1. Global/default:
+   assets/backgrounds/bg-control-room-hall.webp
 
-FUNDOS ATIVOS POR TELA — usados de verdade no CSS:
-assets/backgrounds/bg-control-room-hall.webp   -> fundo global/default; ambiente de central escuro e imersivo
-assets/backgrounds/bg-control-room-lobby.webp  -> card de início de carreira / ambiente interno sem UI impressa
-assets/backgrounds/bg-dashboard-room.webp      -> painel inicial/dashboard; imagem gráfica limpa para métricas
-assets/backgrounds/bg-dispatch-immersive.webp  -> plantão, atendimento, chat, rádio e relatórios
-assets/backgrounds/bg-map-ops.webp             -> mapa, operações, conteúdo e despacho de unidades
-assets/backgrounds/bg-career-room.webp         -> carreira, cursos, academia, metas, conquistas e estatísticas
-assets/backgrounds/bg-settings-room.webp       -> configurações e central de lançamento
-assets/backgrounds/bg-central-room.webp        -> fallback global se algum fundo cinematográfico falhar
+2. Dashboard / Painel:
+   assets/backgrounds/bg-home-city-night.webp
+   fallback: assets/backgrounds/bg-control-room-lobby.webp
 
-IMAGENS PRESERVADAS COMO REFERÊNCIA/MARKETING — NÃO ficam atrás da UI viva:
-assets/backgrounds/bg-home-city-night.webp     -> cidade vertical/cinemática; boa para pôster/splash, ruim atrás de formulário desktop
-assets/backgrounds/bg-home-hero-clean.png      -> arte com botões/texto já desenhados; preservada, mas não usada como fundo de jogo
-assets/backgrounds/bg-home-hero-clean2.png     -> arte com botões/texto já desenhados; preservada, mas não usada como fundo de jogo
-assets/backgrounds/bg-home-reference.png       -> referência de layout com texto/menu; preservada para guia visual, não para gameplay
+3. Plantão / Atendimento / Chat / Rádio / Relatórios:
+   assets/backgrounds/bg-home-hero-clean2.png
+   fallback: assets/backgrounds/bg-control-room-lobby.webp
 
-FUNDOS ANTIGOS / LEGADO — mantidos só por compatibilidade histórica:
+4. Mapa / Operações / Despacho:
+   assets/backgrounds/bg-home-city-night.webp
+   fallback: assets/backgrounds/bg-central-room.webp
+
+5. Carreira / Cursos / Academia / Metas / Conquistas / Estatísticas:
+   assets/backgrounds/bg-control-room-lobby.webp
+   fallback: assets/backgrounds/bg-control-room-hall.webp
+
+6. Configurações / Lançamento:
+   assets/backgrounds/bg-control-room-hall.webp
+   fallback: assets/backgrounds/bg-control-room-lobby.webp
+
+7. Fallback terminal:
+   assets/backgrounds/bg-dashboard-room.webp
+
+FUNDOS PRESERVADOS COMO LEGADO/FALLBACK
+assets/backgrounds/bg-central-room.webp
+assets/backgrounds/bg-dashboard-room.webp
+assets/backgrounds/bg-dispatch-immersive.webp
+assets/backgrounds/bg-map-ops.webp
+assets/backgrounds/bg-career-room.webp
+assets/backgrounds/bg-settings-room.webp
 assets/backgrounds/bg-central-190.svg
 assets/backgrounds/bg-dashboard.svg
 assets/backgrounds/bg-dispatch.svg
@@ -29,7 +43,7 @@ assets/backgrounds/bg-map.svg
 assets/backgrounds/bg-career.svg
 assets/backgrounds/bg-settings.svg
 
-UI/camadas visuais usadas:
+CAMADAS UI
 assets/ui/panel-noise.svg
 assets/ui/topbar-glow.svg
 assets/ui/radio-waves.svg
@@ -37,19 +51,11 @@ assets/ui/ui-panel-kit.png
 assets/badges/central190-brand.svg
 assets/illustrations/operator-desk.svg
 
-Ícones e PWA:
-assets/icons/icon.svg
-assets/icons/icon-192.png
-assets/icons/icon-512.png
-
-Unidades operacionais visuais:
+UNIDADES
 assets/units/unit-police-cruiser.png
 assets/units/unit-ambulance-samu.png
 assets/units/unit-fire-rescue.png
 assets/units/unit-helicopter-police.png
 
-REGRA DE CURADORIA F23.2
-1. Imagem com UI/texto/botão impresso não deve ficar atrás de botão/formulário real.
-2. Cada tela usa um fundo com função temática: atendimento usa central/dispatch; mapa usa mapa; carreira usa carreira; configurações usa servidores.
-3. Os painéis usam vidro + noise, não fotos repetidas, para melhorar leitura.
-4. O service worker foi atualizado para recache obrigatório: central190-v1.7.2-f23-2-curadoria-visual-assets.
+OBSERVAÇÃO
+A v1.7.3 força fundos fotográficos/cinemáticos como prioridade. Os fundos vetoriais que causavam aparência de tela genérica foram mantidos apenas como fallback/legado.

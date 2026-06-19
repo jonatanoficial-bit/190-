@@ -1,4 +1,4 @@
-const CACHE = "central190-v1.7.2-f23-2-curadoria-visual-assets";
+const CACHE = "central190-v1.7.3-f23-3-hotfix-fundos-fotograficos";
 const ASSETS = [
   "./",
   "./index.html",

@@ -1,15 +1,14 @@
 {
-  "build": "CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT",
-  "version": "1.7.2",
-  "phase": "23.2",
-  "compiledAt": "2026-06-19T18:15:00-03:00",
-  "saveSchema": 21,
-  "title": "Fase 23.2 — Curadoria visual real dos assets",
+  "build": "CENTRAL190-1730-F23-3-HOTFIX-FUNDOS-FOTOGRAFICOS-20260619-184500-BRT",
+  "version": "1.7.3",
+  "phase": "23.3",
+  "generatedAt": "2026-06-19T18:45:00-03:00",
+  "fileCount": 128,
   "files": [
     {
       "path": "ASSET_PATHS_REQUIRED.txt",
-      "size": 3204,
-      "sha256": "13875cf2263d5f204785f1adcbf944365151a792b4c7c7aff8c19ab3f3c495c9"
+      "size": 2111,
+      "sha256": "c63f36712246b83422790631a708774ebbb689f21023360fef60b4d60d0ba5f6"
     },
     {
       "path": "AUDIT_F14.md",
@@ -68,8 +67,13 @@
     },
     {
       "path": "AUDIT_F23_2.md",
-      "size": 1631,
-      "sha256": "48e78bfbad18ee33d96402549e038b49bacc73bc22c7aa57de64bdad31e73189"
+      "size": 1638,
+      "sha256": "9d550dacdc4fd1b499c4916398e8eebfffd0bf0b12371c31505fd691e1d70117"
+    },
+    {
+      "path": "AUDIT_F23_3.md",
+      "size": 904,
+      "sha256": "85f78f7d8efcaa146178905d113e472c0cf5453a603511b496ade1b55cf06a41"
     },
     {
       "path": "BUILD-REPORT.md",
@@ -78,8 +82,8 @@
     },
     {
       "path": "BUILD_INFO.json",
-      "size": 698,
-      "sha256": "6f151c06dbde0a1e11a2384b7c7f077d193dd9df00431b5be8ab6c9d38b5e172"
+      "size": 702,
+      "sha256": "c18f24397c4c27d4c13aeffc60df3657ae97362877bd26f2eb5fe8fd3ca2f122"
     },
     {
       "path": "CHANGELOG.md",
@@ -108,8 +112,8 @@
     },
     {
       "path": "VERSION.txt",
-      "size": 307,
-      "sha256": "f94d58fce89a1363a2974c95f43ed7929e59eb47914eafa3a4cb63e651c417b1"
+      "size": 311,
+      "sha256": "be5c371a386e6dcbd1c10b397f1340a2997b07460fda0123427d075f6910db88"
     },
     {
       "path": "assets/backgrounds/bg-career-room.webp",
@@ -268,8 +272,8 @@
     },
     {
       "path": "css/style.css",
-      "size": 78117,
-      "sha256": "ada96b780ffa9e14b6d7afce0927d5e6afc5fdf3c44ce4099c7f610aa33d7a22"
+      "size": 84555,
+      "sha256": "9f15f3943b473474a1c271abdd6f38d691f69077cc5ab46e15e65d2377e50bc5"
     },
     {
       "path": "docs/ATENDIMENTO_REAL_F18.md",
@@ -353,8 +357,13 @@
     },
     {
       "path": "docs/VISUAL_CURADORIA_F23_2.md",
-      "size": 2011,
-      "sha256": "f25743889438bd67e7dc1de6656f11f9a537bca8a86632860fde4e99a13b404d"
+      "size": 2014,
+      "sha256": "474a67c06ae40059a176d36fcdd576ae151e2fcbfac5649e7698773093c3f2ea"
+    },
+    {
+      "path": "docs/VISUAL_HOTFIX_F23_3.md",
+      "size": 1968,
+      "sha256": "4e5d6c3f5a1fa0b975d33e5e3a324a6a71ed14dffbc598ca220ca668f92ff8cc"
     },
     {
       "path": "docs/VISUAL_RECOVERY_F17.md",
@@ -374,7 +383,7 @@
     {
       "path": "index.html",
       "size": 34847,
-      "sha256": "692e396f6f9cb5a6e29cba60f07fb77e88bf87101b40a9c592ac0f822fd9ec5a"
+      "sha256": "0a6004c03564a532fc37f943e80532cd390c19b3ecc9a7998b442eadbbcc2c36"
     },
     {
       "path": "js/anti-break.js",
@@ -383,13 +392,13 @@
     },
     {
       "path": "js/app.js",
-      "size": 68195,
-      "sha256": "52287ec55b7ff830806bba6fa031c8f3c615b8cb5e33e98293931568aed9a019"
+      "size": 68198,
+      "sha256": "0f541eb25a817ae9efd7c73f2a2b5615be902ccc7bcc0c510a389a01933f3e75"
     },
     {
       "path": "js/assets.js",
-      "size": 3933,
-      "sha256": "cb9cde0a2e028080adefe543da5b8e1149895a0e7ab4e3c4fd48823fdf893826"
+      "size": 3936,
+      "sha256": "80c8d57d7967de60547bb7d8dc8d96e2fe93fc16ca5e884b93dfe7a68e4535ab"
     },
     {
       "path": "js/call-protocol.js",
@@ -433,8 +442,8 @@
     },
     {
       "path": "js/release.js",
-      "size": 14598,
-      "sha256": "e9c09918c0cc9eb8aefb54374b3442752354f9c0e082c5da626495cccb57e6fe"
+      "size": 14601,
+      "sha256": "d2629c073c2998f62b4eea62cd8a422021a245849f1c99f51ee1c0a14ff55de8"
     },
     {
       "path": "js/resource-dispatch.js",
@@ -443,8 +452,8 @@
     },
     {
       "path": "js/save-manager.js",
-      "size": 14445,
-      "sha256": "a72648ae59e7f2774e8d987be10ee04a808868856b2834c8dbe752e34a41e220"
+      "size": 14448,
+      "sha256": "d1826e3afc4e1eabfefdb1abbecb70c6dc2dfab1fbc8227f9f8adb6b784f8054"
     },
     {
       "path": "js/training-academy.js",
@@ -463,8 +472,8 @@
     },
     {
       "path": "sw.js",
-      "size": 3513,
-      "sha256": "5da11302dc4838d4bd79c2c3388a4ca082f0e103fe2e41eff3c11ba0bb8c8497"
+      "size": 3516,
+      "sha256": "eb40f26fbbd019fd151f49bd91542eb3dc91795eea4cd54d9add0beafa9ecf29"
     },
     {
       "path": "tests/BROWSER_AUDIT.json",
@@ -636,6 +645,5 @@
       "size": 225544,
       "sha256": "600a10dc5cd110de0699510d322afcbe01c7ca90b4c5f48adc20314c70aac753"
     }
-  ],
-  "fileCount": 126
+  ]
 }

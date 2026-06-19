@@ -3158,3 +3158,134 @@ dialog {
     max-height: 320px !important;
   }
 }
+
+/* Fase 23.3 — HOTFIX FUNDOS FOTOGRÁFICOS REAIS
+   Correção do problema visto no navegador: a Fase 23.2 ainda deixava dashboard/plantão
+   usando artes vetoriais de simulação. Esta camada final força os fundos fotográficos/cinemáticos
+   como prioridade visual. Os SVGs e artes lineares ficam apenas como fallback histórico/legado. */
+:root {
+  --asset-bg-central-curated: url("../assets/backgrounds/bg-control-room-hall.webp");
+  --asset-bg-lobby-curated: url("../assets/backgrounds/bg-control-room-lobby.webp");
+  --asset-bg-dashboard-curated: url("../assets/backgrounds/bg-home-city-night.webp");
+  --asset-bg-dispatch-curated: url("../assets/backgrounds/bg-home-hero-clean2.png");
+  --asset-bg-map-curated: url("../assets/backgrounds/bg-home-city-night.webp");
+  --asset-bg-career-curated: url("../assets/backgrounds/bg-control-room-lobby.webp");
+  --asset-bg-settings-curated: url("../assets/backgrounds/bg-control-room-hall.webp");
+  --asset-bg-central-fallback-curated: url("../assets/backgrounds/bg-central-room.webp");
+  --asset-bg-terminal-fallback: url("../assets/backgrounds/bg-dashboard-room.webp");
+}
+html,
+body {
+  background-image:
+    linear-gradient(180deg, rgba(2, 8, 14, 0.42), rgba(2, 8, 14, 0.86)),
+    var(--asset-bg-central-curated),
+    var(--asset-bg-central-fallback-curated) !important;
+  background-size: cover, cover, cover !important;
+  background-position: center center, center center, center center !important;
+}
+.app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.82), rgba(2,8,14,.28) 48%, rgba(2,8,14,.70)),
+    radial-gradient(circle at 58% 18%, rgba(45,212,191,.14), transparent 34%),
+    var(--asset-bg-central-curated),
+    var(--asset-bg-central-fallback-curated) !important;
+  background-size: cover, cover, cover, cover !important;
+  background-position: center center, center center, center center, center center !important;
+  opacity: 1 !important;
+  filter: saturate(1.12) contrast(1.06) brightness(.92) !important;
+}
+body[data-visual-screen="dashboard"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.82), rgba(2,8,14,.24) 48%, rgba(2,8,14,.72)),
+    radial-gradient(circle at 72% 18%, rgba(45,212,191,.12), transparent 36%),
+    var(--asset-bg-dashboard-curated),
+    var(--asset-bg-lobby-curated) !important;
+  background-position: center center, center center, center 52%, center center !important;
+}
+body[data-visual-screen="dispatch"] .app-shell::before,
+body[data-visual-screen="reports"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.86), rgba(2,8,14,.34) 52%, rgba(2,8,14,.78)),
+    radial-gradient(circle at 28% 22%, rgba(20,184,166,.16), transparent 34%),
+    var(--asset-bg-dispatch-curated),
+    var(--asset-bg-lobby-curated) !important;
+  background-position: center center, center center, center 45%, center center !important;
+}
+body[data-visual-screen="map"] .app-shell::before,
+body[data-visual-screen="content"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.78), rgba(2,8,14,.26) 50%, rgba(2,8,14,.76)),
+    radial-gradient(circle at 48% 36%, rgba(96,165,250,.14), transparent 42%),
+    var(--asset-bg-map-curated),
+    var(--asset-bg-central-fallback-curated) !important;
+  background-position: center center, center center, center center, center center !important;
+}
+body[data-visual-screen="career"] .app-shell::before,
+body[data-visual-screen="training"] .app-shell::before,
+body[data-visual-screen="goals"] .app-shell::before,
+body[data-visual-screen="achievements"] .app-shell::before,
+body[data-visual-screen="statistics"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.84), rgba(2,8,14,.30) 50%, rgba(2,8,14,.76)),
+    radial-gradient(circle at 82% 20%, rgba(245,158,11,.10), transparent 34%),
+    var(--asset-bg-career-curated),
+    var(--asset-bg-central-curated) !important;
+  background-position: center center, center center, center center, center center !important;
+}
+body[data-visual-screen="settings"] .app-shell::before,
+body[data-visual-screen="release"] .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.86), rgba(2,8,14,.32) 48%, rgba(2,8,14,.80)),
+    radial-gradient(circle at 78% 16%, rgba(96,165,250,.12), transparent 38%),
+    var(--asset-bg-settings-curated),
+    var(--asset-bg-lobby-curated) !important;
+  background-position: center center, center center, center center, center center !important;
+}
+#careerSetup.hero-card,
+#dashboardContent .career-hero {
+  background-image:
+    linear-gradient(135deg, rgba(3,14,24,.86), rgba(4,25,39,.48)),
+    var(--asset-bg-lobby-curated),
+    var(--asset-bg-dashboard-curated) !important;
+  background-size: cover, cover, cover !important;
+  background-position: center center, center center, center center !important;
+}
+#screen-dashboard .panel,
+#screen-dashboard .metric-card,
+#screen-dashboard .hero-card {
+  background-color: rgba(3, 15, 25, .62) !important;
+  background-image:
+    linear-gradient(145deg, rgba(13,46,66,.50), rgba(3,15,25,.68)),
+    var(--asset-panel-noise) !important;
+  backdrop-filter: blur(12px) saturate(126%) !important;
+}
+#screen-dispatch .panel,
+#activeCall .active-protocol-card,
+#fieldRadioPanel,
+.field-radio-panel,
+#screen-reports .panel {
+  background-color: rgba(3, 15, 25, .68) !important;
+  background-image:
+    linear-gradient(160deg, rgba(1,9,16,.78), rgba(8,31,48,.54)),
+    var(--asset-panel-noise) !important;
+  backdrop-filter: blur(13px) saturate(126%) !important;
+}
+body.asset-safe-mode .app-shell::before {
+  background-image:
+    linear-gradient(90deg, rgba(2,8,14,.84), rgba(2,8,14,.30) 48%, rgba(2,8,14,.76)),
+    radial-gradient(circle at 58% 18%, rgba(45,212,191,.14), transparent 34%),
+    var(--asset-bg-terminal-fallback),
+    var(--asset-bg-central-fallback-curated) !important;
+}
+@media (max-width: 760px) {
+  body[data-visual-screen="dashboard"] .app-shell::before,
+  body[data-visual-screen="map"] .app-shell::before {
+    background-position: center top, center top, center center, center center !important;
+  }
+  body[data-visual-screen="dispatch"] .app-shell::before,
+  body[data-visual-screen="career"] .app-shell::before,
+  body[data-visual-screen="training"] .app-shell::before,
+  body[data-visual-screen="settings"] .app-shell::before {
+    background-position: center top, center top, center top, center top !important;
+  }
+}

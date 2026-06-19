@@ -1,5 +1,5 @@
-Central 190 v1.7.2 — Fase 23.2 — Curadoria visual real dos assets
-Build CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT
+Central 190 v1.7.3 — Fase 23.3 — Hotfix fundos fotográficos reais
+Build CENTRAL190-1730-F23-3-HOTFIX-FUNDOS-FOTOGRAFICOS-20260619-184500-BRT
 Data: 19/06/2026 18:15:00 BRT
 Save schema: 21
 Resumo: reorganização visual por análise dos fundos reais da pasta assets/backgrounds, sem mudar gameplay nem save.

@@ -1,7 +1,7 @@
-# AUDIT_F23_2 — Curadoria visual real dos assets
+# AUDIT_F23_2 — Hotfix fundos fotográficos reais
 
-Build: CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT
-Versão: v1.7.2 — Fase 23.2
+Build: CENTRAL190-1730-F23-3-HOTFIX-FUNDOS-FOTOGRAFICOS-20260619-184500-BRT
+Versão: v1.7.3 — Fase 23.3
 Save schema: 21
 
 ## Escopo
@@ -23,9 +23,9 @@ Correção visual baseada no ZIP baixado do GitHub/Vercel enviado pelo usuário.
 
 ## Validações
 
-- Assets extras copiados para o ZIP v1.7.2.
-- CSS recebeu camada final F23.2 com curadoria por tela.
-- `sw.js` recebeu cache novo `central190-v1.7.2-f23-2-curadoria-visual-assets`.
+- Assets extras copiados para o ZIP v1.7.3.
+- CSS recebeu camada final F23.3 com curadoria por tela.
+- `sw.js` recebeu cache novo `central190-v1.7.3-f23-3-hotfix-fundos-fotograficos`.
 - `js/assets.js` separa fundos ativos e fundos de referência.
 - Save schema mantido em 21.
 - Sistemas preservados: carreira, atendimento, triagem, mapa, despacho, rádio, Academia 190.

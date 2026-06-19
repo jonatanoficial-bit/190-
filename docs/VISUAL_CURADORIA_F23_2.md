@@ -1,6 +1,6 @@
-# Central 190 — Fase 23.2 Curadoria visual dos assets
+# Central 190 — Fase 23.3 Curadoria visual dos assets
 
-Build: `CENTRAL190-1720-F23-2-CURADORIA-VISUAL-ASSETS-20260619-181500-BRT`
+Build: `CENTRAL190-1730-F23-3-HOTFIX-FUNDOS-FOTOGRAFICOS-20260619-184500-BRT`
 
 ## Decisão visual
 
