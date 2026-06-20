@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-1740-F23-4-HOTFIX-LAYOUT-MOBILE-FIRST-20260619-191500-BRT";
+  const BUILD = "CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
@@ -52,6 +52,8 @@
     $("#mainContent").scrollTop = 0;
     window.scrollTo(0, 0);
     window.C190_Assets?.markScreen?.(name);
+    C190_Immersion?.screen?.(name, state);
+    if (state?.profile) C190_Immersion?.play?.("beep", state);
     const labels = {
       dashboard: "Comando operacional",
       dispatch: "Plantão contínuo",
@@ -305,7 +307,7 @@
         (b.onclick = () => {
           const out = C190_Dispatch.askQuestion(state, b.dataset.call, b.dataset.question);
           persist();
-          if (out?.ok) toast(out.question.score < 0 ? "Pergunta inadequada registrada no protocolo." : "Dado coletado no atendimento.", out.question.score < 0 ? "danger" : "success");
+          if (out?.ok) { C190_Immersion?.play?.(out.question.score < 0 ? "warning" : "question", state); toast(out.question.score < 0 ? "Pergunta inadequada registrada no protocolo." : "Dado coletado no atendimento.", out.question.score < 0 ? "danger" : "success"); }
           else toast("Não foi possível registrar essa pergunta.", "warning");
         }),
     );
@@ -316,7 +318,7 @@
         (b.onclick = () => {
           const out = C190_Dispatch.setTriage(state, b.dataset.call, b.dataset.triageField, b.dataset.triageValue);
           persist();
-          if (out?.ok) toast(`Triagem atualizada · nota ${out.evaluation?.grade || "N/A"}.`, "success");
+          if (out?.ok) { C190_Immersion?.play?.("triage", state); toast(`Triagem atualizada · nota ${out.evaluation?.grade || "N/A"}.`, "success"); }
           else toast("Não foi possível atualizar a triagem.", "warning");
         }),
     );
@@ -325,7 +327,7 @@
         (b.onclick = () => {
           const out = C190_Dispatch.toggleResource(state, b.dataset.call, b.dataset.resourceToggle);
           persist();
-          if (out?.ok) toast(`Despacho atualizado · nota ${out.evaluation?.grade || "N/A"}.`, out.evaluation?.grade === "D" ? "warning" : "success");
+          if (out?.ok) { C190_Immersion?.play?.(out.evaluation?.grade === "D" ? "warning" : "unit", state); toast(`Despacho atualizado · nota ${out.evaluation?.grade || "N/A"}.`, out.evaluation?.grade === "D" ? "warning" : "success"); }
           else toast("Não foi possível selecionar essa unidade.", "warning");
         }),
     );
@@ -334,7 +336,7 @@
         (b.onclick = () => {
           const out = C190_Dispatch.recommendResources(state, b.dataset.resourceRecommend);
           persist();
-          if (out?.ok) toast(`Despacho recomendado aplicado · nota ${out.evaluation?.grade || "N/A"}.`, "success");
+          if (out?.ok) { C190_Immersion?.play?.("dispatch", state); toast(`Despacho recomendado aplicado · nota ${out.evaluation?.grade || "N/A"}.`, "success"); }
           else toast("Não foi possível aplicar recomendação de despacho.", "warning");
         }),
     );
@@ -343,7 +345,7 @@
         (b.onclick = () => {
           const out = C190_Dispatch.clearResources(state, b.dataset.resourceClear);
           persist();
-          if (out?.ok) toast("Unidades removidas do despacho.", "warning");
+          if (out?.ok) { C190_Immersion?.play?.("warning", state); toast("Unidades removidas do despacho.", "warning"); }
         }),
     );
     $$(`[data-choice]`).forEach(
@@ -355,7 +357,8 @@
             Number(b.dataset.choice),
           );
           persist();
-          if (out)
+          if (out) {
+            C190_Immersion?.play?.(out.awaitingRadio ? "dispatch" : out.call.status === "resolved" ? "success" : "error", state);
             toast(
               out.awaitingRadio
                 ? `Despacho confirmado · rádio operacional iniciado · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"} · despacho ${out.resourceDispatch?.grade || "N/A"}.`
@@ -364,6 +367,7 @@
                   : `Falha de protocolo/triagem/despacho · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"} · despacho ${out.resourceDispatch?.grade || "N/A"}.`,
               out.awaitingRadio ? "success" : out.call.status === "resolved" ? "success" : "danger",
             );
+          }
         }),
     );
     $$(`[data-radio-action]`).forEach(
@@ -372,6 +376,7 @@
           const out = C190_Dispatch.radioAction(state, b.dataset.call, b.dataset.radioAction);
           persist();
           if (out?.ok) {
+            C190_Immersion?.play?.(out.finalized ? (out.call?.status === "resolved" ? "success" : "error") : "radio", state);
             toast(out.finalized ? `Ocorrência encerrada em campo · rádio ${out.radio?.grade || out.finalOutcome?.radio?.grade || "N/A"}.` : "Atualização de rádio registrada.", out.finalized ? (out.call?.status === "resolved" ? "success" : "danger") : "success");
           } else {
             toast("Não foi possível registrar ação de rádio.", "warning");
@@ -526,12 +531,26 @@
       })
       .join("");
   }
+  function reportCallDetails(call) {
+    const chips = [
+      call.protocolGrade ? `Protocolo ${call.protocolGrade}${call.protocolScore ? `/${call.protocolScore}` : ""}` : "Protocolo pendente",
+      call.triageGrade ? `Triagem ${call.triageGrade}${call.triageScore ? `/${call.triageScore}` : ""}` : "Triagem pendente",
+      call.resourceDispatchGrade ? `Despacho ${call.resourceDispatchGrade}${call.resourceDispatchScore ? `/${call.resourceDispatchScore}` : ""}` : "Despacho pendente",
+      call.radioGrade ? `Rádio ${call.radioGrade}${call.radioScore ? `/${call.radioScore}` : ""}` : "Rádio pendente",
+    ];
+    const selected = (call.resourceDispatchSelected || []).map((unit) => unit.label || unit.id || unit.type).filter(Boolean).slice(0, 4).join(", ");
+    return `<details class="report-call-detail"><summary><strong>${esc(call.type || "Ocorrência")}</strong><span>${esc(call.outcome || call.status || "registro")}</span></summary><div class="report-chip-line">${chips.map((chip) => `<span>${esc(chip)}</span>`).join("")}</div><small>Localização: ${esc(call.locationStage || "não registrada")} · confiança ${Math.round(Number(call.locationConfidence || 0) * 100)}%${selected ? ` · unidades: ${esc(selected)}` : ""}</small></details>`;
+  }
   function renderReports() {
     $("#reportList").innerHTML =
       state.dispatch.reports
         .map(
-          (r, i) =>
-            `<article class="report-card"><div class="requirement"><h3>${esc(r.modeLabel || "Plantão de carreira")} #${state.dispatch.reports.length - i}</h3><b>Nota ${r.grade} · ${r.score}/100</b></div><small>${new Date(r.startedAt).toLocaleString()} · duração ${r.duration}s · ${esc(C190_Content.cityById(r.cityId || "sp").name)}${r.affectsCareer === false ? " · sem impacto na carreira" : ""}</small><div class="report-stats"><div class="report-stat"><strong>${r.resolved}</strong><span>Resolvidas</span></div><div class="report-stat"><strong>${r.failed}</strong><span>Falhas</span></div><div class="report-stat"><strong>${r.abandoned}</strong><span>Abandonadas</span></div><div class="report-stat"><strong>${r.calls.length}</strong><span>Chamadas</span></div><div class="report-stat"><strong>${r.grade}</strong><span>Nota</span></div></div></article>`,
+          (r, i) => {
+            const calls = Array.isArray(r.calls) ? r.calls : [];
+            const avgProtocol = calls.filter((c) => Number(c.protocolScore)).reduce((sum, c) => sum + Number(c.protocolScore || 0), 0) / Math.max(1, calls.filter((c) => Number(c.protocolScore)).length);
+            const avgRadio = calls.filter((c) => Number(c.radioScore)).reduce((sum, c) => sum + Number(c.radioScore || 0), 0) / Math.max(1, calls.filter((c) => Number(c.radioScore)).length);
+            return `<article class="report-card report-card-rc"><div class="requirement"><h3>${esc(r.modeLabel || "Plantão de carreira")} #${state.dispatch.reports.length - i}</h3><b>Nota ${r.grade} · ${r.score}/100</b></div><small>${new Date(r.startedAt).toLocaleString()} · duração ${r.duration}s · ${esc(C190_Content.cityById(r.cityId || "sp").name)}${r.affectsCareer === false ? " · sem impacto na carreira" : ""}</small><div class="report-stats"><div class="report-stat"><strong>${r.resolved}</strong><span>Resolvidas</span></div><div class="report-stat"><strong>${r.failed}</strong><span>Falhas</span></div><div class="report-stat"><strong>${r.abandoned}</strong><span>Abandonadas</span></div><div class="report-stat"><strong>${calls.length}</strong><span>Chamadas</span></div><div class="report-stat"><strong>${Math.round(avgProtocol) || "—"}</strong><span>Protocolo médio</span></div><div class="report-stat"><strong>${Math.round(avgRadio) || "—"}</strong><span>Rádio médio</span></div></div><div class="report-call-list">${calls.slice(0, 5).map(reportCallDetails).join("")}</div></article>`;
+          },
         )
         .join("") || '<div class="panel">Nenhum relatório disponível.</div>';
   }
@@ -848,11 +867,23 @@
 
   function renderSettings() {
     C190_Release.normalize(state);
+    C190_Immersion?.normalizeSettings?.(state.settings);
     $("#largeTextToggle").checked = state.settings.largeText;
     $("#reduceMotionToggle").checked = state.settings.reduceMotion;
     $("#highContrastToggle").checked = state.settings.highContrast;
     $("#largeTargetsToggle").checked = state.settings.largeTargets;
     $("#screenReaderHintsToggle").checked = state.settings.screenReaderHints;
+    const soundToggle = $("#soundEnabledToggle");
+    if (soundToggle) soundToggle.checked = state.settings.soundEnabled !== false;
+    const radioFxToggle = $("#radioFxToggle");
+    if (radioFxToggle) radioFxToggle.checked = state.settings.radioFx !== false;
+    const vibrationToggle = $("#vibrationToggle");
+    if (vibrationToggle) vibrationToggle.checked = state.settings.vibration !== false;
+    const volumeRange = $("#soundVolumeRange");
+    if (volumeRange) volumeRange.value = String(Math.round(Number(state.settings.soundVolume ?? 0.42) * 100));
+    const immersion = C190_Immersion?.diagnostics?.(state);
+    const immersionStatus = $("#immersionStatus");
+    if (immersionStatus && immersion) immersionStatus.textContent = `Áudio ${immersion.soundEnabled ? "ativo" : "desativado"} · volume ${Math.round(immersion.volume * 100)}% · ${immersion.supported ? "Web Audio disponível" : "Web Audio indisponível"} · sem arquivos externos.`;
     C190_Release.applyAccessibility(state);
     $("#saveStatus").textContent =
       `Schema ${state.schema} · versão ${state.version} · atualizado ${new Date(state.updatedAt).toLocaleString()} · backup ${C190_Save.storageInfo().hasBackup ? "disponível" : "ainda não criado"}`;
@@ -910,6 +941,7 @@
         `${callSign} assumiu o posto de Operador III.`,
       );
       persist();
+      C190_Immersion?.play?.("success", state);
       toast("Carreira criada com sucesso.");
     });
     $$(".nav-btn").forEach(
@@ -948,6 +980,7 @@
       } else {
         C190_Content.launchCareer(state);
         persist();
+        C190_Immersion?.play?.("ring", state);
         toast("Plantão de carreira iniciado.");
       }
     };
@@ -956,7 +989,8 @@
       C190_Content.launchCareer(state);
       persist();
       showScreen("dispatch");
-      toast("Plantão de carreira iniciado.");
+      C190_Immersion?.play?.("ring", state);
+        toast("Plantão de carreira iniciado.");
     };
     $("#launchSandboxBtn").onclick = () => {
       if (!launchAllowed()) return;
@@ -971,6 +1005,7 @@
       if (!result.ok) return toast("Não foi possível iniciar o Sandbox.", "warning");
       persist();
       showScreen("dispatch");
+      C190_Immersion?.play?.("ring", state);
       toast("Sandbox iniciado sem impacto na carreira.");
     };
     $("#openMapScreenBtn").onclick = () => showScreen("map");
@@ -1039,6 +1074,16 @@
     $("#highContrastToggle").onchange = (e) => { state.settings.highContrast = e.target.checked; persist(); };
     $("#largeTargetsToggle").onchange = (e) => { state.settings.largeTargets = e.target.checked; persist(); };
     $("#screenReaderHintsToggle").onchange = (e) => { state.settings.screenReaderHints = e.target.checked; persist(); };
+    const soundEnabledToggle = $("#soundEnabledToggle");
+    if (soundEnabledToggle) soundEnabledToggle.onchange = (e) => { state.settings.soundEnabled = e.target.checked; C190_Immersion?.unlock?.(); persist(); C190_Immersion?.play?.(e.target.checked ? "success" : "warning", state); };
+    const radioFxToggle = $("#radioFxToggle");
+    if (radioFxToggle) radioFxToggle.onchange = (e) => { state.settings.radioFx = e.target.checked; persist(); C190_Immersion?.play?.("radio", state); };
+    const vibrationToggle = $("#vibrationToggle");
+    if (vibrationToggle) vibrationToggle.onchange = (e) => { state.settings.vibration = e.target.checked; persist(); C190_Immersion?.play?.("beep", state); };
+    const soundVolumeRange = $("#soundVolumeRange");
+    if (soundVolumeRange) soundVolumeRange.oninput = (e) => { state.settings.soundVolume = Math.max(0, Math.min(1, Number(e.target.value) / 100)); C190_Immersion?.normalizeSettings?.(state.settings); renderSettings(); };
+    const testAudioBtn = $("#testAudioBtn");
+    if (testAudioBtn) testAudioBtn.onclick = () => { C190_Immersion?.unlock?.(); C190_Immersion?.play?.("ring", state); setTimeout(() => C190_Immersion?.play?.("radio", state), 360); setTimeout(() => C190_Immersion?.play?.("success", state), 760); renderSettings(); };
     $("#exportSaveBtn").onclick = () => C190_Save.exportData(state);
     $("#restoreBackupBtn").onclick = () => {
       try { state = C190_Save.restoreBackup(); renderAll(); toast("Backup restaurado com sucesso."); }
@@ -1134,7 +1179,7 @@
     }, 1000);
   }
   function init() {
-    window.C190_AppDebug = { state: () => state, renderAll, renderDispatch };
+    window.C190_AppDebug = { state: () => state, renderAll, renderDispatch, immersion: () => C190_Immersion?.diagnostics?.(state) };
     C190_I18N.init();
     $("#languageSelect").value = C190_I18N.language;
     $("#buildLabel").textContent = `${BUILD} · 19/06/2026 16:24:00 BRT`;

@@ -1,11 +1,11 @@
 {
   "name": "Central 190",
-  "version": "1.7.4",
-  "phase": "23.4",
-  "build": "CENTRAL190-1740-F23-4-HOTFIX-LAYOUT-MOBILE-FIRST-20260619-191500-BRT",
-  "compiledAt": "2026-06-19T19:15:00-03:00",
+  "version": "1.8.0",
+  "phase": "24",
+  "build": "CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT",
+  "compiledAt": "2026-06-20T20:30:00.000Z",
   "saveSchema": 21,
-  "title": "Fase 23.4 — Hotfix layout mobile-first e auditoria visual",
+  "title": "Fase 24 — RC AAA, áudio, imersão e polimento final",
   "features": [
     "restauração de topbar e menu lateral fixos",
     "correção do desalinhamento entre texto e formulário na tela inicial",

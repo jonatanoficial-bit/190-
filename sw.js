@@ -1,4 +1,4 @@
-const CACHE = "central190-v1.7.4-f23-3-hotfix-fundos-fotograficos";
+const CACHE = "central190-v1.8.0-f24-rc-aaa-imersao";
 const ASSETS = [
   "./",
   "./index.html",
@@ -6,6 +6,7 @@ const ASSETS = [
   "./js/i18n.js",
   "./js/assets.js",
   "./js/release.js",
+  "./js/immersion.js",
   "./js/content.js",
   "./js/call-protocol.js",
   "./js/triage.js",

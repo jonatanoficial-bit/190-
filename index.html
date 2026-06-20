@@ -13,7 +13,7 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <title>Central 190 — v1.7.4 Fase 23.4</title>
+    <title>Central 190 — v1.8.0 Fase 24</title>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
@@ -97,8 +97,8 @@
           </button>
         </nav>
         <div class="version-chip">
-          <span>v1.7.4 · Fase 23.4</span>
-          <small id="buildLabel">19/06/2026 19:15:00 BRT</small>
+          <span>v1.8.0 · Fase 24</span>
+          <small id="buildLabel">20/06/2026 17:30:00 BRT</small>
         </div>
       </aside>
 
@@ -579,18 +579,18 @@
           <div class="screen-heading">
             <div>
               <span class="eyebrow" data-i18n="release.eyebrow">RELEASE CANDIDATE</span>
-              <h1 data-i18n="release.title">Central de lançamento v1.7.4</h1>
+              <h1 data-i18n="release.title">Central de lançamento v1.8.0</h1>
             </div>
             <span id="releaseStatusBadge" class="release-badge">AUDITANDO</span>
           </div>
           <div class="release-hero hero-card">
             <div>
               <span class="eyebrow">BUILD COMERCIAL</span>
-              <h2 data-i18n="release.heroTitle">Pronto para homologação final</h2>
-              <p data-i18n="release.heroText">Esta tela reúne compatibilidade, modo offline, privacidade, acessibilidade, balanceamento e créditos do jogo.</p>
+              <h2 data-i18n="release.heroTitle">Release Candidate imersiva pronta para homologação</h2>
+              <p data-i18n="release.heroText">Esta tela reúne compatibilidade, modo offline, privacidade, acessibilidade, balanceamento, áudio, imersão e créditos do jogo.</p>
             </div>
             <div class="release-version">
-              <strong>v1.7.4</strong>
+              <strong>v1.8.0</strong>
               <span>Curadoria visual dos assets</span>
               <small>Save schema 21</small>
             </div>
@@ -699,6 +699,19 @@
                 Abrir configurações do mapa
               </button>
             </article>
+
+            <article class="panel wide audio-settings-card">
+              <h2>Áudio e imersão</h2>
+              <p>Fase 24: telefone, rádio, despacho, sirene discreta e feedback sonoro gerados localmente por Web Audio. Não há arquivos de áudio externos.</p>
+              <div class="audio-settings-grid">
+                <label class="toggle-row"><span>Ativar áudio operacional</span><input id="soundEnabledToggle" type="checkbox" /></label>
+                <label class="toggle-row"><span>Rádio e sirene discretos</span><input id="radioFxToggle" type="checkbox" /></label>
+                <label class="toggle-row"><span>Vibração no celular</span><input id="vibrationToggle" type="checkbox" /></label>
+                <label class="volume-row"><span>Volume</span><input id="soundVolumeRange" type="range" min="0" max="100" step="5" /></label>
+              </div>
+              <div class="button-row"><button id="testAudioBtn" class="secondary-btn" type="button">Testar áudio</button></div>
+              <p id="immersionStatus" class="system-note">Imersão aguardando interação do jogador.</p>
+            </article>
             <article class="panel wide visual-audit-card">
               <h2>Identidade visual e assets</h2>
               <p id="assetAuditSummary">Verificando fundos, ícones e camadas visuais...</p>
@@ -749,6 +762,7 @@
     <script src="js/i18n.js"></script>
     <script src="js/assets.js"></script>
     <script src="js/release.js"></script>
+    <script src="js/immersion.js"></script>
     <script src="js/content.js"></script>
     <script src="js/call-protocol.js"></script>
     <script src="js/triage.js"></script>

@@ -1,0 +1,37 @@
+{
+  "build": "CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT",
+  "version": "1.8.0",
+  "phase": "24",
+  "jsSyntax": {
+    "total": 17,
+    "failed": []
+  },
+  "cssUrls": {
+    "total": 51,
+    "missing": []
+  },
+  "htmlIds": {
+    "soundEnabledToggle": true,
+    "radioFxToggle": true,
+    "vibrationToggle": true,
+    "soundVolumeRange": true,
+    "testAudioBtn": true,
+    "immersionStatus": true
+  },
+  "logic": {
+    "status": "PASS",
+    "checks": 258,
+    "schema": 22,
+    "visualAssets": 21,
+    "templates": 32,
+    "resourceDispatchVersion": 1,
+    "immersionVersion": 1,
+    "resources": 10,
+    "cities": 9,
+    "specials": 5,
+    "reports": 2
+  },
+  "assetsBackgrounds": 18,
+  "immersionModule": true,
+  "externalAudioFiles": 0
+}

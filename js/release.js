@@ -1,10 +1,10 @@
 window.C190_Release = (() => {
   "use strict";
 
-  const VERSION = "1.7.4";
-  const PHASE = 23;
+  const VERSION = "1.8.0";
+  const PHASE = 24;
   const BALANCE_VERSION = 2;
-  const BUILD = "CENTRAL190-1740-F23-4-HOTFIX-LAYOUT-MOBILE-FIRST-20260619-191500-BRT";
+  const BUILD = "CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT";
   const DEFAULT_CITY = { lat: -23.55052, lng: -46.63331, label: "São Paulo — SP" };
   let deferredInstallPrompt = null;
 
@@ -15,7 +15,7 @@ window.C190_Release = (() => {
       realisticLabel: "Realista", realisticDesc: "Ritmo e consequências equilibrados para a carreira principal.",
       expertLabel: "Especialista", expertDesc: "Chamadas mais rápidas, menos tolerância e recompensas maiores.",
       viewport: "Viewport responsivo", storage: "Armazenamento local", worker: "Service Worker", fullscreen: "Tela cheia", input: "Entrada", capacity: "Capacidade do dispositivo",
-      saveMigration: "Save e migração", balance: "Balanceamento", offline: "Offline", privacy: "Privacidade", accessibility: "Acessibilidade", diagnostics: "Diagnóstico anti-quebra", compatibility: "Compatibilidade do aparelho", credits: "Créditos e licenças", visual: "Identidade visual", callProtocol: "Atendimento por ligação", triage: "Triagem e despacho",
+      saveMigration: "Save e migração", balance: "Balanceamento", offline: "Offline", privacy: "Privacidade", accessibility: "Acessibilidade", diagnostics: "Diagnóstico anti-quebra", compatibility: "Compatibilidade do aparelho", credits: "Créditos e licenças", visual: "Identidade visual", callProtocol: "Atendimento por ligação", triage: "Triagem e despacho", immersion: "Áudio e imersão",
       installed: "Aplicativo instalado", installReady: "Instalação disponível", installBrowser: "Use o menu do navegador para instalar"
     },
     en: {
@@ -23,7 +23,7 @@ window.C190_Release = (() => {
       realisticLabel: "Realistic", realisticDesc: "Balanced pace and consequences for the main career.",
       expertLabel: "Expert", expertDesc: "Faster calls, lower tolerance and larger rewards.",
       viewport: "Responsive viewport", storage: "Local storage", worker: "Service Worker", fullscreen: "Fullscreen", input: "Input", capacity: "Device capacity",
-      saveMigration: "Save and migration", balance: "Balancing", offline: "Offline", privacy: "Privacy", accessibility: "Accessibility", diagnostics: "Anti-break diagnostics", compatibility: "Device compatibility", credits: "Credits and licenses", visual: "Visual identity", callProtocol: "Call handling protocol", triage: "Triage and dispatch",
+      saveMigration: "Save and migration", balance: "Balancing", offline: "Offline", privacy: "Privacy", accessibility: "Accessibility", diagnostics: "Anti-break diagnostics", compatibility: "Device compatibility", credits: "Credits and licenses", visual: "Visual identity", callProtocol: "Call handling protocol", triage: "Triage and dispatch", immersion: "Audio and immersion",
       installed: "App installed", installReady: "Installation available", installBrowser: "Use the browser menu to install"
     },
     es: {
@@ -31,7 +31,7 @@ window.C190_Release = (() => {
       realisticLabel: "Realista", realisticDesc: "Ritmo y consecuencias equilibrados para la carrera principal.",
       expertLabel: "Especialista", expertDesc: "Llamadas más rápidas, menor tolerancia y mayores recompensas.",
       viewport: "Vista adaptable", storage: "Almacenamiento local", worker: "Service Worker", fullscreen: "Pantalla completa", input: "Entrada", capacity: "Capacidad del dispositivo",
-      saveMigration: "Guardado y migración", balance: "Balance", offline: "Sin conexión", privacy: "Privacidad", accessibility: "Accesibilidad", diagnostics: "Diagnóstico anti-fallos", compatibility: "Compatibilidad del dispositivo", credits: "Créditos y licencias", visual: "Identidad visual", callProtocol: "Protocolo de atención", triage: "Triaje y despacho",
+      saveMigration: "Guardado y migración", balance: "Balance", offline: "Sin conexión", privacy: "Privacidad", accessibility: "Accesibilidad", diagnostics: "Diagnóstico anti-fallos", compatibility: "Compatibilidad del dispositivo", credits: "Créditos y licencias", visual: "Identidad visual", callProtocol: "Protocolo de atención", triage: "Triaje y despacho", immersion: "Audio e inmersión",
       installed: "Aplicación instalada", installReady: "Instalación disponible", installBrowser: "Usa el menú del navegador para instalar"
     }
   };
@@ -95,6 +95,11 @@ window.C190_Release = (() => {
       mapPrivacy: "approximate",
       telemetry: false,
       autosaveSeconds: 5,
+      soundEnabled: true,
+      soundVolume: 0.42,
+      radioFx: true,
+      vibration: true,
+      immersiveHud: true,
     };
     state.settings = { ...defaults, ...state.settings, telemetry: false };
     state.release = {
@@ -108,6 +113,7 @@ window.C190_Release = (() => {
       resourceDispatchVersion: 1,
       fieldRadioVersion: 1,
       trainingAcademyVersion: 1,
+      immersionVersion: 1,
       firstOpenedAt: state.release?.firstOpenedAt || new Date().toISOString(),
       notesSeen: !!state.release?.notesSeen,
       privacySeen: !!state.release?.privacySeen,
@@ -229,7 +235,7 @@ window.C190_Release = (() => {
     const privacy = privacySummary(state);
     const text = copy();
     return [
-      { name: text.saveMigration, ok: state.schema === 21, detail: "Compatível com schemas 10–20" },
+      { name: text.saveMigration, ok: state.schema === 22, detail: "Compatível com schemas 10–21" },
       { name: text.balance, ok: state.release.balanceVersion === BALANCE_VERSION, detail: profileFor(state).label },
       { name: text.visual, ok: window.C190_Assets?.diagnostics?.().ok !== false, detail: `${window.C190_Assets?.diagnostics?.().loaded || 0}/${window.C190_Assets?.diagnostics?.().required || 0} assets carregados` },
       { name: text.callProtocol, ok: !!window.C190_CallProtocol && state.release.callProtocolVersion === 2, detail: `${window.C190_CallProtocol?.QUESTION_BANK?.length || 0} perguntas fixas · localização progressiva` },
@@ -237,6 +243,7 @@ window.C190_Release = (() => {
       { name: "Despacho de unidades", ok: !!window.C190_ResourceDispatch && state.release.resourceDispatchVersion === 1, detail: `${window.C190_ResourceDispatch?.UNIT_BLUEPRINTS?.length || 0} recursos operacionais` },
       { name: "Rádio operacional", ok: !!window.C190_FieldRadio && state.release.fieldRadioVersion === 1, detail: `${window.C190_FieldRadio?.ACTIONS?.length || 0} ações de campo` },
       { name: "Academia 190", ok: !!window.C190_TrainingAcademy && state.release.trainingAcademyVersion === 1, detail: `${window.C190_TrainingAcademy?.MODULES?.length || 0} módulos práticos · ${(state.training?.certificates || []).length} certificado(s)` },
+      { name: text.immersion || "Áudio e imersão", ok: !!window.C190_Immersion && state.release.immersionVersion === 1, detail: (() => { const d = window.C190_Immersion?.diagnostics?.(state); return d ? `${d.soundEnabled ? "ativo" : "desativado"} · volume ${Math.round((d.volume || 0) * 100)}% · arquivos externos ${d.externalAudioFiles}` : "módulo indisponível"; })() },
       { name: text.offline, ok: "serviceWorker" in navigator, detail: navigator.onLine ? "Online com fallback" : "Executando sem conexão" },
       { name: text.privacy, ok: privacy.telemetry === false && privacy.localOnly, detail: "Sem telemetria e sem conta obrigatória" },
       { name: text.accessibility, ok: true, detail: "Contraste, alvos ampliados, teclado e redução de movimento" },
@@ -253,6 +260,7 @@ window.C190_Release = (() => {
     document.body.classList.toggle("high-contrast", !!state.settings.highContrast);
     document.body.classList.toggle("large-targets", !!state.settings.largeTargets);
     document.body.classList.toggle("screen-reader-hints", !!state.settings.screenReaderHints);
+    document.body.classList.toggle("immersive-hud", state.settings.immersiveHud !== false);
   }
 
   function clearApproximateLocation(state) {

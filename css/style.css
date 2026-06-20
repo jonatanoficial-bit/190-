@@ -3647,3 +3647,99 @@ body {
     min-height: auto !important;
   }
 }
+
+
+/* Fase 24 — RC AAA: imersão, áudio e polimento mobile-first */
+:root {
+  --rc-glow: 0 0 0 1px rgba(94, 234, 212, .18), 0 24px 70px rgba(0, 0, 0, .38);
+}
+body.immersive-hud .topbar {
+  background: linear-gradient(180deg, rgba(5,16,27,.94), rgba(5,16,27,.78));
+  box-shadow: 0 18px 56px rgba(0,0,0,.24);
+}
+body.immersive-hud .sidebar {
+  background: linear-gradient(180deg, rgba(4,14,24,.94), rgba(3,10,18,.98));
+}
+.panel,
+.hero-card,
+.metric-card,
+.course-card,
+.goal-card,
+.achievement-card,
+.report-card {
+  backdrop-filter: blur(15px) saturate(118%);
+  box-shadow: var(--rc-glow);
+}
+.audio-settings-card .audio-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+.volume-row {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(96, 165, 250, .18);
+  background: rgba(3, 13, 22, .46);
+}
+.volume-row input[type="range"] { width: 100%; accent-color: var(--accent); }
+.system-note { color: var(--muted); font-size: .88rem; }
+.report-card-rc .report-call-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+.report-call-detail {
+  border: 1px solid rgba(94,234,212,.16);
+  border-radius: 12px;
+  background: rgba(2, 11, 18, .42);
+  padding: 8px 10px;
+}
+.report-call-detail summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.report-call-detail summary span { color: var(--muted); font-size: .78rem; }
+.report-chip-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 9px 0 6px;
+}
+.report-chip-line span {
+  border: 1px solid rgba(96,165,250,.22);
+  border-radius: 999px;
+  padding: 5px 8px;
+  background: rgba(45,212,191,.08);
+  font-size: .76rem;
+  color: rgba(237,247,255,.92);
+}
+body.audio-unlocked .audio-settings-card h2::after {
+  content: "  · ativo";
+  color: var(--accent);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+@media (max-width: 760px) {
+  .audio-settings-card .audio-settings-grid { grid-template-columns: 1fr; }
+  .top-actions #fullscreenBtn { display: none; }
+  .screen-heading { align-items: start; flex-direction: column; }
+  .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .report-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .report-call-detail summary { align-items: start; flex-direction: column; }
+  .field-radio-panel,
+  .resource-dispatch-panel,
+  .call-card.active-protocol-card { padding: 12px !important; }
+}
+@media (max-width: 420px) {
+  .metric-grid,
+  .report-stats { grid-template-columns: 1fr; }
+  .brand-block strong { font-size: .78rem; }
+  .icon-btn { width: 40px; height: 40px; }
+}

@@ -1,9 +1,11 @@
 window.C190_Save = (() => {
   "use strict";
 
-  const KEY = "central190_save_v21";
-  const BACKUP = "central190_save_v21_backup";
+  const KEY = "central190_save_v22";
+  const BACKUP = "central190_save_v22_backup";
   const LEGACY = [
+    "central190_save_v21",
+    "central190_save_v21_backup",
     "central190_save_v20",
     "central190_save_v20_backup",
     "central190_save_v19",
@@ -26,9 +28,9 @@ window.C190_Save = (() => {
     "central_190_save",
     "c190_save",
   ];
-  const SCHEMA = 21;
-  const VERSION = "1.7.4";
-  const BUILD = "CENTRAL190-1740-F23-4-HOTFIX-LAYOUT-MOBILE-FIRST-20260619-191500-BRT";
+  const SCHEMA = 22;
+  const VERSION = "1.8.0";
+  const BUILD = "CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,
@@ -101,7 +103,7 @@ window.C190_Save = (() => {
     content: defaultContent(),
     release: {
       version: VERSION,
-      phase: 23,
+      phase: 24,
       visualRecovery: 1,
       callProtocolVersion: 2,
       triageVersion: 1,
@@ -109,6 +111,7 @@ window.C190_Save = (() => {
       resourceDispatchVersion: 1,
       fieldRadioVersion: 1,
       trainingAcademyVersion: 1,
+      immersionVersion: 1,
       balanceVersion: 2,
       firstOpenedAt: new Date().toISOString(),
       notesSeen: false,
@@ -131,6 +134,11 @@ window.C190_Save = (() => {
       mapPrivacy: "approximate",
       visualTheme: "official-assets",
       assetFallback: "safe-css",
+      soundEnabled: true,
+      soundVolume: 0.42,
+      radioFx: true,
+      vibration: true,
+      immersiveHud: true,
     },
   });
 
@@ -288,11 +296,16 @@ window.C190_Save = (() => {
       mapCenter: incomingCenter,
       mapZoom: Math.max(3, Math.min(19, Number(incomingSettings.mapZoom || 14))),
       mapPrivacy: "approximate",
+      soundEnabled: incomingSettings.soundEnabled !== false,
+      soundVolume: Math.max(0, Math.min(1, Number(incomingSettings.soundVolume ?? 0.42))),
+      radioFx: incomingSettings.radioFx !== false,
+      vibration: incomingSettings.vibration !== false,
+      immersiveHud: incomingSettings.immersiveHud !== false,
     };
 
-    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 23, visualRecovery: 1, callProtocolVersion: 2, triageVersion: 1,
+    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 24, visualRecovery: 1, callProtocolVersion: 2, triageVersion: 1,
       locationIntelVersion: 1, resourceDispatchVersion: 1,
-      fieldRadioVersion: 1, trainingAcademyVersion: 1, balanceVersion: 2 };
+      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 1, balanceVersion: 2 };
     base.settings.telemetry = false;
     base.dispatch = enrichDispatch(source.dispatch || base.dispatch, incomingCenter);
     base.content = source.content && typeof source.content === "object" ? clone(source.content) : defaultContent();

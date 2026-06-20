@@ -33,17 +33,21 @@ global.CustomEvent = function (type, options) {
 global.dispatchEvent = () => true;
 global.addEventListener = () => true;
 global.navigator = { onLine: true, maxTouchPoints: 0, userAgent: "Node audit" };
-global.document = { documentElement: {}, body: { classList: { toggle: () => {} } } };
+global.document = { documentElement: {}, body: { classList: { toggle: () => {}, add: () => {}, remove: () => {} } }, addEventListener: () => true };
+global.performance = { now: () => Date.now() };
 global.crypto = { randomUUID: () => `id-${Math.random()}` };
 
 for (const file of [
   "js/assets.js",
   "js/release.js",
+  "js/immersion.js",
   "js/content.js",
   "js/call-protocol.js",
   "js/triage.js",
   "js/location-intel.js",
   "js/resource-dispatch.js",
+  "js/field-radio.js",
+  "js/training-academy.js",
   "js/save-manager.js",
   "js/career.js",
   "js/dispatch.js",
@@ -84,6 +88,14 @@ function resolveAll(state, choiceIndex = 0) {
     assert(!!outcome, "choice returns outcome");
     assert(outcome.protocol && ["S", "A", "B", "C", "D"].includes(outcome.protocol.grade), "protocol grade generated");
     assert(outcome.triage && ["S", "A", "B", "C", "D"].includes(outcome.triage.grade), "triage grade generated");
+    if (outcome.awaitingRadio) {
+      for (const action of ["keep_line", "reroute", "advance", "close"]) {
+        const radio = C190_Dispatch.radioAction(state, call.id, action);
+        assert(radio.ok, "radio action accepted");
+        if (radio.finalized) break;
+      }
+      assert(["resolved", "failed"].includes(call.status), "radio finalizes call");
+    }
   }
 }
 
@@ -108,8 +120,8 @@ const migrated = C190_Save.migrate({
     reports: [],
   },
 });
-assert(migrated.schema === 19, "migration schema 12 to 19");
-assert(migrated.version === "1.5.0", "migration version");
+assert(migrated.schema === 22, "migration schema 12 to 22");
+assert(migrated.version === "1.8.0", "migration version");
 assert(migrated.profile.callSign === "Atlas", "migration profile");
 assert(migrated.career.xp === 500, "migration XP");
 assert(migrated.settings.mapMode === "auto", "invalid map mode normalized");
@@ -127,6 +139,7 @@ assert(migrated.release.callProtocolVersion === 2, "call protocol release flag c
 assert(migrated.release.locationIntelVersion === 1, "location intel release flag created");
 assert(migrated.release.triageVersion === 1, "triage release flag created");
 assert(migrated.release.resourceDispatchVersion === 1, "resource dispatch release flag created");
+assert(migrated.release.immersionVersion === 1, "immersion release flag created");
 assert(!!migrated.dispatch.shift.calls[0].protocol, "legacy active call enriched with call protocol");
 assert(!!migrated.dispatch.shift.calls[0].triage, "legacy active call enriched with triage");
 assert(!!migrated.dispatch.shift.calls[0].resourceDispatch, "legacy active call enriched with resource dispatch");
@@ -329,6 +342,8 @@ assert(specialState.career.xp > firstRewardXp, "replay keeps normal call XP");
 assert(C190_Content.cities.length === 9, "nine city modules");
 assert(C190_Content.specialCases.length === 5, "five special operations");
 assert(C190_Dispatch.templates.length >= 30, "commercial incident library expanded");
+assert(C190_Immersion.VERSION === 1, "immersion module loaded");
+assert(C190_Immersion.diagnostics(C190_Save.defaultState()).externalAudioFiles === 0, "immersion uses generated local audio");
 assert(
   C190_Content.validateExpansion({ id: "test_pack", api: 1, content: [] }).ok,
   "valid expansion manifest accepted",
@@ -340,7 +355,7 @@ assert(
 
 C190_Save.save(specialState);
 const loaded = C190_Save.load();
-assert(loaded.schema === 19, "schema 19 save reload");
+assert(loaded.schema === 22, "schema 22 save reload");
 assert(C190_Save.validate(loaded), "saved state checksum and structure valid");
 assert(loaded.content.special.completed.includes("cerco_bancario"), "content progression persists");
 
@@ -353,6 +368,7 @@ console.log(
       visualAssets: typeof C190_Assets === "object" ? C190_Assets.required.length : 0,
       templates: C190_Dispatch.templates.length,
       resourceDispatchVersion: C190_ResourceDispatch.VERSION,
+      immersionVersion: C190_Immersion.VERSION,
       resources: C190_ResourceDispatch.resourcesFor(loaded).length,
       cities: C190_Content.cities.length,
       specials: C190_Content.specialCases.length,
