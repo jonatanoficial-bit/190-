@@ -1,9 +1,10 @@
 {
-  "build": "CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT",
-  "version": "1.8.0",
-  "phase": "24",
-  "compiledAt": "2026-06-20T20:30:00.000Z",
-  "fileCount": 138,
+  "game": "Central 190",
+  "version": "1.9.0",
+  "phase": 25,
+  "build": "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT",
+  "saveSchema": 23,
+  "fileCount": 140,
   "files": [
     {
       "path": "ASSET_PATHS_REQUIRED.txt",
@@ -86,29 +87,24 @@
       "sha256": "f6548323e183034a31cfef305809d8e1fb861d466a868dd80dc83efefe4f59d7"
     },
     {
-      "path": "BUILD-MANIFEST.json",
-      "bytes": 21506,
-      "sha256": "8c8d0eccd0b776b6089214e7fa2108e494c40fb39294608f8892c63e2726aafc"
+      "path": "AUDIT_F25.md",
+      "bytes": 496,
+      "sha256": "79adec380ccc33afa44da64267af916b6e6e0e20b8e641a9b0b4c8f03870d972"
     },
     {
       "path": "BUILD-REPORT.md",
-      "bytes": 184,
-      "sha256": "640034225f29a772eb2140ef5c925d7ddb1947011174a91e8fe586641087823a"
+      "bytes": 259,
+      "sha256": "08cbbe8d72af8cec98c24615a180982d686462ed4b5af858a99a4f1d07e32185"
     },
     {
       "path": "BUILD_INFO.json",
-      "bytes": 822,
-      "sha256": "2f6ec9b0d93949b132eae049b20e05692badef3531f453edc8c7a1f9a298ea1b"
-    },
-    {
-      "path": "BUILD_MANIFEST.json",
-      "bytes": 21506,
-      "sha256": "8c8d0eccd0b776b6089214e7fa2108e494c40fb39294608f8892c63e2726aafc"
+      "bytes": 584,
+      "sha256": "2e7caa0254c3863b58551fdf44df1fbc4d16b4fe425181a3015ba627333cdb35"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 2156,
-      "sha256": "494181904a206ef6ed774dee9a065fbf29575bb05a00477575af96744267c917"
+      "bytes": 2430,
+      "sha256": "186619395c49aa5108fea95a09ba07ae011af602159c82af483a56e6b70839aa"
     },
     {
       "path": "CHECKLIST.md",
@@ -116,19 +112,14 @@
       "sha256": "e9955a6d916c9b6ca080c40f617df1092eb2fb5a2526514fb55fd901d9cb761a"
     },
     {
-      "path": "FILE-MANIFEST.sha256",
-      "bytes": 12287,
-      "sha256": "98fe109bbdfe757969647f9b4aa99ba25fe13446265d3e686b3f457ab5cd359a"
-    },
-    {
       "path": "README.md",
-      "bytes": 1914,
-      "sha256": "c1cdb7de8ff568ee375f29ca6c32f5e66874a5998020ccf1171e46888d855e5d"
+      "bytes": 2188,
+      "sha256": "5b0cdc715471c091fbaad82e6b3dea54f9151aebab56cc9c93dd0632d8f19a01"
     },
     {
       "path": "TEST-REPORT.md",
-      "bytes": 443,
-      "sha256": "18c76824df0d74edbdb09dd9b745912caf458231eaad58ab4d07ef44a82605f2"
+      "bytes": 648,
+      "sha256": "f7b976ce0dfaa06d8aa51afe86c14509ad17be6a40d8b8710342ff3932bc583f"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -137,8 +128,8 @@
     },
     {
       "path": "VERSION.txt",
-      "bytes": 193,
-      "sha256": "d3df4b6c35f68ca80e0e6ddbe3fae7ef4a2832e35a859e2ffa8de958b9d04c56"
+      "bytes": 153,
+      "sha256": "72d0e77740cabf0701e68ea69f8e592c89a2ac6d447604b9aeea849bda2eda54"
     },
     {
       "path": "assets/backgrounds/bg-career-room.webp",
@@ -297,13 +288,18 @@
     },
     {
       "path": "css/style.css",
-      "bytes": 96126,
-      "sha256": "90a4769a16fbc3818c45e9e7e712897b62a43c10a6930367cd971c3b78ad80a3"
+      "bytes": 99440,
+      "sha256": "7583c9c3b1628eb11c3cd50eef10e4ff5994b7fcf73291d766b2bb146d4c9589"
     },
     {
       "path": "docs/ATENDIMENTO_REAL_F18.md",
       "bytes": 1322,
       "sha256": "afcd24d7eebb110e6a0c6ca06fb69c2e17de2d5a4ce40ac8209ce799121b1f94"
+    },
+    {
+      "path": "docs/CAMPANHA_OPERACIONAL_F25.md",
+      "bytes": 743,
+      "sha256": "c17bf126c942bf3ad4671e95751f36cf0f5787aff5c30e8717a2c3605bc1b3fb"
     },
     {
       "path": "docs/CARREIRA_F13.md",
@@ -417,28 +413,33 @@
     },
     {
       "path": "index.html",
-      "bytes": 36063,
-      "sha256": "3bcd30281dad99bfe9910c6f6678711aa47166a284d665cffbb499f5a87414a3"
+      "bytes": 38069,
+      "sha256": "e0527c428e6bdb1e877f2c53e7c55cac4471724bffefe0d792920ebe45a63498"
     },
     {
       "path": "js/anti-break.js",
-      "bytes": 8855,
-      "sha256": "855c1c15cbb34924fac5a72bab6ef424813b901684fab8a5125ecc21039574c9"
+      "bytes": 9375,
+      "sha256": "f48e586adac905a0b89fcded860e82028684ef52aa49ef6c5ed8b523d2d151a2"
     },
     {
       "path": "js/app.js",
-      "bytes": 73390,
-      "sha256": "a6a18a80c9b61f9de79ba7ff28340c79ab637133a948fe56e2e9d7a882161375"
+      "bytes": 79120,
+      "sha256": "da006b4c3b0b00bbfb172ad9d6b2ec7c31621673a86e2b94f27fc3656b261370"
     },
     {
       "path": "js/assets.js",
-      "bytes": 3920,
-      "sha256": "04f1038d27d9ecdfece25977c59849354edd99cf8bc733872a2eba07c05d8407"
+      "bytes": 3952,
+      "sha256": "1a955d1f8f5842b82b94a91979c3e3cf8d73cb876a0b2b7305e47005a375f544"
     },
     {
       "path": "js/call-protocol.js",
       "bytes": 14626,
       "sha256": "1e8178861ff4d5d6646f9a9f93ad22c0146d45816d77826229e72d0357242dab"
+    },
+    {
+      "path": "js/campaign.js",
+      "bytes": 12577,
+      "sha256": "c62b9c4b4f128e6a2cfd5a93d060486baed33990737bc8859ff8286cff039261"
     },
     {
       "path": "js/career.js",
@@ -452,8 +453,8 @@
     },
     {
       "path": "js/dispatch.js",
-      "bytes": 33113,
-      "sha256": "cbbf4c2ac5f6e04a5403087d227298e1901774a5ae858717a2c0d146e68ff169"
+      "bytes": 33503,
+      "sha256": "24bd9dbe274fec7c8711536d8a79de1a6f7e4668dee0cfc31f853c156327a83d"
     },
     {
       "path": "js/field-radio.js",
@@ -467,8 +468,8 @@
     },
     {
       "path": "js/immersion.js",
-      "bytes": 6226,
-      "sha256": "874629c6c96d17a297059cc6f0674424bd555a79990845c6e85022b240c00ec5"
+      "bytes": 6232,
+      "sha256": "abc36728f1fc23aab1049207e5f10132686544bdc1c56963b662b08e8b14ecf9"
     },
     {
       "path": "js/location-intel.js",
@@ -482,8 +483,8 @@
     },
     {
       "path": "js/release.js",
-      "bytes": 15304,
-      "sha256": "a8f7dbbd568420a154597d4d0a8e1433019b581c10756c1ceb6a8c88e3753976"
+      "bytes": 15600,
+      "sha256": "81460dfc6b06a91e41d2d4c42e7c809338aea47256d82f18b27c3895f9dc1078"
     },
     {
       "path": "js/resource-dispatch.js",
@@ -492,8 +493,8 @@
     },
     {
       "path": "js/save-manager.js",
-      "bytes": 14983,
-      "sha256": "d38aece313516e5b13631e381ae1565e56e4d1cf43c2cb017d836b2be8d7266f"
+      "bytes": 15538,
+      "sha256": "16591de20c940979c0afcad5e50e3599790813c4201bad8a15e416f201a52d9d"
     },
     {
       "path": "js/training-academy.js",
@@ -507,8 +508,8 @@
     },
     {
       "path": "manifest.webmanifest",
-      "bytes": 1757,
-      "sha256": "55510651f95776f20e68dbcdee198511bb27d921c14cb915d9486f4c6bdb90d7"
+      "bytes": 1998,
+      "sha256": "6d9190f79e1053411cd1a33f977b44f036a822acd0a71dfb580ae29a7d911cb3"
     },
     {
       "path": "reports/audit-v1.7.4-layout-mobile.json",
@@ -522,8 +523,8 @@
     },
     {
       "path": "sw.js",
-      "bytes": 3525,
-      "sha256": "54e913d9f877a8817122c0bc902fa7d812c454622fbfc8bbdd6c1de3cab55d35"
+      "bytes": 3553,
+      "sha256": "46b208c3b53a4fea9e933d3bf31e308703dd30adf043f2f06cef450ea6b99eb6"
     },
     {
       "path": "tests/BROWSER_AUDIT.json",

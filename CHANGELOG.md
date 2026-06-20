@@ -49,3 +49,11 @@ Build: `CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT`
 - Service Worker atualizado para novo cache `CENTRAL190-1710-F23-1-HOTFIX-FUNDOS-CINEMATICOS-20260619-173500-BRT`.
 - Painel de assets separa obrigatórios e opcionais.
 - Save schema preservado em 21; nenhuma perda de progresso.
+
+
+## v1.9.0 — Fase 25: Campanha Operacional
+- Nova tela Campanha.
+- 6 missões narrativas encadeadas.
+- Missões usam atendimento, triagem, mapa progressivo, despacho e rádio.
+- Recompensas de campanha integradas à carreira.
+- Save schema 23 com migração automática.

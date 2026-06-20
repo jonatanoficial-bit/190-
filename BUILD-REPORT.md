@@ -1,6 +1,5 @@
-# Build Report — Central 190 v1.7.0 Fase 23
+# Build Report — Central 190 v1.9.0 Fase 25
 
-Build: `CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT`
-Save schema: 21
+Build: CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT
 
-Fase: Treinamento, cursos e avaliação profissional.
+Resumo: adicionada Campanha Operacional com 6 missões narrativas, progressão, recompensas e integração completa ao fluxo real de plantão.

@@ -1,8 +1,8 @@
 window.C190_Assets = (() => {
   "use strict";
-  const VERSION = "1.8.0";
-  const PHASE = "24";
-  const BUILD = "CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT";
+  const VERSION = "1.9.0";
+  const PHASE = "25";
+  const BUILD = "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT";
   const required = [
     "assets/badges/central190-brand.svg",
     "assets/backgrounds/bg-central-room.webp",
@@ -37,6 +37,7 @@ window.C190_Assets = (() => {
     dispatch: "dispatch",
     map: "map",
     content: "map",
+    campaign: "campaign",
     statistics: "career",
     career: "career",
     training: "career",

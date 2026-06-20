@@ -1,4 +1,4 @@
-Central 190 v1.8.0 — Fase 24 — RC AAA, áudio, imersão e polimento final
-Build CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT
-Compilação: 20/06/2026 17:30:00 BRT
-Save schema: 22
+Central 190 v1.9.0 — Fase 25
+Build: CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT
+Compilação: 20/06/2026 18:35:00 BRT
+Save schema: 23

@@ -1,10 +1,11 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT";
+  const BUILD = "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
   let selectedMapCallId = null;
+  let selectedCampaignMissionId = null;
   const REGION_PRESETS = {
     sp: { lat: -23.55052, lng: -46.63331, label: "São Paulo — SP" },
     rio: { lat: -22.90685, lng: -43.1729, label: "Rio de Janeiro — RJ" },
@@ -59,6 +60,7 @@
       dispatch: "Plantão contínuo",
       map: "Mapa operacional e despacho",
       content: "Operações e conteúdo",
+      campaign: "Campanha operacional",
       statistics: "Estatísticas avançadas",
       career: "Progressão profissional",
       training: "Capacitação",
@@ -753,6 +755,68 @@
     });
   }
 
+
+  function renderCampaign() {
+    if (!window.C190_Campaign) return;
+    C190_Campaign.normalize(state);
+    const summary = C190_Campaign.summary(state);
+    if (!selectedCampaignMissionId) selectedCampaignMissionId = state.campaign.selectedMissionId || summary.next?.id || C190_Campaign.missions[0]?.id;
+    const selected = C190_Campaign.missionById(selectedCampaignMissionId) || summary.next || C190_Campaign.missions[0];
+    state.campaign.selectedMissionId = selected?.id || state.campaign.selectedMissionId;
+    const progress = Math.max(0, Math.min(100, summary.percent || 0));
+    const nextLabel = summary.next ? `Próxima: ${summary.next.title}` : "Campanha concluída";
+    const active = !!state.dispatch.shift?.active;
+    $("#campaignProgressBadge").textContent = `${summary.completed}/${summary.total}`;
+    $("#campaignOverview").innerHTML = `<div class="campaign-overview-grid"><div><strong>${summary.completed}/${summary.total}</strong><span>missões concluídas</span></div><div><strong>${summary.bestAverage || 0}</strong><span>média das melhores notas</span></div><div><strong>${summary.attempts || 0}</strong><span>tentativas registradas</span></div><div><strong>${esc(nextLabel)}</strong><span>jornada atual</span></div></div><div class="progress campaign-progress"><i style="width:${progress}%"></i></div>`;
+    $("#campaignMissionGrid").innerHTML = C190_Campaign.missions.map((mission) => {
+      const status = C190_Campaign.statusFor(state, mission);
+      const city = C190_Content.cityById(mission.cityId);
+      const selectedClass = mission.id === selected?.id ? "selected" : "";
+      return `<article class="campaign-mission-card ${selectedClass} ${status.completed ? "completed" : ""} ${status.available ? "" : "locked"}" data-campaign-mission="${esc(mission.id)}"><div class="campaign-icon">${esc(mission.icon)}</div><div class="campaign-mission-body"><div class="tag-row"><span class="tag">Capítulo ${mission.chapter}</span><span class="tag">${esc(city.name)}</span><span class="tag">mín. ${mission.minScore}</span></div><h3>${esc(mission.title)}</h3><p>${esc(mission.subtitle)}</p><small>${esc(status.label)} · melhor ${status.best || 0} · ${status.attempts || 0} tentativa(s)</small></div><button class="action-btn ${status.available ? "primary" : ""}" data-campaign-launch="${esc(mission.id)}" ${status.canLaunch ? "" : "disabled"}>${status.completed ? "Rejogar" : status.available ? "Iniciar" : "Bloqueada"}</button></article>`;
+    }).join("");
+    if (selected) {
+      const status = C190_Campaign.statusFor(state, selected);
+      const city = C190_Content.cityById(selected.cityId);
+      $("#campaignBriefing").innerHTML = `<span class="eyebrow">CAPÍTULO ${selected.chapter}</span><h3>${esc(selected.title)}</h3><p>${esc(selected.briefing)}</p><div class="campaign-briefing-stats"><span><b>Cidade</b>${esc(city.name)}</span><span><b>Chamadas</b>${selected.callCount}</span><span><b>Nota mínima</b>${selected.minScore}</span><span><b>Recompensa</b>+${selected.reward.xp} XP · +${selected.reward.rep} rep.</span></div><h4>Objetivos</h4><ul class="campaign-objectives">${selected.objectives.map((o) => `<li>${esc(o)}</li>`).join("")}</ul><button class="primary-btn" data-campaign-launch="${esc(selected.id)}" ${status.canLaunch ? "" : "disabled"}>${active ? "Plantão ativo" : status.available ? "Iniciar missão selecionada" : esc(status.label)}</button>`;
+    }
+    const history = state.campaign.history || [];
+    $("#campaignTimeline").innerHTML = history.length ? history.slice(0, 12).map((item) => `<div class="list-item"><strong>${esc(item.title || "Campanha")}</strong><small>${new Date(item.at).toLocaleString()} · ${esc(item.detail || "")}</small></div>`).join("") : '<div class="list-item">Nenhuma missão de campanha iniciada.</div>';
+    $$('[data-campaign-mission]').forEach((card) => {
+      card.onclick = (event) => {
+        if (event.target.closest('button')) return;
+        selectedCampaignMissionId = card.dataset.campaignMission;
+        state.campaign.selectedMissionId = selectedCampaignMissionId;
+        renderCampaign();
+      };
+    });
+    $$('[data-campaign-launch]').forEach((button) => {
+      button.onclick = () => {
+        if (!launchAllowed()) return;
+        const result = C190_Campaign.launch(state, button.dataset.campaignLaunch);
+        if (!result.ok) return toast(result.reason === "locked" ? "Missão ainda bloqueada." : "Não foi possível iniciar a campanha.", "warning");
+        persist();
+        showScreen("dispatch");
+        C190_Immersion?.play?.("ring", state);
+        toast(`Missão iniciada: ${result.mission.title}`);
+      };
+    });
+    const nextBtn = $("#launchNextCampaignBtn");
+    if (nextBtn) {
+      nextBtn.disabled = active || !summary.next;
+      nextBtn.textContent = active ? "Plantão ativo" : summary.next ? "Iniciar próxima missão" : "Campanha concluída";
+      nextBtn.onclick = () => {
+        if (!launchAllowed()) return;
+        const mission = C190_Campaign.nextMission(state);
+        const result = C190_Campaign.launch(state, mission?.id);
+        if (!result.ok) return toast("Próxima missão ainda não disponível.", "warning");
+        persist();
+        showScreen("dispatch");
+        C190_Immersion?.play?.("ring", state);
+        toast(`Missão iniciada: ${result.mission.title}`);
+      };
+    }
+  }
+
   function renderStatistics() {
     const summary = C190_Content.statsSummary(state);
     const playMinutes = Math.round(summary.totalPlaySeconds / 60);
@@ -900,6 +964,7 @@
         renderReports();
         renderMap();
         renderContent();
+        renderCampaign();
         renderStatistics();
         renderRelease();
         renderSettings();
@@ -919,7 +984,7 @@
     persist();
     const r = e.detail.report;
     $("#shiftReportContent").innerHTML =
-      `<p class="report-mode-line"><strong>${esc(r.modeLabel || "Plantão de carreira")}</strong> · ${esc(C190_Content.cityById(r.cityId || "sp").name)}${r.affectsCareer === false ? " · sem impacto na carreira" : ""}</p><div class="report-stats"><div class="report-stat"><strong>${r.grade}</strong><span>Nota</span></div><div class="report-stat"><strong>${r.score}</strong><span>Pontuação</span></div><div class="report-stat"><strong>${r.resolved}</strong><span>Resolvidas</span></div><div class="report-stat"><strong>${r.failed}</strong><span>Falhas</span></div><div class="report-stat"><strong>${r.abandoned}</strong><span>Abandonadas</span></div></div>${r.specialFirstCompletion ? '<div class="special-reward-banner">Operação especial concluída pela primeira vez. Recompensa de carreira aplicada.</div>' : ""}`;
+      `<p class="report-mode-line"><strong>${esc(r.modeLabel || "Plantão de carreira")}</strong> · ${esc(C190_Content.cityById(r.cityId || "sp").name)}${r.affectsCareer === false ? " · sem impacto na carreira" : ""}</p><div class="report-stats"><div class="report-stat"><strong>${r.grade}</strong><span>Nota</span></div><div class="report-stat"><strong>${r.score}</strong><span>Pontuação</span></div><div class="report-stat"><strong>${r.resolved}</strong><span>Resolvidas</span></div><div class="report-stat"><strong>${r.failed}</strong><span>Falhas</span></div><div class="report-stat"><strong>${r.abandoned}</strong><span>Abandonadas</span></div></div>${r.specialFirstCompletion ? '<div class="special-reward-banner">Operação especial concluída pela primeira vez. Recompensa de carreira aplicada.</div>' : ""}${r.campaignMissionTitle ? `<div class="special-reward-banner">Campanha: ${esc(r.campaignMissionTitle)} · ${r.campaignPassed ? "missão concluída" : "repetição recomendada"}${r.campaignReward ? ` · +${r.campaignReward.xp} XP` : ""}</div>` : ""}`;
     $("#shiftReportDialog").showModal();
     if (e.detail.promotion)
       setTimeout(() => showPromotion(e.detail.promotion), 250);
@@ -1182,11 +1247,11 @@
     window.C190_AppDebug = { state: () => state, renderAll, renderDispatch, immersion: () => C190_Immersion?.diagnostics?.(state) };
     C190_I18N.init();
     $("#languageSelect").value = C190_I18N.language;
-    $("#buildLabel").textContent = `${BUILD} · 19/06/2026 16:24:00 BRT`;
+    $("#buildLabel").textContent = `${BUILD} · 20/06/2026 18:35:00 BRT`;
     initEvents();
     renderAll();
     const requestedScreen = location.hash.replace("#", "");
-    if (["dashboard", "dispatch", "map", "content", "statistics", "career", "training", "goals", "achievements", "reports", "release", "settings"].includes(requestedScreen)) showScreen(requestedScreen);
+    if (["dashboard", "dispatch", "map", "content", "campaign", "statistics", "career", "training", "goals", "achievements", "reports", "release", "settings"].includes(requestedScreen)) showScreen(requestedScreen);
     startTicker();
     window.C190_Assets?.preload?.().then(() => renderAssetsAudit()).catch(() => renderAssetsAudit());
     window.C190_Assets?.markScreen?.(requestedScreen || "dashboard");

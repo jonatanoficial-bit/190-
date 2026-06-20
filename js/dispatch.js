@@ -152,6 +152,9 @@ window.C190_Dispatch = (() => {
       penalties: options.penalties !== false,
       specialId: options.specialId || null,
       challengeKind: options.challengeKind || null,
+      campaignId: options.campaignId || null,
+      missionId: options.missionId || null,
+      campaignChapter: options.campaignChapter || null,
       arrivalGap,
       escalationAt: balance.escalationAt,
       abandonLimit: balance.abandonLimit,
@@ -349,6 +352,9 @@ window.C190_Dispatch = (() => {
       affectsCareer: shift.affectsCareer,
       specialId: shift.specialId,
       challengeKind: shift.challengeKind,
+      campaignId: shift.campaignId || null,
+      missionId: shift.missionId || null,
+      campaignChapter: shift.campaignChapter || null,
       difficulty: shift.difficulty || state.profile?.difficulty || "realista",
       difficultyLabel: shift.difficultyLabel || "Realista",
       balanceVersion: shift.balanceVersion || 1,
@@ -396,7 +402,8 @@ window.C190_Dispatch = (() => {
       state.dispatch.reports = state.dispatch.reports.slice(0, 60);
     }
     window.C190_Content?.onShiftEnded(state, report);
-    window.dispatchEvent(new CustomEvent("c190:shift-ended", { detail: { report, promotion } }));
+    const campaignResult = window.C190_Campaign?.onShiftEnded?.(state, report) || null;
+    window.dispatchEvent(new CustomEvent("c190:shift-ended", { detail: { report, promotion, campaignResult } }));
     return report;
   }
 

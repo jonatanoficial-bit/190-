@@ -13,7 +13,7 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <title>Central 190 — v1.8.0 Fase 24</title>
+    <title>Central 190 — v1.9.0 Fase 25</title>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
@@ -71,6 +71,9 @@
           <button class="nav-btn" data-screen="content">
             <span>∞</span><b data-i18n="nav.content">Operações</b>
           </button>
+          <button class="nav-btn" data-screen="campaign">
+            <span>▱</span><b>Campanha</b>
+          </button>
           <button class="nav-btn" data-screen="statistics">
             <span>▥</span><b data-i18n="nav.statistics">Estatísticas</b>
           </button>
@@ -97,8 +100,8 @@
           </button>
         </nav>
         <div class="version-chip">
-          <span>v1.8.0 · Fase 24</span>
-          <small id="buildLabel">20/06/2026 17:30:00 BRT</small>
+          <span>v1.9.0 · Fase 25</span>
+          <small id="buildLabel">20/06/2026 18:35:00 BRT</small>
         </div>
       </aside>
 
@@ -449,6 +452,50 @@
           </article>
         </section>
 
+        <section id="screen-campaign" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow">CAMPANHA OPERACIONAL</span>
+              <h1>Jornadas de carreira e casos narrativos</h1>
+            </div>
+            <button id="launchNextCampaignBtn" class="primary-btn">Iniciar próxima missão</button>
+          </div>
+
+          <div class="campaign-layout">
+            <article class="panel wide campaign-progress-panel">
+              <header>
+                <div>
+                  <h2>Progresso da campanha principal</h2>
+                  <small>Missões conectadas com requisitos, recompensa e impacto na carreira.</small>
+                </div>
+                <span id="campaignProgressBadge" class="badge">0/6</span>
+              </header>
+              <div id="campaignOverview" class="campaign-overview"></div>
+            </article>
+
+            <article class="panel wide campaign-mission-panel">
+              <header>
+                <div>
+                  <h2>Missões disponíveis</h2>
+                  <small>Cada missão usa chamadas reais, triagem, mapa, despacho e rádio.</small>
+                </div>
+              </header>
+              <div id="campaignMissionGrid" class="campaign-mission-grid"></div>
+            </article>
+
+            <article class="panel campaign-briefing-panel">
+              <header><h2>Briefing operacional</h2></header>
+              <div id="campaignBriefing" class="campaign-briefing"></div>
+            </article>
+
+            <article class="panel campaign-history-panel">
+              <header><h2>Histórico da campanha</h2></header>
+              <div id="campaignTimeline" class="stack-list campaign-timeline"></div>
+            </article>
+          </div>
+        </section>
+
+
         <section id="screen-statistics" class="screen">
           <div class="screen-heading">
             <div>
@@ -579,7 +626,7 @@
           <div class="screen-heading">
             <div>
               <span class="eyebrow" data-i18n="release.eyebrow">RELEASE CANDIDATE</span>
-              <h1 data-i18n="release.title">Central de lançamento v1.8.0</h1>
+              <h1 data-i18n="release.title">Central de lançamento v1.9.0</h1>
             </div>
             <span id="releaseStatusBadge" class="release-badge">AUDITANDO</span>
           </div>
@@ -590,9 +637,9 @@
               <p data-i18n="release.heroText">Esta tela reúne compatibilidade, modo offline, privacidade, acessibilidade, balanceamento, áudio, imersão e créditos do jogo.</p>
             </div>
             <div class="release-version">
-              <strong>v1.8.0</strong>
-              <span>Curadoria visual dos assets</span>
-              <small>Save schema 21</small>
+              <strong>v1.9.0</strong>
+              <span>Campanha operacional e missões narrativas</span>
+              <small>Save schema 23</small>
             </div>
           </div>
           <div id="releaseMetrics" class="metric-grid release-metrics"></div>
@@ -702,7 +749,7 @@
 
             <article class="panel wide audio-settings-card">
               <h2>Áudio e imersão</h2>
-              <p>Fase 24: telefone, rádio, despacho, sirene discreta e feedback sonoro gerados localmente por Web Audio. Não há arquivos de áudio externos.</p>
+              <p>Fase 25: telefone, rádio, despacho, sirene discreta, campanha operacional e feedback sonoro gerados localmente por Web Audio. Não há arquivos de áudio externos.</p>
               <div class="audio-settings-grid">
                 <label class="toggle-row"><span>Ativar áudio operacional</span><input id="soundEnabledToggle" type="checkbox" /></label>
                 <label class="toggle-row"><span>Rádio e sirene discretos</span><input id="radioFxToggle" type="checkbox" /></label>
@@ -764,6 +811,7 @@
     <script src="js/release.js"></script>
     <script src="js/immersion.js"></script>
     <script src="js/content.js"></script>
+    <script src="js/campaign.js"></script>
     <script src="js/call-protocol.js"></script>
     <script src="js/triage.js"></script>
     <script src="js/location-intel.js"></script>

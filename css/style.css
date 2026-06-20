@@ -3743,3 +3743,90 @@ body.audio-unlocked .audio-settings-card h2::after {
   .brand-block strong { font-size: .78rem; }
   .icon-btn { width: 40px; height: 40px; }
 }
+
+/* Fase 25 — Campanha operacional */
+body[data-visual-screen="campaign"]::before {
+  background-image:
+    linear-gradient(180deg, rgba(2, 8, 14, .48), rgba(3, 10, 18, .92)),
+    url("../assets/backgrounds/bg-control-room-lobby.webp"),
+    var(--asset-bg-central-photo);
+}
+.campaign-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, .75fr);
+  gap: 18px;
+  align-items: start;
+}
+.campaign-layout .wide { grid-column: 1 / -1; }
+.campaign-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.campaign-overview-grid > div,
+.campaign-briefing-stats > span {
+  padding: 14px;
+  border: 1px solid rgba(76, 230, 255, .18);
+  border-radius: 16px;
+  background: rgba(4, 18, 29, .72);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+.campaign-overview-grid strong {
+  display: block;
+  font-size: clamp(1.25rem, 2.2vw, 1.85rem);
+  color: var(--accent-strong, #67f6ff);
+}
+.campaign-overview-grid span,
+.campaign-briefing-stats b { display: block; color: rgba(238, 250, 255, .72); font-size: .82rem; }
+.campaign-progress { margin-top: 14px; }
+.campaign-mission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  gap: 14px;
+}
+.campaign-mission-card {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  border: 1px solid rgba(65, 221, 255, .20);
+  border-radius: 20px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(6, 24, 39, .86), rgba(4, 12, 22, .72));
+  cursor: pointer;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease;
+}
+.campaign-mission-card:hover,
+.campaign-mission-card.selected { transform: translateY(-1px); border-color: rgba(94, 241, 255, .58); }
+.campaign-mission-card.completed { background: linear-gradient(135deg, rgba(6, 50, 44, .86), rgba(5, 18, 25, .72)); }
+.campaign-mission-card.locked { opacity: .62; filter: saturate(.72); }
+.campaign-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: rgba(68, 230, 255, .13);
+  color: #80fbff;
+  font-size: 1.5rem;
+  border: 1px solid rgba(84, 229, 255, .25);
+}
+.campaign-mission-body h3 { margin: 8px 0 6px; font-size: 1.05rem; }
+.campaign-mission-body p { margin: 0 0 8px; color: rgba(238, 250, 255, .78); }
+.campaign-mission-card .action-btn { grid-column: 1 / -1; width: 100%; }
+.campaign-briefing h3 { margin: 6px 0 8px; font-size: 1.25rem; }
+.campaign-briefing p { color: rgba(240,250,255,.82); }
+.campaign-briefing-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+.campaign-objectives { margin: 10px 0 18px; padding-left: 20px; color: rgba(240,250,255,.82); }
+.campaign-objectives li { margin: 6px 0; }
+@media (max-width: 900px) {
+  .campaign-layout { grid-template-columns: 1fr; }
+  .campaign-overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .campaign-briefing-stats { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .campaign-overview-grid { grid-template-columns: 1fr; }
+  .campaign-mission-grid { grid-template-columns: 1fr; }
+  .campaign-mission-card { grid-template-columns: 42px minmax(0, 1fr); padding: 12px; }
+  .campaign-icon { width: 42px; height: 42px; border-radius: 14px; }
+}

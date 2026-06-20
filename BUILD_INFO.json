@@ -1,26 +1,11 @@
 {
   "name": "Central 190",
-  "version": "1.8.0",
-  "phase": "24",
-  "build": "CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT",
-  "compiledAt": "2026-06-20T20:30:00.000Z",
-  "saveSchema": 21,
-  "title": "Fase 24 — RC AAA, áudio, imersão e polimento final",
-  "features": [
-    "restauração de topbar e menu lateral fixos",
-    "correção do desalinhamento entre texto e formulário na tela inicial",
-    "compactação do primeiro painel para desktop, tablet e mobile",
-    "otimização de leitura e áreas de toque em mobile",
-    "preservação dos fundos fotográficos reais e cache PWA atualizado"
-  ],
-  "preserved": [
-    "Academia 190",
-    "rádio operacional",
-    "despacho de unidades",
-    "mapa progressivo",
-    "triagem",
-    "atendimento por chat",
-    "carreira",
-    "save schema 21"
-  ]
+  "version": "1.9.0",
+  "phase": 25,
+  "build": "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT",
+  "compiledAt": "2026-06-20T18:35:00-03:00",
+  "saveSchema": 23,
+  "title": "Campanha Operacional, Casos Narrativos e Jornadas de Carreira",
+  "preserved": ["visual assets", "mobile-first layout", "call protocol", "triage", "progressive map", "resource dispatch", "field radio", "training academy", "immersion audio"],
+  "added": ["campaign screen", "six narrative missions", "campaign rewards", "campaign reports", "campaign save migration"]
 }

@@ -1,4 +1,4 @@
-const CACHE = "central190-v1.8.0-f24-rc-aaa-imersao";
+const CACHE = "central190-v1.9.0-f25-campanha-operacional";
 const ASSETS = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const ASSETS = [
   "./js/release.js",
   "./js/immersion.js",
   "./js/content.js",
+  "./js/campaign.js",
   "./js/call-protocol.js",
   "./js/triage.js",
   "./js/resource-dispatch.js",
