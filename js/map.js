@@ -105,7 +105,7 @@ window.C190_Map = (() => {
     const label = resource.type === "pm" ? "PM" : resource.type === "bombeiros" ? "193" : "192";
     return window.L.divIcon({
       className: "c190-div-icon",
-      html: `<button class="resource-marker type-${escapeHtml(resource.type)} ${resource.selected ? "selected" : ""}" aria-label="${escapeHtml(resource.label)}"><span>${label}</span></button>`,
+      html: `<button class="resource-marker type-${escapeHtml(resource.type)} ${resource.selected ? "selected" : ""} ${resource.moving ? "moving" : ""} ${resource.arrived ? "arrived" : ""}" style="--unit-progress:${Math.round((resource.progress || 0) * 100)}%" aria-label="${escapeHtml(resource.label)}"><span>${escapeHtml(resource.short || label)}</span></button>`,
       iconSize: compact ? [28, 28] : [34, 34],
       iconAnchor: compact ? [14, 14] : [17, 17],
       popupAnchor: [0, -16],
@@ -113,7 +113,7 @@ window.C190_Map = (() => {
   }
 
   function resourcePopup(resource) {
-    return `<div class="map-popup-card"><strong>${escapeHtml(resource.label)}</strong><span>${escapeHtml(resource.selected ? "Selecionada para despacho" : resource.status)}</span><small>${escapeHtml(resource.role || "unidade operacional")} · ETA ${Number(resource.etaMin || 0)} min</small></div>`;
+    return `<div class="map-popup-card"><strong>${escapeHtml(resource.label)}</strong><span>${escapeHtml(resource.moving ? `Em deslocamento · ${Math.round((resource.progress || 0) * 100)}%` : resource.arrived ? "No local" : resource.selected ? "Selecionada para despacho" : resource.status)}</span><small>${escapeHtml(resource.role || "unidade operacional")} · ETA ${Number(resource.etaMin || 0)} min</small></div>`;
   }
 
 
@@ -240,12 +240,19 @@ window.C190_Map = (() => {
       .bindTooltip(escapeHtml(center.label), { direction: "top" })
       .addTo(record.centralLayer);
 
-    ((window.C190_ResourceDispatch?.resourcesFor?.(state)) || (window.C190_LocationIntel?.resourcesFor?.(state)) || []).forEach((resource) => {
+    const mapResources = (window.C190_FieldUnits?.resourcesForMap?.(state)) || (window.C190_ResourceDispatch?.resourcesFor?.(state)) || (window.C190_LocationIntel?.resourcesFor?.(state)) || [];
+    mapResources.forEach((resource) => {
       window.L.marker([Number(resource.lat), Number(resource.lng)], {
         icon: resourceIcon(resource, record.compact),
         title: resource.label,
-        zIndexOffset: 450,
+        zIndexOffset: resource.moving || resource.arrived ? 760 : 450,
       }).bindPopup(resourcePopup(resource), { closeButton: true, maxWidth: 240 }).addTo(record.resourceLayer);
+      if ((resource.moving || resource.arrived) && Number.isFinite(Number(resource.targetLat)) && Number.isFinite(Number(resource.targetLng))) {
+        window.L.polyline(
+          [[Number(resource.lat), Number(resource.lng)], [Number(resource.targetLat), Number(resource.targetLng)]],
+          { color: resource.type === "pm" ? "#60a5fa" : resource.type === "bombeiros" ? "#fb7185" : resource.type === "samu" ? "#34d399" : "#fbbf24", weight: record.compact ? 2 : 3, opacity: 0.76, dashArray: resource.arrived ? null : "6 8", className: "unit-route-line" }
+        ).addTo(record.routeLayer);
+      }
     });
 
     calls.forEach((call) => {
@@ -356,6 +363,11 @@ window.C190_Map = (() => {
           </button>`;
         })
         .join("")}
+      ${((window.C190_FieldUnits?.movingResources?.(state)) || []).map((resource) => {
+        const fakeCall = { lat: resource.lat, lng: resource.lng, priority: 2, status: resource.arrived ? "resolved" : "active", type: resource.short || resource.label };
+        const position = tacticalPosition(fakeCall, center, [...calls, fakeCall]);
+        return `<button class="tactical-resource-marker type-${escapeHtml(resource.type)} ${resource.moving ? "moving" : "arrived"}" style="left:${position.x}%;top:${position.y}%;--unit-progress:${Math.round((resource.progress || 0) * 100)}%" title="${escapeHtml(resource.label)}"><span>${escapeHtml(resource.short || "UN")}</span></button>`;
+      }).join("")}
       ${calls.length ? "" : '<div class="tactical-empty">Nenhuma ocorrência georreferenciada no plantão atual.</div>'}
     `;
     fallback.querySelectorAll("[data-map-call]").forEach((button) => {
@@ -503,7 +515,8 @@ window.C190_Map = (() => {
       protocolLocationGate: true,
       progressiveLocation: true,
       callsByLocationStage: state ? (state.dispatch?.shift?.calls || []).reduce((acc, call) => { const stage = window.C190_LocationIntel?.normalize?.(call)?.stage || "none"; acc[stage] = (acc[stage] || 0) + 1; return acc; }, {}) : {},
-      availableResources: state ? ((window.C190_ResourceDispatch?.resourcesFor?.(state)) || (window.C190_LocationIntel?.resourcesFor?.(state)) || []).length : 0,
+      availableResources: state ? ((window.C190_FieldUnits?.resourcesForMap?.(state)) || (window.C190_ResourceDispatch?.resourcesFor?.(state)) || (window.C190_LocationIntel?.resourcesFor?.(state)) || []).length : 0,
+      movingResources: state ? (window.C190_FieldUnits?.diagnostics?.(state)?.movingUnits || 0) : 0,
       resourceDispatchVersion: window.C190_ResourceDispatch?.VERSION || 0,
       provider: "OpenStreetMap Standard raster tiles",
       tileCaching: false,

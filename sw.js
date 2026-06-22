@@ -1,4 +1,4 @@
-const CACHE = "central190-v1.9.0-f25-campanha-operacional";
+const CACHE = "central190-v2.0.0-f26-field-units-scroll-typewriter";
 const ASSETS = [
   "./",
   "./index.html",
@@ -13,6 +13,7 @@ const ASSETS = [
   "./js/triage.js",
   "./js/resource-dispatch.js",
   "./js/field-radio.js",
+  "./js/field-units.js",
   "./js/training-academy.js",
   "./js/location-intel.js",
   "./js/save-manager.js",

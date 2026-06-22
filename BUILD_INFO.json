@@ -1,11 +1,28 @@
 {
   "name": "Central 190",
-  "version": "1.9.0",
-  "phase": 25,
-  "build": "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT",
-  "compiledAt": "2026-06-20T18:35:00-03:00",
-  "saveSchema": 23,
-  "title": "Campanha Operacional, Casos Narrativos e Jornadas de Carreira",
-  "preserved": ["visual assets", "mobile-first layout", "call protocol", "triage", "progressive map", "resource dispatch", "field radio", "training academy", "immersion audio"],
-  "added": ["campaign screen", "six narrative missions", "campaign rewards", "campaign reports", "campaign save migration"]
+  "version": "2.0.0",
+  "phase": 26,
+  "build": "CENTRAL190-2000-F26-FIELD-UNITS-SCROLL-TYPEWRITER-20260622-101500-BRT",
+  "compiledAt": "2026-06-22T10:15:00-03:00",
+  "saveSchema": 24,
+  "title": "Viaturas Animadas, Rolagem Estável e Máquina de Escrever",
+  "preserved": [
+    "campaign",
+    "visual assets",
+    "mobile-first layout",
+    "call protocol",
+    "triage",
+    "progressive map",
+    "resource dispatch",
+    "field radio",
+    "training academy",
+    "immersion audio"
+  ],
+  "added": [
+    "field units animation",
+    "scroll stability guard",
+    "typewriter effect",
+    "mobile dispatch compaction",
+    "map moving unit diagnostics"
+  ]
 }

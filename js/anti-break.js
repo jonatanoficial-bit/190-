@@ -224,7 +224,7 @@ window.C190_AntiBreak = (() => {
       map: mapDiagnostics,
       errors: [...errors],
       timestamp: new Date().toISOString(),
-      version: "1.9.0",
+      version: "2.0.0",
       build: "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT",
     };
   }

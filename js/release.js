@@ -1,8 +1,8 @@
 window.C190_Release = (() => {
   "use strict";
 
-  const VERSION = "1.9.0";
-  const PHASE = 25;
+  const VERSION = "2.0.0";
+  const PHASE = 26;
   const BALANCE_VERSION = 2;
   const BUILD = "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT";
   const DEFAULT_CITY = { lat: -23.55052, lng: -46.63331, label: "São Paulo — SP" };

@@ -1,7 +1,7 @@
 window.C190_Campaign = (() => {
   "use strict";
 
-  const VERSION = "1.9.0";
+  const VERSION = "2.0.0";
   const CAMPAIGN_VERSION = 1;
 
   const missions = [

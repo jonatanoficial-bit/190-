@@ -57,3 +57,12 @@ Build: `CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT`
 - Missões usam atendimento, triagem, mapa progressivo, despacho e rádio.
 - Recompensas de campanha integradas à carreira.
 - Save schema 23 com migração automática.
+
+
+## v2.0.0 — Fase 26 — Viaturas animadas, rolagem e máquina de escrever
+
+- Adiciona módulo `js/field-units.js` para calcular deslocamento das unidades selecionadas em direção à ocorrência no mapa real/tático.
+- Corrige rolagem do plantão preservando posição da página, chat e rádio durante o timer de 1 segundo.
+- Adiciona efeito de máquina de escrever em novas mensagens do chamador, operador e rádio.
+- Otimiza layout do plantão em mobile, tablet e desktop.
+- Atualiza cache PWA para v2.0.0 e save schema 24.

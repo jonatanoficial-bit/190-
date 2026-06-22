@@ -3830,3 +3830,197 @@ body[data-visual-screen="campaign"]::before {
   .campaign-mission-card { grid-template-columns: 42px minmax(0, 1fr); padding: 12px; }
   .campaign-icon { width: 42px; height: 42px; border-radius: 14px; }
 }
+
+
+/* Fase 26 — v2.0.0: estabilidade de rolagem, viaturas animadas e efeito máquina de escrever
+   Esta camada corrige o comportamento em que a interface reconstruída pelo timer puxava a rolagem de volta.
+   Também torna o plantão mais legível em mobile, preservando o mapa vivo e o rádio operacional. */
+html,
+body {
+  scroll-behavior: auto !important;
+}
+body.dispatch-scroll-lock-fix {
+  overflow-anchor: none;
+}
+#screen-dispatch,
+#activeCall,
+#activeCall [data-active-call],
+.call-chat,
+.radio-log,
+.resource-dispatch-panel,
+.field-radio-panel {
+  overflow-anchor: none !important;
+}
+#screen-dispatch .dispatch-layout {
+  align-items: start !important;
+  grid-template-columns: minmax(230px, .82fr) minmax(360px, 1.42fr) minmax(230px, .82fr) !important;
+}
+#screen-dispatch .dispatch-layout > .dispatch-map-panel {
+  grid-column: 1 / -1 !important;
+}
+#activeCall .active-protocol-card {
+  max-height: none !important;
+}
+.call-chat,
+.radio-log {
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y;
+}
+.radio-log {
+  min-height: 210px;
+  max-height: min(44dvh, 360px) !important;
+}
+.typewriter-line span {
+  display: inline-block;
+  max-width: 100%;
+  animation: c190-typewriter-reveal .58s steps(24, end) both;
+  transform-origin: left center;
+}
+.typewriter-line span::after {
+  content: "";
+  display: inline-block;
+  width: .55ch;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.12em;
+  border-right: 2px solid rgba(94, 255, 241, .84);
+  animation: c190-caret-blink .72s step-end 3;
+}
+@keyframes c190-typewriter-reveal {
+  from { clip-path: inset(0 100% 0 0); opacity: .72; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+@keyframes c190-caret-blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+.resource-marker.moving,
+.tactical-resource-marker.moving {
+  box-shadow: 0 0 0 4px rgba(94, 234, 212, .18), 0 0 24px rgba(94, 234, 212, .70) !important;
+  animation: c190-unit-pulse 1.05s ease-in-out infinite;
+}
+.resource-marker.moving::after,
+.tactical-resource-marker.moving::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 26px;
+  height: 3px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(94, 234, 212, .95), transparent);
+  filter: blur(.2px);
+}
+.resource-marker.arrived,
+.tactical-resource-marker.arrived {
+  outline: 2px solid rgba(52, 211, 153, .92) !important;
+  box-shadow: 0 0 0 5px rgba(52, 211, 153, .16), 0 0 28px rgba(52, 211, 153, .66) !important;
+}
+.resource-marker span {
+  font-size: .62rem;
+  letter-spacing: -.04em;
+}
+.unit-route-line {
+  animation: c190-route-flow 1.2s linear infinite;
+}
+@keyframes c190-unit-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+@keyframes c190-route-flow {
+  to { stroke-dashoffset: -28; }
+}
+.tactical-resource-marker {
+  position: absolute;
+  translate: -50% -50%;
+  z-index: 6;
+  min-width: 40px;
+  height: 28px;
+  border: 1px solid rgba(94, 234, 212, .48);
+  border-radius: 999px;
+  color: #ecfeff;
+  background: rgba(9, 52, 78, .92);
+  font-weight: 900;
+  font-size: .62rem;
+}
+.tactical-resource-marker.type-bombeiros { background: rgba(153, 27, 27, .94); }
+.tactical-resource-marker.type-samu { background: rgba(6, 95, 70, .94); }
+.tactical-resource-marker.type-defesa { background: rgba(133, 77, 14, .94); }
+.map-popup-card span {
+  line-height: 1.35;
+}
+@media (max-width: 980px) {
+  #screen-dispatch .dispatch-layout {
+    grid-template-columns: 1fr !important;
+  }
+  #screen-dispatch .dispatch-layout > article {
+    min-width: 0;
+  }
+  .radio-log {
+    max-height: min(48dvh, 390px) !important;
+  }
+}
+@media (max-width: 760px) {
+  #screen-dispatch .screen-heading {
+    grid-template-columns: 1fr !important;
+    align-items: stretch;
+  }
+  #screen-dispatch .screen-heading .primary-btn,
+  #startShiftBtn {
+    width: 100%;
+    min-height: 48px;
+  }
+  #shiftStatus.status-strip {
+    font-size: .82rem;
+    line-height: 1.35;
+    padding: .75rem .85rem;
+  }
+  #screen-dispatch .panel {
+    padding: .82rem !important;
+  }
+  #activeCall .active-protocol-card {
+    padding: .86rem !important;
+  }
+  .protocol-data-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: .55rem !important;
+  }
+  .protocol-chip {
+    min-height: 54px;
+    padding: .58rem !important;
+  }
+  .call-chat {
+    min-height: 178px !important;
+    max-height: min(43dvh, 360px) !important;
+  }
+  .radio-log {
+    min-height: 220px;
+    max-height: min(46dvh, 380px) !important;
+  }
+  .radio-line {
+    grid-template-columns: 1fr !important;
+    gap: .28rem !important;
+  }
+  .radio-action-btn,
+  .question-btn,
+  .triage-btn,
+  .resource-unit-card {
+    min-height: 72px !important;
+  }
+  .map-stage,
+  .leaflet-container,
+  .compact-map {
+    min-height: 330px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-line span,
+  .typewriter-line span::after,
+  .resource-marker.moving,
+  .tactical-resource-marker.moving,
+  .unit-route-line {
+    animation: none !important;
+  }
+}

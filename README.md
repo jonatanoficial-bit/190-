@@ -54,3 +54,8 @@ Schema 21 com migração automática dos schemas anteriores.
 - Missões usam atendimento, triagem, mapa progressivo, despacho e rádio.
 - Recompensas de campanha integradas à carreira.
 - Save schema 23 com migração automática.
+
+
+### Fase 26 — v2.0.0
+
+A Fase 26 transforma o despacho em acompanhamento visual: as unidades selecionadas passam a se deslocar no mapa em direção à ocorrência. O plantão recebeu proteção contra salto de rolagem, efeito de máquina de escrever e compactação mobile-first.

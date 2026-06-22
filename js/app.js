@@ -1,11 +1,12 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT";
+  const BUILD = "CENTRAL190-2000-F26-FIELD-UNITS-SCROLL-TYPEWRITER-20260622-101500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
   let selectedMapCallId = null;
   let selectedCampaignMissionId = null;
+  const typedLineKeys = new Set();
   const REGION_PRESETS = {
     sp: { lat: -23.55052, lng: -46.63331, label: "São Paulo — SP" },
     rio: { lat: -22.90685, lng: -43.1729, label: "Rio de Janeiro — RJ" },
@@ -130,33 +131,61 @@
         .join("") || '<div class="list-item">Nenhum evento registrado.</div>';
   }
 
-  function captureCallChatScroll() {
-    const activeBox = $("#activeCall");
-    const chat = activeBox?.querySelector(".call-chat");
-    const card = activeBox?.querySelector("[data-active-call]");
-    if (!chat || !card) return null;
-    const distanceToBottom = chat.scrollHeight - chat.scrollTop - chat.clientHeight;
-    return {
-      callId: card.dataset.activeCall,
-      top: chat.scrollTop,
-      atBottom: distanceToBottom < 18,
-    };
+  function scrollKeyFor(element, index) {
+    if (element.id) return `id:${element.id}`;
+    if (element.dataset?.scrollKey) return `key:${element.dataset.scrollKey}`;
+    if (element.classList?.contains("call-chat")) return "class:call-chat";
+    if (element.classList?.contains("radio-log")) return "class:radio-log";
+    return `scrollable:${index}`;
   }
-  function restoreCallChatScroll(snapshot, activeCallId) {
-    const chat = $("#activeCall .call-chat");
-    if (!chat) return;
-    requestAnimationFrame(() => {
-      if (!snapshot || snapshot.callId !== activeCallId || snapshot.atBottom) {
-        chat.scrollTop = chat.scrollHeight;
-        return;
-      }
-      const maxTop = Math.max(0, chat.scrollHeight - chat.clientHeight);
-      chat.scrollTop = Math.min(snapshot.top, maxTop);
+  function captureDispatchScrollState() {
+    const doc = document.scrollingElement || document.documentElement;
+    const snapshot = {
+      documentTop: doc?.scrollTop || window.scrollY || 0,
+      mainTop: $("#mainContent")?.scrollTop || 0,
+      elements: {},
+      activeCallId: $("#activeCall [data-active-call]")?.dataset?.activeCall || null,
+    };
+    const nodes = $$("#screen-dispatch .call-chat, #screen-dispatch .radio-log, #screen-dispatch .call-list, #screen-dispatch .resource-unit-grid, #activeCall [data-active-call]");
+    nodes.forEach((node, index) => {
+      const key = scrollKeyFor(node, index);
+      snapshot.elements[key] = {
+        top: node.scrollTop || 0,
+        left: node.scrollLeft || 0,
+        atBottom: (node.scrollHeight - node.scrollTop - node.clientHeight) < 18,
+      };
     });
+    return snapshot;
+  }
+  function restoreDispatchScrollState(snapshot) {
+    if (!snapshot) return;
+    requestAnimationFrame(() => {
+      const main = $("#mainContent");
+      if (main) main.scrollTop = snapshot.mainTop || 0;
+      const doc = document.scrollingElement || document.documentElement;
+      if (doc && snapshot.documentTop > 0) doc.scrollTop = snapshot.documentTop;
+      const nodes = $$("#screen-dispatch .call-chat, #screen-dispatch .radio-log, #screen-dispatch .call-list, #screen-dispatch .resource-unit-grid, #activeCall [data-active-call]");
+      nodes.forEach((node, index) => {
+        const saved = snapshot.elements[scrollKeyFor(node, index)];
+        if (!saved) {
+          if (node.classList.contains("call-chat") || node.classList.contains("radio-log")) node.scrollTop = node.scrollHeight;
+          return;
+        }
+        if (saved.atBottom && (node.classList.contains("call-chat") || node.classList.contains("radio-log"))) node.scrollTop = node.scrollHeight;
+        else node.scrollTop = Math.min(saved.top || 0, Math.max(0, node.scrollHeight - node.clientHeight));
+        node.scrollLeft = saved.left || 0;
+      });
+    });
+  }
+  function typewriterClass(source, line) {
+    const key = `${source}:${line?.at || ""}:${line?.role || line?.source || ""}:${String(line?.text || "").slice(0, 64)}`;
+    if (typedLineKeys.has(key)) return "";
+    typedLineKeys.add(key);
+    return " typewriter-line";
   }
 
   function renderDispatch() {
-    const chatSnapshot = captureCallChatScroll();
+    const scrollSnapshot = captureDispatchScrollState();
     const sh = state.dispatch.shift;
     $("#startShiftBtn").textContent = sh?.active
       ? "Encerrar plantão"
@@ -173,7 +202,7 @@
     $("#activeCall").innerHTML = active
       ? activeCall(active)
       : '<div class="list-item">Nenhuma chamada em atendimento.</div>';
-    restoreCallChatScroll(chatSnapshot, active?.id || null);
+    restoreDispatchScrollState(scrollSnapshot);
     const paused = sh?.calls.filter((c) => c.status === "paused") || [];
     $("#pausedCalls").innerHTML =
       paused.map((c) => callCard(c, false)).join("") ||
@@ -196,7 +225,7 @@
     return `<span class="protocol-chip ${ok ? "ok" : "missing"}"><b>${esc(label)}</b>${value ? `<small>${esc(value)}</small>` : ""}</span>`;
   }
   function transcriptLine(line) {
-    return `<div class="chat-line ${line.role === "operator" ? "operator" : "caller"}"><b>${line.role === "operator" ? "Operador" : "Chamador"}</b><span>${esc(line.text)}</span></div>`;
+    return `<div class="chat-line ${line.role === "operator" ? "operator" : "caller"}${typewriterClass("chat", line)}"><b>${line.role === "operator" ? "Operador" : "Chamador"}</b><span>${esc(line.text)}</span></div>`;
   }
   function triageButtons(call, field, list) {
     const triage = window.C190_Triage?.normalize?.(call) || {};
@@ -240,7 +269,7 @@
       <header><div><span class="eyebrow">RÁDIO OPERACIONAL</span><h4>Evolução da ocorrência em campo</h4></div><strong class="radio-grade">${esc(gradeText)}</strong></header>
       <p class="protocol-warning">A ocorrência não termina no despacho. Acompanhe a chegada das equipes, pedidos de apoio e encerramento real do atendimento.</p>
       <div class="radio-status-grid"><span><b>Fase</b>${esc(stageLabel)}</span><span><b>Cenário</b>${esc(radio.scenario || "operacional")}</span><span><b>Ações</b>${radio.actions.length}</span></div>
-      <div class="radio-log">${(radio.log || []).slice(0, 8).map((line) => `<div class="radio-line ${esc(line.tone || "info")}"><b>${esc(line.source || "RÁDIO")}</b><span>${esc(line.text || "")}</span><small>${new Date(line.at || Date.now()).toLocaleTimeString()}</small></div>`).join("")}</div>
+      <div class="radio-log">${(radio.log || []).slice(0, 8).map((line) => `<div class="radio-line ${esc(line.tone || "info")}${typewriterClass("radio", line)}"><b>${esc(line.source || "RÁDIO")}</b><span>${esc(line.text || "")}</span><small>${new Date(line.at || Date.now()).toLocaleTimeString()}</small></div>`).join("")}</div>
       ${radio.finalized ? `<div class="protocol-score radio-score"><span>Avaliação do rádio</span><strong>${esc(radio.grade || "N/A")}</strong><div class="progress"><i style="width:${Math.max(0, Math.min(100, radio.finalScore || 0))}%"></i></div><small>Impacto do acompanhamento: ${radio.scoreDelta >= 0 ? "+" : ""}${Number(radio.scoreDelta || 0)} ponto(s).</small></div>` : `<h4>Ações do operador</h4><div class="radio-action-grid">${actions.map((a) => `<button class="radio-action-btn ${a.id === "close" ? "close" : ""}" data-radio-action="${esc(a.id)}" data-call="${esc(call.id)}"><strong>${esc(a.short || a.label)}</strong><small>${esc(a.hint || a.label)}</small></button>`).join("")}</div>`}
     </section>`;
   }
@@ -1177,7 +1206,7 @@
       }
     };
     $("#runDiagnosticsBtn").onclick = () => {
-      const d = C190_AntiBreak.diagnostics(state);
+      const d = { ...C190_AntiBreak.diagnostics(state), fieldUnits: C190_FieldUnits?.diagnostics?.(state) };
       $("#diagnosticOutput").textContent = JSON.stringify(d, null, 2);
       toast(
         d.ok ? "Diagnóstico aprovado." : "Diagnóstico encontrou pendências.",
@@ -1247,7 +1276,7 @@
     window.C190_AppDebug = { state: () => state, renderAll, renderDispatch, immersion: () => C190_Immersion?.diagnostics?.(state) };
     C190_I18N.init();
     $("#languageSelect").value = C190_I18N.language;
-    $("#buildLabel").textContent = `${BUILD} · 20/06/2026 18:35:00 BRT`;
+    $("#buildLabel").textContent = `${BUILD} · 22/06/2026 10:15:00 BRT`;
     initEvents();
     renderAll();
     const requestedScreen = location.hash.replace("#", "");

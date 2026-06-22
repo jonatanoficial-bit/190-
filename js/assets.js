@@ -1,6 +1,6 @@
 window.C190_Assets = (() => {
   "use strict";
-  const VERSION = "1.9.0";
+  const VERSION = "2.0.0";
   const PHASE = "25";
   const BUILD = "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT";
   const required = [
