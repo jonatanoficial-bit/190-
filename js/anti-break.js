@@ -86,12 +86,12 @@ window.C190_AntiBreak = (() => {
       },
       {
         name: "Save schema",
-        ok: state?.schema === 23,
+        ok: state?.schema === 27,
         detail: `schema=${state?.schema}`,
       },
       {
         name: "Release Candidate",
-        ok: !!window.C190_Release && state?.release?.balanceVersion === 2 && state?.release?.visualRecovery === 1 && state?.settings?.telemetry === false && state?.release?.callProtocolVersion === 2 && state?.release?.triageVersion === 1 && state?.release?.locationIntelVersion === 1 && state?.release?.resourceDispatchVersion === 1 && state?.release?.fieldRadioVersion === 1 && state?.release?.trainingAcademyVersion === 1 && state?.release?.campaignVersion === 1 && !!window.C190_ResourceDispatch && !!window.C190_FieldRadio && !!window.C190_TrainingAcademy && !!window.C190_Campaign,
+        ok: !!window.C190_Release && state?.release?.balanceVersion === 3 && state?.release?.visualRecovery === 1 && state?.settings?.telemetry === false && state?.release?.callProtocolVersion === 3 && state?.release?.triageVersion === 1 && state?.release?.locationIntelVersion === 1 && state?.release?.resourceDispatchVersion === 1 && state?.release?.fieldRadioVersion === 1 && state?.release?.trainingAcademyVersion === 1 && state?.release?.campaignVersion === 2 && !!window.C190_Balance && !!window.C190_ResourceDispatch && !!window.C190_FieldRadio && !!window.C190_TrainingAcademy && !!window.C190_Campaign,
         detail: `v${window.C190_Release?.VERSION || "?"} · balance ${state?.release?.balanceVersion || "?"}`,
       },
       {
@@ -224,8 +224,8 @@ window.C190_AntiBreak = (() => {
       map: mapDiagnostics,
       errors: [...errors],
       timestamp: new Date().toISOString(),
-      version: "2.1.0",
-      build: "CENTRAL190-2100-F27-MOBILE-HOMOLOGATION-TOUCH-SCROLL-20260622-104500-BRT",
+      version: "2.3.0",
+      build: "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT",
     };
   }
 

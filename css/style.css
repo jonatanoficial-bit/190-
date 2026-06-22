@@ -4303,3 +4303,31 @@ textarea,
   .case-intel-strip { gap: .35rem; margin: .55rem 0 .75rem; }
   .case-intel-strip span { font-size: .68rem; padding: .32rem .52rem; }
 }
+
+
+/* F29 — balanceamento final e relatório profissional */
+.balance-breakdown,
+.balance-report-strip {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid rgba(42, 241, 226, 0.22);
+  border-radius: 14px;
+  background: rgba(2, 17, 27, 0.58);
+  display: grid;
+  gap: 6px;
+}
+.balance-breakdown small,
+.balance-report-strip span {
+  color: var(--muted);
+  line-height: 1.45;
+}
+.balance-report-strip {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  font-size: .82rem;
+}
+@media (max-width: 760px) {
+  .balance-report-strip { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 420px) {
+  .balance-report-strip { grid-template-columns: 1fr; }
+}

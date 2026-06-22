@@ -1,9 +1,11 @@
 window.C190_Save = (() => {
   "use strict";
 
-  const KEY = "central190_save_v26";
-  const BACKUP = "central190_save_v26_backup";
+  const KEY = "central190_save_v27";
+  const BACKUP = "central190_save_v27_backup";
   const LEGACY = [
+    "central190_save_v26",
+    "central190_save_v26_backup",
     "central190_save_v25",
     "central190_save_v25_backup",
     "central190_save_v24",
@@ -36,9 +38,9 @@ window.C190_Save = (() => {
     "central_190_save",
     "c190_save",
   ];
-  const SCHEMA = 26;
-  const VERSION = "2.2.0";
-  const BUILD = "CENTRAL190-2200-F28-CASOS-REALISTAS-MULTIETAPAS-20260622-112500-BRT";
+  const SCHEMA = 27;
+  const VERSION = "2.3.0";
+  const BUILD = "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,
@@ -112,7 +114,7 @@ window.C190_Save = (() => {
     campaign: window.C190_Campaign?.defaultCampaign?.() || { version: 1, activeMissionId: null, selectedMissionId: "turno_zero", completed: [], attempts: {}, bestScores: {}, rewardsClaimed: [], history: [] },
     release: {
       version: VERSION,
-      phase: 27,
+      phase: 29,
       visualRecovery: 1,
       campaignVersion: 1,
       fieldUnitsVersion: 1,
@@ -124,7 +126,8 @@ window.C190_Save = (() => {
       fieldRadioVersion: 1,
       trainingAcademyVersion: 1,
       immersionVersion: 1,
-      balanceVersion: 2,
+      balanceVersion: 3,
+      economyVersion: 1,
       firstOpenedAt: new Date().toISOString(),
       notesSeen: false,
       privacySeen: false,
@@ -200,7 +203,7 @@ window.C190_Save = (() => {
       state.content.stats &&
       state.content.sandbox &&
       state.release &&
-      state.release.balanceVersion === 2 &&
+      state.release.balanceVersion === 3 &&
       state.release.mobileHomologationVersion === 1 &&
       state.release.visualRecovery === 1 &&
       state.release.callProtocolVersion === 3 &&
@@ -318,11 +321,11 @@ window.C190_Save = (() => {
       immersiveHud: incomingSettings.immersiveHud !== false,
     };
 
-    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 28, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
+    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 29, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
       fieldUnitsVersion: 1,
       mobileHomologationVersion: 1, callProtocolVersion: 3, triageVersion: 1,
       locationIntelVersion: 1, resourceDispatchVersion: 1,
-      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 1, balanceVersion: 2 };
+      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 1, balanceVersion: 3, economyVersion: 1 };
     base.settings.telemetry = false;
     base.dispatch = enrichDispatch(source.dispatch || base.dispatch, incomingCenter);
     base.content = source.content && typeof source.content === "object" ? clone(source.content) : defaultContent();

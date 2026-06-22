@@ -2,7 +2,7 @@ window.C190_Immersion = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-2100-F27-MOBILE-HOMOLOGATION-TOUCH-SCROLL-20260622-104500-BRT";
+  const BUILD = "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT";
   let audioContext = null;
   let master = null;
   let unlocked = false;

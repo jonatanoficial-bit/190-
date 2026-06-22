@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-2200-F28-CASOS-REALISTAS-MULTIETAPAS-20260622-112500-BRT";
+  const BUILD = "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
@@ -623,7 +623,7 @@
             const calls = Array.isArray(r.calls) ? r.calls : [];
             const avgProtocol = calls.filter((c) => Number(c.protocolScore)).reduce((sum, c) => sum + Number(c.protocolScore || 0), 0) / Math.max(1, calls.filter((c) => Number(c.protocolScore)).length);
             const avgRadio = calls.filter((c) => Number(c.radioScore)).reduce((sum, c) => sum + Number(c.radioScore || 0), 0) / Math.max(1, calls.filter((c) => Number(c.radioScore)).length);
-            return `<article class="report-card report-card-rc"><div class="requirement"><h3>${esc(r.modeLabel || "Plantão de carreira")} #${state.dispatch.reports.length - i}</h3><b>Nota ${r.grade} · ${r.score}/100</b></div><small>${new Date(r.startedAt).toLocaleString()} · duração ${r.duration}s · ${esc(C190_Content.cityById(r.cityId || "sp").name)}${r.affectsCareer === false ? " · sem impacto na carreira" : ""}</small><div class="report-stats"><div class="report-stat"><strong>${r.resolved}</strong><span>Resolvidas</span></div><div class="report-stat"><strong>${r.failed}</strong><span>Falhas</span></div><div class="report-stat"><strong>${r.abandoned}</strong><span>Abandonadas</span></div><div class="report-stat"><strong>${calls.length}</strong><span>Chamadas</span></div><div class="report-stat"><strong>${Math.round(avgProtocol) || "—"}</strong><span>Protocolo médio</span></div><div class="report-stat"><strong>${Math.round(avgRadio) || "—"}</strong><span>Rádio médio</span></div></div><div class="report-call-list">${calls.slice(0, 5).map(reportCallDetails).join("")}</div></article>`;
+            return `<article class="report-card report-card-rc"><div class="requirement"><h3>${esc(r.modeLabel || "Plantão de carreira")} #${state.dispatch.reports.length - i}</h3><b>Nota ${r.grade} · ${r.score}/100</b></div><small>${new Date(r.startedAt).toLocaleString()} · duração ${r.duration}s · ${esc(C190_Content.cityById(r.cityId || "sp").name)}${r.affectsCareer === false ? " · sem impacto na carreira" : ""}</small><div class="report-stats"><div class="report-stat"><strong>${r.resolved}</strong><span>Resolvidas</span></div><div class="report-stat"><strong>${r.failed}</strong><span>Falhas</span></div><div class="report-stat"><strong>${r.abandoned}</strong><span>Abandonadas</span></div><div class="report-stat"><strong>${calls.length}</strong><span>Chamadas</span></div><div class="report-stat"><strong>${Math.round(avgProtocol) || "—"}</strong><span>Protocolo médio</span></div><div class="report-stat"><strong>${Math.round(avgRadio) || "—"}</strong><span>Rádio médio</span></div></div>${r.scoreBreakdown ? `<div class="balance-report-strip"><span>Média chamada: ${esc(r.scoreBreakdown.averageCallScore)}</span><span>Bônus resolução: +${esc(r.scoreBreakdown.resolutionBonus)}</span><span>Penalidade: -${esc(r.scoreBreakdown.failurePenalty)}</span><span>Dif.: ${esc(r.scoreBreakdown.difficulty)}</span></div>` : ""}<div class="report-call-list">${calls.slice(0, 5).map(reportCallDetails).join("")}</div></article>`;
           },
         )
         .join("") || '<div class="panel">Nenhum relatório disponível.</div>';
@@ -957,6 +957,7 @@
     const device = state.release.lastDeviceAudit || C190_Release.deviceAudit();
     const privacy = C190_Release.privacySummary(state);
     const balance = C190_Release.profileFor(state);
+    const balanceSummary = window.C190_Balance?.summary?.(state);
     const install = C190_Release.installStatus();
     const passed = checklist.filter((item) => item.ok).length;
     const overall = checklist.every((item) => item.ok);
@@ -972,7 +973,7 @@
     $("#deviceAuditOutput").innerHTML = releaseCheckMarkup(device.checks || []);
     $("#offlineReleaseStatus").innerHTML = `<strong>${esc(install.label)}</strong><p>${navigator.onLine ? ui.coreOnline : ui.coreOffline}</p><small>${"serviceWorker" in navigator ? ui.workerOk : ui.workerNo}</small>`;
     $("#installAppBtn").disabled = install.code === "installed";
-    $("#balanceProfileCard").innerHTML = `<strong>${esc(balance.label)}</strong><p>${esc(balance.description)}</p><div class="release-mini-grid"><span>${esc(ui.escalation)}: ${balance.escalationAt}s</span><span>${esc(ui.abandonment)}: ${balance.abandonLimit}s</span><span>${esc(ui.pace)}: ${Math.round(balance.arrivalFactor * 100)}%</span><span>Balance v${C190_Release.BALANCE_VERSION}</span></div>`;
+    $("#balanceProfileCard").innerHTML = `<strong>${esc(balance.label)}</strong><p>${esc(balance.description)}</p><div class="release-mini-grid"><span>${esc(ui.escalation)}: ${balance.escalationAt}s</span><span>${esc(ui.abandonment)}: ${balance.abandonLimit}s</span><span>${esc(ui.pace)}: ${Math.round(balance.arrivalFactor * 100)}%</span><span>Balance v${C190_Release.BALANCE_VERSION}</span></div>${balanceSummary ? `<div class="balance-breakdown"><b>Pesos da nota final</b><small>Protocolo ${Math.round(balanceSummary.weights.protocol*100)}% · Triagem ${Math.round(balanceSummary.weights.triage*100)}% · Despacho ${Math.round(balanceSummary.weights.dispatch*100)}% · Rádio ${Math.round(balanceSummary.weights.radio*100)}% · Localização ${Math.round(balanceSummary.weights.location*100)}%</small><small>Limite: ${balanceSummary.economy.maxXpPerCall} XP por chamada · reputação ${balanceSummary.economy.maxRepLossPerCall} a +${balanceSummary.economy.maxRepGainPerCall}</small></div>` : ""}`;
     $("#privacyReleaseCard").innerHTML = `<strong>${esc(ui.localData)}</strong><p>${esc(ui.privacyText)}</p><div class="release-mini-grid"><span>${esc(ui.localUse)}: ${esc(privacy.storageLabel)}</span><span>${esc(ui.region)}: ${esc(privacy.mapCenterLabel)}</span><span>${esc(ui.approx)}: ${privacy.approximateLocation ? esc(ui.active) : esc(ui.inactive)}</span><span>${esc(ui.telemetry)}</span></div>`;
   }
 

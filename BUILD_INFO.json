@@ -1,11 +1,11 @@
 {
   "name": "Central 190",
-  "version": "2.2.0",
-  "phase": 28,
-  "build": "CENTRAL190-2200-F28-CASOS-REALISTAS-MULTIETAPAS-20260622-112500-BRT",
-  "compiledAt": "2026-06-22T11:25:00-03:00",
-  "saveSchema": 26,
-  "title": "Casos realistas, falas variadas e ocorrências multi-etapas",
+  "version": "2.3.0",
+  "phase": 29,
+  "build": "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT",
+  "compiledAt": "2026-06-22T12:00:00-03:00",
+  "saveSchema": 27,
+  "title": "Balanceamento final de pontuação, carreira, advertências e dificuldade",
   "preserved": [
     "mobile homologation",
     "animated units",
@@ -16,15 +16,15 @@
     "campaign",
     "career",
     "training",
-    "visual curation"
+    "visual curation",
+    "realistic multi-step cases"
   ],
   "added": [
-    "18 realistic occurrence templates",
-    "custom caller profiles per case",
-    "custom radio beats per case",
-    "two new special operations",
-    "new campaign mission Turno realista",
-    "case intelligence strip in active call",
-    "fixed duplicated resolved counter"
+    "C190_Balance module v1",
+    "weighted final score protocol triage dispatch radio location outcome",
+    "XP reputation caps",
+    "graded warnings",
+    "perfect shift bonus",
+    "release balance breakdown"
   ]
 }

@@ -88,13 +88,12 @@ window.C190_Career = (() => {
 
   function applyOutcome(
     state,
-    { quality = 0, xp = 0, rep = 0, resolved = false, failed = false, abandoned = false, reason = "" },
+    { quality = 0, xp = 0, rep = 0, resolved = false, failed = false, abandoned = false, reason = "", balanceVersion = 0, difficulty = null } = {},
   ) {
-    const difficulty = state.profile?.difficulty || "realista";
-    const multiplier = difficulty === "especialista" ? 1.2 : difficulty === "assistido" ? 0.85 : 1;
-    state.career.xp = Math.max(0, state.career.xp + Math.round(xp * multiplier));
-    state.career.reputation = clamp(state.career.reputation + rep, 0, 100);
-    state.career.decisionScore += quality;
+    const balanced = window.C190_Balance?.careerOutcome?.(state, { quality, xp, rep, resolved, failed, abandoned, reason, balanceVersion, difficulty }) || { quality, xp, rep, resolved, failed, abandoned, reason };
+    state.career.xp = Math.max(0, state.career.xp + Math.round(Number(balanced.xp || 0)));
+    state.career.reputation = clamp(state.career.reputation + Number(balanced.rep || 0), 0, 100);
+    state.career.decisionScore += Number(balanced.quality || 0);
     state.career.decisionCount++;
     if (resolved) {
       state.career.totalResolved++;
@@ -109,8 +108,8 @@ window.C190_Career = (() => {
       state.career.totalAbandoned++;
       state.career.streak = 0;
     }
-    if (reason) addEvent(state, quality >= 1 ? "success" : "warning", quality >= 1 ? "Ocorrência resolvida" : "Desempenho afetado", reason);
-    if (quality <= -2) issueWarning(state, "Falha de protocolo", reason || "Decisão incompatível com o protocolo operacional.", 3);
+    if (reason) addEvent(state, Number(balanced.quality || 0) >= 1 ? "success" : "warning", Number(balanced.quality || 0) >= 1 ? "Ocorrência resolvida" : "Desempenho afetado", `${reason} · XP ${balanced.xp || 0} · rep ${balanced.rep || 0}`);
+    if (balanced.warning) issueWarning(state, balanced.warning.title, balanced.warning.reason, balanced.warning.durationShifts);
     evaluate(state);
   }
 
@@ -231,6 +230,13 @@ window.C190_Career = (() => {
   function endShift(state, report) {
     state.career.totalShifts++;
     if (report.failed === 0 && report.abandoned === 0) state.career.perfectShifts++;
+    const bonus = window.C190_Balance?.shiftBonus?.(state, report) || { xp: 0, rep: 0, label: "sem bônus" };
+    if (bonus.xp || bonus.rep) {
+      state.career.xp = Math.max(0, state.career.xp + Number(bonus.xp || 0));
+      state.career.reputation = clamp(state.career.reputation + Number(bonus.rep || 0), 0, 100);
+      addEvent(state, "success", "Bônus de plantão", `${bonus.label}: +${bonus.xp} XP · +${bonus.rep} reputação`);
+    }
+    report.shiftBonus = bonus;
     decayWarnings(state);
     state.dispatch.reports.unshift(report);
     state.dispatch.reports = state.dispatch.reports.slice(0, 60);

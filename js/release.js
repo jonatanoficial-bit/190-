@@ -1,10 +1,10 @@
 window.C190_Release = (() => {
   "use strict";
 
-  const VERSION = "2.2.0";
-  const PHASE = 28;
-  const BALANCE_VERSION = 2;
-  const BUILD = "CENTRAL190-2200-F28-CASOS-REALISTAS-MULTIETAPAS-20260622-112500-BRT";
+  const VERSION = "2.3.0";
+  const PHASE = 29;
+  const BALANCE_VERSION = 3;
+  const BUILD = "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT";
   const DEFAULT_CITY = { lat: -23.55052, lng: -46.63331, label: "São Paulo — SP" };
   let deferredInstallPrompt = null;
 
@@ -47,10 +47,10 @@ window.C190_Release = (() => {
       arrivalFactor: 1.25,
       escalationAt: 42,
       abandonLimit: 110,
-      positiveXpFactor: 0.9,
-      positiveRepFactor: 1,
-      negativeRepFactor: 0.65,
-      description: "Mais tempo para decidir e penalidades reduzidas.",
+      positiveXpFactor: 0.92,
+      positiveRepFactor: 0.85,
+      negativeRepFactor: 0.55,
+      description: "Mais tempo para decidir, penalidades reduzidas e progressão controlada para aprendizado.",
     },
     realista: {
       id: "realista",
@@ -69,10 +69,10 @@ window.C190_Release = (() => {
       arrivalFactor: 0.8,
       escalationAt: 24,
       abandonLimit: 60,
-      positiveXpFactor: 1.15,
-      positiveRepFactor: 1.1,
+      positiveXpFactor: 1.18,
+      positiveRepFactor: 1.12,
       negativeRepFactor: 1.35,
-      description: "Chamadas mais rápidas, menos tolerância e recompensas maiores.",
+      description: "Chamadas mais rápidas, menos tolerância e recompensas maiores sem quebrar a economia.",
     },
   };
 
@@ -107,6 +107,7 @@ window.C190_Release = (() => {
       version: VERSION,
       phase: PHASE,
       balanceVersion: BALANCE_VERSION,
+      economyVersion: 1,
       visualRecovery: 1,
       callProtocolVersion: 3,
       triageVersion: 1,
@@ -157,13 +158,14 @@ window.C190_Release = (() => {
     const profile = profileFor(state);
     const xp = Number(outcome.xp || 0);
     const rep = Number(outcome.rep || 0);
-    return {
+    const adjusted = {
       ...outcome,
       xp: Math.max(0, Math.round(xp * profile.positiveXpFactor)),
       rep: Math.round(rep * (rep < 0 ? profile.negativeRepFactor : profile.positiveRepFactor)),
       difficulty: profile.id,
       balanceVersion: BALANCE_VERSION,
     };
+    return window.C190_Balance?.careerOutcome?.(state, adjusted) || adjusted;
   }
 
   function storageBytes() {
@@ -239,16 +241,16 @@ window.C190_Release = (() => {
     const privacy = privacySummary(state);
     const text = copy();
     return [
-      { name: text.saveMigration, ok: state.schema === 23, detail: "Compatível com schemas 10–22" },
-      { name: text.balance, ok: state.release.balanceVersion === BALANCE_VERSION, detail: profileFor(state).label },
+      { name: text.saveMigration, ok: state.schema === 27, detail: "Compatível com schemas 10–26" },
+      { name: text.balance, ok: state.release.balanceVersion === BALANCE_VERSION && !!window.C190_Balance, detail: `${profileFor(state).label} · economia v${state.release.economyVersion || 1}` },
       { name: text.visual, ok: window.C190_Assets?.diagnostics?.().ok !== false, detail: `${window.C190_Assets?.diagnostics?.().loaded || 0}/${window.C190_Assets?.diagnostics?.().required || 0} assets carregados` },
-      { name: text.callProtocol, ok: !!window.C190_CallProtocol && state.release.callProtocolVersion === 2, detail: `${window.C190_CallProtocol?.QUESTION_BANK?.length || 0} perguntas fixas · localização progressiva` },
+      { name: text.callProtocol, ok: !!window.C190_CallProtocol && state.release.callProtocolVersion === 3, detail: `${window.C190_CallProtocol?.QUESTION_BANK?.length || 0} perguntas fixas · localização progressiva` },
       { name: "Mapa progressivo", ok: !!window.C190_LocationIntel && state.release.locationIntelVersion === 1, detail: `${window.C190_LocationIntel?.STAGES?.length || 0} estágios de precisão` },
       { name: "Despacho de unidades", ok: !!window.C190_ResourceDispatch && state.release.resourceDispatchVersion === 1, detail: `${window.C190_ResourceDispatch?.UNIT_BLUEPRINTS?.length || 0} recursos operacionais` },
       { name: "Rádio operacional", ok: !!window.C190_FieldRadio && state.release.fieldRadioVersion === 1, detail: `${window.C190_FieldRadio?.ACTIONS?.length || 0} ações de campo` },
       { name: "Academia 190", ok: !!window.C190_TrainingAcademy && state.release.trainingAcademyVersion === 1, detail: `${window.C190_TrainingAcademy?.MODULES?.length || 0} módulos práticos · ${(state.training?.certificates || []).length} certificado(s)` },
       { name: text.immersion || "Áudio e imersão", ok: !!window.C190_Immersion && state.release.immersionVersion === 1, detail: (() => { const d = window.C190_Immersion?.diagnostics?.(state); return d ? `${d.soundEnabled ? "ativo" : "desativado"} · volume ${Math.round((d.volume || 0) * 100)}% · arquivos externos ${d.externalAudioFiles}` : "módulo indisponível"; })() },
-      { name: "Campanha operacional", ok: !!window.C190_Campaign && state.release.campaignVersion === 1 && !!state.campaign, detail: `${window.C190_Campaign?.summary?.(state)?.completed || 0}/${window.C190_Campaign?.missions?.length || 0} missões concluídas` },
+      { name: "Campanha operacional", ok: !!window.C190_Campaign && state.release.campaignVersion === 2 && !!state.campaign, detail: `${window.C190_Campaign?.summary?.(state)?.completed || 0}/${window.C190_Campaign?.missions?.length || 0} missões concluídas` },
       { name: text.offline, ok: "serviceWorker" in navigator, detail: navigator.onLine ? "Online com fallback" : "Executando sem conexão" },
       { name: text.privacy, ok: privacy.telemetry === false && privacy.localOnly, detail: "Sem telemetria e sem conta obrigatória" },
       { name: text.accessibility, ok: true, detail: "Contraste, alvos ampliados, teclado e redução de movimento" },

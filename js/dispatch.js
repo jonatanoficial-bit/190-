@@ -352,9 +352,10 @@ window.C190_Dispatch = (() => {
     if (!shift?.active) return null;
     shift.active = false;
     shift.endedAt = new Date().toISOString();
+    const balancedScore = window.C190_Balance?.shiftScore?.(state, shift) || null;
     const base = shift.resolved * 30 - shift.failed * 18 - shift.abandoned * 22 + shift.qualityTotal * 5;
-    const score = Math.max(0, Math.min(100, 55 + base));
-    const grade = score >= 92 ? "S" : score >= 80 ? "A" : score >= 68 ? "B" : score >= 55 ? "C" : "D";
+    const score = balancedScore?.score ?? Math.max(0, Math.min(100, 55 + base));
+    const grade = balancedScore?.grade ?? (score >= 92 ? "S" : score >= 80 ? "A" : score >= 68 ? "B" : score >= 55 ? "C" : "D");
     const report = {
       id: `R${Date.now()}`,
       startedAt: shift.startedAt,
@@ -376,7 +377,8 @@ window.C190_Dispatch = (() => {
       campaignChapter: shift.campaignChapter || null,
       difficulty: shift.difficulty || state.profile?.difficulty || "realista",
       difficultyLabel: shift.difficultyLabel || "Realista",
-      balanceVersion: shift.balanceVersion || 1,
+      balanceVersion: balancedScore?.balanceVersion || shift.balanceVersion || 3,
+      scoreBreakdown: balancedScore,
       calls: shift.calls.map((call) => ({
         templateId: call.templateId || call.id,
         type: call.type,

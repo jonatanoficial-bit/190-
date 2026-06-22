@@ -40,6 +40,7 @@ global.crypto = { randomUUID: () => `id-${Math.random()}` };
 for (const file of [
   "js/assets.js",
   "js/release.js",
+  "js/balance.js",
   "js/immersion.js",
   "js/content.js",
   "js/call-protocol.js",
@@ -120,8 +121,8 @@ const migrated = C190_Save.migrate({
     reports: [],
   },
 });
-assert(migrated.schema === 26, "migration schema 12 to 26");
-assert(migrated.version === "2.2.0", "migration version");
+assert(migrated.schema === 27, "migration schema 12 to 27");
+assert(migrated.version === "2.3.0", "migration version");
 assert(migrated.profile.callSign === "Atlas", "migration profile");
 assert(migrated.career.xp === 500, "migration XP");
 assert(migrated.settings.mapMode === "auto", "invalid map mode normalized");
@@ -134,7 +135,7 @@ assert(
     Number.isFinite(migrated.dispatch.shift.calls[0].lng),
   "legacy active call enriched with coordinates",
 );
-assert(migrated.release.balanceVersion === 2, "release balance state created");
+assert(migrated.release.balanceVersion === 3, "release balance state created");
 assert(migrated.release.callProtocolVersion === 3, "call protocol release flag created");
 assert(migrated.release.locationIntelVersion === 1, "location intel release flag created");
 assert(migrated.release.triageVersion === 1, "triage release flag created");
@@ -191,7 +192,7 @@ expertState.profile.difficulty = "especialista";
 const expertShift = C190_Content.launchCareer(expertState);
 assert(expertShift.arrivalGap < 18, "expert mode accelerates arrivals");
 assert(expertShift.abandonLimit === 60, "expert mode shortens abandonment");
-assert(expertShift.balanceVersion === 2, "new balance version applied");
+assert(expertShift.balanceVersion === 3, "new balance version applied");
 
 const dispatchState = profile(C190_Save.defaultState(), "Plantão");
 const careerShift = C190_Content.launchCareer(dispatchState);
@@ -355,7 +356,7 @@ assert(
 
 C190_Save.save(specialState);
 const loaded = C190_Save.load();
-assert(loaded.schema === 26, "schema 26 save reload");
+assert(loaded.schema === 27, "schema 27 save reload");
 assert(C190_Save.validate(loaded), "saved state checksum and structure valid");
 assert(loaded.content.special.completed.includes("cerco_bancario"), "content progression persists");
 

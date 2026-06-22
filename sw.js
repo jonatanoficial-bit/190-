@@ -1,4 +1,4 @@
-const CACHE = "central190-v2.2.0-f28-casos-realistas-multietapas";
+const CACHE = "central190-v2.3.0-f29-balanceamento-final";
 const ASSETS = [
   "./",
   "./index.html",
@@ -6,6 +6,7 @@ const ASSETS = [
   "./js/i18n.js",
   "./js/assets.js",
   "./js/release.js",
+  "./js/balance.js",
   "./js/immersion.js",
   "./js/content.js",
   "./js/campaign.js",

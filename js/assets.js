@@ -1,8 +1,8 @@
 window.C190_Assets = (() => {
   "use strict";
-  const VERSION = "2.0.0";
-  const PHASE = "25";
-  const BUILD = "CENTRAL190-2100-F27-MOBILE-HOMOLOGATION-TOUCH-SCROLL-20260622-104500-BRT";
+  const VERSION = "2.3.0";
+  const PHASE = "29";
+  const BUILD = "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT";
   const required = [
     "assets/badges/central190-brand.svg",
     "assets/backgrounds/bg-central-room.webp",

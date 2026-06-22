@@ -1,3 +1,19 @@
+# Central 190 v2.3.0 — Fase 29
+
+Build: CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT
+Save schema: 27
+
+## Fase 29 — Balanceamento final
+
+- Novo módulo `js/balance.js` com pesos oficiais da nota final.
+- Pontuação final agora combina protocolo, triagem, despacho, rádio, localização e resultado.
+- Correção de economia: evita multiplicação dupla de dificuldade no XP.
+- XP por chamada, reputação e advertências agora têm limites comerciais.
+- Relatórios mostram resumo do balanceamento.
+- Dificuldades Assistido, Realista e Especialista preservadas com impacto ajustado.
+
+---
+
 # Checklist Fase 20
 
 Build CENTRAL190-1400-F20-PROGRESSIVE-MAP-20260618-120900-BRT. Implementa mapa jogável com localização progressiva: sem localização, área aproximada, rua provável, quadra provável e local confirmado. Adiciona raio de incerteza, recursos próximos PM/Bombeiros/SAMU e integração com perguntas de bairro, rua, número, endereço e referência.

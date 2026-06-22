@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "JS balance module",
+      "ok": true,
+      "detail": "js/balance.js"
+    },
+    {
+      "name": "Save schema 27",
+      "ok": true,
+      "detail": "schema 27"
+    },
+    {
+      "name": "Release balance v3",
+      "ok": true,
+      "detail": "balance v3"
+    },
+    {
+      "name": "Index loads balance before save",
+      "ok": true,
+      "detail": "script registered"
+    },
+    {
+      "name": "Service worker caches balance",
+      "ok": true,
+      "detail": "cache v2.3.0"
+    },
+    {
+      "name": "CSS urls present",
+      "ok": true,
+      "detail": "52 url(s), missing=[]"
+    },
+    {
+      "name": "Report balance strip",
+      "ok": true,
+      "detail": "reports show breakdown"
+    },
+    {
+      "name": "Career avoids double difficulty",
+      "ok": true,
+      "detail": "career outcome delegated"
+    }
+  ],
+  "count": 8,
+  "cssUrls": 52,
+  "missingCssUrls": []
+}
