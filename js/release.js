@@ -1,10 +1,10 @@
 window.C190_Release = (() => {
   "use strict";
 
-  const VERSION = "2.3.0";
-  const PHASE = 29;
+  const VERSION = "2.4.0";
+  const PHASE = 30;
   const BALANCE_VERSION = 3;
-  const BUILD = "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT";
+  const BUILD = "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT";
   const DEFAULT_CITY = { lat: -23.55052, lng: -46.63331, label: "São Paulo — SP" };
   let deferredInstallPrompt = null;
 
@@ -116,6 +116,8 @@ window.C190_Release = (() => {
       fieldRadioVersion: 1,
       trainingAcademyVersion: 1,
       immersionVersion: 1,
+      tutorialVersion: 1,
+      publicRcVersion: 1,
       campaignVersion: 2,
       scenarioDepthVersion: 1,
       mobileHomologationVersion: 1,
@@ -241,7 +243,7 @@ window.C190_Release = (() => {
     const privacy = privacySummary(state);
     const text = copy();
     return [
-      { name: text.saveMigration, ok: state.schema === 27, detail: "Compatível com schemas 10–26" },
+      { name: text.saveMigration, ok: state.schema === 28, detail: "Compatível com schemas 10–27" },
       { name: text.balance, ok: state.release.balanceVersion === BALANCE_VERSION && !!window.C190_Balance, detail: `${profileFor(state).label} · economia v${state.release.economyVersion || 1}` },
       { name: text.visual, ok: window.C190_Assets?.diagnostics?.().ok !== false, detail: `${window.C190_Assets?.diagnostics?.().loaded || 0}/${window.C190_Assets?.diagnostics?.().required || 0} assets carregados` },
       { name: text.callProtocol, ok: !!window.C190_CallProtocol && state.release.callProtocolVersion === 3, detail: `${window.C190_CallProtocol?.QUESTION_BANK?.length || 0} perguntas fixas · localização progressiva` },
@@ -250,7 +252,9 @@ window.C190_Release = (() => {
       { name: "Rádio operacional", ok: !!window.C190_FieldRadio && state.release.fieldRadioVersion === 1, detail: `${window.C190_FieldRadio?.ACTIONS?.length || 0} ações de campo` },
       { name: "Academia 190", ok: !!window.C190_TrainingAcademy && state.release.trainingAcademyVersion === 1, detail: `${window.C190_TrainingAcademy?.MODULES?.length || 0} módulos práticos · ${(state.training?.certificates || []).length} certificado(s)` },
       { name: text.immersion || "Áudio e imersão", ok: !!window.C190_Immersion && state.release.immersionVersion === 1, detail: (() => { const d = window.C190_Immersion?.diagnostics?.(state); return d ? `${d.soundEnabled ? "ativo" : "desativado"} · volume ${Math.round((d.volume || 0) * 100)}% · arquivos externos ${d.externalAudioFiles}` : "módulo indisponível"; })() },
+      { name: "Tutorial guiado", ok: !!window.C190_Tutorial && state.release.tutorialVersion === 1, detail: `${window.C190_Tutorial?.STEPS?.length || 0} etapas de primeira experiência` },
       { name: "Campanha operacional", ok: !!window.C190_Campaign && state.release.campaignVersion === 2 && !!state.campaign, detail: `${window.C190_Campaign?.summary?.(state)?.completed || 0}/${window.C190_Campaign?.missions?.length || 0} missões concluídas` },
+      { name: "RC pública/comercial", ok: !!window.C190_PublicRC && state.release.publicRcVersion === 1, detail: "Checklist público, tutorial e publicação ativados" },
       { name: text.offline, ok: "serviceWorker" in navigator, detail: navigator.onLine ? "Online com fallback" : "Executando sem conexão" },
       { name: text.privacy, ok: privacy.telemetry === false && privacy.localOnly, detail: "Sem telemetria e sem conta obrigatória" },
       { name: text.accessibility, ok: true, detail: "Contraste, alvos ampliados, teclado e redução de movimento" },

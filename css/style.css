@@ -4331,3 +4331,80 @@ textarea,
 @media (max-width: 420px) {
   .balance-report-strip { grid-template-columns: 1fr; }
 }
+
+/* F30 — RC pública/comercial, tutorial e polimento final */
+.tutorial-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+  gap: 18px;
+  max-width: var(--visual-content-max, 1240px);
+  margin: 0 auto;
+}
+.tutorial-layout > .wide,
+.tutorial-hero { grid-column: 1 / -1; }
+.tutorial-hero {
+  min-height: 190px;
+  background-image:
+    linear-gradient(135deg, rgba(1, 18, 30, .82), rgba(4, 35, 48, .72)),
+    url("../assets/backgrounds/bg-control-room-lobby.webp");
+  background-size: cover;
+  background-position: center;
+}
+.tutorial-score-card {
+  min-width: 160px;
+  border: 1px solid rgba(42, 241, 226, .28);
+  border-radius: 22px;
+  background: rgba(0, 15, 24, .64);
+  padding: 18px;
+  text-align: center;
+}
+.tutorial-score-card strong { display: block; font-size: clamp(2rem, 5vw, 3rem); color: var(--accent); }
+.tutorial-score-card span { color: var(--muted); font-size: .85rem; }
+.tutorial-step-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.tutorial-step-card {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid rgba(96, 165, 250, .18);
+  border-radius: 18px;
+  background: rgba(2, 16, 27, .72);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+}
+.tutorial-step-card > span {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(42, 241, 226, .12);
+  color: var(--accent);
+  font-weight: 900;
+}
+.tutorial-step-card h3 { margin: 0; font-size: 1rem; }
+.tutorial-step-card p { margin: 0; color: var(--muted); line-height: 1.45; font-size: .86rem; }
+.tutorial-step-card.done { border-color: rgba(34,197,94,.38); background: rgba(6, 37, 30, .72); }
+.tutorial-step-card.next { border-color: rgba(42,241,226,.55); box-shadow: 0 0 0 1px rgba(42,241,226,.12), var(--shadow); }
+.button-stack { display: grid; gap: 10px; }
+#publicRcChecklist .release-check.ok { background: rgba(5, 42, 35, .52); }
+.performance-note {
+  border: 1px solid rgba(42, 241, 226, .18);
+  border-radius: 16px;
+  padding: 12px;
+  background: rgba(0, 12, 20, .52);
+  color: var(--muted);
+}
+@media (max-width: 980px) {
+  .tutorial-step-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tutorial-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .tutorial-hero { flex-direction: column; align-items: stretch; min-height: 0; }
+  .tutorial-score-card { min-width: 0; }
+  .tutorial-step-grid { grid-template-columns: 1fr; }
+  .tutorial-step-card { padding: 13px; }
+  .tutorial-step-card .action-btn { min-height: 48px; }
+}

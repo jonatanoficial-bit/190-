@@ -13,7 +13,7 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <title>Central 190 — v2.3.0 Fase 29</title>
+    <title>Central 190 — v2.4.0 Fase 30 RC Pública</title>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
@@ -71,6 +71,9 @@
           <button class="nav-btn" data-screen="content">
             <span>∞</span><b data-i18n="nav.content">Operações</b>
           </button>
+          <button class="nav-btn" data-screen="tutorial">
+            <span>▸</span><b>Tutorial</b>
+          </button>
           <button class="nav-btn" data-screen="campaign">
             <span>▱</span><b>Campanha</b>
           </button>
@@ -100,8 +103,8 @@
           </button>
         </nav>
         <div class="version-chip">
-          <span>v2.3.0 · Fase 29</span>
-          <small id="buildLabel">22/06/2026 12:00:00 BRT</small>
+          <span>v2.4.0 · Fase 30</span>
+          <small id="buildLabel">22/06/2026 12:35:00 BRT</small>
         </div>
       </aside>
 
@@ -452,6 +455,55 @@
           </article>
         </section>
 
+        <section id="screen-tutorial" class="screen">
+          <div class="screen-heading">
+            <div>
+              <span class="eyebrow">TUTORIAL OPERACIONAL</span>
+              <h1>Aprenda o fluxo real do plantão</h1>
+            </div>
+            <button id="startGuidedShiftBtn" class="primary-btn">Iniciar plantão guiado</button>
+          </div>
+
+          <div class="tutorial-layout">
+            <article class="hero-card tutorial-hero">
+              <div>
+                <span class="eyebrow">BETA COMERCIAL</span>
+                <h2>Da ligação ao relatório, sem pular etapas</h2>
+                <p>O tutorial mostra a ordem correta: atender, perguntar, localizar, classificar, despachar, acompanhar rádio e finalizar com relatório profissional.</p>
+              </div>
+              <div class="tutorial-score-card">
+                <strong id="tutorialProgressBadge">0/8</strong>
+                <span>etapas dominadas</span>
+              </div>
+            </article>
+
+            <article class="panel wide">
+              <header>
+                <div>
+                  <h2>Roteiro guiado do operador</h2>
+                  <small>Use como treinamento rápido antes da campanha ou do plantão livre.</small>
+                </div>
+              </header>
+              <div id="tutorialStepGrid" class="tutorial-step-grid"></div>
+            </article>
+
+            <article class="panel">
+              <header><h2>Checklist antes de jogar</h2></header>
+              <div id="tutorialChecklist" class="release-checklist"></div>
+            </article>
+
+            <article class="panel">
+              <header><h2>Atalhos seguros</h2></header>
+              <div class="button-stack">
+                <button id="startCampaignTutorialBtn" class="secondary-btn" type="button">Começar pela campanha</button>
+                <button id="runReadinessBtn" class="secondary-btn" type="button">Auditar aparelho agora</button>
+                <button class="secondary-btn" type="button" data-open-release>Ver checklist de publicação</button>
+              </div>
+              <p class="system-note">Nenhuma ação do tutorial altera XP, reputação ou advertências. Ele apenas orienta o jogador.</p>
+            </article>
+          </div>
+        </section>
+
         <section id="screen-campaign" class="screen">
           <div class="screen-heading">
             <div>
@@ -626,20 +678,20 @@
           <div class="screen-heading">
             <div>
               <span class="eyebrow" data-i18n="release.eyebrow">RELEASE CANDIDATE</span>
-              <h1 data-i18n="release.title">Central de lançamento v2.3.0</h1>
+              <h1 data-i18n="release.title">Central de lançamento v2.4.0</h1>
             </div>
             <span id="releaseStatusBadge" class="release-badge">AUDITANDO</span>
           </div>
           <div class="release-hero hero-card">
             <div>
               <span class="eyebrow">BUILD COMERCIAL</span>
-              <h2 data-i18n="release.heroTitle">Release Candidate imersiva pronta para homologação</h2>
-              <p data-i18n="release.heroText">Esta tela reúne compatibilidade, modo offline, privacidade, acessibilidade, balanceamento, áudio, imersão e créditos do jogo.</p>
+              <h2 data-i18n="release.heroTitle">Release Candidate pública pronta para beta comercial</h2>
+              <p data-i18n="release.heroText">Esta tela reúne tutorial, compatibilidade, modo offline, privacidade, acessibilidade, performance, balanceamento, áudio, imersão e checklist final de publicação.</p>
             </div>
             <div class="release-version">
-              <strong>v2.3.0</strong>
-              <span>Campanha operacional e missões narrativas</span>
-              <small>Save schema 23</small>
+              <strong>v2.4.0</strong>
+              <span>RC pública/comercial, tutorial guiado e performance final</span>
+              <small>Save schema 28</small>
             </div>
           </div>
           <div id="releaseMetrics" class="metric-grid release-metrics"></div>
@@ -652,6 +704,10 @@
             <article class="panel">
               <header><h2 data-i18n="release.device">Compatibilidade do aparelho</h2></header>
               <div id="deviceAuditOutput" class="release-checklist"></div>
+            </article>
+            <article class="panel">
+              <header><h2>Checklist da RC pública</h2></header>
+              <div id="publicRcChecklist" class="release-checklist"></div>
             </article>
             <article class="panel">
               <header><h2 data-i18n="release.offline">Instalação e modo offline</h2></header>
@@ -810,6 +866,8 @@
     <script src="js/assets.js"></script>
     <script src="js/release.js"></script>
     <script src="js/balance.js"></script>
+    <script src="js/tutorial.js"></script>
+    <script src="js/public-rc.js"></script>
     <script src="js/immersion.js"></script>
     <script src="js/content.js"></script>
     <script src="js/campaign.js"></script>

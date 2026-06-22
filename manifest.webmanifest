@@ -1,8 +1,8 @@
 {
   "id": "central-190",
-  "name": "Central 190 — Simulador Operacional v2.3.0",
+  "name": "Central 190 — Simulador Operacional v2.4.0 RC Pública",
   "short_name": "Central 190",
-  "description": "Simulador Central 190 com casos realistas, chamadas multi-etapas, atendimento por chat, triagem, mapa progressivo, viaturas animadas, rádio, campanha, treinamento, áudio local e homologação mobile-first.",
+  "description": "Simulador Central 190 com tutorial guiado, casos realistas, chamadas multi-etapas, atendimento por chat, triagem, mapa progressivo, viaturas animadas, rádio, campanha, treinamento, áudio local, balanceamento final e RC pública/comercial mobile-first.",
   "lang": "pt-BR",
   "start_url": "./index.html",
   "scope": "./",
@@ -41,6 +41,17 @@
     }
   ],
   "shortcuts": [
+    {
+      "name": "Tutorial operacional",
+      "short_name": "Tutorial",
+      "url": "./index.html#tutorial",
+      "icons": [
+        {
+          "src": "assets/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
     {
       "name": "Iniciar plantão",
       "short_name": "Plantão",

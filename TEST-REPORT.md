@@ -1,27 +1,22 @@
-# Central 190 v2.3.0 — Fase 29
+# Test Report — Central 190 v2.4.0 Fase 30
 
-Build: CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT
-Save schema: 27
+## Testes executados no pacote
+- `node --check js/*.js`: aprovado.
+- `node tests/logic-test.js`: 261 verificações aprovadas.
+- Auditoria de URLs de assets CSS: 52 URLs, 0 ausentes.
+- Verificação de ZIP: sem erro.
 
-## Fase 29 — Balanceamento final
+## Itens validados
+- Save schema 28.
+- Migração dos schemas 10–27.
+- 51 templates de ocorrência.
+- 10 recursos operacionais.
+- 9 cidades.
+- 7 operações especiais.
+- 7 missões de campanha.
+- 8 módulos da Academia 190.
+- Tutorial com 8 etapas.
+- Checklist público da RC.
 
-- Novo módulo `js/balance.js` com pesos oficiais da nota final.
-- Pontuação final agora combina protocolo, triagem, despacho, rádio, localização e resultado.
-- Correção de economia: evita multiplicação dupla de dificuldade no XP.
-- XP por chamada, reputação e advertências agora têm limites comerciais.
-- Relatórios mostram resumo do balanceamento.
-- Dificuldades Assistido, Realista e Especialista preservadas com impacto ajustado.
-
----
-
-# Test Report — Fase 28 v2.2.0
-
-- Status: PASS
-- Testes lógicos: 258 verificações aprovadas (`tests/logic-test.js`).
-- Sintaxe JavaScript: 19 arquivos verificados.
-- URLs de assets CSS: 52 verificadas, 0 ausentes.
-- Templates totais: 51.
-- Casos F28 com perfil próprio: 19.
-- Operações especiais: 7.
-- Missões de campanha: 7.
-- Contador duplicado de resolvidas: corrigido.
+## Homologação manual pendente
+Celular físico, tablet e PC no domínio final, com atenção a rolagem, menu, PWA e mapa real.

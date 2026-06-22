@@ -1,8 +1,8 @@
 window.C190_Assets = (() => {
   "use strict";
-  const VERSION = "2.3.0";
+  const VERSION = "2.4.0";
   const PHASE = "29";
-  const BUILD = "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT";
+  const BUILD = "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT";
   const required = [
     "assets/badges/central190-brand.svg",
     "assets/backgrounds/bg-central-room.webp",

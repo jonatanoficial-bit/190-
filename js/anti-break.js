@@ -44,6 +44,10 @@ window.C190_AntiBreak = (() => {
       "campaignMissionGrid",
       "campaignBriefing",
       "campaignTimeline",
+      "tutorialProgressBadge",
+      "tutorialStepGrid",
+      "tutorialChecklist",
+      "publicRcChecklist",
       "releaseChecklist",
       "deviceAuditOutput",
       "installAppBtn",
@@ -86,13 +90,13 @@ window.C190_AntiBreak = (() => {
       },
       {
         name: "Save schema",
-        ok: state?.schema === 27,
+        ok: state?.schema === 28,
         detail: `schema=${state?.schema}`,
       },
       {
         name: "Release Candidate",
-        ok: !!window.C190_Release && state?.release?.balanceVersion === 3 && state?.release?.visualRecovery === 1 && state?.settings?.telemetry === false && state?.release?.callProtocolVersion === 3 && state?.release?.triageVersion === 1 && state?.release?.locationIntelVersion === 1 && state?.release?.resourceDispatchVersion === 1 && state?.release?.fieldRadioVersion === 1 && state?.release?.trainingAcademyVersion === 1 && state?.release?.campaignVersion === 2 && !!window.C190_Balance && !!window.C190_ResourceDispatch && !!window.C190_FieldRadio && !!window.C190_TrainingAcademy && !!window.C190_Campaign,
-        detail: `v${window.C190_Release?.VERSION || "?"} · balance ${state?.release?.balanceVersion || "?"}`,
+        ok: !!window.C190_Release && state?.release?.balanceVersion === 3 && state?.release?.visualRecovery === 1 && state?.settings?.telemetry === false && state?.release?.callProtocolVersion === 3 && state?.release?.triageVersion === 1 && state?.release?.locationIntelVersion === 1 && state?.release?.resourceDispatchVersion === 1 && state?.release?.fieldRadioVersion === 1 && state?.release?.trainingAcademyVersion === 1 && state?.release?.campaignVersion === 2 && state?.release?.tutorialVersion === 1 && state?.release?.publicRcVersion === 1 && !!window.C190_Tutorial && !!window.C190_PublicRC && !!window.C190_Balance && !!window.C190_ResourceDispatch && !!window.C190_FieldRadio && !!window.C190_TrainingAcademy && !!window.C190_Campaign,
+        detail: `v${window.C190_Release?.VERSION || "?"} · balance ${state?.release?.balanceVersion || "?"} · tutorial ${state?.release?.tutorialVersion || "?"}`,
       },
       {
         name: "Estrutura da carreira",
@@ -121,9 +125,19 @@ window.C190_AntiBreak = (() => {
       },
 
       {
+        name: "Tutorial e primeira experiência",
+        ok: !!window.C190_Tutorial && Array.isArray(window.C190_Tutorial.STEPS) && window.C190_Tutorial.STEPS.length >= 8 && !!state?.tutorial,
+        detail: `${state?.tutorial?.completed?.length || 0}/${window.C190_Tutorial?.STEPS?.length || 0} etapas`,
+      },
+      {
         name: "Campanha operacional",
         ok: !!window.C190_Campaign && Array.isArray(window.C190_Campaign.missions) && window.C190_Campaign.missions.length >= 6 && !!state?.campaign,
         detail: `${window.C190_Campaign?.summary?.(state)?.completed || 0}/${window.C190_Campaign?.missions?.length || 0} missões`,
+      },
+      {
+        name: "RC pública/comercial",
+        ok: !!window.C190_PublicRC && state?.release?.publicRcVersion === 1,
+        detail: "Checklist público, tutorial e publicação ativados",
       },
       {
         name: "Academia e certificações",
@@ -224,8 +238,8 @@ window.C190_AntiBreak = (() => {
       map: mapDiagnostics,
       errors: [...errors],
       timestamp: new Date().toISOString(),
-      version: "2.3.0",
-      build: "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT",
+      version: "2.4.0",
+      build: "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT",
     };
   }
 

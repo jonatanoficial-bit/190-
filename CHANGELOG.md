@@ -101,3 +101,11 @@ Build: `CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT`
 - Reorganiza o plantão no mobile: atendimento ativo primeiro, fila depois, pausadas depois, mapa por último.
 - Melhora overlay do menu lateral, fechamento por clique fora e Escape.
 - Atualiza save schema para 25 e cache PWA para v2.1.0.
+
+## v2.4.0 — Fase 30 — RC pública/comercial
+- Adicionada tela Tutorial operacional.
+- Adicionado checklist público de RC.
+- Atualizado save schema para 28.
+- Atualizado cache PWA para v2.4.0.
+- Corrigido input duplicado em Configurações.
+- Preservados campanha, casos realistas, rádio, viaturas animadas, balanceamento e fundos fotográficos.

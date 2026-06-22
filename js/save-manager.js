@@ -1,9 +1,11 @@
 window.C190_Save = (() => {
   "use strict";
 
-  const KEY = "central190_save_v27";
-  const BACKUP = "central190_save_v27_backup";
+  const KEY = "central190_save_v28";
+  const BACKUP = "central190_save_v28_backup";
   const LEGACY = [
+    "central190_save_v27",
+    "central190_save_v27_backup",
     "central190_save_v26",
     "central190_save_v26_backup",
     "central190_save_v25",
@@ -38,9 +40,9 @@ window.C190_Save = (() => {
     "central_190_save",
     "c190_save",
   ];
-  const SCHEMA = 27;
-  const VERSION = "2.3.0";
-  const BUILD = "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT";
+  const SCHEMA = 28;
+  const VERSION = "2.4.0";
+  const BUILD = "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,
@@ -114,9 +116,9 @@ window.C190_Save = (() => {
     campaign: window.C190_Campaign?.defaultCampaign?.() || { version: 1, activeMissionId: null, selectedMissionId: "turno_zero", completed: [], attempts: {}, bestScores: {}, rewardsClaimed: [], history: [] },
     release: {
       version: VERSION,
-      phase: 29,
+      phase: 30,
       visualRecovery: 1,
-      campaignVersion: 1,
+      campaignVersion: 2,
       fieldUnitsVersion: 1,
       mobileHomologationVersion: 1,
       callProtocolVersion: 3,
@@ -128,6 +130,8 @@ window.C190_Save = (() => {
       immersionVersion: 1,
       balanceVersion: 3,
       economyVersion: 1,
+      publicRcVersion: 1,
+      tutorialVersion: 1,
       firstOpenedAt: new Date().toISOString(),
       notesSeen: false,
       privacySeen: false,
@@ -135,6 +139,7 @@ window.C190_Save = (() => {
       lastDeviceAudit: null,
     },
     training: window.C190_TrainingAcademy?.defaultTraining?.() || { version: 1, certificates: [], simulations: [], stats: { total: 0, passed: 0, bestScore: 0 }, recommendedModuleId: null },
+    tutorial: window.C190_Tutorial?.defaultTutorial?.() || { version: 1, completed: [], lastSeenAt: null, readinessRuns: 0 },
     settings: {
       largeText: false,
       reduceMotion: false,
@@ -321,17 +326,20 @@ window.C190_Save = (() => {
       immersiveHud: incomingSettings.immersiveHud !== false,
     };
 
-    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 29, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
+    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 30, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
       fieldUnitsVersion: 1,
-      mobileHomologationVersion: 1, callProtocolVersion: 3, triageVersion: 1,
+      mobileHomologationVersion: 1,
+      callProtocolVersion: 3, triageVersion: 1,
       locationIntelVersion: 1, resourceDispatchVersion: 1,
-      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 1, balanceVersion: 3, economyVersion: 1 };
+      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 1, balanceVersion: 3, economyVersion: 1, publicRcVersion: 1, tutorialVersion: 1 };
     base.settings.telemetry = false;
     base.dispatch = enrichDispatch(source.dispatch || base.dispatch, incomingCenter);
     base.content = source.content && typeof source.content === "object" ? clone(source.content) : defaultContent();
     base.campaign = source.campaign && typeof source.campaign === "object" ? clone(source.campaign) : (window.C190_Campaign?.defaultCampaign?.() || base.campaign);
     window.C190_Campaign?.normalize?.(base);
     base.training = window.C190_TrainingAcademy?.migrate?.(source.training) || base.training || { version: 1, certificates: [], simulations: [], stats: { total: 0, passed: 0, bestScore: 0 }, recommendedModuleId: null };
+    base.tutorial = source.tutorial && typeof source.tutorial === "object" ? clone(source.tutorial) : (window.C190_Tutorial?.defaultTutorial?.() || base.tutorial);
+    window.C190_Tutorial?.normalize?.(base);
     if (window.C190_Content?.normalize) window.C190_Content.normalize(base);
 
     // Vincula a cidade migrada pela coordenada conhecida, preservando centros personalizados.

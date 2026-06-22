@@ -121,8 +121,8 @@ const migrated = C190_Save.migrate({
     reports: [],
   },
 });
-assert(migrated.schema === 27, "migration schema 12 to 27");
-assert(migrated.version === "2.3.0", "migration version");
+assert(migrated.schema === 28, "migration schema 12 to 28");
+assert(migrated.version === "2.4.0", "migration version");
 assert(migrated.profile.callSign === "Atlas", "migration profile");
 assert(migrated.career.xp === 500, "migration XP");
 assert(migrated.settings.mapMode === "auto", "invalid map mode normalized");
@@ -141,6 +141,9 @@ assert(migrated.release.locationIntelVersion === 1, "location intel release flag
 assert(migrated.release.triageVersion === 1, "triage release flag created");
 assert(migrated.release.resourceDispatchVersion === 1, "resource dispatch release flag created");
 assert(migrated.release.immersionVersion === 1, "immersion release flag created");
+assert(migrated.release.tutorialVersion === 1, "tutorial release flag created");
+assert(migrated.release.publicRcVersion === 1, "public RC release flag created");
+assert(!!migrated.tutorial && migrated.tutorial.version === 1, "tutorial state created");
 assert(!!migrated.dispatch.shift.calls[0].protocol, "legacy active call enriched with call protocol");
 assert(!!migrated.dispatch.shift.calls[0].triage, "legacy active call enriched with triage");
 assert(!!migrated.dispatch.shift.calls[0].resourceDispatch, "legacy active call enriched with resource dispatch");
@@ -356,7 +359,7 @@ assert(
 
 C190_Save.save(specialState);
 const loaded = C190_Save.load();
-assert(loaded.schema === 27, "schema 27 save reload");
+assert(loaded.schema === 28, "schema 28 save reload");
 assert(C190_Save.validate(loaded), "saved state checksum and structure valid");
 assert(loaded.content.special.completed.includes("cerco_bancario"), "content progression persists");
 

@@ -1,0 +1,26 @@
+{
+  "build": "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT",
+  "version": "2.4.0",
+  "phase": 30,
+  "saveSchema": 28,
+  "javascriptFiles": 22,
+  "javascriptSyntaxOk": true,
+  "cssUrlCount": 53,
+  "cssMissingUrls": [],
+  "domIdCount": 151,
+  "duplicateIds": [],
+  "tutorialSteps": 8,
+  "publicRcChecklist": true,
+  "serviceWorkerCache": "central190-v2.4.0-f30-rc-publica-comercial",
+  "preservedSystems": [
+    "campaign",
+    "realistic cases",
+    "mobile first",
+    "animated units",
+    "field radio",
+    "final balance",
+    "visual assets",
+    "PWA offline"
+  ],
+  "ok": true
+}

@@ -1,4 +1,4 @@
-const CACHE = "central190-v2.3.0-f29-balanceamento-final";
+const CACHE = "central190-v2.4.0-f30-rc-publica-comercial";
 const ASSETS = [
   "./",
   "./index.html",
@@ -7,6 +7,8 @@ const ASSETS = [
   "./js/assets.js",
   "./js/release.js",
   "./js/balance.js",
+  "./js/tutorial.js",
+  "./js/public-rc.js",
   "./js/immersion.js",
   "./js/content.js",
   "./js/campaign.js",

@@ -1,11 +1,11 @@
 {
   "name": "Central 190",
-  "version": "2.3.0",
-  "phase": 29,
-  "build": "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT",
-  "compiledAt": "2026-06-22T12:00:00-03:00",
-  "saveSchema": 27,
-  "title": "Balanceamento final de pontuação, carreira, advertências e dificuldade",
+  "version": "2.4.0",
+  "phase": 30,
+  "build": "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT",
+  "compiledAt": "2026-06-22T12:35:00-03:00",
+  "saveSchema": 28,
+  "title": "RC pública/comercial, tutorial, performance e publicação",
   "preserved": [
     "mobile homologation",
     "animated units",
@@ -17,14 +17,15 @@
     "career",
     "training",
     "visual curation",
-    "realistic multi-step cases"
+    "realistic multi-step cases",
+    "final balance"
   ],
   "added": [
-    "C190_Balance module v1",
-    "weighted final score protocol triage dispatch radio location outcome",
-    "XP reputation caps",
-    "graded warnings",
-    "perfect shift bonus",
-    "release balance breakdown"
+    "C190_Tutorial module v1",
+    "C190_PublicRC checklist v1",
+    "guided first shift",
+    "public release checklist",
+    "PWA cache v2.4.0",
+    "settings duplicate input fix"
   ]
 }

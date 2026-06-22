@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT";
+  const BUILD = "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
@@ -64,6 +64,7 @@
       dispatch: "Plantão contínuo",
       map: "Mapa operacional e despacho",
       content: "Operações e conteúdo",
+      tutorial: "Tutorial e primeira experiência",
       campaign: "Campanha operacional",
       statistics: "Estatísticas avançadas",
       career: "Progressão profissional",
@@ -828,6 +829,59 @@
   }
 
 
+  function tutorialCheckMarkup(items) {
+    return items.map((item) => `<div class="release-check ${item.ok ? "ok" : "pending"}"><span>${item.ok ? "✓" : "!"}</span><div><strong>${esc(item.name)}</strong><small>${esc(item.detail)}</small></div></div>`).join("");
+  }
+  function renderTutorial() {
+    if (!window.C190_Tutorial) return;
+    C190_Tutorial.normalize(state);
+    const summary = C190_Tutorial.summary(state);
+    const completed = new Set(state.tutorial?.completed || []);
+    const activeShift = !!state.dispatch.shift?.active;
+    const badge = $("#tutorialProgressBadge");
+    if (badge) badge.textContent = `${summary.completed}/${summary.total}`;
+    const stepGrid = $("#tutorialStepGrid");
+    if (stepGrid) {
+      stepGrid.innerHTML = C190_Tutorial.STEPS.map((step, index) => {
+        const done = completed.has(step.id);
+        const next = summary.next?.id === step.id;
+        return `<article class="tutorial-step-card ${done ? "done" : ""} ${next ? "next" : ""}"><span>${done ? "✓" : String(index + 1).padStart(2, "0")}</span><h3>${esc(step.title)}</h3><p>${esc(step.detail)}</p><button class="action-btn" data-tutorial-focus="${esc(step.focus)}" data-tutorial-step="${esc(step.id)}">${done ? "Rever etapa" : "Praticar"}</button></article>`;
+      }).join("");
+    }
+    const checklist = $("#tutorialChecklist");
+    if (checklist) checklist.innerHTML = tutorialCheckMarkup(C190_Tutorial.checklist(state));
+    const guided = $("#startGuidedShiftBtn");
+    if (guided) {
+      guided.disabled = activeShift;
+      guided.textContent = activeShift ? "Plantão ativo" : "Iniciar plantão guiado";
+      guided.onclick = () => {
+        if (!launchAllowed()) return;
+        C190_Tutorial.mark(state, "answer");
+        C190_Tutorial.mark(state, "address");
+        const started = C190_Dispatch.startShift(state);
+        if (!started) return toast("Não foi possível iniciar o plantão guiado.", "warning");
+        persist();
+        C190_Immersion?.play?.("ring", state);
+        showScreen("dispatch");
+        toast("Plantão guiado iniciado. Atenda, pergunte endereço e avance por todas as etapas.");
+      };
+    }
+    const campaignBtn = $("#startCampaignTutorialBtn");
+    if (campaignBtn) campaignBtn.onclick = () => { C190_Tutorial.mark(state, "report"); persist(); showScreen("campaign"); toast("Escolha a próxima missão da campanha."); };
+    const readinessBtn = $("#runReadinessBtn");
+    if (readinessBtn) readinessBtn.onclick = () => { state.release.lastDeviceAudit = C190_Release.deviceAudit(); state.tutorial.readinessRuns = Number(state.tutorial.readinessRuns || 0) + 1; persist(); renderTutorial(); toast(state.release.lastDeviceAudit.ok ? "Aparelho aprovado para jogar." : "Há limitações no aparelho, veja Lançamento.", state.release.lastDeviceAudit.ok ? "success" : "warning"); };
+    $$('[data-open-release]').forEach((button) => { button.onclick = () => showScreen("release"); });
+    $$('[data-tutorial-focus]').forEach((button) => {
+      button.onclick = () => {
+        C190_Tutorial.mark(state, button.dataset.tutorialStep);
+        persist();
+        showScreen(button.dataset.tutorialFocus || "dispatch");
+        toast("Etapa marcada como praticada.");
+      };
+    });
+  }
+
+
   function renderCampaign() {
     if (!window.C190_Campaign) return;
     C190_Campaign.normalize(state);
@@ -971,6 +1025,9 @@
     ].map(([value, label]) => `<article class="metric-card"><span>${esc(label)}</span><strong>${esc(value)}</strong></article>`).join("");
     $("#releaseChecklist").innerHTML = releaseCheckMarkup(checklist);
     $("#deviceAuditOutput").innerHTML = releaseCheckMarkup(device.checks || []);
+    const publicRc = window.C190_PublicRC?.score?.(state);
+    const publicRcNode = $("#publicRcChecklist");
+    if (publicRcNode) publicRcNode.innerHTML = releaseCheckMarkup(publicRc?.items || []);
     $("#offlineReleaseStatus").innerHTML = `<strong>${esc(install.label)}</strong><p>${navigator.onLine ? ui.coreOnline : ui.coreOffline}</p><small>${"serviceWorker" in navigator ? ui.workerOk : ui.workerNo}</small>`;
     $("#installAppBtn").disabled = install.code === "installed";
     $("#balanceProfileCard").innerHTML = `<strong>${esc(balance.label)}</strong><p>${esc(balance.description)}</p><div class="release-mini-grid"><span>${esc(ui.escalation)}: ${balance.escalationAt}s</span><span>${esc(ui.abandonment)}: ${balance.abandonLimit}s</span><span>${esc(ui.pace)}: ${Math.round(balance.arrivalFactor * 100)}%</span><span>Balance v${C190_Release.BALANCE_VERSION}</span></div>${balanceSummary ? `<div class="balance-breakdown"><b>Pesos da nota final</b><small>Protocolo ${Math.round(balanceSummary.weights.protocol*100)}% · Triagem ${Math.round(balanceSummary.weights.triage*100)}% · Despacho ${Math.round(balanceSummary.weights.dispatch*100)}% · Rádio ${Math.round(balanceSummary.weights.radio*100)}% · Localização ${Math.round(balanceSummary.weights.location*100)}%</small><small>Limite: ${balanceSummary.economy.maxXpPerCall} XP por chamada · reputação ${balanceSummary.economy.maxRepLossPerCall} a +${balanceSummary.economy.maxRepGainPerCall}</small></div>` : ""}`;
@@ -1037,6 +1094,7 @@
         renderReports();
         renderMap();
         renderContent();
+        renderTutorial();
         renderCampaign();
         renderStatistics();
         renderRelease();
@@ -1350,11 +1408,11 @@
     window.C190_AppDebug = { state: () => state, renderAll, renderDispatch, immersion: () => C190_Immersion?.diagnostics?.(state) };
     C190_I18N.init();
     $("#languageSelect").value = C190_I18N.language;
-    $("#buildLabel").textContent = `${BUILD} · 22/06/2026 10:45:00 BRT`;
+    $("#buildLabel").textContent = `${BUILD} · 22/06/2026 12:35:00 BRT`;
     initEvents();
     renderAll();
     const requestedScreen = location.hash.replace("#", "");
-    if (["dashboard", "dispatch", "map", "content", "campaign", "statistics", "career", "training", "goals", "achievements", "reports", "release", "settings"].includes(requestedScreen)) showScreen(requestedScreen);
+    if (["dashboard", "dispatch", "map", "content", "tutorial", "campaign", "statistics", "career", "training", "goals", "achievements", "reports", "release", "settings"].includes(requestedScreen)) showScreen(requestedScreen);
     startTicker();
     window.C190_Assets?.preload?.().then(() => renderAssetsAudit()).catch(() => renderAssetsAudit());
     window.C190_Assets?.markScreen?.(requestedScreen || "dashboard");
