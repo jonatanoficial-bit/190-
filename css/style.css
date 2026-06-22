@@ -4024,3 +4024,282 @@ body.dispatch-scroll-lock-fix {
     animation: none !important;
   }
 }
+
+/* Fase 27 — v2.1.0: homologação mobile-first, touch e rolagem única
+   Objetivo: impedir que o timer do plantão e containers aninhados disputem a rolagem.
+   A página passa a ter um único scroll principal (#mainContent), com sidebar independente. */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+}
+body {
+  position: fixed;
+  inset: 0;
+  touch-action: manipulation;
+}
+.app-shell {
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden !important;
+}
+.main-content {
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior-y: contain !important;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-gutter: stable both-edges;
+}
+.sidebar {
+  max-height: calc(100dvh - var(--topbar)) !important;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+body.sidebar-open::after {
+  content: "";
+  position: fixed;
+  inset: var(--topbar) 0 0 0;
+  z-index: 74;
+  background: rgba(0, 8, 14, .46);
+  backdrop-filter: blur(2px);
+}
+.sidebar.open {
+  z-index: 95 !important;
+}
+button,
+select,
+input,
+textarea,
+.action-btn,
+.nav-btn,
+.question-btn,
+.triage-btn,
+.radio-action-btn,
+.resource-unit-card {
+  touch-action: manipulation;
+}
+#screen-dispatch .dispatch-layout {
+  width: 100%;
+  min-width: 0;
+}
+#screen-dispatch .dispatch-layout > article,
+#screen-dispatch .panel,
+#activeCall,
+#activeCall [data-active-call],
+.call-list,
+.call-chat,
+.radio-log,
+.resource-unit-grid,
+.radio-action-grid,
+.triage-button-grid,
+.question-grid {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+.call-list,
+.call-chat,
+.radio-log,
+.resource-unit-grid {
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+#screen-dispatch .panel {
+  scroll-margin-top: calc(var(--topbar) + 14px);
+}
+.radio-line,
+.chat-line,
+.call-card,
+.selected-map-call,
+.map-popup-card {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.radio-line span,
+.chat-line span {
+  min-width: 0;
+}
+@media (min-width: 761px) {
+  .main-content {
+    padding-top: calc(var(--topbar) + 18px) !important;
+  }
+  #screen-dispatch .dispatch-layout {
+    grid-template-columns: minmax(220px, .78fr) minmax(390px, 1.54fr) minmax(220px, .78fr) !important;
+    gap: clamp(12px, 1.4vw, 18px) !important;
+  }
+  #screen-dispatch .dispatch-layout > article:nth-child(2) {
+    min-height: min(72dvh, 780px);
+  }
+}
+@media (max-width: 760px) {
+  body {
+    min-height: 100dvh;
+  }
+  .topbar {
+    min-height: calc(60px + env(safe-area-inset-top)) !important;
+    height: calc(60px + env(safe-area-inset-top)) !important;
+    padding-top: env(safe-area-inset-top) !important;
+  }
+  .main-content {
+    padding-top: calc(var(--topbar) + env(safe-area-inset-top) + 8px) !important;
+    padding-left: max(10px, env(safe-area-inset-left)) !important;
+    padding-right: max(10px, env(safe-area-inset-right)) !important;
+    padding-bottom: calc(22px + env(safe-area-inset-bottom)) !important;
+  }
+  .top-actions .compact-btn {
+    padding: 9px 10px;
+    min-width: 44px;
+  }
+  #fullscreenBtn {
+    max-width: 106px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #screen-dispatch .dispatch-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+  #screen-dispatch .dispatch-layout > article:nth-child(1) { order: 2; }
+  #screen-dispatch .dispatch-layout > article:nth-child(2) { order: 1; }
+  #screen-dispatch .dispatch-layout > article:nth-child(3) { order: 3; }
+  #screen-dispatch .dispatch-layout > .dispatch-map-panel { order: 4; }
+  #screen-dispatch .panel,
+  #activeCall .active-protocol-card,
+  .field-radio-panel,
+  .resource-dispatch-panel,
+  .triage-panel {
+    padding: 12px !important;
+    border-radius: 16px !important;
+  }
+  #screen-dispatch .panel > header,
+  .field-radio-panel > header,
+  .resource-dispatch-panel > header,
+  .triage-panel > header {
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .call-meta,
+  .protocol-data-grid,
+  .radio-status-grid,
+  .campaign-briefing-stats {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .call-chat {
+    min-height: 190px !important;
+    max-height: 42dvh !important;
+  }
+  .radio-log {
+    min-height: 230px !important;
+    max-height: 46dvh !important;
+  }
+  .question-btn,
+  .triage-btn,
+  .radio-action-btn,
+  .resource-unit-card,
+  .action-btn,
+  .primary-btn,
+  .secondary-btn {
+    min-height: 48px;
+  }
+  .radio-action-grid,
+  .question-grid,
+  .triage-button-grid,
+  .resource-unit-grid {
+    gap: 10px !important;
+  }
+  .resource-unit-card {
+    grid-template-columns: 44px minmax(0, 1fr) !important;
+    text-align: left;
+  }
+  .map-stage,
+  .leaflet-container,
+  .compact-map {
+    min-height: min(62dvh, 430px) !important;
+    max-height: none;
+  }
+  dialog {
+    max-width: min(94vw, 680px);
+    max-height: 86dvh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+@media (max-width: 430px) {
+  :root { --topbar: 58px; }
+  .brand-block strong { font-size: .8rem; }
+  .icon-btn { width: 40px; height: 40px; }
+  .top-actions { gap: 6px; }
+  #fullscreenBtn { max-width: 92px; font-size: .82rem; }
+  .top-actions select { width: 56px !important; }
+  .screen-heading h1,
+  .hero-card h1 { font-size: clamp(1.45rem, 7.5vw, 1.95rem) !important; }
+  .protocol-data-grid,
+  .radio-status-grid,
+  .call-meta {
+    grid-template-columns: 1fr !important;
+  }
+  .call-chat { min-height: 180px !important; max-height: 39dvh !important; }
+  .radio-log { min-height: 210px !important; max-height: 42dvh !important; }
+  .map-stage,
+  .leaflet-container,
+  .compact-map { min-height: 320px !important; }
+}
+@media (max-height: 560px) and (orientation: landscape) {
+  :root { --topbar: 52px; }
+  .main-content { padding-top: calc(var(--topbar) + 6px) !important; }
+  #screen-dispatch .dispatch-layout { grid-template-columns: 1fr !important; }
+  .call-chat { max-height: 52dvh !important; }
+  .radio-log { max-height: 55dvh !important; }
+}
+@media (max-width: 760px) {
+  .sidebar {
+    top: calc(var(--topbar) + env(safe-area-inset-top)) !important;
+    max-height: calc(100dvh - var(--topbar) - env(safe-area-inset-top)) !important;
+  }
+  body.sidebar-open::after {
+    inset: calc(var(--topbar) + env(safe-area-inset-top)) 0 0 0;
+  }
+}
+#screen-campaign {
+  max-width: var(--visual-content-max, 1240px);
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 760px) {
+  #screen-campaign { max-width: 100%; }
+}
+
+
+/* F28 — ocorrência realista e multi-etapas */
+.case-intel-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin: .75rem 0 1rem;
+}
+.case-intel-strip span {
+  border: 1px solid rgba(64, 224, 208, .35);
+  background: rgba(0, 255, 210, .08);
+  color: var(--accent, #5ef2e4);
+  border-radius: 999px;
+  padding: .36rem .62rem;
+  font-size: .74rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.active-protocol-card .case-intel-strip + .protocol-score,
+.active-protocol-card .case-intel-strip + .protocol-data-grid {
+  margin-top: .65rem;
+}
+@media (max-width: 720px) {
+  .case-intel-strip { gap: .35rem; margin: .55rem 0 .75rem; }
+  .case-intel-strip span { font-size: .68rem; padding: .32rem .52rem; }
+}

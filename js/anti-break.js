@@ -224,8 +224,8 @@ window.C190_AntiBreak = (() => {
       map: mapDiagnostics,
       errors: [...errors],
       timestamp: new Date().toISOString(),
-      version: "2.0.0",
-      build: "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT",
+      version: "2.1.0",
+      build: "CENTRAL190-2100-F27-MOBILE-HOMOLOGATION-TOUCH-SCROLL-20260622-104500-BRT",
     };
   }
 

@@ -77,6 +77,7 @@ window.C190_FieldRadio = (() => {
   }
 
   function opening(call) {
+    if (call?.radioOpening) return call.radioOpening;
     const risk = riskProfile(call);
     if (risk.weapon) return "Copom, equipe informa deslocamento com cautela. Possível risco armado, aguardando cerco seguro.";
     if (risk.fire || risk.weather) return "Central, equipe de resgate em deslocamento. Solicita confirmação de ponto de acesso e isolamento da área.";
@@ -86,6 +87,8 @@ window.C190_FieldRadio = (() => {
   }
 
   function stageText(call, nextStage) {
+    const customBeat = Array.isArray(call?.radioBeats) ? call.radioBeats[nextStage - 1] : null;
+    if (customBeat) return customBeat;
     const risk = riskProfile(call);
     if (nextStage === 1) return "Primeira unidade informa chegada nas proximidades e pede confirmação visual do local.";
     if (nextStage === 2) {

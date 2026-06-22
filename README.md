@@ -1,3 +1,8 @@
+
+# Central 190 v2.2.0 — Fase 28
+
+Build focada em casos realistas, falas variadas e ocorrências multi-etapas, preservando mobile-first, viaturas animadas, rádio, mapa progressivo e carreira.
+
 # Central 190 v1.8.0 — Fase 24 — RC AAA, áudio e imersão
 
 Build: `CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT`  
@@ -59,3 +64,7 @@ Schema 21 com migração automática dos schemas anteriores.
 ### Fase 26 — v2.0.0
 
 A Fase 26 transforma o despacho em acompanhamento visual: as unidades selecionadas passam a se deslocar no mapa em direção à ocorrência. O plantão recebeu proteção contra salto de rolagem, efeito de máquina de escrever e compactação mobile-first.
+
+### Fase 27 — v2.1.0
+
+Homologação mobile-first. A fase ajusta rolagem única, touch, sidebar em overlay, safe-area, layout do plantão em telas pequenas e guardião de renderização para impedir que o timer do plantão puxe a rolagem de volta enquanto o jogador lê chat, rádio e informações da ocorrência.

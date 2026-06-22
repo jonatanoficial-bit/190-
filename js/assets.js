@@ -2,7 +2,7 @@ window.C190_Assets = (() => {
   "use strict";
   const VERSION = "2.0.0";
   const PHASE = "25";
-  const BUILD = "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT";
+  const BUILD = "CENTRAL190-2100-F27-MOBILE-HOMOLOGATION-TOUCH-SCROLL-20260622-104500-BRT";
   const required = [
     "assets/badges/central190-brand.svg",
     "assets/backgrounds/bg-central-room.webp",

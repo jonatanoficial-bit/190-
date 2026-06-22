@@ -107,7 +107,25 @@ window.C190_Campaign = (() => {
       briefing: "A cidade escureceu. Concentre recursos nos riscos à vida, infraestrutura crítica e escalada de segurança.",
       objectives: ["priorizar vida acima de patrimônio", "acionar múltiplos órgãos", "nota final mínima 82"],
     },
-  ];
+
+    {
+      id: "turno_realista",
+      chapter: 7,
+      title: "Turno realista — fatos incompletos",
+      subtitle: "Boato, endereço confuso, vítima vulnerável e rádio em múltiplas etapas.",
+      cityId: "sp",
+      minRank: 2,
+      minShifts: 6,
+      requiredScore: 72,
+      templateIds: ["wrong_address_followup", "false_call_pattern", "mall_panic", "stroke_home", "school_gate_threat"],
+      objectives: [
+        "Não descarte chamadas ambíguas antes de coletar dados verificáveis.",
+        "Use referência quando endereço estiver incompleto.",
+        "Faça triagem sem confundir boato com fato confirmado.",
+        "Acompanhe rádio até o encerramento operacional."
+      ],
+      reward: { xp: 900, rep: 6 },
+    },  ];
 
   const clone = (value) => JSON.parse(JSON.stringify(value));
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));

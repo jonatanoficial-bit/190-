@@ -67,7 +67,27 @@ window.C190_Content = (() => {
       templateIds: ["power_outage", "elevator_trapped", "traffic_blackout", "hospital_generator", "looting_risk", "fire_electrical"],
       reward: { xp: 1600, rep: 10 },
     },
-  ];
+
+    {
+      id: "trama_urbana",
+      icon: "◇",
+      name: "Trama Urbana",
+      desc: "Casos realistas conectam escola, ônibus retido, shopping em pânico e roubo recém-ocorrido, exigindo leitura cuidadosa de boatos e fatos.",
+      minRank: 2,
+      cityId: "sp",
+      templateIds: ["school_gate_threat", "bus_hijack_partial", "mall_panic", "market_robbery_after", "false_call_pattern"],
+      reward: { xp: 1200, rep: 7 },
+    },
+    {
+      id: "fronteira_resgate",
+      icon: "△",
+      name: "Fronteira de Resgate",
+      desc: "Atendimento complexo em áreas remotas, encostas, rios e área rural com referência difícil e risco real de despacho errado.",
+      minRank: 3,
+      cityId: "manaus",
+      templateIds: ["river_child_missing", "landslide_home", "rural_domestic_shot", "factory_smoke", "gas_leak_building"],
+      reward: { xp: 1450, rep: 8 },
+    },  ];
 
   const dailyDeck = [
     { id: "daily_resolve", name: "Linha sem falhas", desc: "Resolva 3 ocorrências hoje.", metric: "resolved", target: 3, reward: { xp: 220, rep: 2 } },

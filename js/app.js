@@ -1,9 +1,11 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-2000-F26-FIELD-UNITS-SCROLL-TYPEWRITER-20260622-101500-BRT";
+  const BUILD = "CENTRAL190-2200-F28-CASOS-REALISTAS-MULTIETAPAS-20260622-112500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
+  let dispatchInteractionUntil = 0;
+  let dispatchDeferredRender = null;
   let selectedMapCallId = null;
   let selectedCampaignMissionId = null;
   const typedLineKeys = new Set();
@@ -51,6 +53,7 @@
       b.classList.toggle("active", b.dataset.screen === name),
     );
     $("#sidebar").classList.remove("open");
+    document.body.classList.remove("sidebar-open");
     $("#mainContent").scrollTop = 0;
     window.scrollTo(0, 0);
     window.C190_Assets?.markScreen?.(name);
@@ -184,6 +187,39 @@
     return " typewriter-line";
   }
 
+  function isDispatchScreenActive() {
+    return !!$("#screen-dispatch.active");
+  }
+
+  function markDispatchInteraction(duration = 950) {
+    if (!isDispatchScreenActive()) return;
+    dispatchInteractionUntil = Math.max(dispatchInteractionUntil, Date.now() + duration);
+  }
+
+  function dispatchRenderIsSafe() {
+    return !isDispatchScreenActive() || Date.now() >= dispatchInteractionUntil;
+  }
+
+  function updateDispatchLite() {
+    const sh = state.dispatch.shift;
+    const status = $("#shiftStatus");
+    if (status) {
+      status.textContent = sh?.active
+        ? `${sh.modeLabel || "Plantão ativo"} · ${sh.elapsed}s · resolvidas ${sh.resolved} · falhas ${sh.failed} · abandonadas ${sh.abandoned}${sh.affectsCareer === false ? " · sem impacto na carreira" : ""}`
+        : "Nenhum plantão ativo. Escolha um modo de jogo ou inicie um plantão de carreira.";
+    }
+    const queueCount = $("#queueCount");
+    if (queueCount) queueCount.textContent = sh?.calls?.filter((c) => c.status === "waiting").length || 0;
+  }
+
+  function scheduleDispatchRenderAfterIdle() {
+    clearTimeout(dispatchDeferredRender);
+    dispatchDeferredRender = setTimeout(() => {
+      if (state.dispatch.shift?.active && dispatchRenderIsSafe()) renderDispatch();
+      else if (state.dispatch.shift?.active) scheduleDispatchRenderAfterIdle();
+    }, 980);
+  }
+
   function renderDispatch() {
     const scrollSnapshot = captureDispatchScrollState();
     const sh = state.dispatch.shift;
@@ -223,6 +259,11 @@
   }
   function dataChip(label, ok, value = "") {
     return `<span class="protocol-chip ${ok ? "ok" : "missing"}"><b>${esc(label)}</b>${value ? `<small>${esc(value)}</small>` : ""}</span>`;
+  }
+  function caseIntel(call) {
+    const items = [call?.caseProfile, call?.complexity, Array.isArray(call?.radioBeats) && call.radioBeats.length ? `${call.radioBeats.length} etapas de rádio` : ""].filter(Boolean);
+    if (!items.length) return "";
+    return `<div class="case-intel-strip" aria-label="Inteligência da ocorrência">${items.map((item) => `<span>${esc(item)}</span>`).join("")}</div>`;
   }
   function transcriptLine(line) {
     return `<div class="chat-line ${line.role === "operator" ? "operator" : "caller"}${typewriterClass("chat", line)}"><b>${line.role === "operator" ? "Operador" : "Chamador"}</b><span>${esc(line.text)}</span></div>`;
@@ -288,6 +329,7 @@
         <div class="call-meta"><span>${priorityLabel(c.priority)}</span><span>${c.wait}s espera</span></div>
         <h3>${esc(c.type)}</h3>
         <p>${esc(c.summary)}</p>
+        ${caseIntel(c)}
         <div class="protocol-data-grid">
           ${dataChip("Precisão do mapa", locationKnown, locationIntel?.label || "bloqueado")}
           ${dataChip("Protocolo", !!c.protocolResult, c.protocolResult?.grade || evaluation.grade || "")}
@@ -302,6 +344,7 @@
       <div class="call-meta"><span>${priorityLabel(c.priority)}</span><span>${c.wait}s espera</span></div>
       <h3>${esc(c.type)}</h3>
       <p>${esc(c.summary)}</p>
+      ${caseIntel(c)}
       <div class="protocol-score"><span>Protocolo de atendimento</span><strong>${evaluation.grade}</strong><div class="progress"><i style="width:${Math.max(0, Math.min(100, evaluation.finalProtocolScore || 0))}%"></i></div><small>${evaluation.detail.map(esc).join(" · ")}</small></div>
       <div class="protocol-data-grid">
         ${dataChip("Precisão do mapa", locationKnown, locationIntel?.label || "bloqueado")}
@@ -1041,7 +1084,32 @@
     $$(".nav-btn").forEach(
       (b) => (b.onclick = () => showScreen(b.dataset.screen)),
     );
-    $("#menuToggle").onclick = () => $("#sidebar").classList.toggle("open");
+    $("#menuToggle").onclick = () => {
+      const sidebar = $("#sidebar");
+      sidebar.classList.toggle("open");
+      document.body.classList.toggle("sidebar-open", sidebar.classList.contains("open"));
+    };
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        $("#sidebar")?.classList.remove("open");
+        document.body.classList.remove("sidebar-open");
+      }
+    });
+    document.addEventListener("click", (event) => {
+      const sidebar = $("#sidebar");
+      if (!sidebar?.classList.contains("open")) return;
+      if (event.target.closest("#sidebar") || event.target.closest("#menuToggle")) return;
+      sidebar.classList.remove("open");
+      document.body.classList.remove("sidebar-open");
+    }, true);
+    ["scroll", "wheel", "touchmove", "pointerdown", "keydown"].forEach((eventName) => {
+      document.addEventListener(eventName, (event) => {
+        if (!isDispatchScreenActive()) return;
+        if (event.target?.closest?.("#screen-dispatch") || event.target === document || event.target === document.body) {
+          markDispatchInteraction(eventName === "scroll" ? 1250 : 950);
+        }
+      }, { passive: true, capture: true });
+    });
     $("#languageSelect").value = C190_I18N.language;
     $("#languageSelect").onchange = (e) => {
       C190_I18N.setLanguage(e.target.value);
@@ -1268,7 +1336,12 @@
           C190_Save.save(state);
           autosaveTick = 0;
         }
-        renderDispatch();
+        if (dispatchRenderIsSafe()) {
+          renderDispatch();
+        } else {
+          updateDispatchLite();
+          scheduleDispatchRenderAfterIdle();
+        }
       }
     }, 1000);
   }
@@ -1276,7 +1349,7 @@
     window.C190_AppDebug = { state: () => state, renderAll, renderDispatch, immersion: () => C190_Immersion?.diagnostics?.(state) };
     C190_I18N.init();
     $("#languageSelect").value = C190_I18N.language;
-    $("#buildLabel").textContent = `${BUILD} · 22/06/2026 10:15:00 BRT`;
+    $("#buildLabel").textContent = `${BUILD} · 22/06/2026 10:45:00 BRT`;
     initEvents();
     renderAll();
     const requestedScreen = location.hash.replace("#", "");

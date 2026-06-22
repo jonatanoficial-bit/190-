@@ -120,8 +120,8 @@ const migrated = C190_Save.migrate({
     reports: [],
   },
 });
-assert(migrated.schema === 22, "migration schema 12 to 22");
-assert(migrated.version === "1.8.0", "migration version");
+assert(migrated.schema === 26, "migration schema 12 to 26");
+assert(migrated.version === "2.2.0", "migration version");
 assert(migrated.profile.callSign === "Atlas", "migration profile");
 assert(migrated.career.xp === 500, "migration XP");
 assert(migrated.settings.mapMode === "auto", "invalid map mode normalized");
@@ -135,7 +135,7 @@ assert(
   "legacy active call enriched with coordinates",
 );
 assert(migrated.release.balanceVersion === 2, "release balance state created");
-assert(migrated.release.callProtocolVersion === 2, "call protocol release flag created");
+assert(migrated.release.callProtocolVersion === 3, "call protocol release flag created");
 assert(migrated.release.locationIntelVersion === 1, "location intel release flag created");
 assert(migrated.release.triageVersion === 1, "triage release flag created");
 assert(migrated.release.resourceDispatchVersion === 1, "resource dispatch release flag created");
@@ -268,7 +268,7 @@ let asked = C190_Dispatch.askQuestion(protocolState, firstProtocolCall.id, "addr
 assert(asked.ok && firstProtocolCall.locationRevealed, "address question reveals location");
 asked = C190_Dispatch.askQuestion(protocolState, firstProtocolCall.id, "unsafe_confront");
 assert(asked.ok && firstProtocolCall.protocol.mistakes.length === 1, "unsafe question is penalized");
-for (const question of ["neighborhood", "street", "number", "reference", "situation", "victims", "weapons", "safety", "caller"]) C190_Dispatch.askQuestion(protocolState, firstProtocolCall.id, question);
+for (const question of ["neighborhood", "street", "number", "reference", "situation", "victims", "weapons", "safety", "caller", "aggressor", "people", "medical", "hazards", "calm"]) C190_Dispatch.askQuestion(protocolState, firstProtocolCall.id, question);
 const protocolEvaluation = C190_CallProtocol.evaluate(firstProtocolCall);
 assert(protocolEvaluation.percent >= 75, "protocol completeness calculated");
 const recTriage = C190_Triage.evaluate(firstProtocolCall).recommended;
@@ -340,8 +340,8 @@ assert(specialState.content.special.completed.filter((id) => id === "cerco_banca
 assert(specialState.career.xp > firstRewardXp, "replay keeps normal call XP");
 
 assert(C190_Content.cities.length === 9, "nine city modules");
-assert(C190_Content.specialCases.length === 5, "five special operations");
-assert(C190_Dispatch.templates.length >= 30, "commercial incident library expanded");
+assert(C190_Content.specialCases.length === 7, "seven special operations including F28");
+assert(C190_Dispatch.templates.length >= 50, "realistic incident library expanded");
 assert(C190_Immersion.VERSION === 1, "immersion module loaded");
 assert(C190_Immersion.diagnostics(C190_Save.defaultState()).externalAudioFiles === 0, "immersion uses generated local audio");
 assert(
@@ -355,7 +355,7 @@ assert(
 
 C190_Save.save(specialState);
 const loaded = C190_Save.load();
-assert(loaded.schema === 22, "schema 22 save reload");
+assert(loaded.schema === 26, "schema 26 save reload");
 assert(C190_Save.validate(loaded), "saved state checksum and structure valid");
 assert(loaded.content.special.completed.includes("cerco_bancario"), "content progression persists");
 

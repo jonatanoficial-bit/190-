@@ -1,12 +1,38 @@
-# Build Report — Central 190 v1.9.0 Fase 25
+# Build Report — Fase 28 v2.2.0
 
-Build: CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT
+Casos realistas, falas variadas e multi-etapas adicionados sobre a Fase 27.
 
-Resumo: adicionada Campanha Operacional com 6 missões narrativas, progressão, recompensas e integração completa ao fluxo real de plantão.
+- Save schema 26
+- 18 novos templates
+- 2 operações especiais
+- 1 missão de campanha
+- Sintaxe JS validada
 
+# Build Report — Central 190 v2.1.0 Fase 27
 
-## Fase 26 — v2.0.0
+Build: `CENTRAL190-2100-F27-MOBILE-HOMOLOGATION-TOUCH-SCROLL-20260622-104500-BRT`
+Versão: `2.1.0`
+Fase: `27`
+Save schema: `25`
 
-Build: `CENTRAL190-2000-F26-FIELD-UNITS-SCROLL-TYPEWRITER-20260622-101500-BRT`
+## Entrega
 
-Escopo: viaturas animadas, rolagem estável em plantão/rádio/chat, efeito de máquina de escrever e auditoria de assets/código.
+Fase de homologação mobile-first com foco em touch, rolagem, menu lateral, layout do plantão e estabilidade do timer.
+
+## Sistemas preservados
+
+- Campanha operacional.
+- Atendimento por chat.
+- Triagem e prioridade.
+- Mapa real/tático com localização progressiva.
+- Despacho de PM, Bombeiros, SAMU e Defesa Civil.
+- Viaturas animadas no mapa.
+- Rádio operacional.
+- Cursos/Academia 190.
+- Carreira, patentes, XP, reputação, advertências e conquistas.
+- Áudio por código e efeito máquina de escrever.
+- Fundos fotográficos e assets curados.
+
+## Auditoria
+
+Ver `AUDIT_F27.md` e `tests/F27_STATIC_AUDIT.json`.

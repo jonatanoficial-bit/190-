@@ -1,28 +1,30 @@
 {
   "name": "Central 190",
-  "version": "2.0.0",
-  "phase": 26,
-  "build": "CENTRAL190-2000-F26-FIELD-UNITS-SCROLL-TYPEWRITER-20260622-101500-BRT",
-  "compiledAt": "2026-06-22T10:15:00-03:00",
-  "saveSchema": 24,
-  "title": "Viaturas Animadas, Rolagem Estável e Máquina de Escrever",
+  "version": "2.2.0",
+  "phase": 28,
+  "build": "CENTRAL190-2200-F28-CASOS-REALISTAS-MULTIETAPAS-20260622-112500-BRT",
+  "compiledAt": "2026-06-22T11:25:00-03:00",
+  "saveSchema": 26,
+  "title": "Casos realistas, falas variadas e ocorrências multi-etapas",
   "preserved": [
-    "campaign",
-    "visual assets",
-    "mobile-first layout",
-    "call protocol",
-    "triage",
-    "progressive map",
-    "resource dispatch",
+    "mobile homologation",
+    "animated units",
+    "typewriter",
     "field radio",
-    "training academy",
-    "immersion audio"
+    "resource dispatch",
+    "progressive map",
+    "campaign",
+    "career",
+    "training",
+    "visual curation"
   ],
   "added": [
-    "field units animation",
-    "scroll stability guard",
-    "typewriter effect",
-    "mobile dispatch compaction",
-    "map moving unit diagnostics"
+    "18 realistic occurrence templates",
+    "custom caller profiles per case",
+    "custom radio beats per case",
+    "two new special operations",
+    "new campaign mission Turno realista",
+    "case intelligence strip in active call",
+    "fixed duplicated resolved counter"
   ]
 }

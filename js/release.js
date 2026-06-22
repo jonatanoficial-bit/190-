@@ -1,10 +1,10 @@
 window.C190_Release = (() => {
   "use strict";
 
-  const VERSION = "2.0.0";
-  const PHASE = 26;
+  const VERSION = "2.2.0";
+  const PHASE = 28;
   const BALANCE_VERSION = 2;
-  const BUILD = "CENTRAL190-1900-F25-CAMPANHA-OPERACIONAL-20260620-183500-BRT";
+  const BUILD = "CENTRAL190-2200-F28-CASOS-REALISTAS-MULTIETAPAS-20260622-112500-BRT";
   const DEFAULT_CITY = { lat: -23.55052, lng: -46.63331, label: "São Paulo — SP" };
   let deferredInstallPrompt = null;
 
@@ -100,6 +100,7 @@ window.C190_Release = (() => {
       radioFx: true,
       vibration: true,
       immersiveHud: true,
+      mobileViewportMode: "single-scroll-root",
     };
     state.settings = { ...defaults, ...state.settings, telemetry: false };
     state.release = {
@@ -107,14 +108,16 @@ window.C190_Release = (() => {
       phase: PHASE,
       balanceVersion: BALANCE_VERSION,
       visualRecovery: 1,
-      callProtocolVersion: 2,
+      callProtocolVersion: 3,
       triageVersion: 1,
       locationIntelVersion: 1,
       resourceDispatchVersion: 1,
       fieldRadioVersion: 1,
       trainingAcademyVersion: 1,
       immersionVersion: 1,
-      campaignVersion: 1,
+      campaignVersion: 2,
+      scenarioDepthVersion: 1,
+      mobileHomologationVersion: 1,
       firstOpenedAt: state.release?.firstOpenedAt || new Date().toISOString(),
       notesSeen: !!state.release?.notesSeen,
       privacySeen: !!state.release?.privacySeen,

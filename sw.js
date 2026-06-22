@@ -1,4 +1,4 @@
-const CACHE = "central190-v2.0.0-f26-field-units-scroll-typewriter";
+const CACHE = "central190-v2.2.0-f28-casos-realistas-multietapas";
 const ASSETS = [
   "./",
   "./index.html",

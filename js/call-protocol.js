@@ -1,7 +1,7 @@
 window.C190_CallProtocol = (() => {
   "use strict";
 
-  const VERSION = 2;
+  const VERSION = 3;
 
   const QUESTION_BANK = [
     { id: "neighborhood", label: "Qual bairro ou setor da cidade?", short: "Bairro/setor", field: "neighborhood", category: "localização", score: 2, confidence: 0.25 },
@@ -79,6 +79,11 @@ window.C190_CallProtocol = (() => {
     }
     if (["traffic", "health"].includes(category) || tags.includes("traffic")) required.add("medical");
     if (["fire", "infrastructure", "weather", "remote"].includes(category) || tags.includes("weather")) required.add("hazards");
+    if (Array.isArray(call?.requiredQuestions)) call.requiredQuestions.forEach((id) => required.add(id));
+    if (call?.complexity) {
+      if (["caso multi-etapas", "área remota armada", "localização difícil"].includes(call.complexity)) required.add("reference");
+      if (["triagem médica", "saúde + multidão", "saúde + rede de apoio"].includes(call.complexity)) required.add("medical");
+    }
     return [...required];
   }
 
@@ -108,7 +113,10 @@ window.C190_CallProtocol = (() => {
       delay: "Moço, não dá para esperar. A situação pode piorar agora.",
     };
     const locationProfile = window.C190_LocationIntel?.enrichProfile?.(call) || {};
-    return { ...base, ...locationProfile, opening: openings[category] || openings.default };
+    const customProfile = call?.callProfile && typeof call.callProfile === "object" ? call.callProfile : {};
+    const customOpening = customProfile.opening || call?.opening || openings[category] || openings.default;
+    const openingLines = Array.isArray(customProfile.openingLines) && customProfile.openingLines.length ? customProfile.openingLines : [customOpening];
+    return { ...base, ...locationProfile, ...customProfile, opening: customOpening, openingLines };
   }
 
   function create(call) {
@@ -127,9 +135,7 @@ window.C190_CallProtocol = (() => {
       locationConfidence: 0,
       completed: false,
       evaluation: null,
-      transcript: [
-        { role: "caller", text: profile.opening, at: new Date().toISOString() },
-      ],
+      transcript: (profile.openingLines || [profile.opening]).map((text) => ({ role: "caller", text, at: new Date().toISOString() })),
     };
   }
 

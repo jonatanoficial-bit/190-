@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "jsFilesChecked": 19,
+  "cssUrls": 52,
+  "missingCssUrls": [],
+  "templates": 51,
+  "newF28Templates": 19,
+  "complexCases": 19,
+  "specialOperations": 7,
+  "campaignMissions": 7,
+  "saveSchema": 26,
+  "callProtocolVersion": 3,
+  "releaseVersion": "2.2.0",
+  "duplicateResolvedCounterFixed": true,
+  "serviceWorkerCache": "central190-v2.2.0-f28-casos-realistas-multietapas"
+}

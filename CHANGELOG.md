@@ -1,3 +1,13 @@
+
+## v2.2.0 — Fase 28 — Casos realistas e multi-etapas
+
+- 18 novas ocorrências realistas.
+- Falas específicas por ocorrência.
+- Rádio com evolução própria por caso.
+- Novas operações especiais: Trama Urbana e Fronteira de Resgate.
+- Nova missão de campanha: Turno realista.
+- Correção do contador duplicado de ocorrências resolvidas.
+
 # Central 190 v1.8.0 — Fase 24 — RC AAA, áudio e imersão
 
 Build: `CENTRAL190-1800-F24-RC-AAA-IMERSAO-20260620-173000-BRT`  
@@ -66,3 +76,12 @@ Build: `CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT`
 - Adiciona efeito de máquina de escrever em novas mensagens do chamador, operador e rádio.
 - Otimiza layout do plantão em mobile, tablet e desktop.
 - Atualiza cache PWA para v2.0.0 e save schema 24.
+
+## v2.1.0 — Fase 27 — Homologação mobile, touch e rolagem
+
+- Define `#mainContent` como raiz única de rolagem do jogo.
+- Evita que `body`, `sidebar`, chat, rádio e timer disputem a rolagem.
+- Adiciona guardião de renderização no plantão para não puxar o usuário de volta ao topo enquanto ele lê as informações.
+- Reorganiza o plantão no mobile: atendimento ativo primeiro, fila depois, pausadas depois, mapa por último.
+- Melhora overlay do menu lateral, fechamento por clique fora e Escape.
+- Atualiza save schema para 25 e cache PWA para v2.1.0.

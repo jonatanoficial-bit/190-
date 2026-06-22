@@ -1,0 +1,114 @@
+{
+  "build": "CENTRAL190-2100-F27-MOBILE-HOMOLOGATION-TOUCH-SCROLL-20260622-104500-BRT",
+  "version": "2.1.0",
+  "phase": 27,
+  "checks": [
+    {
+      "name": "Sintaxe JavaScript",
+      "ok": true,
+      "detail": "19 arquivos verificados"
+    },
+    {
+      "name": "URLs de assets no CSS",
+      "ok": true,
+      "detail": "52 URLs, ausentes: []"
+    },
+    {
+      "name": "Build F27 no app",
+      "ok": true,
+      "detail": "app.js atualizado"
+    },
+    {
+      "name": "Save schema 25",
+      "ok": true,
+      "detail": "migração v24→v25 preservada"
+    },
+    {
+      "name": "Cache PWA v2.1.0",
+      "ok": true,
+      "detail": "service worker atualizado"
+    },
+    {
+      "name": "Título/versão HTML",
+      "ok": true,
+      "detail": "index atualizado"
+    },
+    {
+      "name": "CSS mobile contém overflow: hidden !important",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "CSS mobile contém height: 100dvh !important",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "CSS mobile contém overflow-y: auto !important",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "CSS mobile contém body.sidebar-open::after",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "CSS mobile contém order: 1",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "CSS mobile contém order: 2",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "CSS mobile contém touch-action: pan-y",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "CSS mobile contém -webkit-overflow-scrolling: touch",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "CSS mobile contém @media (max-width: 430px)",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "Guardião de rolagem dispatchInteractionUntil",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "Guardião de rolagem markDispatchInteraction",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "Guardião de rolagem dispatchRenderIsSafe",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "Guardião de rolagem updateDispatchLite",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "Guardião de rolagem scheduleDispatchRenderAfterIdle",
+      "ok": true,
+      "detail": "presente"
+    },
+    {
+      "name": "Assets principais presentes",
+      "ok": true,
+      "detail": "11/11 presentes"
+    }
+  ],
+  "passed": 21,
+  "failed": 0
+}
