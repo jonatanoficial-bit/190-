@@ -1,3 +1,11 @@
+## v2.8.0 — Fase 34
+
+- [x] Sons de ocorrência por categoria.
+- [x] Voz PT-BR do chamador.
+- [x] Voz PT-BR do rádio.
+- [x] Controles em Configurações.
+- [x] Sem arquivos externos de áudio.
+
 # Checklist — Central 190 v2.4.0 Fase 30
 
 - [x] Tutorial operacional criado.

@@ -1,0 +1,10 @@
+{
+  "build": "CENTRAL190-2710-F33-1-HOTFIX-TUTORIAL-VISIVEL-20260623-122800-BRT",
+  "version": "2.7.1",
+  "phase": 33.1,
+  "tutorialButtonMovedUp": true,
+  "tutorialStickyHeading": true,
+  "tutorialScrollTopGuard": true,
+  "saveSchema": 29,
+  "status": "ok"
+}

@@ -1,3 +1,11 @@
+## v2.8.0 — Fase 34 — Áudio de ocorrência e voz PT-BR
+
+- Adicionados sons de ocorrência por categoria: fogo/resgate, médico/SAMU, pânico/risco e chuva/desastre.
+- Adicionada voz PT-BR por síntese do navegador.
+- O chamador e o rádio operacional podem ser narrados.
+- Novos controles em Configurações.
+- Mantém o ZIP leve: nenhum MP3/WAV/OGG externo.
+
 # Central 190 v2.3.0 — Fase 29
 
 Build: CENTRAL190-2300-F29-BALANCEAMENTO-FINAL-20260622-120000-BRT

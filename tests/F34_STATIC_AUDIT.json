@@ -1,0 +1,15 @@
+{
+  "build": "CENTRAL190-2800-F34-AUDIO-VOZ-PTBR-20260623-123800-BRT",
+  "version": "2.8.0",
+  "phase": 34,
+  "saveSchema": 30,
+  "features": {
+    "webAudioOccurrenceFx": true,
+    "speechSynthesisPtBr": true,
+    "callerVoice": true,
+    "radioVoice": true,
+    "settingsControls": true,
+    "externalAudioFiles": 0
+  },
+  "status": "ok"
+}

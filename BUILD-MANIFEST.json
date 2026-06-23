@@ -1,9 +1,9 @@
 {
   "name": "Central 190",
-  "version": "2.7.0",
-  "phase": 33,
-  "build": "CENTRAL190-2700-F33-DEFESA-CIVIL-AGUIA-20260623-121500-BRT",
-  "fileCount": 175,
+  "version": "2.8.0",
+  "phase": 34,
+  "build": "CENTRAL190-2800-F34-AUDIO-VOZ-PTBR-20260623-123800-BRT",
+  "fileCount": 181,
   "files": [
     {
       "path": "ASSET_PATHS_REQUIRED.txt",
@@ -131,49 +131,59 @@
       "sha256": "ab3f41ac7159d1779d161b1ca232e6efefa4d9d7e7dcda53f61a056ea8d90324"
     },
     {
+      "path": "AUDIT_F33_1.md",
+      "size": 357,
+      "sha256": "47c6817ca07bd231257c22d05bb25f74be2779027702cd6165ce8942cd323b6f"
+    },
+    {
+      "path": "AUDIT_F34.md",
+      "size": 460,
+      "sha256": "09fae4936fab11d32744d26b6dba2260e8ef5c5b307b1ec4153e0ca4cb8648d5"
+    },
+    {
       "path": "BUILD-MANIFEST.json",
-      "size": 28003,
-      "sha256": "a2b15fd3cb5fa6d5d5bdbb1498c00c8d5d09226b301c11ca22fb3ce4fef55e47"
+      "size": 28491,
+      "sha256": "54621b26675f3aa8ef03de1f61f444ec2baba1a965934c07c20d7e41ea316566"
     },
     {
       "path": "BUILD-REPORT.md",
-      "size": 1065,
-      "sha256": "c21af283eb2fa57040a91069a86efa361e012c3336633416cf0e3d4887d4fbb5"
+      "size": 1226,
+      "sha256": "e59786a76a6543831052a40020c4cb5f68ffe5b4f9c954d8f3d5ac50e3147a21"
     },
     {
       "path": "BUILD_INFO.json",
-      "size": 836,
-      "sha256": "f8658e43a8f7388b8f24b825e311274ba9f91151dc1042039713f054c460cabb"
+      "size": 959,
+      "sha256": "18fce596a34966df038f49bc6f8846655f7163ee589ceb32283a1baeb5d06355"
     },
     {
       "path": "BUILD_MANIFEST.json",
-      "size": 28003,
-      "sha256": "a2b15fd3cb5fa6d5d5bdbb1498c00c8d5d09226b301c11ca22fb3ce4fef55e47"
+      "size": 28491,
+      "sha256": "54621b26675f3aa8ef03de1f61f444ec2baba1a965934c07c20d7e41ea316566"
     },
     {
       "path": "CHANGELOG.md",
-      "size": 5478,
-      "sha256": "95f8b9a6c589c854ff74b51119303d92273f1450a86de44081693708b5073317"
+      "size": 5843,
+      "sha256": "ba778a23ade104dca672189705f4ebc76d25354757d9be783ebc6e3092842931"
     },
     {
       "path": "CHECKLIST.md",
-      "size": 1251,
-      "sha256": "3bede47dd4f5e2364afe49e5eeac889a85e64ef5d68bcdd9c399f842e98c1fca"
+      "size": 1447,
+      "sha256": "a0da95e98a210da8acad517cdc6a70bf2ac78a62b8b1402f3b51563de53ee0a3"
     },
     {
       "path": "FILE-MANIFEST.sha256",
-      "size": 16058,
-      "sha256": "9f03c4c4654aa9f2f359e64e618d4d087982c67e69e0006d6fcfc32b9b4d6f6e"
+      "size": 16339,
+      "sha256": "5d54911212cf6bac2d968bbe94476e6f9e93f5fbfcb0dfef5e38df4ca815b56c"
     },
     {
       "path": "README.md",
-      "size": 1588,
-      "sha256": "5d584d8090fbfe733e5e7ef7bcd7094b82e93888f804e8c376b70ef2e0c15bcf"
+      "size": 1787,
+      "sha256": "2324ffdf343f3f5e3eb2c052e5e654a27e511f0d75cbcd178722b41af62996a0"
     },
     {
       "path": "TEST-REPORT.md",
-      "size": 1311,
-      "sha256": "ed4b0e10a430a03e6d164f700284815c4c3de14c5b2755c05ef3447662358fa8"
+      "size": 1481,
+      "sha256": "52ad43daca43c9ead2e9cc39400103f32241d0249773561a304aad4a23d7021f"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -182,8 +192,8 @@
     },
     {
       "path": "VERSION.txt",
-      "size": 135,
-      "sha256": "8c1d9776053fc39e147de5ee7e9e728b1ae8f240b30716ce31003c373d0fa5c0"
+      "size": 147,
+      "sha256": "8647728748eb4683f11fe877c6c49233083ddaf0c7ac3ceacc8a3319a5859add"
     },
     {
       "path": "assets/backgrounds/bg-career-room.webp",
@@ -382,13 +392,18 @@
     },
     {
       "path": "css/style.css",
-      "size": 120369,
-      "sha256": "3cf947d989bc06c7f8047b79fcba66a5ab13567e8a3fbdaa0337eeca6f4884fc"
+      "size": 125258,
+      "sha256": "3831beddf018152f11e033ed113e1adae38fbdf9cfea35a4288ab4a2de85fc7e"
     },
     {
       "path": "docs/ATENDIMENTO_REAL_F18.md",
       "size": 1322,
       "sha256": "afcd24d7eebb110e6a0c6ca06fb69c2e17de2d5a4ce40ac8209ce799121b1f94"
+    },
+    {
+      "path": "docs/AUDIO_VOZ_PTBR_F34.md",
+      "size": 702,
+      "sha256": "557e99658679a4d67beffa582250ec0d31256366b3dfea8359ee50bba20ded74"
     },
     {
       "path": "docs/BALANCEAMENTO_FINAL_F29.md",
@@ -454,6 +469,11 @@
       "path": "docs/HOTFIX_FUNDOS_CINEMATICOS_F23_1.md",
       "size": 1285,
       "sha256": "b324ef7eea7e3c0bc9dc4ab4ea93e04e42e521160b094e0342a20c2aeba9c243"
+    },
+    {
+      "path": "docs/HOTFIX_TUTORIAL_VISIVEL_F33_1.md",
+      "size": 570,
+      "sha256": "c2ddcdfbcb01e55444db76710403c4041279b058464791d2805e084aa78babe2"
     },
     {
       "path": "docs/MAPA_PROGRESSIVO_F20.md",
@@ -542,8 +562,8 @@
     },
     {
       "path": "index.html",
-      "size": 41034,
-      "sha256": "47041542cd64e31ad837de6f2114d3e6a143b10ae62d0e2ee896c20d5862e446"
+      "size": 42043,
+      "sha256": "0695e28f857acfb17e8d6004131b84362d45ead2582f8524facef2b71c1780b9"
     },
     {
       "path": "js/anti-break.js",
@@ -552,13 +572,13 @@
     },
     {
       "path": "js/app.js",
-      "size": 90982,
-      "sha256": "9776c33f91eaccaa91a2d1e6f91fc7e52b2cd42c993c1256f7bf50d420b07cbd"
+      "size": 95468,
+      "sha256": "954c25f865ab21a630141618859f2e9a47a6060be1c068e99c23276c23f748e4"
     },
     {
       "path": "js/assets.js",
-      "size": 4360,
-      "sha256": "06b56af8f144e5ef9e0f1e31e9cda7acde5d14d40cd33921070d0002077f7a40"
+      "size": 4354,
+      "sha256": "7e5ce9407da38e194b01a7ed9dc676c93058390e94616c88aaeef0bdc90adec9"
     },
     {
       "path": "js/balance.js",
@@ -607,8 +627,8 @@
     },
     {
       "path": "js/immersion.js",
-      "size": 6232,
-      "sha256": "b424c07a46019a542cec492d270aaf6cee6a6bcf15087f73561cfc29433b7903"
+      "size": 11548,
+      "sha256": "af1fc64d017d4c2aa0d6fedbf89076533a626b48b1b2adc09c3edc83aec59ba5"
     },
     {
       "path": "js/location-intel.js",
@@ -637,8 +657,8 @@
     },
     {
       "path": "js/save-manager.js",
-      "size": 16775,
-      "sha256": "71fe5ac061114729df24b5126c70058fc5f278a13d7119ba23e65ebfe8b74444"
+      "size": 17500,
+      "sha256": "8594eaa0f1a8a3c6509f0a2fa307ee7c79dd913ee844d24e1243c9afe747cb81"
     },
     {
       "path": "js/training-academy.js",
@@ -658,7 +678,7 @@
     {
       "path": "manifest.webmanifest",
       "size": 2417,
-      "sha256": "f38c49b666f4afacb9b4abef2574673f3e7c3766dea221de532fbe91d66fcf0f"
+      "sha256": "08176359609d844a18505c5b119624df667a3d865efba0dc7cff3a8540d8f0d4"
     },
     {
       "path": "reports/audit-v1.7.4-layout-mobile.json",
@@ -672,8 +692,8 @@
     },
     {
       "path": "sw.js",
-      "size": 4052,
-      "sha256": "5f90084a7960b5f33b1f2d46a32b6e6acfa0a274598cd512bbdb743e99cdcc88"
+      "size": 4048,
+      "sha256": "b55fcfab458e3795cc939ddcf6a28a30783b897ca5e0727d34544d7f28644d7a"
     },
     {
       "path": "tests/BROWSER_AUDIT.json",
@@ -786,9 +806,19 @@
       "sha256": "faaa7eafac99f3355d0aba3e9bbd4f5de7f5551d517271bb27b1938f17f0d7bd"
     },
     {
+      "path": "tests/F33_1_STATIC_AUDIT.json",
+      "size": 259,
+      "sha256": "b52878535c6804f7f391af26bfaf65a73d18dca550aeb79c97ebeb1e3c82de32"
+    },
+    {
       "path": "tests/F33_STATIC_AUDIT.json",
       "size": 266,
       "sha256": "a1bd272d151cb8cb7e9a1aba4f7e11cefe18339304cb3be2fcac00f9743bef9e"
+    },
+    {
+      "path": "tests/F34_STATIC_AUDIT.json",
+      "size": 342,
+      "sha256": "d584928c84f95fbe7bfeae763bf6358dcfcf1f0665b7515110f47db5ecf16a42"
     },
     {
       "path": "tests/FINAL_AUDIT_RESULT.json",

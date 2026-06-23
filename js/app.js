@@ -41,6 +41,22 @@
     $("#toastRegion").appendChild(el);
     setTimeout(() => el.remove(), 3500);
   }
+  function voiceFirstActiveCall(force = false) {
+    const call = state?.dispatch?.shift?.activeCall;
+    if (!call) return;
+    if (!force && call._voiceIntroPlayed) return;
+    call._voiceIntroPlayed = true;
+    C190_Immersion?.speakCall?.(call, state);
+  }
+  function voiceLatestRadio(call, force = false) {
+    if (!call?.radio?.log?.length) return;
+    const latest = call.radio.log[call.radio.log.length - 1];
+    if (!latest?.text) return;
+    if (!force && latest._voicePlayed) return;
+    latest._voicePlayed = true;
+    C190_Immersion?.speakRadio?.(latest.text, state);
+  }
+
   function persist() {
     C190_Save.save(state);
     renderAll();
@@ -77,6 +93,13 @@
     };
     $("#screenSubtitle").textContent = labels[name] || "Central 190";
     renderAll();
+    if (name === "tutorial") {
+      setTimeout(() => {
+        const main = $("#mainContent");
+        if (main) main.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        window.scrollTo(0, 0);
+      }, 60);
+    }
     if (["map", "dispatch"].includes(name)) {
       setTimeout(() => C190_Map.invalidate(), 40);
     }
@@ -415,6 +438,7 @@
       (b) =>
         (b.onclick = () => {
           C190_Dispatch.answer(state, b.dataset.answer);
+          voiceFirstActiveCall(true);
           persist();
         }),
     );
@@ -423,7 +447,7 @@
         (b.onclick = () => {
           const out = C190_Dispatch.askQuestion(state, b.dataset.call, b.dataset.question);
           persist();
-          if (out?.ok) { C190_Immersion?.play?.(out.question.score < 0 ? "warning" : "question", state); toast(out.question.score < 0 ? "Pergunta inadequada registrada no protocolo." : "Dado coletado no atendimento.", out.question.score < 0 ? "danger" : "success"); }
+          if (out?.ok) { C190_Immersion?.play?.(out.question.score < 0 ? "warning" : "question", state); if (out.answer) C190_Immersion?.speak?.(`Chamador. ${out.answer}`, state, { rate: 0.94 }); toast(out.question.score < 0 ? "Pergunta inadequada registrada no protocolo." : "Dado coletado no atendimento.", out.question.score < 0 ? "danger" : "success"); }
           else toast("Não foi possível registrar essa pergunta.", "warning");
         }),
     );
@@ -475,6 +499,7 @@
           persist();
           if (out) {
             C190_Immersion?.play?.(out.awaitingRadio ? "dispatch" : out.call.status === "resolved" ? "success" : "error", state);
+            if (out.awaitingRadio) C190_Immersion?.speakRadio?.("Despacho confirmado. Equipes em deslocamento para a ocorrência.", state);
             toast(
               out.awaitingRadio
                 ? `Despacho confirmado · rádio operacional iniciado · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"} · despacho ${out.resourceDispatch?.grade || "N/A"}.`
@@ -493,6 +518,7 @@
           persist();
           if (out?.ok) {
             C190_Immersion?.play?.(out.finalized ? (out.call?.status === "resolved" ? "success" : "error") : "radio", state);
+            if (out.call) voiceLatestRadio(out.call, true);
             toast(out.finalized ? `Ocorrência encerrada em campo · rádio ${out.radio?.grade || out.finalOutcome?.radio?.grade || "N/A"}.` : "Atualização de rádio registrada.", out.finalized ? (out.call?.status === "resolved" ? "success" : "danger") : "success");
           } else {
             toast("Não foi possível registrar ação de rádio.", "warning");
@@ -1112,13 +1138,23 @@
     if (soundToggle) soundToggle.checked = state.settings.soundEnabled !== false;
     const radioFxToggle = $("#radioFxToggle");
     if (radioFxToggle) radioFxToggle.checked = state.settings.radioFx !== false;
+    const occurrenceFxToggle = $("#occurrenceFxToggle");
+    if (occurrenceFxToggle) occurrenceFxToggle.checked = state.settings.occurrenceFx !== false;
     const vibrationToggle = $("#vibrationToggle");
     if (vibrationToggle) vibrationToggle.checked = state.settings.vibration !== false;
+    const voiceEnabledToggle = $("#voiceEnabledToggle");
+    if (voiceEnabledToggle) voiceEnabledToggle.checked = state.settings.voiceEnabled !== false;
+    const callerVoiceToggle = $("#callerVoiceToggle");
+    if (callerVoiceToggle) callerVoiceToggle.checked = state.settings.callerVoice !== false;
+    const radioVoiceToggle = $("#radioVoiceToggle");
+    if (radioVoiceToggle) radioVoiceToggle.checked = state.settings.radioVoice !== false;
     const volumeRange = $("#soundVolumeRange");
     if (volumeRange) volumeRange.value = String(Math.round(Number(state.settings.soundVolume ?? 0.42) * 100));
+    const voiceRateRange = $("#voiceRateRange");
+    if (voiceRateRange) voiceRateRange.value = String(Math.round(Number(state.settings.voiceRate ?? 0.94) * 100));
     const immersion = C190_Immersion?.diagnostics?.(state);
     const immersionStatus = $("#immersionStatus");
-    if (immersionStatus && immersion) immersionStatus.textContent = `Áudio ${immersion.soundEnabled ? "ativo" : "desativado"} · volume ${Math.round(immersion.volume * 100)}% · ${immersion.supported ? "Web Audio disponível" : "Web Audio indisponível"} · sem arquivos externos.`;
+    if (immersionStatus && immersion) immersionStatus.textContent = `Áudio ${immersion.soundEnabled ? "ativo" : "desativado"} · volume ${Math.round(immersion.volume * 100)}% · voz PT-BR ${immersion.voiceEnabled ? "ativa" : "desativada"} · ${immersion.speechSupported ? "síntese disponível" : "síntese indisponível"} · ${immersion.ptVoiceAvailable ? "voz PT localizada" : "voz padrão do navegador"} · sem arquivos externos.`;
     C190_Release.applyAccessibility(state);
     $("#saveStatus").textContent =
       `Schema ${state.schema} · versão ${state.version} · atualizado ${new Date(state.updatedAt).toLocaleString()} · backup ${C190_Save.storageInfo().hasBackup ? "disponível" : "ainda não criado"}`;
@@ -1340,12 +1376,26 @@
     if (soundEnabledToggle) soundEnabledToggle.onchange = (e) => { state.settings.soundEnabled = e.target.checked; C190_Immersion?.unlock?.(); persist(); C190_Immersion?.play?.(e.target.checked ? "success" : "warning", state); };
     const radioFxToggle = $("#radioFxToggle");
     if (radioFxToggle) radioFxToggle.onchange = (e) => { state.settings.radioFx = e.target.checked; persist(); C190_Immersion?.play?.("radio", state); };
+    const occurrenceFxToggle = $("#occurrenceFxToggle");
+    if (occurrenceFxToggle) occurrenceFxToggle.onchange = (e) => { state.settings.occurrenceFx = e.target.checked; persist(); C190_Immersion?.playIncident?.(state.dispatch?.shift?.activeCall || { type: "Ocorrência teste", summary: "Sons de ocorrência ativados." }, state); };
     const vibrationToggle = $("#vibrationToggle");
     if (vibrationToggle) vibrationToggle.onchange = (e) => { state.settings.vibration = e.target.checked; persist(); C190_Immersion?.play?.("beep", state); };
+    const voiceEnabledToggle = $("#voiceEnabledToggle");
+    if (voiceEnabledToggle) voiceEnabledToggle.onchange = (e) => { state.settings.voiceEnabled = e.target.checked; persist(); C190_Immersion?.speak?.(e.target.checked ? "Voz em português do Brasil ativada." : "Voz desativada.", state, { force: true, interrupt: true }); };
+    const callerVoiceToggle = $("#callerVoiceToggle");
+    if (callerVoiceToggle) callerVoiceToggle.onchange = (e) => { state.settings.callerVoice = e.target.checked; persist(); C190_Immersion?.speak?.(e.target.checked ? "Narrativa do chamador ativada." : "Narrativa do chamador desativada.", state, { force: true, interrupt: true }); };
+    const radioVoiceToggle = $("#radioVoiceToggle");
+    if (radioVoiceToggle) radioVoiceToggle.onchange = (e) => { state.settings.radioVoice = e.target.checked; persist(); C190_Immersion?.speakRadio?.(e.target.checked ? "Rádio operacional com voz ativado." : "Rádio operacional com voz desativado.", state); };
     const soundVolumeRange = $("#soundVolumeRange");
     if (soundVolumeRange) soundVolumeRange.oninput = (e) => { state.settings.soundVolume = Math.max(0, Math.min(1, Number(e.target.value) / 100)); C190_Immersion?.normalizeSettings?.(state.settings); renderSettings(); };
+    const voiceRateRange = $("#voiceRateRange");
+    if (voiceRateRange) voiceRateRange.oninput = (e) => { state.settings.voiceRate = Math.max(0.75, Math.min(1.25, Number(e.target.value) / 100)); C190_Immersion?.normalizeSettings?.(state.settings); renderSettings(); };
     const testAudioBtn = $("#testAudioBtn");
     if (testAudioBtn) testAudioBtn.onclick = () => { C190_Immersion?.unlock?.(); C190_Immersion?.play?.("ring", state); setTimeout(() => C190_Immersion?.play?.("radio", state), 360); setTimeout(() => C190_Immersion?.play?.("success", state), 760); renderSettings(); };
+    const testVoiceBtn = $("#testVoiceBtn");
+    if (testVoiceBtn) testVoiceBtn.onclick = () => { C190_Immersion?.unlock?.(); C190_Immersion?.speak?.("Central cento e noventa, qual é a emergência? Informe endereço, referência e risco imediato.", state, { force: true, interrupt: true }); renderSettings(); };
+    const testOccurrenceFxBtn = $("#testOccurrenceFxBtn");
+    if (testOccurrenceFxBtn) testOccurrenceFxBtn.onclick = () => { C190_Immersion?.playIncident?.({ type: "Incêndio com vítima", summary: "Fumaça no prédio, possível vítima no local." }, state); setTimeout(() => C190_Immersion?.speakRadio?.("Primeira unidade informa chegada nas proximidades e pede confirmação visual do local.", state), 320); renderSettings(); };
     $("#exportSaveBtn").onclick = () => C190_Save.exportData(state);
     $("#restoreBackupBtn").onclick = () => {
       try { state = C190_Save.restoreBackup(); renderAll(); toast("Backup restaurado com sucesso."); }
@@ -1409,6 +1459,7 @@
       const kind = event.detail?.kind || "info";
       if (kind === "incoming") {
         C190_Immersion?.play?.("ring", state);
+        C190_Immersion?.speak?.("Nova ligação de emergência entrando na fila.", state, { rate: 0.98 });
         toast(event.detail?.text || "Nova ligação na fila.", "warning");
         updateDispatchLite();
       } else if (kind === "incoming_scheduled") {

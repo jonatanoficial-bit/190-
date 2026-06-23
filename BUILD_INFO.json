@@ -1,13 +1,15 @@
 {
   "name": "Central 190",
-  "version": "2.7.0",
-  "phase": 33,
-  "build": "CENTRAL190-2700-F33-DEFESA-CIVIL-AGUIA-20260623-121500-BRT",
-  "compiledAt": "2026-06-23T12:15:00-03:00",
-  "saveSchema": 29,
-  "title": "Integração Defesa Civil e Águia em PNG",
+  "version": "2.8.0",
+  "phase": 34,
+  "build": "CENTRAL190-2800-F34-AUDIO-VOZ-PTBR-20260623-123800-BRT",
+  "compiledAt": "2026-06-23T12:38:00-03:00",
+  "saveSchema": 30,
+  "title": "Áudio de ocorrência, sons operacionais e voz PT-BR",
   "preserved": [
-    "veículos PNG SP fase 32",
+    "hotfix tutorial visível",
+    "Defesa Civil e Águia integrados",
+    "veículos PNG SP",
     "fila contínua",
     "mobile-first scroll guard",
     "animated units",
@@ -23,8 +25,11 @@
     "final balance"
   ],
   "added": [
-    "novo PNG da Defesa Civil recortado da imagem enviada pelo usuário",
-    "novo PNG do helicóptero Águia recortado da imagem enviada pelo usuário",
-    "assets substituídos mantendo os nomes já usados pelo jogo"
+    "voz PT-BR por SpeechSynthesis do navegador",
+    "narrativa do chamador",
+    "narrativa do rádio operacional",
+    "sons de ocorrência por categoria",
+    "controles de voz e efeitos em Configurações",
+    "sem arquivos de áudio externos para manter o ZIP leve"
   ]
 }

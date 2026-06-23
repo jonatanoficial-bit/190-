@@ -1,3 +1,7 @@
+## v2.8.0 — Fase 34 — Áudio de ocorrência e voz PT-BR
+
+Esta build adiciona áudio operacional avançado e voz PT-BR sem arquivos externos, usando Web Audio API e SpeechSynthesis do navegador.
+
 # Central 190 — Simulador Operacional
 
 Versão: **v2.4.0 — Fase 30 — RC pública/comercial**

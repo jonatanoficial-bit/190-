@@ -1,3 +1,10 @@
+## v2.8.0 — Fase 34
+
+- JS auditado por sintaxe.
+- Voz PT-BR integrada via SpeechSynthesis.
+- Sons gerados localmente por Web Audio.
+- Sem arquivos externos de áudio.
+
 # Test Report — Central 190 v2.4.0 Fase 30
 
 ## Testes executados no pacote

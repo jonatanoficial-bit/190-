@@ -62,6 +62,9 @@
           <button class="nav-btn active" data-screen="dashboard">
             <span>⌂</span><b data-i18n="nav.dashboard">Painel</b>
           </button>
+          <button class="nav-btn" data-screen="tutorial">
+            <span>▸</span><b>Tutorial</b>
+          </button>
           <button class="nav-btn" data-screen="dispatch">
             <span>☎</span><b data-i18n="nav.dispatch">Plantão</b>
           </button>
@@ -70,9 +73,6 @@
           </button>
           <button class="nav-btn" data-screen="content">
             <span>∞</span><b data-i18n="nav.content">Operações</b>
-          </button>
-          <button class="nav-btn" data-screen="tutorial">
-            <span>▸</span><b>Tutorial</b>
           </button>
           <button class="nav-btn" data-screen="campaign">
             <span>▱</span><b>Campanha</b>
@@ -806,14 +806,23 @@
 
             <article class="panel wide audio-settings-card">
               <h2>Áudio e imersão</h2>
-              <p>Fase 26: telefone, rádio, despacho, viaturas animadas no mapa, efeito de máquina de escrever e feedback sonoro gerados localmente por Web Audio. Não há arquivos de áudio externos.</p>
+              <p>Fase 26: telefone, rádio, despacho, viaturas animadas no mapa, efeito de máquina de escrever e feedback sonoro gerados localmente por Web Audio. Agora inclui efeitos de ocorrência e voz PT-BR por síntese local do navegador. Não há arquivos de áudio externos.</p>
               <div class="audio-settings-grid">
                 <label class="toggle-row"><span>Ativar áudio operacional</span><input id="soundEnabledToggle" type="checkbox" /></label>
                 <label class="toggle-row"><span>Rádio e sirene discretos</span><input id="radioFxToggle" type="checkbox" /></label>
+                <label class="toggle-row"><span>Sons de ocorrência</span><input id="occurrenceFxToggle" type="checkbox" /></label>
                 <label class="toggle-row"><span>Vibração no celular</span><input id="vibrationToggle" type="checkbox" /></label>
+                <label class="toggle-row"><span>Voz PT-BR da chamada</span><input id="voiceEnabledToggle" type="checkbox" /></label>
+                <label class="toggle-row"><span>Narrar chamador</span><input id="callerVoiceToggle" type="checkbox" /></label>
+                <label class="toggle-row"><span>Narrar rádio operacional</span><input id="radioVoiceToggle" type="checkbox" /></label>
                 <label class="volume-row"><span>Volume</span><input id="soundVolumeRange" type="range" min="0" max="100" step="5" /></label>
+                <label class="volume-row"><span>Velocidade da voz</span><input id="voiceRateRange" type="range" min="75" max="125" step="5" /></label>
               </div>
-              <div class="button-row"><button id="testAudioBtn" class="secondary-btn" type="button">Testar áudio</button></div>
+              <div class="button-row">
+                <button id="testAudioBtn" class="secondary-btn" type="button">Testar áudio</button>
+                <button id="testVoiceBtn" class="secondary-btn" type="button">Testar voz PT-BR</button>
+                <button id="testOccurrenceFxBtn" class="secondary-btn" type="button">Testar ocorrência</button>
+              </div>
               <p id="immersionStatus" class="system-note">Imersão aguardando interação do jogador.</p>
             </article>
             <article class="panel wide visual-audit-card">

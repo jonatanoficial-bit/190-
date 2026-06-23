@@ -1,3 +1,9 @@
+## v2.8.0 — Fase 34 — Áudio e voz
+
+Build: `CENTRAL190-2800-F34-AUDIO-VOZ-PTBR-20260623-123800-BRT`
+
+- Camada de voz PT-BR e sons de ocorrência integrada.
+
 # Build Report — Central 190 v2.4.0 Fase 30
 
 Build: `CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT`

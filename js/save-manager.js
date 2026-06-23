@@ -1,9 +1,11 @@
 window.C190_Save = (() => {
   "use strict";
 
-  const KEY = "central190_save_v29";
-  const BACKUP = "central190_save_v29_backup";
+  const KEY = "central190_save_v30";
+  const BACKUP = "central190_save_v30_backup";
   const LEGACY = [
+    "central190_save_v29",
+    "central190_save_v29_backup",
     "central190_save_v28",
     "central190_save_v28_backup",
     "central190_save_v27",
@@ -42,9 +44,9 @@ window.C190_Save = (() => {
     "central_190_save",
     "c190_save",
   ];
-  const SCHEMA = 29;
-  const VERSION = "2.7.0";
-  const BUILD = "CENTRAL190-2700-F33-DEFESA-CIVIL-AGUIA-20260623-121500-BRT";
+  const SCHEMA = 30;
+  const VERSION = "2.8.0";
+  const BUILD = "CENTRAL190-2800-F34-AUDIO-VOZ-PTBR-20260623-123800-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,
@@ -118,7 +120,7 @@ window.C190_Save = (() => {
     campaign: window.C190_Campaign?.defaultCampaign?.() || { version: 1, activeMissionId: null, selectedMissionId: "turno_zero", completed: [], attempts: {}, bestScores: {}, rewardsClaimed: [], history: [] },
     release: {
       version: VERSION,
-      phase: 31,
+      phase: 34,
       visualRecovery: 1,
       campaignVersion: 2,
       fieldUnitsVersion: 2,
@@ -131,7 +133,7 @@ window.C190_Save = (() => {
       resourceDispatchVersion: 1,
       fieldRadioVersion: 1,
       trainingAcademyVersion: 1,
-      immersionVersion: 1,
+      immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1,
       balanceVersion: 3,
       economyVersion: 1,
       publicRcVersion: 1,
@@ -163,6 +165,12 @@ window.C190_Save = (() => {
       radioFx: true,
       vibration: true,
       immersiveHud: true,
+      occurrenceFx: true,
+      voiceEnabled: true,
+      callerVoice: true,
+      radioVoice: true,
+      voiceRate: 0.94,
+      voicePitch: 1.0,
       mobileViewportMode: "single-scroll-root",
     },
   });
@@ -328,14 +336,20 @@ window.C190_Save = (() => {
       radioFx: incomingSettings.radioFx !== false,
       vibration: incomingSettings.vibration !== false,
       immersiveHud: incomingSettings.immersiveHud !== false,
+      occurrenceFx: incomingSettings.occurrenceFx !== false,
+      voiceEnabled: incomingSettings.voiceEnabled !== false,
+      callerVoice: incomingSettings.callerVoice !== false,
+      radioVoice: incomingSettings.radioVoice !== false,
+      voiceRate: Math.max(0.75, Math.min(1.25, Number(incomingSettings.voiceRate ?? 0.94))),
+      voicePitch: Math.max(0.75, Math.min(1.25, Number(incomingSettings.voicePitch ?? 1.0))),
     };
 
-    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 31, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
+    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 34, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
       fieldUnitsVersion: 2, incomingCallContinuityVersion: 1, cinematicUnitIconsVersion: 1,
       mobileHomologationVersion: 1,
       callProtocolVersion: 3, triageVersion: 1,
       locationIntelVersion: 1, resourceDispatchVersion: 1,
-      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 1, balanceVersion: 3, economyVersion: 1, publicRcVersion: 1, tutorialVersion: 1 };
+      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, balanceVersion: 3, economyVersion: 1, publicRcVersion: 1, tutorialVersion: 1 };
     base.settings.telemetry = false;
     base.dispatch = enrichDispatch(source.dispatch || base.dispatch, incomingCenter);
     base.content = source.content && typeof source.content === "object" ? clone(source.content) : defaultContent();

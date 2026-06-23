@@ -1,4 +1,4 @@
-const CACHE = "central190-v2.7.0-f33-defesa-civil-aguia";
+const CACHE = "central190-v2.8.0-f34-audio-voz-ptbr";
 const ASSETS = [
   "./",
   "./index.html",
