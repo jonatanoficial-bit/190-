@@ -1,13 +1,15 @@
 {
   "name": "Central 190",
-  "version": "2.4.0",
-  "phase": 30,
-  "build": "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT",
-  "compiledAt": "2026-06-22T12:35:00-03:00",
-  "saveSchema": 28,
-  "title": "RC pública/comercial, tutorial, performance e publicação",
+  "version": "2.6.0",
+  "phase": 32,
+  "build": "CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT",
+  "compiledAt": "2026-06-23T11:05:00-03:00",
+  "saveSchema": 29,
+  "title": "Integração de veículos PNG reais de São Paulo",
   "preserved": [
-    "mobile homologation",
+    "RC pública F30",
+    "fila contínua F31",
+    "mobile-first scroll guard",
     "animated units",
     "typewriter",
     "field radio",
@@ -21,11 +23,10 @@
     "final balance"
   ],
   "added": [
-    "C190_Tutorial module v1",
-    "C190_PublicRC checklist v1",
-    "guided first shift",
-    "public release checklist",
-    "PWA cache v2.4.0",
-    "settings duplicate input fix"
+    "6 recortes PNG a partir da imagem enviada pelo usuário",
+    "ícone próprio para Força Tática",
+    "ícone próprio para Bombeiros Resgate",
+    "cards, mapa real e mapa tático sincronizados",
+    "PWA cache v2.6.0"
   ]
 }

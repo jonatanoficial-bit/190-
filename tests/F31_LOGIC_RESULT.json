@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "checks": 261,
+  "schema": 29,
+  "visualAssets": 27,
+  "templates": 51,
+  "resourceDispatchVersion": 1,
+  "immersionVersion": 1,
+  "resources": 10,
+  "cities": 9,
+  "specials": 7,
+  "reports": 2
+}

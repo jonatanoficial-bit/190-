@@ -1,0 +1,20 @@
+{
+  "build": "CENTRAL190-2500-F31-HOTFIX-FILA-ICONS-SP-20260622-131500-BRT",
+  "version": "2.5.0",
+  "phase": 31,
+  "saveSchema": 29,
+  "jsFiles": 22,
+  "cssUrls": 65,
+  "missingCssAssets": [],
+  "unitIcons": {
+    "assets/units/sp-police-car-cinematic.png": true,
+    "assets/units/sp-police-motorcycle-cinematic.png": true,
+    "assets/units/sp-police-helicopter-cinematic.png": true,
+    "assets/units/sp-fire-truck-cinematic.png": true,
+    "assets/units/sp-samu-ambulance-cinematic.png": true,
+    "assets/units/sp-civil-defense-cinematic.png": true
+  },
+  "incomingContinuity": true,
+  "incomingStrip": true,
+  "mapIconClasses": true
+}

@@ -20,3 +20,17 @@
 
 ## Homologação manual pendente
 Celular físico, tablet e PC no domínio final, com atenção a rolagem, menu, PWA e mapa real.
+
+
+## v2.6.0 — Fase 32 — Veículos PNG de São Paulo
+
+- Assets PNG presentes e carregando: OK.
+- CSS com mapeamento por unidade (`pm-forca`, `bm-resgate`): OK.
+- `resource-dispatch.js` apontando para novos arquivos: OK.
+
+## v2.5.0 — Fase 31 — Hotfix fila contínua e ícones SP
+- Corrigida a continuidade de ligações após despacho: a próxima chamada é antecipada quando a ocorrência entra no rádio e não há fila em espera.
+- Adicionada faixa de aviso da próxima ligação/ligação aguardando na Fila Viva.
+- A Fila Viva passa a receber atualização leve mesmo quando o guardião de rolagem bloqueia renderização completa.
+- Novos ícones cinematográficos inspirados em São Paulo para PM, ROCAM, Águia, Bombeiros, SAMU e Defesa Civil.
+- Mapa real e mapa tático agora exibem as unidades por arte de veículo, não apenas bolinhas/texto.

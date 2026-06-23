@@ -109,3 +109,17 @@ Build: `CENTRAL190-1700-F23-TRAINING-ACADEMY-20260619-162400-BRT`
 - Atualizado cache PWA para v2.4.0.
 - Corrigido input duplicado em Configurações.
 - Preservados campanha, casos realistas, rádio, viaturas animadas, balanceamento e fundos fotográficos.
+
+
+## v2.6.0 — Fase 32 — Veículos PNG de São Paulo
+
+- Inseridos assets PNG derivados da imagem enviada pelo usuário.
+- Viatura PM comum, ROCAM, Força Tática SUV, SAMU, Bombeiros Auto Bomba e Bombeiros Resgate agora possuem ícones próprios.
+- Mapa real, mapa tático e cards de recurso passaram a respeitar o veículo específico de cada unidade.
+
+## v2.5.0 — Fase 31 — Hotfix fila contínua e ícones SP
+- Corrigida a continuidade de ligações após despacho: a próxima chamada é antecipada quando a ocorrência entra no rádio e não há fila em espera.
+- Adicionada faixa de aviso da próxima ligação/ligação aguardando na Fila Viva.
+- A Fila Viva passa a receber atualização leve mesmo quando o guardião de rolagem bloqueia renderização completa.
+- Novos ícones cinematográficos inspirados em São Paulo para PM, ROCAM, Águia, Bombeiros, SAMU e Defesa Civil.
+- Mapa real e mapa tático agora exibem as unidades por arte de veículo, não apenas bolinhas/texto.

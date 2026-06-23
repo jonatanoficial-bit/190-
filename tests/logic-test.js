@@ -121,8 +121,8 @@ const migrated = C190_Save.migrate({
     reports: [],
   },
 });
-assert(migrated.schema === 28, "migration schema 12 to 28");
-assert(migrated.version === "2.4.0", "migration version");
+assert(migrated.schema === 29, "migration schema 12 to 29");
+assert(migrated.version === "2.5.0", "migration version");
 assert(migrated.profile.callSign === "Atlas", "migration profile");
 assert(migrated.career.xp === 500, "migration XP");
 assert(migrated.settings.mapMode === "auto", "invalid map mode normalized");
@@ -359,7 +359,7 @@ assert(
 
 C190_Save.save(specialState);
 const loaded = C190_Save.load();
-assert(loaded.schema === 28, "schema 28 save reload");
+assert(loaded.schema === 29, "schema 29 save reload");
 assert(C190_Save.validate(loaded), "saved state checksum and structure valid");
 assert(loaded.content.special.completed.includes("cerco_bancario"), "content progression persists");
 

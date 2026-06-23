@@ -1,4 +1,4 @@
-const CACHE = "central190-v2.4.0-f30-rc-publica-comercial";
+const CACHE = "central190-v2.6.0-f32-veiculos-png-sp";
 const ASSETS = [
   "./",
   "./index.html",
@@ -50,6 +50,14 @@ const ASSETS = [
   "./assets/backgrounds/bg-control-room-hall.webp",
   "./assets/backgrounds/bg-control-room-lobby.webp",
   "./assets/ui/ui-panel-kit.png",
+  "./assets/units/sp-police-car-cinematic.png",
+  "./assets/units/sp-police-motorcycle-cinematic.png",
+  "./assets/units/sp-police-helicopter-cinematic.png",
+  "./assets/units/sp-fire-truck-cinematic.png",
+  "./assets/units/sp-fire-rescue-cinematic.png",
+  "./assets/units/sp-samu-ambulance-cinematic.png",
+  "./assets/units/sp-civil-defense-cinematic.png",
+  "./assets/units/sp-police-support-cinematic.png",
   "./assets/units/unit-police-cruiser.png",
   "./assets/units/unit-ambulance-samu.png",
   "./assets/units/unit-fire-rescue.png",

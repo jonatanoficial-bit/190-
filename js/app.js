@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT";
+  const BUILD = "CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
@@ -201,6 +201,36 @@
     return !isDispatchScreenActive() || Date.now() >= dispatchInteractionUntil;
   }
 
+  function nextScheduledCall(shift) {
+    return (shift?.calls || [])
+      .filter((call) => call && call.status === "scheduled")
+      .sort((a, b) => Number(a.arrivesAt || 0) - Number(b.arrivesAt || 0))[0] || null;
+  }
+
+  function renderIncomingStrip(shift) {
+    const strip = $("#incomingCallStrip");
+    if (!strip) return;
+    if (!shift?.active) { strip.hidden = true; strip.innerHTML = ""; return; }
+    const waiting = (shift.calls || []).filter((call) => call.status === "waiting");
+    const next = nextScheduledCall(shift);
+    if (waiting.length) {
+      strip.hidden = false;
+      strip.className = "incoming-call-strip live";
+      strip.innerHTML = `<strong>☎ ${waiting.length} ligação(ões) aguardando</strong><span>${esc(waiting[0].type)} · prioridade ${priorityLabel(waiting[0].priority)}</span>`;
+      return;
+    }
+    if (next) {
+      const seconds = Math.max(0, Math.ceil(Number(next.arrivesAt || 0) - Number(shift.elapsed || 0)));
+      strip.hidden = false;
+      strip.className = "incoming-call-strip scheduled";
+      strip.innerHTML = `<strong>Próxima ligação em ${seconds}s</strong><span>${esc(next.type)} · ${esc(next.region || "Central 190")}</span>`;
+      return;
+    }
+    strip.hidden = true;
+    strip.innerHTML = "";
+  }
+
+  let liteQueueSignature = "";
   function updateDispatchLite() {
     const sh = state.dispatch.shift;
     const status = $("#shiftStatus");
@@ -209,8 +239,17 @@
         ? `${sh.modeLabel || "Plantão ativo"} · ${sh.elapsed}s · resolvidas ${sh.resolved} · falhas ${sh.failed} · abandonadas ${sh.abandoned}${sh.affectsCareer === false ? " · sem impacto na carreira" : ""}`
         : "Nenhum plantão ativo. Escolha um modo de jogo ou inicie um plantão de carreira.";
     }
+    const waiting = sh?.calls?.filter((c) => c.status === "waiting") || [];
     const queueCount = $("#queueCount");
-    if (queueCount) queueCount.textContent = sh?.calls?.filter((c) => c.status === "waiting").length || 0;
+    if (queueCount) queueCount.textContent = waiting.length || 0;
+    renderIncomingStrip(sh);
+    const queue = $("#callQueue");
+    const signature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}`).join("|");
+    if (queue && signature !== liteQueueSignature) {
+      liteQueueSignature = signature;
+      queue.innerHTML = waiting.map((c) => callCard(c, true)).join("") || '<div class="list-item">Fila vazia.</div>';
+      bindDispatchButtons();
+    }
   }
 
   function scheduleDispatchRenderAfterIdle() {
@@ -232,6 +271,8 @@
       : "Nenhum plantão ativo. Escolha um modo de jogo ou inicie um plantão de carreira.";
     const waiting = sh?.calls.filter((c) => c.status === "waiting") || [];
     $("#queueCount").textContent = waiting.length;
+    renderIncomingStrip(sh);
+    liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}`).join("|");
     $("#callQueue").innerHTML =
       waiting.map((c) => callCard(c, true)).join("") ||
       '<div class="list-item">Fila vazia.</div>';
@@ -1364,6 +1405,16 @@
     $("#closePromotionBtn").onclick = () => $("#promotionDialog").close();
     $("#closeReportBtn").onclick = () => $("#shiftReportDialog").close();
     window.addEventListener("c190:shift-ended", shiftEnded);
+    window.addEventListener("c190:shift-event", (event) => {
+      const kind = event.detail?.kind || "info";
+      if (kind === "incoming") {
+        C190_Immersion?.play?.("ring", state);
+        toast(event.detail?.text || "Nova ligação na fila.", "warning");
+        updateDispatchLite();
+      } else if (kind === "incoming_scheduled") {
+        updateDispatchLite();
+      }
+    });
     window.addEventListener("c190:map-call-select", (event) => {
       selectedMapCallId = event.detail.id;
       renderMap();
@@ -1408,7 +1459,7 @@
     window.C190_AppDebug = { state: () => state, renderAll, renderDispatch, immersion: () => C190_Immersion?.diagnostics?.(state) };
     C190_I18N.init();
     $("#languageSelect").value = C190_I18N.language;
-    $("#buildLabel").textContent = `${BUILD} · 22/06/2026 12:35:00 BRT`;
+    $("#buildLabel").textContent = `${BUILD} · 22/06/2026 13:15:00 BRT`;
     initEvents();
     renderAll();
     const requestedScreen = location.hash.replace("#", "");

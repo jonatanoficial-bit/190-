@@ -111,6 +111,41 @@ window.C190_Dispatch = (() => {
     return [...list].sort(() => Math.random() - 0.5);
   }
 
+  function pendingScheduled(shift) {
+    return (shift?.calls || [])
+      .filter((call) => call && call.status === "scheduled")
+      .sort((a, b) => Number(a.arrivesAt || 0) - Number(b.arrivesAt || 0));
+  }
+
+  function waitingCalls(shift) {
+    return (shift?.calls || []).filter((call) => call && call.status === "waiting");
+  }
+
+  function announceShiftEvent(shift, text, kind = "info", call = null) {
+    if (!shift?.events) return;
+    const event = { at: new Date().toISOString(), text, kind, callId: call?.id || null };
+    shift.events.unshift(event);
+    try {
+      window.dispatchEvent(new CustomEvent("c190:shift-event", { detail: { ...event, call } }));
+    } catch {}
+  }
+
+  function primeNextCall(shift, delaySeconds = 6, reason = "contínuo") {
+    if (!shift?.active) return null;
+    if (waitingCalls(shift).length) return null;
+    const next = pendingScheduled(shift)[0];
+    if (!next) return null;
+    const currentElapsed = Number(shift.elapsed || 0);
+    const target = currentElapsed + Math.max(2, Number(delaySeconds || 6));
+    if (Number(next.arrivesAt || 0) > target) {
+      next.arrivesAt = target;
+      next.primedAfterDispatch = true;
+      next.primeReason = reason;
+      announceShiftEvent(shift, `Próxima ligação em ${Math.max(1, Math.round(next.arrivesAt - currentElapsed))}s: ${next.type}`, "incoming_scheduled", next);
+    }
+    return next;
+  }
+
   function candidateTemplates(options = {}) {
     if (Array.isArray(options.templateIds) && options.templateIds.length) {
       return options.templateIds.map((id) => templates.find((item) => item.id === id)).filter(Boolean);
@@ -192,7 +227,12 @@ window.C190_Dispatch = (() => {
     shift.calls.forEach((call) => {
       if (call.status === "scheduled" && shift.elapsed >= call.arrivesAt) {
         call.status = "waiting";
-        shift.events.unshift({ at: new Date().toISOString(), text: `Nova chamada: ${call.type}` });
+        call.wait = Math.max(0, Number(call.wait || 0));
+        call.arrivedAtElapsed = shift.elapsed;
+        if (!call.announcedWaiting) {
+          call.announcedWaiting = true;
+          announceShiftEvent(shift, `Nova ligação na fila: ${call.type}`, "incoming", call);
+        }
       }
       if (call.status === "waiting") {
         call.wait++;
@@ -295,6 +335,7 @@ window.C190_Dispatch = (() => {
       window.C190_Career.applyOutcome(state, adjusted);
     }
     const done = shift.calls.every((item) => ["resolved", "failed", "abandoned"].includes(item.status));
+    if (!done) primeNextCall(shift, 4, "após encerramento de campo");
     if (done) finishShift(state);
     return { call, finalOutcome: trainedOutcome };
   }
@@ -328,6 +369,7 @@ window.C190_Dispatch = (() => {
     if (radio?.ok) {
       call.status = "active";
       shift.activeCallId = call.id;
+      primeNextCall(shift, 6, "após despacho");
       return { call, choice, protocol: preliminaryOutcome.protocol, triage: preliminaryOutcome.triage || null, resourceDispatch: preliminaryOutcome.resourceDispatch || null, radio: radio.radio, awaitingRadio: true };
     }
     const applied = applyFinalOutcome(state, call, preliminaryOutcome, choice.text);

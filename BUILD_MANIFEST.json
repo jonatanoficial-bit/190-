@@ -1,16 +1,14 @@
 {
   "name": "Central 190",
-  "version": "2.4.0",
-  "phase": 30,
-  "build": "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT",
-  "compiledAt": "2026-06-22T12:35:00-03:00",
-  "saveSchema": 28,
-  "fileCount": 154,
+  "version": "2.6.0",
+  "phase": 32,
+  "build": "CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT",
+  "fileCount": 172,
   "files": [
     {
       "path": "ASSET_PATHS_REQUIRED.txt",
-      "size": 2666,
-      "sha256": "cd77c375d3fbe93bbf5f18ca4faf896750819031dc394f8c501f873f1b94ecc9"
+      "size": 3457,
+      "sha256": "29b9b771370320637ee0d0c05e3479a2cecf1a6371f0b1cc3a177395ddcf2ee6"
     },
     {
       "path": "AUDIT_F14.md",
@@ -118,34 +116,59 @@
       "sha256": "64d9aafff9302d408f71729ebb8002dce5e875bcb42c3505cc7e5bdbbc7d9342"
     },
     {
+      "path": "AUDIT_F31.md",
+      "size": 1131,
+      "sha256": "08c980401064895c38bab2a2298a27dae12b025f327458c5cb9b0b5fdd91cafd"
+    },
+    {
+      "path": "AUDIT_F32.md",
+      "size": 394,
+      "sha256": "85a2b3880248b6108b4f96beb43d6ee1be8943d7359527a1082fdfe36d11b256"
+    },
+    {
+      "path": "BUILD-MANIFEST.json",
+      "size": 26710,
+      "sha256": "91fd632de09d06bba92d95e1f94e81c2b81b60838e49225c736b8437a8577334"
+    },
+    {
       "path": "BUILD-REPORT.md",
-      "size": 427,
-      "sha256": "dbe29c8b5bd15869e361056b05e13e227f3d8d11ebdec95c2bb02ee0587b65f0"
+      "size": 1257,
+      "sha256": "ea559a921ad7954248675a9d491192e818a608a899ba69f40b94b47f35d78379"
     },
     {
       "path": "BUILD_INFO.json",
-      "size": 757,
-      "sha256": "35cbca7d5edc31d2f334f36729c1c97ab2988b40b0c6118914eeef56cdca9545"
+      "size": 843,
+      "sha256": "69d1ccd545b77698c3a845a341bfe68ad8cdbf19f3886895d1d3848b2ffe47c1"
+    },
+    {
+      "path": "BUILD_MANIFEST.json",
+      "size": 26710,
+      "sha256": "91fd632de09d06bba92d95e1f94e81c2b81b60838e49225c736b8437a8577334"
     },
     {
       "path": "CHANGELOG.md",
-      "size": 4840,
-      "sha256": "8b82a7383f8250ebff635b918646c563e36a370ecb48e33d8d192d49994fb52c"
+      "size": 5833,
+      "sha256": "d0dfe7cd764b284648832e2a8e1dc6e3f8f4c476c183b87bdb11c88d14188324"
     },
     {
       "path": "CHECKLIST.md",
-      "size": 613,
-      "sha256": "7a5057700a581ec2ac454dacc1192e287deebbdf79a9c12fed56d9118ad9737e"
+      "size": 1526,
+      "sha256": "3ccbd0a14c59ea596131b5d8e5aef8cbd4525c3ce84951eab09cd61145b03b36"
+    },
+    {
+      "path": "FILE-MANIFEST.sha256",
+      "size": 15302,
+      "sha256": "d1b1bb430d97e105592843fcb639630e21fa4e5480e9c245979b087680a2f5a1"
     },
     {
       "path": "README.md",
-      "size": 950,
-      "sha256": "2e3f4acbba44a0138f1c2a40fa2c0c0b7727964202cd7a3a5162b28798699f07"
+      "size": 1946,
+      "sha256": "24e43104cbb5ca54bfc60499b4f64d48c492a66e62e45b5ef336cd737dd9ac50"
     },
     {
       "path": "TEST-REPORT.md",
-      "size": 673,
-      "sha256": "96dce08506ee7d829fce4f4fce4145b9422de7cf66361f50ea96ffe3ba2adba4"
+      "size": 1533,
+      "sha256": "120c52f23d84885b1f45b0f612dcdc9f7ebdd58f4704bea5b3a24d96aa7b0735"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -154,8 +177,8 @@
     },
     {
       "path": "VERSION.txt",
-      "size": 153,
-      "sha256": "4069e448dfb0f9e1505d3067b344b79b4253ac8ddb6892dd3d180b663dde6b08"
+      "size": 148,
+      "sha256": "f8d3fe9aff0a2c9fb155b74c436cce7f8333aac50e919f42fc04f7a6a9d57cf3"
     },
     {
       "path": "assets/backgrounds/bg-career-room.webp",
@@ -293,6 +316,46 @@
       "sha256": "e72bf4f33f6e0584e2c8b330d61e59af1995458ff32524e8b0ffbb2b2fb19d99"
     },
     {
+      "path": "assets/units/sp-civil-defense-cinematic.png",
+      "size": 16506,
+      "sha256": "3040f3c4f703dcc75ecfad1686ce9936016fda1588e6c6a476a9cbc01b6b612a"
+    },
+    {
+      "path": "assets/units/sp-fire-rescue-cinematic.png",
+      "size": 132533,
+      "sha256": "a312f1fcbc2dd5c88958ab2ba6073e49986a48069c22a5111ee0a5619f70e4e2"
+    },
+    {
+      "path": "assets/units/sp-fire-truck-cinematic.png",
+      "size": 148150,
+      "sha256": "877445cb9e5b00c5d5de42fe1b70aba1eec773b8929b4379e7561491b4fa3ebe"
+    },
+    {
+      "path": "assets/units/sp-police-car-cinematic.png",
+      "size": 119270,
+      "sha256": "0c82c57f29e2ff191f247295de5035aef6d634a92829dec3feef7906ac4c1572"
+    },
+    {
+      "path": "assets/units/sp-police-helicopter-cinematic.png",
+      "size": 14536,
+      "sha256": "51fcefc97b2aa1572908fd9696f144dbb4240f69dd4d59529abab0fe625115d1"
+    },
+    {
+      "path": "assets/units/sp-police-motorcycle-cinematic.png",
+      "size": 116524,
+      "sha256": "fb7729146ed331770c1d8aa9ba3cbace2c241ca58cc7372be77d95b19b29d525"
+    },
+    {
+      "path": "assets/units/sp-police-support-cinematic.png",
+      "size": 119775,
+      "sha256": "d7e639a130cd0d45e745eb14cbb4518d39c724b094c124221a02e06847622d34"
+    },
+    {
+      "path": "assets/units/sp-samu-ambulance-cinematic.png",
+      "size": 142033,
+      "sha256": "df20f65ab9a1e4217f10daa2b2045b387b41b9627d935292447c9e27c52013f6"
+    },
+    {
       "path": "assets/units/unit-ambulance-samu.png",
       "size": 3654,
       "sha256": "5afc0d27796810128da637b98657fc757be1ce9967004df6bcf12767123a888d"
@@ -314,8 +377,8 @@
     },
     {
       "path": "css/style.css",
-      "size": 115063,
-      "sha256": "1a2c834c38619dbfb11d043585267bb14e13b66d0caf43f064eacc78de9b3228"
+      "size": 120369,
+      "sha256": "3cf947d989bc06c7f8047b79fcba66a5ab13567e8a3fbdaa0337eeca6f4884fc"
     },
     {
       "path": "docs/ATENDIMENTO_REAL_F18.md",
@@ -373,6 +436,11 @@
       "sha256": "7383fd167320925cfb9ed45d794d7838f571f812c9c18edebf775db7ebee5ed2"
     },
     {
+      "path": "docs/HOTFIX_FILA_ICONS_SP_F31.md",
+      "size": 862,
+      "sha256": "468b599409985610fd16fa591ddf094fa37b2a110a9c704089ff70b95fc5f4a2"
+    },
+    {
       "path": "docs/HOTFIX_FUNDOS_CINEMATICOS_F23_1.md",
       "size": 1285,
       "sha256": "b324ef7eea7e3c0bc9dc4ab4ea93e04e42e521160b094e0342a20c2aeba9c243"
@@ -428,6 +496,11 @@
       "sha256": "59c55213064fbe4fc682e4f764fa71f1984e89d6d3e57313ee25ed8c096245f6"
     },
     {
+      "path": "docs/VEICULOS_PNG_SP_F32.md",
+      "size": 819,
+      "sha256": "03c609d6a1bd9956e9620babc1f570084891e6c60185357a344042c8a26911c9"
+    },
+    {
       "path": "docs/VISUAL_CURADORIA_F23_2.md",
       "size": 2014,
       "sha256": "474a67c06ae40059a176d36fcdd576ae151e2fcbfac5649e7698773093c3f2ea"
@@ -459,8 +532,8 @@
     },
     {
       "path": "index.html",
-      "size": 40950,
-      "sha256": "3a4f36621272e36a72eb342c0fa4301c7d7fb4621283e5ecc2a31ca66a910942"
+      "size": 41034,
+      "sha256": "47041542cd64e31ad837de6f2114d3e6a143b10ae62d0e2ee896c20d5862e446"
     },
     {
       "path": "js/anti-break.js",
@@ -469,13 +542,13 @@
     },
     {
       "path": "js/app.js",
-      "size": 88739,
-      "sha256": "c6286138ff0c586fad6e11e0d688b8a76f138d510d422479e77d48f314f83056"
+      "size": 90982,
+      "sha256": "9776c33f91eaccaa91a2d1e6f91fc7e52b2cd42c993c1256f7bf50d420b07cbd"
     },
     {
       "path": "js/assets.js",
-      "size": 3952,
-      "sha256": "5ec4588089463321d7d2da098aebe8c380a142918abe43340b563336eac038e1"
+      "size": 4357,
+      "sha256": "c1257f468236246e93a5ba1245bb15d1a7c47c027d63c447eaa0e89ef83984c6"
     },
     {
       "path": "js/balance.js",
@@ -504,8 +577,8 @@
     },
     {
       "path": "js/dispatch.js",
-      "size": 64378,
-      "sha256": "4d1540bb1b90790dee2b2c3997bd44f3b735c00ba0f0567358b3f7873722e827"
+      "size": 66078,
+      "sha256": "b43036acb5aa9b1c70e7dd52c818db2fdb449d5a990c4edf81f5e6a261909927"
     },
     {
       "path": "js/field-radio.js",
@@ -534,8 +607,8 @@
     },
     {
       "path": "js/map.js",
-      "size": 20679,
-      "sha256": "ecf33dd6da5d7c711a3d8f0c4b439e71df3322aeb51e6e75098308ce22336215"
+      "size": 20980,
+      "sha256": "caf1dbbae8d20298401714d8bd8c250488ca29379bdac5b0905ba857f5a88b94"
     },
     {
       "path": "js/public-rc.js",
@@ -549,13 +622,13 @@
     },
     {
       "path": "js/resource-dispatch.js",
-      "size": 14931,
-      "sha256": "f84f72bed3032e315ef72b46eb2777c78a8519763d4e44f5056e22a7b1763326"
+      "size": 15007,
+      "sha256": "53c727bd3cbc7948f4cd5ae9e47cb5f4c8e5120ebfba1ad19e9ffb14dac92a43"
     },
     {
       "path": "js/save-manager.js",
-      "size": 16576,
-      "sha256": "923363ff2da054ad41c16ec06ef3b7dd37c5cb26f14c3268290be653f50d4db8"
+      "size": 16772,
+      "sha256": "e1f9e9136db7ea456d736e967c5bebf92bdbeb96e8fee99604fb957470f7da79"
     },
     {
       "path": "js/training-academy.js",
@@ -574,8 +647,8 @@
     },
     {
       "path": "manifest.webmanifest",
-      "size": 2348,
-      "sha256": "758b3ae09a4bb6054d7b922e646ffab19adb767bf6c45da7d44b6d0ada0432cf"
+      "size": 2417,
+      "sha256": "10319c71e3badbe374a446e1bdafde5f53ae16570ff17d18daf1c9ed82e2b4f0"
     },
     {
       "path": "reports/audit-v1.7.4-layout-mobile.json",
@@ -589,8 +662,8 @@
     },
     {
       "path": "sw.js",
-      "size": 3644,
-      "sha256": "5b2c868a7b1ea36ee6396886d6bc7b3e53d8db9f29e91daf500e007d7f56311f"
+      "size": 4049,
+      "sha256": "3989af1c4838b062445fa4fc69b3d409a51ebc936b699b79cb4e84c7475ac41f"
     },
     {
       "path": "tests/BROWSER_AUDIT.json",
@@ -688,6 +761,21 @@
       "sha256": "53263858a520b5ed3490598cc4125467baad15b535c7fedc5268e9aa28289806"
     },
     {
+      "path": "tests/F31_LOGIC_RESULT.json",
+      "size": 221,
+      "sha256": "b665b2ceafb327171daded6d16749bbf8ec22ddd5572f99a861c2efc7629c576"
+    },
+    {
+      "path": "tests/F31_STATIC_AUDIT.json",
+      "size": 641,
+      "sha256": "4ad07575c9e7010fe33c930a5225cf22ef6d4970a5ea96576e7822061cc7fda2"
+    },
+    {
+      "path": "tests/F32_STATIC_AUDIT.json",
+      "size": 648,
+      "sha256": "faaa7eafac99f3355d0aba3e9bbd4f5de7f5551d517271bb27b1938f17f0d7bd"
+    },
+    {
       "path": "tests/FINAL_AUDIT_RESULT.json",
       "size": 204,
       "sha256": "7b905aa2ecb05e09dd5c8c46d5f66047b4b228b7544a4c7951b4fa8d2ab4ec21"
@@ -710,7 +798,7 @@
     {
       "path": "tests/logic-test.js",
       "size": 18875,
-      "sha256": "1604ba592b461c2eabfac903c555ad01e8c2b861269ef0e3c6e06af3ff70f9f9"
+      "sha256": "92b07840a67a39a2418a97a32c79bf0b16a27882a80e775eed55b7a4c6c77cff"
     },
     {
       "path": "vendor/leaflet/LICENSE",

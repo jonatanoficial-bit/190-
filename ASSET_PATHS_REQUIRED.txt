@@ -72,3 +72,15 @@ Fase 24 — áudio e imersão:
 - O áudio é gerado em `js/immersion.js` via Web Audio API.
 - Não existem arquivos de áudio obrigatórios em assets.
 - Fundo principal preservado conforme curadoria visual: control room, lobby, city night e dispatch.
+
+FASE 31 — ÍCONES CINEMATOGRÁFICOS DE UNIDADES SP
+- assets/units/sp-police-car-cinematic.png — viaturas PM urbanas no mapa e cards de despacho.
+- assets/units/sp-police-motorcycle-cinematic.png — ROCAM/Moto patrulha.
+- assets/units/sp-police-helicopter-cinematic.png — Águia/apoio aéreo.
+- assets/units/sp-fire-truck-cinematic.png — Bombeiros 193.
+- assets/units/sp-samu-ambulance-cinematic.png — SAMU 192.
+- assets/units/sp-civil-defense-cinematic.png — Defesa Civil.
+Observação: artes próprias inspiradas em viaturas urbanas de São Paulo, sem brasões oficiais.
+
+- assets/units/sp-police-support-cinematic.png — Força Tática SUV usada pela unidade `pm-forca`.
+- assets/units/sp-fire-rescue-cinematic.png — van Bombeiros Resgate usada pela unidade `bm-resgate`.

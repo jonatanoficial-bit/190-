@@ -4408,3 +4408,111 @@ textarea,
   .tutorial-step-card { padding: 13px; }
   .tutorial-step-card .action-btn { min-height: 48px; }
 }
+
+/* Fase 31 — Hotfix continuidade das ligações + ícones cinematográficos SP */
+.incoming-call-strip {
+  border: 1px solid rgba(96, 165, 250, .42);
+  border-radius: 16px;
+  padding: .72rem .78rem;
+  margin: .2rem 0 .72rem;
+  background: linear-gradient(135deg, rgba(14, 116, 144, .24), rgba(15, 23, 42, .72));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 14px 30px rgba(0,0,0,.22);
+  display: grid;
+  gap: .18rem;
+  color: #e6faff;
+}
+.incoming-call-strip[hidden] { display: none !important; }
+.incoming-call-strip strong { font-size: .92rem; letter-spacing: .01em; }
+.incoming-call-strip span { font-size: .78rem; color: #bae6fd; line-height: 1.28; }
+.incoming-call-strip.live {
+  border-color: rgba(251, 191, 36, .72);
+  background: linear-gradient(135deg, rgba(146, 64, 14, .45), rgba(76, 29, 149, .30), rgba(15, 23, 42, .78));
+  animation: c190-incoming-pulse 1.1s ease-in-out infinite;
+}
+@keyframes c190-incoming-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, .18), 0 14px 30px rgba(0,0,0,.22); }
+  50% { box-shadow: 0 0 0 6px rgba(251, 191, 36, .08), 0 18px 38px rgba(0,0,0,.30); }
+}
+
+.resource-marker {
+  position: relative;
+  overflow: visible;
+  border-radius: 14px !important;
+  border: 1px solid rgba(255,255,255,.92) !important;
+  background-color: transparent !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  box-shadow: 0 0 0 3px rgba(2, 6, 23, .38), 0 8px 22px rgba(0,0,0,.46), 0 0 18px rgba(125, 211, 252, .18) !important;
+}
+.resource-marker span {
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  transform: translateX(-50%);
+  min-width: max-content;
+  padding: .08rem .32rem;
+  border-radius: 999px;
+  color: #f8fafc;
+  background: rgba(2, 6, 23, .78);
+  border: 1px solid rgba(226, 232, 240, .18);
+  font-size: .48rem !important;
+  line-height: 1.15;
+  letter-spacing: .01em;
+  text-shadow: 0 1px 2px rgba(0,0,0,.85);
+}
+.resource-marker.type-pm { background-image: url("../assets/units/sp-police-car-cinematic.png") !important; }
+.resource-marker.type-bombeiros { background-image: url("../assets/units/sp-fire-truck-cinematic.png") !important; }
+.resource-marker.type-samu { background-image: url("../assets/units/sp-samu-ambulance-cinematic.png") !important; }
+.resource-marker.type-defesa { background-image: url("../assets/units/sp-civil-defense-cinematic.png") !important; }
+.resource-marker.unit-pm-rocam { background-image: url("../assets/units/sp-police-motorcycle-cinematic.png") !important; }
+.resource-marker.unit-helicoptero { background-image: url("../assets/units/sp-police-helicopter-cinematic.png") !important; }
+.resource-marker.unit-pm-forca { background-image: url("../assets/units/sp-police-support-cinematic.png") !important; }
+.resource-marker.unit-bm-resgate { background-image: url("../assets/units/sp-fire-rescue-cinematic.png") !important; }
+.resource-marker.moving::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 20px;
+  background: conic-gradient(from 0deg, transparent, rgba(94, 234, 212, .22), transparent 48%);
+  z-index: -1;
+  animation: c190-vehicle-sweep 1.4s linear infinite;
+}
+@keyframes c190-vehicle-sweep { to { transform: rotate(360deg); } }
+
+.tactical-resource-marker {
+  width: 44px !important;
+  height: 34px !important;
+  min-width: 44px !important;
+  border-radius: 10px !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  box-shadow: 0 0 0 3px rgba(2, 6, 23, .36), 0 8px 18px rgba(0,0,0,.38) !important;
+}
+.tactical-resource-marker.type-pm { background-image: url("../assets/units/sp-police-car-cinematic.png") !important; }
+.tactical-resource-marker.type-bombeiros { background-image: url("../assets/units/sp-fire-truck-cinematic.png") !important; }
+.tactical-resource-marker.type-samu { background-image: url("../assets/units/sp-samu-ambulance-cinematic.png") !important; }
+.tactical-resource-marker.type-defesa { background-image: url("../assets/units/sp-civil-defense-cinematic.png") !important; }
+.tactical-resource-marker.unit-pm-rocam { background-image: url("../assets/units/sp-police-motorcycle-cinematic.png") !important; }
+.tactical-resource-marker.unit-helicoptero { background-image: url("../assets/units/sp-police-helicopter-cinematic.png") !important; }
+.tactical-resource-marker.unit-pm-forca { background-image: url("../assets/units/sp-police-support-cinematic.png") !important; }
+.tactical-resource-marker.unit-bm-resgate { background-image: url("../assets/units/sp-fire-rescue-cinematic.png") !important; }
+.tactical-resource-marker span { display: none; }
+
+.resource-unit-card img {
+  width: 66px !important;
+  height: 48px !important;
+  border-radius: 12px;
+  object-fit: contain;
+  background: radial-gradient(circle at 50% 70%, rgba(255,255,255,.10), transparent 62%);
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,.48)) saturate(1.08) contrast(1.04) !important;
+}
+
+@media (max-width: 700px) {
+  .incoming-call-strip { margin-bottom: .58rem; padding: .66rem .68rem; }
+  .resource-marker span { font-size: .42rem !important; bottom: -10px; }
+  .resource-unit-card img { width: 58px !important; height: 42px !important; }
+}

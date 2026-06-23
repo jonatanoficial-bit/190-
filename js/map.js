@@ -102,13 +102,14 @@ window.C190_Map = (() => {
     });
   }
   function resourceIcon(resource, compact) {
-    const label = resource.type === "pm" ? "PM" : resource.type === "bombeiros" ? "193" : "192";
+    const label = resource.type === "pm" ? "PM" : resource.type === "bombeiros" ? "193" : resource.type === "samu" ? "192" : "DC";
+    const unitClass = `unit-${String(resource.id || "unit").replace(/[^a-zA-Z0-9_-]/g, "-")}`;
     return window.L.divIcon({
-      className: "c190-div-icon",
-      html: `<button class="resource-marker type-${escapeHtml(resource.type)} ${resource.selected ? "selected" : ""} ${resource.moving ? "moving" : ""} ${resource.arrived ? "arrived" : ""}" style="--unit-progress:${Math.round((resource.progress || 0) * 100)}%" aria-label="${escapeHtml(resource.label)}"><span>${escapeHtml(resource.short || label)}</span></button>`,
-      iconSize: compact ? [28, 28] : [34, 34],
-      iconAnchor: compact ? [14, 14] : [17, 17],
-      popupAnchor: [0, -16],
+      className: "c190-div-icon c190-resource-div-icon",
+      html: `<button class="resource-marker type-${escapeHtml(resource.type)} ${escapeHtml(unitClass)} ${resource.selected ? "selected" : ""} ${resource.moving ? "moving" : ""} ${resource.arrived ? "arrived" : ""}" style="--unit-progress:${Math.round((resource.progress || 0) * 100)}%" aria-label="${escapeHtml(resource.label)}"><span>${escapeHtml(resource.short || label)}</span></button>`,
+      iconSize: compact ? [42, 42] : [52, 52],
+      iconAnchor: compact ? [21, 21] : [26, 26],
+      popupAnchor: [0, -22],
     });
   }
 
@@ -366,7 +367,8 @@ window.C190_Map = (() => {
       ${((window.C190_FieldUnits?.movingResources?.(state)) || []).map((resource) => {
         const fakeCall = { lat: resource.lat, lng: resource.lng, priority: 2, status: resource.arrived ? "resolved" : "active", type: resource.short || resource.label };
         const position = tacticalPosition(fakeCall, center, [...calls, fakeCall]);
-        return `<button class="tactical-resource-marker type-${escapeHtml(resource.type)} ${resource.moving ? "moving" : "arrived"}" style="left:${position.x}%;top:${position.y}%;--unit-progress:${Math.round((resource.progress || 0) * 100)}%" title="${escapeHtml(resource.label)}"><span>${escapeHtml(resource.short || "UN")}</span></button>`;
+        const unitClass = `unit-${String(resource.id || "unit").replace(/[^a-zA-Z0-9_-]/g, "-")}`;
+        return `<button class="tactical-resource-marker type-${escapeHtml(resource.type)} ${escapeHtml(unitClass)} ${resource.moving ? "moving" : "arrived"}" style="left:${position.x}%;top:${position.y}%;--unit-progress:${Math.round((resource.progress || 0) * 100)}%" title="${escapeHtml(resource.label)}"><span>${escapeHtml(resource.short || "UN")}</span></button>`;
       }).join("")}
       ${calls.length ? "" : '<div class="tactical-empty">Nenhuma ocorrência georreferenciada no plantão atual.</div>'}
     `;

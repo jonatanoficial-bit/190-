@@ -1,8 +1,8 @@
 window.C190_Assets = (() => {
   "use strict";
-  const VERSION = "2.4.0";
-  const PHASE = "29";
-  const BUILD = "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT";
+  const VERSION = "2.6.0";
+  const PHASE = "31";
+  const BUILD = "CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT";
   const required = [
     "assets/badges/central190-brand.svg",
     "assets/backgrounds/bg-central-room.webp",
@@ -18,6 +18,14 @@ window.C190_Assets = (() => {
     "assets/ui/radio-waves.svg",
     "assets/illustrations/operator-desk.svg",
     "assets/ui/ui-panel-kit.png",
+    "assets/units/sp-police-car-cinematic.png",
+    "assets/units/sp-police-motorcycle-cinematic.png",
+    "assets/units/sp-police-helicopter-cinematic.png",
+    "assets/units/sp-fire-truck-cinematic.png",
+    "assets/units/sp-fire-rescue-cinematic.png",
+    "assets/units/sp-samu-ambulance-cinematic.png",
+    "assets/units/sp-civil-defense-cinematic.png",
+    "assets/units/sp-police-support-cinematic.png",
     "assets/units/unit-police-cruiser.png",
     "assets/units/unit-ambulance-samu.png",
     "assets/units/unit-fire-rescue.png",

@@ -1,0 +1,18 @@
+{
+  "build": "CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT",
+  "version": "2.6.0",
+  "phase": 32,
+  "assets": {
+    "assets/units/sp-police-car-cinematic.png": true,
+    "assets/units/sp-police-motorcycle-cinematic.png": true,
+    "assets/units/sp-police-support-cinematic.png": true,
+    "assets/units/sp-samu-ambulance-cinematic.png": true,
+    "assets/units/sp-fire-truck-cinematic.png": true,
+    "assets/units/sp-fire-rescue-cinematic.png": true
+  },
+  "resourceDispatchMappings": {
+    "pm-forca": "assets/units/sp-police-support-cinematic.png",
+    "bm-resgate": "assets/units/sp-fire-rescue-cinematic.png"
+  },
+  "status": "ok"
+}

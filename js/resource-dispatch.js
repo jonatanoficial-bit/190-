@@ -12,16 +12,16 @@ window.C190_ResourceDispatch = (() => {
   };
 
   const UNIT_BLUEPRINTS = [
-    { id: "pm-01", type: "pm", label: "Viatura PM 01", short: "PM-01", role: "patrulhamento", km: 1.4, angle: 0.18, capacity: 1, icon: "assets/units/unit-police-cruiser.png" },
-    { id: "pm-02", type: "pm", label: "Viatura PM 02", short: "PM-02", role: "apoio de área", km: 2.6, angle: 2.12, capacity: 1, icon: "assets/units/unit-police-cruiser.png" },
-    { id: "pm-rocam", type: "pm", label: "ROCAM/Moto patrulha", short: "ROCAM", role: "chegada rápida", km: 1.1, angle: 4.92, capacity: 1, icon: "assets/units/unit-police-cruiser.png" },
-    { id: "pm-forca", type: "pm", label: "Força Tática", short: "FT", role: "alto risco", km: 4.0, angle: 5.72, capacity: 2, icon: "assets/units/unit-police-cruiser.png", minPriority: "critica" },
-    { id: "bm-01", type: "bombeiros", label: "Bombeiros Auto Bomba", short: "AB-193", role: "incêndio e salvamento", km: 3.5, angle: 3.95, capacity: 2, icon: "assets/units/unit-fire-rescue.png" },
-    { id: "bm-resgate", type: "bombeiros", label: "Bombeiros Resgate", short: "UR-193", role: "resgate técnico", km: 4.7, angle: 1.52, capacity: 2, icon: "assets/units/unit-fire-rescue.png" },
-    { id: "samu-usb", type: "samu", label: "SAMU USB", short: "USB-192", role: "suporte básico", km: 2.8, angle: 5.18, capacity: 1, icon: "assets/units/unit-ambulance-samu.png" },
-    { id: "samu-usa", type: "samu", label: "SAMU Avançado", short: "USA-192", role: "risco de vida", km: 5.2, angle: 0.96, capacity: 2, icon: "assets/units/unit-ambulance-samu.png", minPriority: "critica" },
-    { id: "defesa-01", type: "defesa", label: "Defesa Civil", short: "DC", role: "alagamento/risco estrutural", km: 5.9, angle: 2.86, capacity: 1, icon: "assets/units/unit-fire-rescue.png" },
-    { id: "helicoptero", type: "pm", label: "Águia Helicóptero", short: "ÁGUIA", role: "busca e apoio aéreo", km: 7.2, angle: 3.34, capacity: 2, icon: "assets/units/unit-helicopter-police.png", minPriority: "maxima" },
+    { id: "pm-01", type: "pm", label: "Viatura PM 01", short: "PM-01", role: "patrulhamento", km: 1.4, angle: 0.18, capacity: 1, icon: "assets/units/sp-police-car-cinematic.png" },
+    { id: "pm-02", type: "pm", label: "Viatura PM 02", short: "PM-02", role: "apoio de área", km: 2.6, angle: 2.12, capacity: 1, icon: "assets/units/sp-police-car-cinematic.png" },
+    { id: "pm-rocam", type: "pm", label: "ROCAM/Moto patrulha", short: "ROCAM", role: "chegada rápida", km: 1.1, angle: 4.92, capacity: 1, icon: "assets/units/sp-police-motorcycle-cinematic.png" },
+    { id: "pm-forca", type: "pm", label: "Força Tática", short: "FT", role: "alto risco", km: 4.0, angle: 5.72, capacity: 2, icon: "assets/units/sp-police-support-cinematic.png", minPriority: "critica" },
+    { id: "bm-01", type: "bombeiros", label: "Bombeiros Auto Bomba", short: "AB-193", role: "incêndio e salvamento", km: 3.5, angle: 3.95, capacity: 2, icon: "assets/units/sp-fire-truck-cinematic.png" },
+    { id: "bm-resgate", type: "bombeiros", label: "Bombeiros Resgate", short: "UR-193", role: "resgate técnico", km: 4.7, angle: 1.52, capacity: 2, icon: "assets/units/sp-fire-rescue-cinematic.png" },
+    { id: "samu-usb", type: "samu", label: "SAMU USB", short: "USB-192", role: "suporte básico", km: 2.8, angle: 5.18, capacity: 1, icon: "assets/units/sp-samu-ambulance-cinematic.png" },
+    { id: "samu-usa", type: "samu", label: "SAMU Avançado", short: "USA-192", role: "risco de vida", km: 5.2, angle: 0.96, capacity: 2, icon: "assets/units/sp-samu-ambulance-cinematic.png", minPriority: "critica" },
+    { id: "defesa-01", type: "defesa", label: "Defesa Civil", short: "DC", role: "alagamento/risco estrutural", km: 5.9, angle: 2.86, capacity: 1, icon: "assets/units/sp-civil-defense-cinematic.png" },
+    { id: "helicoptero", type: "pm", label: "Águia Helicóptero", short: "ÁGUIA", role: "busca e apoio aéreo", km: 7.2, angle: 3.34, capacity: 2, icon: "assets/units/sp-police-helicopter-cinematic.png", minPriority: "maxima" },
   ];
 
   const PRIORITY_LEVEL = { baixa: 1, media: 2, alta: 3, critica: 4, maxima: 5 };

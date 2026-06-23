@@ -1,9 +1,11 @@
 window.C190_Save = (() => {
   "use strict";
 
-  const KEY = "central190_save_v28";
-  const BACKUP = "central190_save_v28_backup";
+  const KEY = "central190_save_v29";
+  const BACKUP = "central190_save_v29_backup";
   const LEGACY = [
+    "central190_save_v28",
+    "central190_save_v28_backup",
     "central190_save_v27",
     "central190_save_v27_backup",
     "central190_save_v26",
@@ -40,9 +42,9 @@ window.C190_Save = (() => {
     "central_190_save",
     "c190_save",
   ];
-  const SCHEMA = 28;
-  const VERSION = "2.4.0";
-  const BUILD = "CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT";
+  const SCHEMA = 29;
+  const VERSION = "2.6.0";
+  const BUILD = "CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,
@@ -116,10 +118,12 @@ window.C190_Save = (() => {
     campaign: window.C190_Campaign?.defaultCampaign?.() || { version: 1, activeMissionId: null, selectedMissionId: "turno_zero", completed: [], attempts: {}, bestScores: {}, rewardsClaimed: [], history: [] },
     release: {
       version: VERSION,
-      phase: 30,
+      phase: 31,
       visualRecovery: 1,
       campaignVersion: 2,
-      fieldUnitsVersion: 1,
+      fieldUnitsVersion: 2,
+      incomingCallContinuityVersion: 1,
+      cinematicUnitIconsVersion: 1,
       mobileHomologationVersion: 1,
       callProtocolVersion: 3,
       triageVersion: 1,
@@ -326,8 +330,8 @@ window.C190_Save = (() => {
       immersiveHud: incomingSettings.immersiveHud !== false,
     };
 
-    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 30, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
-      fieldUnitsVersion: 1,
+    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 31, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
+      fieldUnitsVersion: 2, incomingCallContinuityVersion: 1, cinematicUnitIconsVersion: 1,
       mobileHomologationVersion: 1,
       callProtocolVersion: 3, triageVersion: 1,
       locationIntelVersion: 1, resourceDispatchVersion: 1,
