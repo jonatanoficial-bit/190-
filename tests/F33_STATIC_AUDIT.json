@@ -1,0 +1,10 @@
+{
+  "build": "CENTRAL190-2700-F33-DEFESA-CIVIL-AGUIA-20260623-121500-BRT",
+  "version": "2.7.0",
+  "phase": 33,
+  "assets": {
+    "assets/units/sp-civil-defense-cinematic.png": true,
+    "assets/units/sp-police-helicopter-cinematic.png": true
+  },
+  "status": "ok"
+}

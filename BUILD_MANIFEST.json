@@ -1,14 +1,14 @@
 {
   "name": "Central 190",
-  "version": "2.6.0",
-  "phase": 32,
-  "build": "CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT",
-  "fileCount": 172,
+  "version": "2.7.0",
+  "phase": 33,
+  "build": "CENTRAL190-2700-F33-DEFESA-CIVIL-AGUIA-20260623-121500-BRT",
+  "fileCount": 175,
   "files": [
     {
       "path": "ASSET_PATHS_REQUIRED.txt",
-      "size": 3457,
-      "sha256": "29b9b771370320637ee0d0c05e3479a2cecf1a6371f0b1cc3a177395ddcf2ee6"
+      "size": 3730,
+      "sha256": "f011f74da8e727e339b7d09a571e67a24b942e65f612ca6eb0727830b547804d"
     },
     {
       "path": "AUDIT_F14.md",
@@ -126,49 +126,54 @@
       "sha256": "85a2b3880248b6108b4f96beb43d6ee1be8943d7359527a1082fdfe36d11b256"
     },
     {
+      "path": "AUDIT_F33.md",
+      "size": 336,
+      "sha256": "ab3f41ac7159d1779d161b1ca232e6efefa4d9d7e7dcda53f61a056ea8d90324"
+    },
+    {
       "path": "BUILD-MANIFEST.json",
-      "size": 26710,
-      "sha256": "91fd632de09d06bba92d95e1f94e81c2b81b60838e49225c736b8437a8577334"
+      "size": 28003,
+      "sha256": "a2b15fd3cb5fa6d5d5bdbb1498c00c8d5d09226b301c11ca22fb3ce4fef55e47"
     },
     {
       "path": "BUILD-REPORT.md",
-      "size": 1257,
-      "sha256": "ea559a921ad7954248675a9d491192e818a608a899ba69f40b94b47f35d78379"
+      "size": 1065,
+      "sha256": "c21af283eb2fa57040a91069a86efa361e012c3336633416cf0e3d4887d4fbb5"
     },
     {
       "path": "BUILD_INFO.json",
-      "size": 843,
-      "sha256": "69d1ccd545b77698c3a845a341bfe68ad8cdbf19f3886895d1d3848b2ffe47c1"
+      "size": 836,
+      "sha256": "f8658e43a8f7388b8f24b825e311274ba9f91151dc1042039713f054c460cabb"
     },
     {
       "path": "BUILD_MANIFEST.json",
-      "size": 26710,
-      "sha256": "91fd632de09d06bba92d95e1f94e81c2b81b60838e49225c736b8437a8577334"
+      "size": 28003,
+      "sha256": "a2b15fd3cb5fa6d5d5bdbb1498c00c8d5d09226b301c11ca22fb3ce4fef55e47"
     },
     {
       "path": "CHANGELOG.md",
-      "size": 5833,
-      "sha256": "d0dfe7cd764b284648832e2a8e1dc6e3f8f4c476c183b87bdb11c88d14188324"
+      "size": 5478,
+      "sha256": "95f8b9a6c589c854ff74b51119303d92273f1450a86de44081693708b5073317"
     },
     {
       "path": "CHECKLIST.md",
-      "size": 1526,
-      "sha256": "3ccbd0a14c59ea596131b5d8e5aef8cbd4525c3ce84951eab09cd61145b03b36"
+      "size": 1251,
+      "sha256": "3bede47dd4f5e2364afe49e5eeac889a85e64ef5d68bcdd9c399f842e98c1fca"
     },
     {
       "path": "FILE-MANIFEST.sha256",
-      "size": 15302,
-      "sha256": "d1b1bb430d97e105592843fcb639630e21fa4e5480e9c245979b087680a2f5a1"
+      "size": 16058,
+      "sha256": "9f03c4c4654aa9f2f359e64e618d4d087982c67e69e0006d6fcfc32b9b4d6f6e"
     },
     {
       "path": "README.md",
-      "size": 1946,
-      "sha256": "24e43104cbb5ca54bfc60499b4f64d48c492a66e62e45b5ef336cd737dd9ac50"
+      "size": 1588,
+      "sha256": "5d584d8090fbfe733e5e7ef7bcd7094b82e93888f804e8c376b70ef2e0c15bcf"
     },
     {
       "path": "TEST-REPORT.md",
-      "size": 1533,
-      "sha256": "120c52f23d84885b1f45b0f612dcdc9f7ebdd58f4704bea5b3a24d96aa7b0735"
+      "size": 1311,
+      "sha256": "ed4b0e10a430a03e6d164f700284815c4c3de14c5b2755c05ef3447662358fa8"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -177,8 +182,8 @@
     },
     {
       "path": "VERSION.txt",
-      "size": 148,
-      "sha256": "f8d3fe9aff0a2c9fb155b74c436cce7f8333aac50e919f42fc04f7a6a9d57cf3"
+      "size": 135,
+      "sha256": "8c1d9776053fc39e147de5ee7e9e728b1ae8f240b30716ce31003c373d0fa5c0"
     },
     {
       "path": "assets/backgrounds/bg-career-room.webp",
@@ -317,8 +322,8 @@
     },
     {
       "path": "assets/units/sp-civil-defense-cinematic.png",
-      "size": 16506,
-      "sha256": "3040f3c4f703dcc75ecfad1686ce9936016fda1588e6c6a476a9cbc01b6b612a"
+      "size": 133601,
+      "sha256": "283e87ad2bacdce8d8c87fc893857decd0b90dce6e12631bc9a1d58ec30b23bd"
     },
     {
       "path": "assets/units/sp-fire-rescue-cinematic.png",
@@ -332,23 +337,23 @@
     },
     {
       "path": "assets/units/sp-police-car-cinematic.png",
-      "size": 119270,
-      "sha256": "0c82c57f29e2ff191f247295de5035aef6d634a92829dec3feef7906ac4c1572"
+      "size": 115300,
+      "sha256": "909e9d74be3f138952e4771ff9b715644d5cb1c88c60c32a3eb3831604bd4f43"
     },
     {
       "path": "assets/units/sp-police-helicopter-cinematic.png",
-      "size": 14536,
-      "sha256": "51fcefc97b2aa1572908fd9696f144dbb4240f69dd4d59529abab0fe625115d1"
+      "size": 87247,
+      "sha256": "2521ea50509c2ef920c8a9aad02d826879e60ab4ead315d3e0b63b0c39c821af"
     },
     {
       "path": "assets/units/sp-police-motorcycle-cinematic.png",
-      "size": 116524,
-      "sha256": "fb7729146ed331770c1d8aa9ba3cbace2c241ca58cc7372be77d95b19b29d525"
+      "size": 205545,
+      "sha256": "dc9f549673aad394974bb63c98969436d850e685280cb922759c0f5f640374f0"
     },
     {
       "path": "assets/units/sp-police-support-cinematic.png",
-      "size": 119775,
-      "sha256": "d7e639a130cd0d45e745eb14cbb4518d39c724b094c124221a02e06847622d34"
+      "size": 115231,
+      "sha256": "badfa78fd13a4a119d5e049324db98549cb51b8a1f12e026172e98f8a25e68d1"
     },
     {
       "path": "assets/units/sp-samu-ambulance-cinematic.png",
@@ -414,6 +419,11 @@
       "path": "docs/CREDITS_AND_LICENSES.md",
       "size": 417,
       "sha256": "e24a212da47f83adbfde8c9093ab659e464352844a2ee7ec91c931c677fc2bb8"
+    },
+    {
+      "path": "docs/DEFESA_CIVIL_AGUIA_F33.md",
+      "size": 582,
+      "sha256": "9a8355ab7bc39cc41ecf4ccb2210352762945b9e2f4070054222021872091bb3"
     },
     {
       "path": "docs/DESPACHO_UNIDADES_F21.md",
@@ -547,8 +557,8 @@
     },
     {
       "path": "js/assets.js",
-      "size": 4357,
-      "sha256": "c1257f468236246e93a5ba1245bb15d1a7c47c027d63c447eaa0e89ef83984c6"
+      "size": 4360,
+      "sha256": "06b56af8f144e5ef9e0f1e31e9cda7acde5d14d40cd33921070d0002077f7a40"
     },
     {
       "path": "js/balance.js",
@@ -627,8 +637,8 @@
     },
     {
       "path": "js/save-manager.js",
-      "size": 16772,
-      "sha256": "e1f9e9136db7ea456d736e967c5bebf92bdbeb96e8fee99604fb957470f7da79"
+      "size": 16775,
+      "sha256": "71fe5ac061114729df24b5126c70058fc5f278a13d7119ba23e65ebfe8b74444"
     },
     {
       "path": "js/training-academy.js",
@@ -648,7 +658,7 @@
     {
       "path": "manifest.webmanifest",
       "size": 2417,
-      "sha256": "10319c71e3badbe374a446e1bdafde5f53ae16570ff17d18daf1c9ed82e2b4f0"
+      "sha256": "f38c49b666f4afacb9b4abef2574673f3e7c3766dea221de532fbe91d66fcf0f"
     },
     {
       "path": "reports/audit-v1.7.4-layout-mobile.json",
@@ -662,8 +672,8 @@
     },
     {
       "path": "sw.js",
-      "size": 4049,
-      "sha256": "3989af1c4838b062445fa4fc69b3d409a51ebc936b699b79cb4e84c7475ac41f"
+      "size": 4052,
+      "sha256": "5f90084a7960b5f33b1f2d46a32b6e6acfa0a274598cd512bbdb743e99cdcc88"
     },
     {
       "path": "tests/BROWSER_AUDIT.json",
@@ -774,6 +784,11 @@
       "path": "tests/F32_STATIC_AUDIT.json",
       "size": 648,
       "sha256": "faaa7eafac99f3355d0aba3e9bbd4f5de7f5551d517271bb27b1938f17f0d7bd"
+    },
+    {
+      "path": "tests/F33_STATIC_AUDIT.json",
+      "size": 266,
+      "sha256": "a1bd272d151cb8cb7e9a1aba4f7e11cefe18339304cb3be2fcac00f9743bef9e"
     },
     {
       "path": "tests/FINAL_AUDIT_RESULT.json",

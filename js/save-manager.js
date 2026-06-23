@@ -43,8 +43,8 @@ window.C190_Save = (() => {
     "c190_save",
   ];
   const SCHEMA = 29;
-  const VERSION = "2.6.0";
-  const BUILD = "CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT";
+  const VERSION = "2.7.0";
+  const BUILD = "CENTRAL190-2700-F33-DEFESA-CIVIL-AGUIA-20260623-121500-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,

@@ -1,6 +1,6 @@
 # Build Report — Central 190 v2.4.0 Fase 30
 
-Build: `CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT`
+Build: `CENTRAL190-2400-F30-RC-PUBLICA-COMERCIAL-20260622-123500-BRT`
 Data: 22/06/2026 12:35:00 BRT
 Save schema: 28
 
@@ -10,11 +10,6 @@ RC pública/comercial gerada com tutorial guiado, checklist de publicação, cac
 ## Próximo passo
 Homologação manual no domínio final: celular Android, iPhone/iOS quando disponível, tablet e desktop.
 
-
-## v2.6.0 — Fase 32 — Veículos PNG de São Paulo
-
-- Pack de veículos recortados do layout enviado pelo usuário, integrado ao jogo.
-- Cards, mapa real e mapa tático com veículos corretos.
 
 ## v2.5.0 — Fase 31 — Hotfix fila contínua e ícones SP
 - Corrigida a continuidade de ligações após despacho: a próxima chamada é antecipada quando a ocorrência entra no rádio e não há fila em espera.

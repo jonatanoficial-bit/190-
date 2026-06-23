@@ -1,4 +1,4 @@
-const CACHE = "central190-v2.6.0-f32-veiculos-png-sp";
+const CACHE = "central190-v2.7.0-f33-defesa-civil-aguia";
 const ASSETS = [
   "./",
   "./index.html",

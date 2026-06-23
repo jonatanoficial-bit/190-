@@ -1,14 +1,14 @@
 {
   "name": "Central 190",
-  "version": "2.6.0",
-  "phase": 32,
-  "build": "CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT",
-  "compiledAt": "2026-06-23T11:05:00-03:00",
+  "version": "2.7.0",
+  "phase": 33,
+  "build": "CENTRAL190-2700-F33-DEFESA-CIVIL-AGUIA-20260623-121500-BRT",
+  "compiledAt": "2026-06-23T12:15:00-03:00",
   "saveSchema": 29,
-  "title": "Integração de veículos PNG reais de São Paulo",
+  "title": "Integração Defesa Civil e Águia em PNG",
   "preserved": [
-    "RC pública F30",
-    "fila contínua F31",
+    "veículos PNG SP fase 32",
+    "fila contínua",
     "mobile-first scroll guard",
     "animated units",
     "typewriter",
@@ -23,10 +23,8 @@
     "final balance"
   ],
   "added": [
-    "6 recortes PNG a partir da imagem enviada pelo usuário",
-    "ícone próprio para Força Tática",
-    "ícone próprio para Bombeiros Resgate",
-    "cards, mapa real e mapa tático sincronizados",
-    "PWA cache v2.6.0"
+    "novo PNG da Defesa Civil recortado da imagem enviada pelo usuário",
+    "novo PNG do helicóptero Águia recortado da imagem enviada pelo usuário",
+    "assets substituídos mantendo os nomes já usados pelo jogo"
   ]
 }

@@ -23,12 +23,6 @@ Simulador fictício de central de emergência com atendimento por chat, coleta d
 Save local no navegador. Sem telemetria, sem conta obrigatória e sem upload de dados para nuvem.
 
 
-## v2.6.0 — Fase 32 — Veículos PNG de São Paulo
-
-- Recorte manual dos 6 veículos enviados pelo usuário e conversão para PNG com fundo transparente.
-- Novos assets reais: PM sedan, ROCAM, Força Tática SUV, SAMU 192, Auto Bomba 193 e Bombeiros Resgate.
-- Cards de despacho, mapa real e mapa tático agora mostram cada veículo correto por unidade.
-
 ## v2.5.0 — Fase 31 — Hotfix fila contínua e ícones SP
 - Corrigida a continuidade de ligações após despacho: a próxima chamada é antecipada quando a ocorrência entra no rádio e não há fila em espera.
 - Adicionada faixa de aviso da próxima ligação/ligação aguardando na Fila Viva.

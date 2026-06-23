@@ -84,3 +84,6 @@ Observação: artes próprias inspiradas em viaturas urbanas de São Paulo, sem 
 
 - assets/units/sp-police-support-cinematic.png — Força Tática SUV usada pela unidade `pm-forca`.
 - assets/units/sp-fire-rescue-cinematic.png — van Bombeiros Resgate usada pela unidade `bm-resgate`.
+
+- assets/units/sp-civil-defense-cinematic.png — Defesa Civil de São Paulo, versão F33 recortada da imagem enviada pelo usuário.
+- assets/units/sp-police-helicopter-cinematic.png — helicóptero Águia da PMESP, versão F33 recortada da imagem enviada pelo usuário.
