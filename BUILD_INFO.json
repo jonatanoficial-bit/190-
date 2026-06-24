@@ -1,34 +1,28 @@
 {
   "name": "Central 190",
-  "version": "3.1.0",
-  "phase": 37,
-  "build": "CENTRAL190-3100-F37-SUPERVISOR-OPERACIONAL-20260624-105500-BRT",
-  "compiledAt": "2026-06-24T10:55:00-03:00",
-  "saveSchema": 34,
-  "title": "Supervisor operacional, auditoria ao vivo e assistente de decisão",
+  "version": "3.2.0",
+  "phase": 38,
+  "build": "CENTRAL190-3200-F38-DEBRIEFING-PROFISSIONAL-20260624-112500-BRT",
+  "compiledAt": "2026-06-24T11:25:00-03:00",
+  "saveSchema": 35,
+  "title": "Debriefing profissional, replay de decisão e plano de melhoria",
   "preserved": [
+    "supervisor operacional F37",
     "central multitarefa F36",
-    "hotfix fluxo pós-despacho",
+    "fluxo pós-despacho",
     "mapa cinematográfico e ETA visual",
-    "áudio de ocorrência e voz PT-BR",
-    "tutorial visível",
-    "Defesa Civil e Águia integrados",
+    "áudio e voz PT-BR",
+    "Defesa Civil e Águia",
     "veículos PNG SP",
-    "mobile-first",
-    "field radio",
-    "resource dispatch",
-    "campaign",
-    "career",
-    "training"
+    "tutorial visível",
+    "campanha, carreira e cursos"
   ],
   "added": [
-    "novo módulo js/supervisor.js",
-    "painel Supervisor Operacional",
-    "auditoria ao vivo de protocolo",
-    "auditoria de localização",
-    "auditoria de triagem",
-    "auditoria de despacho",
-    "score de segurança operacional",
-    "assistente de próximas ações"
+    "novo módulo js/debriefing.js",
+    "painel Debriefing Profissional em Relatórios",
+    "replay de decisões por ocorrência",
+    "plano de melhoria por fraqueza operacional",
+    "treino recomendado após plantão",
+    "tendência de evolução do operador"
   ]
 }

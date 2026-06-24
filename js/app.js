@@ -804,7 +804,60 @@
     const selected = (call.resourceDispatchSelected || []).map((unit) => unit.label || unit.id || unit.type).filter(Boolean).slice(0, 4).join(", ");
     return `<details class="report-call-detail"><summary><strong>${esc(call.type || "Ocorrência")}</strong><span>${esc(call.outcome || call.status || "registro")}</span></summary><div class="report-chip-line">${chips.map((chip) => `<span>${esc(chip)}</span>`).join("")}</div><small>Localização: ${esc(call.locationStage || "não registrada")} · confiança ${Math.round(Number(call.locationConfidence || 0) * 100)}%${selected ? ` · unidades: ${esc(selected)}` : ""}</small></details>`;
   }
+
+  function renderDebriefingPanel() {
+    const panel = $("#debriefingPanel");
+    if (!panel) return;
+    const analysis = window.C190_Debriefing?.analyze?.(state);
+    if (!analysis?.active) {
+      panel.innerHTML = `<article class="panel debriefing-empty"><span class="eyebrow">DEBRIEFING PROFISSIONAL</span><h2>Sem plantão analisado</h2><p>${esc(analysis?.message || "Conclua um plantão para gerar análise profissional.")}</p></article>`;
+      return;
+    }
+    const latest = analysis.latest;
+    const lessons = latest.lessons?.length ? latest.lessons : [{ title: "Manutenção operacional", text: "Continue treinando protocolo, triagem e rádio.", count: 1 }];
+    panel.innerHTML = `<article class="debriefing-hero panel">
+      <header>
+        <div>
+          <span class="eyebrow">DEBRIEFING PROFISSIONAL</span>
+          <h2>${esc(latest.modeLabel)} · Nota ${esc(latest.grade)} · ${latest.score}/100</h2>
+          <small>${latest.resolved} resolvidas · ${latest.failed} falhas · ${latest.abandoned} abandonadas · tendência ${esc(analysis.trendLabel)}</small>
+        </div>
+        <div class="debriefing-score">
+          <strong>${latest.score}</strong>
+          <span>${esc(latest.grade)}</span>
+        </div>
+      </header>
+      <p class="debriefing-note">${esc(latest.supervisorNote)}</p>
+      <div class="debriefing-metrics">
+        <span><b>${latest.protocolAvg || "—"}</b>Protocolo</span>
+        <span><b>${latest.locationAvg || "—"}</b>Localização</span>
+        <span><b>${latest.radioAvg || "—"}</b>Rádio</span>
+        <span><b>${latest.decisionAvg || "—"}</b>Decisão</span>
+      </div>
+      <div class="debriefing-grid">
+        <section>
+          <h3>Pontos fortes</h3>
+          <div class="debriefing-tags">${latest.strengths.map((item) => `<span class="good">${esc(item)}</span>`).join("")}</div>
+        </section>
+        <section>
+          <h3>Plano de melhoria</h3>
+          <div class="lesson-list">${lessons.slice(0, 4).map((lesson) => `<article><strong>${esc(lesson.title)} · ${lesson.count}x</strong><small>${esc(lesson.text)}</small></article>`).join("")}</div>
+        </section>
+        <section>
+          <h3>Treino recomendado</h3>
+          <div class="recommended-training"><strong>${esc(latest.recommendedCourse)}</strong><small>Priorize este módulo antes do próximo plantão crítico.</small><button class="action-btn primary" data-open-training>Ir para cursos</button></div>
+        </section>
+      </div>
+      <details class="decision-replay">
+        <summary>Replay das decisões do plantão</summary>
+        <div class="decision-replay-list">${latest.callsAnalysis.slice(0, 8).map((call) => `<article><b>${call.index}. ${esc(call.type)}</b><span>${esc(call.outcome)} · ${call.score || "—"}/100</span><small>${esc(call.lesson)}</small></article>`).join("")}</div>
+      </details>
+    </article>`;
+    $$("[data-open-training]").forEach((btn) => { btn.onclick = () => showScreen("training"); });
+  }
+
   function renderReports() {
+    renderDebriefingPanel();
     $("#reportList").innerHTML =
       state.dispatch.reports
         .map(

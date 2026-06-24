@@ -1,0 +1,15 @@
+{
+  "build": "CENTRAL190-3200-F38-DEBRIEFING-PROFISSIONAL-20260624-112500-BRT",
+  "version": "3.2.0",
+  "phase": 38,
+  "saveSchema": 35,
+  "features": {
+    "debriefingModule": true,
+    "decisionReplay": true,
+    "improvementPlan": true,
+    "trainingRecommendation": true,
+    "operatorTrend": true,
+    "reportIntegration": true
+  },
+  "status": "ok"
+}
