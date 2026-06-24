@@ -61,7 +61,8 @@ window.C190_ResourceDispatch = (() => {
         lat: Number((lat + Math.sin(unit.angle) * meters / EARTH_LAT_METERS).toFixed(6)),
         lng: Number((lng + Math.cos(unit.angle) * meters / (EARTH_LAT_METERS * cos)).toFixed(6)),
       };
-      return window.C190_UnitFatigue?.enrichUnit?.(item, state) || item;
+      const fatigued = window.C190_UnitFatigue?.enrichUnit?.(item, state) || item;
+      return window.C190_VehicleMaintenance?.enrichUnit?.(fatigued, state) || fatigued;
     });
   }
 

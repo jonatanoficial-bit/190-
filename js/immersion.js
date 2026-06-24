@@ -2,7 +2,7 @@ window.C190_Immersion = (() => {
   "use strict";
 
   const VERSION = 2;
-  const BUILD = "CENTRAL190-3700-F43-FADIGA-RODIZIO-EQUIPES-20260624-134500-BRT";
+  const BUILD = "CENTRAL190-3800-F44-MANUTENCAO-VIATURAS-20260624-141500-BRT";
   let audioContext = null;
   let master = null;
   let unlocked = false;

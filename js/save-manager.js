@@ -1,9 +1,11 @@
 window.C190_Save = (() => {
   "use strict";
 
-  const KEY = "central190_save_v40";
-  const BACKUP = "central190_save_v40_backup";
+  const KEY = "central190_save_v41";
+  const BACKUP = "central190_save_v41_backup";
   const LEGACY = [
+    "central190_save_v40",
+    "central190_save_v40_backup",
     "central190_save_v39",
     "central190_save_v39_backup",
     "central190_save_v38",
@@ -64,9 +66,9 @@ window.C190_Save = (() => {
     "central_190_save",
     "c190_save",
   ];
-  const SCHEMA = 40;
-  const VERSION = "3.7.0";
-  const BUILD = "CENTRAL190-3700-F43-FADIGA-RODIZIO-EQUIPES-20260624-134500-BRT";
+  const SCHEMA = 41;
+  const VERSION = "3.8.0";
+  const BUILD = "CENTRAL190-3800-F44-MANUTENCAO-VIATURAS-20260624-141500-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,
@@ -140,7 +142,7 @@ window.C190_Save = (() => {
     campaign: window.C190_Campaign?.defaultCampaign?.() || { version: 1, activeMissionId: null, selectedMissionId: "turno_zero", completed: [], attempts: {}, bestScores: {}, rewardsClaimed: [], history: [] },
     release: {
       version: VERSION,
-      phase: 43,
+      phase: 44,
       visualRecovery: 1,
       campaignVersion: 2,
       fieldUnitsVersion: 3,
@@ -153,7 +155,7 @@ window.C190_Save = (() => {
       resourceDispatchVersion: 1,
       fieldRadioVersion: 1,
       trainingAcademyVersion: 1,
-      immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1,
+      immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, vehicleMaintenanceVersion: 1,
       balanceVersion: 3,
       economyVersion: 1,
       publicRcVersion: 1,
@@ -364,12 +366,12 @@ window.C190_Save = (() => {
       voicePitch: Math.max(0.75, Math.min(1.25, Number(incomingSettings.voicePitch ?? 1.0))),
     };
 
-    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 43, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
+    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 44, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
       fieldUnitsVersion: 3, incomingCallContinuityVersion: 1, cinematicUnitIconsVersion: 1,
       mobileHomologationVersion: 1,
       callProtocolVersion: 3, triageVersion: 1,
       locationIntelVersion: 1, resourceDispatchVersion: 1,
-      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, balanceVersion: 3, economyVersion: 1, publicRcVersion: 1, tutorialVersion: 1 };
+      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, vehicleMaintenanceVersion: 1, balanceVersion: 3, economyVersion: 1, publicRcVersion: 1, tutorialVersion: 1 };
     base.settings.telemetry = false;
     base.dispatch = enrichDispatch(source.dispatch || base.dispatch, incomingCenter);
     base.content = source.content && typeof source.content === "object" ? clone(source.content) : defaultContent();

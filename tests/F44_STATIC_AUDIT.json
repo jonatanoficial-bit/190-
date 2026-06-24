@@ -1,0 +1,16 @@
+{
+  "build": "CENTRAL190-3800-F44-MANUTENCAO-VIATURAS-20260624-141500-BRT",
+  "version": "3.8.0",
+  "phase": 44,
+  "saveSchema": 41,
+  "features": {
+    "vehicleMaintenanceModule": true,
+    "fleetReadinessPanel": true,
+    "fuelSimulation": true,
+    "mechanicalWear": true,
+    "etaMaintenanceImpact": true,
+    "multitaskVehicleRisk": true,
+    "supervisorFleetAlert": true
+  },
+  "status": "ok"
+}

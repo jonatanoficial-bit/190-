@@ -5781,3 +5781,115 @@ textarea,
     grid-template-columns: 1fr;
   }
 }
+
+
+/* F44 — Manutenção das viaturas, combustível e avarias */
+.vehicle-maintenance-panel {
+  max-width: var(--visual-content-max, 1240px);
+  margin: 0 auto 14px;
+}
+.vehicle-maintenance-card {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(150px, .32fr) minmax(300px, 1fr) minmax(190px, .5fr);
+  gap: 12px;
+  align-items: stretch;
+  padding: 13px;
+  border: 1px solid rgba(94,234,212,.18);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(2,14,24,.88), rgba(4,28,42,.66)),
+    var(--asset-panel-noise);
+  background-size: auto, 220px 220px;
+  box-shadow: 0 18px 42px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.vehicle-maintenance-card.vehicle-attention {
+  border-color: rgba(251,191,36,.38);
+}
+.vehicle-maintenance-card.vehicle-critical {
+  border-color: rgba(248,113,113,.54);
+  background-image: linear-gradient(135deg, rgba(74,11,22,.62), rgba(2,14,24,.90)), var(--asset-panel-noise);
+}
+.vehicle-main h3 {
+  margin: 4px 0 2px;
+  font-size: clamp(1.02rem, 2.1vw, 1.38rem);
+}
+.vehicle-main p,
+.vehicle-score span,
+.vehicle-unit small,
+.vehicle-advice span {
+  color: var(--muted);
+}
+.vehicle-score {
+  display: grid;
+  gap: 5px;
+  padding: 11px;
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,.07);
+  background: rgba(2,10,18,.46);
+  align-content: center;
+}
+.vehicle-score strong {
+  color: var(--accent);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+.vehicle-score span {
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .7rem;
+  font-weight: 900;
+}
+.vehicle-unit-list {
+  display: grid;
+  gap: 7px;
+}
+.vehicle-unit {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(125,211,252,.14);
+  background: rgba(15,23,42,.44);
+}
+.vehicle-unit img {
+  width: 54px;
+  height: 35px;
+  object-fit: contain;
+  filter: drop-shadow(0 7px 10px rgba(0,0,0,.42));
+}
+.vehicle-unit strong,
+.vehicle-unit small {
+  display: block;
+}
+.vehicle-unit.vehicle-service,
+.vehicle-unit.vehicle-attention {
+  border-color: rgba(251,191,36,.30);
+}
+.vehicle-unit.vehicle-critical {
+  border-color: rgba(248,113,113,.42);
+}
+.vehicle-advice {
+  display: grid;
+  gap: 7px;
+  align-content: start;
+}
+.vehicle-advice span {
+  display: block;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(251,191,36,.20);
+  background: rgba(69,42,5,.28);
+  line-height: 1.25;
+}
+@media (max-width: 1120px) {
+  .vehicle-maintenance-card {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 760px) {
+  .vehicle-maintenance-card {
+    grid-template-columns: 1fr;
+  }
+}

@@ -456,6 +456,41 @@
     </section>`;
   }
 
+
+  function renderVehicleMaintenancePanel() {
+    const panel = $("#vehicleMaintenancePanel");
+    if (!panel) return;
+    const report = window.C190_VehicleMaintenance?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const units = (report.units || []).slice().sort((a, b) => Number(a.vehicleReadiness || 0) - Number(b.vehicleReadiness || 0)).slice(0, 5);
+    panel.innerHTML = `<section class="vehicle-maintenance-card vehicle-${esc(report.level || "ready")}">
+      <div class="vehicle-main">
+        <span class="eyebrow">FROTA E MANUTENÇÃO</span>
+        <h3>${esc(report.label || "Frota operacional")}</h3>
+        <p>Prontidão mecânica ${Number(report.avgReadiness || 0)}% · atenção ${report.problematic.length} · serviço ${report.recommendedService.length}</p>
+      </div>
+      <div class="vehicle-score">
+        <strong>${Number(report.avgReadiness || 0)}%</strong>
+        <span>frota</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(report.avgReadiness || 0)))}%"></i></div>
+      </div>
+      <div class="vehicle-unit-list">
+        ${units.map((unit) => `<article class="vehicle-unit vehicle-${esc(unit.vehicleLevel || "ready")}">
+          <img src="${esc(unit.icon || "assets/units/sp-police-car-cinematic.png")}" alt="" loading="lazy" />
+          <div><strong>${esc(unit.short || unit.label)}</strong><small>${esc(unit.vehicleLabel || "Operacional")} · combustível ${Number(unit.maintenance?.fuel || 0)}% · desgaste ${Number(unit.maintenance?.wear || 0)}%</small></div>
+        </article>`).join("")}
+      </div>
+      <div class="vehicle-advice">
+        ${report.recommendedService.length ? report.recommendedService.map((unit) => `<span>${unit.maintenance?.needsFuel ? "Abastecer" : "Revisar"}: ${esc(unit.short || unit.label)}</span>`).join("") : "<span>Sem manutenção urgente.</span>"}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -560,6 +595,7 @@
     renderSupportNetworkPanel();
     renderUnifiedCommandPanel();
     renderUnitFatiguePanel();
+    renderVehicleMaintenancePanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
     liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}:${c.multitask?.riskLevel || ""}:${c.supervisor?.level || ""}`).join("|");

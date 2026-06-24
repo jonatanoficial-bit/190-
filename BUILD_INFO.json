@@ -1,12 +1,13 @@
 {
   "name": "Central 190",
-  "version": "3.7.0",
-  "phase": 43,
-  "build": "CENTRAL190-3700-F43-FADIGA-RODIZIO-EQUIPES-20260624-134500-BRT",
-  "compiledAt": "2026-06-24T13:45:00-03:00",
-  "saveSchema": 40,
-  "title": "Fadiga das equipes, rodízio operacional e disponibilidade real",
+  "version": "3.8.0",
+  "phase": 44,
+  "build": "CENTRAL190-3800-F44-MANUTENCAO-VIATURAS-20260624-141500-BRT",
+  "compiledAt": "2026-06-24T14:15:00-03:00",
+  "saveSchema": 41,
+  "title": "Manutenção das viaturas, combustível, avarias e prontidão mecânica",
   "preserved": [
+    "Fadiga das Equipes F43",
     "Comando Unificado F42",
     "Rede de Apoio F41",
     "Grandes Eventos F40",
@@ -16,17 +17,16 @@
     "Central Multitarefa F36",
     "fluxo pós-despacho",
     "mapa cinematográfico com ETA",
-    "áudio e voz PT-BR",
-    "carreira, campanha e cursos"
+    "áudio e voz PT-BR"
   ],
   "added": [
-    "novo módulo js/unit-fatigue.js",
-    "painel Efetivo e Fadiga",
-    "prontidão média das equipes",
-    "fadiga por unidade conforme uso",
-    "rodízio operacional recomendado",
-    "ETA impactado por desgaste",
-    "Central Multitarefa considera equipe cansada",
-    "Supervisor alerta efetivo sob desgaste"
+    "novo módulo js/vehicle-maintenance.js",
+    "painel Frota e Manutenção",
+    "combustível por viatura",
+    "desgaste mecânico por uso",
+    "prontidão mecânica média",
+    "ETA impactado por baixa prontidão",
+    "risco por viatura com manutenção pendente",
+    "recomendação de abastecimento/revisão"
   ]
 }

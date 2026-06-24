@@ -1,4 +1,4 @@
-const CACHE = "central190-v3.7.0-f43-fadiga-rodizio-equipes";
+const CACHE = "central190-v3.8.0-f44-manutencao-viaturas";
 const ASSETS = [
   "./",
   "./index.html",
@@ -24,6 +24,7 @@ const ASSETS = [
   "./js/urban-dynamics.js",
   "./js/major-incidents.js",
   "./js/support-network.js",
+  "./js/vehicle-maintenance.js",
   "./js/unit-fatigue.js",
   "./js/unified-command.js",
   "./js/debriefing.js",
