@@ -1,8 +1,8 @@
 window.C190_Assets = (() => {
   "use strict";
-  const VERSION = "2.9.1";
-  const PHASE = "35.1";
-  const BUILD = "CENTRAL190-2910-F35-1-HOTFIX-FLUXO-POS-DESPACHO-20260624-101500-BRT";
+  const VERSION = "3.0.0";
+  const PHASE = 36;
+  const BUILD = "CENTRAL190-3000-F36-CENTRAL-MULTITAREFA-20260624-103500-BRT";
   const required = [
     "assets/badges/central190-brand.svg",
     "assets/backgrounds/bg-central-room.webp",

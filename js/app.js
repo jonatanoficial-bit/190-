@@ -283,6 +283,44 @@
     }, 980);
   }
 
+
+  function pressureLabel(level) {
+    return level === "critical" ? "CRÍTICO" : level === "high" ? "ALTO" : level === "medium" ? "MODERADO" : "NORMAL";
+  }
+  function renderMultiOpsPanel() {
+    const panel = $("#multiOpsPanel");
+    if (!panel) return;
+    const analysis = window.C190_Multitask?.updateShift?.(state, state.dispatch?.shift) || window.C190_Multitask?.analyze?.(state);
+    if (!analysis?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const recommended = analysis.recommended;
+    const alerts = (analysis.alerts || []).slice(0, 3);
+    panel.innerHTML = `<section class="multi-ops-card pressure-${esc(analysis.pressureLevel || "normal")}">
+      <div class="multi-ops-main">
+        <span class="eyebrow">CENTRAL MULTITAREFA</span>
+        <h3>${esc(analysis.label || "Operação estável")}</h3>
+        <p>Fila ${analysis.waiting.length} · em campo ${analysis.field.length} · ativo ${analysis.activeCall ? "sim" : "não"}</p>
+      </div>
+      <div class="multi-pressure-meter">
+        <strong>${Number(analysis.pressureScore || 0)}%</strong>
+        <span>${pressureLabel(analysis.pressureLevel)}</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(analysis.pressureScore || 0)))}%"></i></div>
+      </div>
+      <div class="multi-ops-recommendation">
+        <strong>${recommended ? `Prioridade: ${esc(recommended.type)}` : "Nenhuma ligação aguardando"}</strong>
+        <small>${recommended ? `${esc(recommended.multitask?.riskLabel || priorityLabel(recommended.priority))} · ${recommended.wait}s de espera` : "A central está livre para acompanhar campo."}</small>
+        ${recommended ? `<button class="action-btn primary" data-answer-priority="${esc(recommended.id)}">Atender prioridade</button>` : ""}
+      </div>
+      <div class="multi-ops-alerts">
+        ${alerts.length ? alerts.map((a) => `<span>${esc(a.text || "Alerta operacional")}</span>`).join("") : "<span>Sem alertas críticos.</span>"}
+      </div>
+    </section>`;
+  }
+
   function renderDispatch() {
     const scrollSnapshot = captureDispatchScrollState();
     const sh = state.dispatch.shift;
@@ -292,10 +330,12 @@
     $("#shiftStatus").textContent = sh?.active
       ? `${sh.modeLabel || "Plantão ativo"} · ${sh.elapsed}s · campo ${(sh.calls || []).filter((c) => c.status === "field").length} · fila ${(sh.calls || []).filter((c) => c.status === "waiting").length} · resolvidas ${sh.resolved} · falhas ${sh.failed} · abandonadas ${sh.abandoned}${sh.affectsCareer === false ? " · sem impacto na carreira" : ""}`
       : "Nenhum plantão ativo. Escolha um modo de jogo ou inicie um plantão de carreira.";
-    const waiting = sh?.calls.filter((c) => c.status === "waiting") || [];
+    const waitingRaw = sh?.calls.filter((c) => c.status === "waiting") || [];
+    const waiting = window.C190_Multitask?.sortQueue?.(waitingRaw, sh) || waitingRaw;
     $("#queueCount").textContent = waiting.length;
     renderIncomingStrip(sh);
-    liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}`).join("|");
+    renderMultiOpsPanel();
+    liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}:${c.multitask?.riskLevel || ""}`).join("|");
     $("#callQueue").innerHTML =
       waiting.map((c) => callCard(c, true)).join("") ||
       '<div class="list-item">Fila vazia.</div>';
@@ -323,7 +363,9 @@
     const inField = c.status === "field";
     const buttonLabel = waiting ? "Atender ligação" : inField ? "Acompanhar rádio" : "Retomar ligação";
     const fieldNote = inField ? ` · rádio em campo${c.fieldRadio?.stage != null ? ` · etapa ${Number(c.fieldRadio.stage || 0) + 1}` : ""}` : "";
-    return `<div class="call-card ${c.priority === 3 ? "urgent" : waiting ? "waiting" : ""} ${inField ? "field-handoff-card" : ""}"><div class="call-meta"><span>${inField ? "EM CAMPO" : priorityLabel(c.priority)}</span><span>${c.wait}s espera</span></div><strong>${esc(c.type)}</strong><span>${esc(locationText)}</span><small>${asked} pergunta(s) de protocolo · precisão ${Math.round(Number(locationIntel?.confidence || 0) * 100)}%${fieldNote}</small><div class="call-actions"><button class="action-btn primary" data-answer="${esc(c.id)}">${buttonLabel}</button><button class="action-btn" data-focus-call="${esc(c.id)}" ${locationKnown ? "" : "disabled"}>${locationKnown ? "Ver no mapa" : "Mapa após localização"}</button></div></div>`;
+    const risk = c.multitask || {};
+    const riskNote = waiting && risk.riskLabel ? ` · ${risk.riskLabel} ${risk.riskScore || 0}%` : "";
+    return `<div class="call-card ${c.priority === 3 ? "urgent" : waiting ? "waiting" : ""} ${inField ? "field-handoff-card" : ""} ${risk.riskLevel ? `risk-${esc(risk.riskLevel)}` : ""}"><div class="call-meta"><span>${inField ? "EM CAMPO" : risk.riskLabel || priorityLabel(c.priority)}</span><span>${c.wait}s espera</span></div><strong>${esc(c.type)}</strong><span>${esc(locationText)}</span><small>${asked} pergunta(s) de protocolo · precisão ${Math.round(Number(locationIntel?.confidence || 0) * 100)}%${fieldNote}${riskNote}</small><div class="call-actions"><button class="action-btn primary" data-answer="${esc(c.id)}">${buttonLabel}</button><button class="action-btn" data-focus-call="${esc(c.id)}" ${locationKnown ? "" : "disabled"}>${locationKnown ? "Ver no mapa" : "Mapa após localização"}</button></div></div>`;
   }
   function dataChip(label, ok, value = "") {
     return `<span class="protocol-chip ${ok ? "ok" : "missing"}"><b>${esc(label)}</b>${value ? `<small>${esc(value)}</small>` : ""}</span>`;
@@ -458,11 +500,13 @@
     </div>`;
   }
   function bindDispatchButtons() {
-    $$("[data-answer]").forEach(
+    $$("[data-answer], [data-answer-priority]").forEach(
       (b) =>
         (b.onclick = () => {
-          C190_Dispatch.answer(state, b.dataset.answer);
+          const id = b.dataset.answer || b.dataset.answerPriority;
+          C190_Dispatch.answer(state, id);
           voiceFirstActiveCall(true);
+          C190_Immersion?.play?.("question", state);
           persist();
         }),
     );

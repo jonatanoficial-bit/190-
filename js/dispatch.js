@@ -263,6 +263,13 @@ window.C190_Dispatch = (() => {
         }
       }
     });
+    window.C190_Multitask?.updateShift?.(state, shift);
+    const waitingNow = shift.calls.filter((call) => call.status === "waiting").length;
+    const fieldNow = shift.calls.filter((call) => call.status === "field").length;
+    const scheduledNow = shift.calls.filter((call) => call.status === "scheduled").length;
+    if (!shift.activeCallId && fieldNow > 0 && waitingNow === 0 && scheduledNow > 0) {
+      primeNextCall(shift, 4, "central multitarefa");
+    }
     const done = shift.calls.every((call) => ["resolved", "failed", "abandoned"].includes(call.status));
     if (done && !shift.activeCallId) finishShift(state);
   }

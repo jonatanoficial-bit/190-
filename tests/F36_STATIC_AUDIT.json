@@ -1,0 +1,16 @@
+{
+  "build": "CENTRAL190-3000-F36-CENTRAL-MULTITAREFA-20260624-103500-BRT",
+  "version": "3.0.0",
+  "phase": 36,
+  "saveSchema": 33,
+  "features": {
+    "multitaskModule": true,
+    "operationalPressure": true,
+    "dynamicPriority": true,
+    "recommendedCall": true,
+    "criticalQueueAlerts": true,
+    "postDispatchFlowPreserved": true
+  },
+  "jsSyntaxFilesChecked": 24,
+  "status": "ok"
+}

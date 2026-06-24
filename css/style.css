@@ -4877,3 +4877,118 @@ textarea,
     grid-template-columns: 1fr;
   }
 }
+
+
+/* F36 — Central multitarefa, pressão operacional e prioridade dinâmica */
+.multi-ops-panel {
+  max-width: var(--visual-content-max, 1240px);
+  margin: 0 auto 14px;
+}
+.multi-ops-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(150px, .32fr) minmax(220px, .65fr) minmax(180px, .55fr);
+  gap: 12px;
+  align-items: stretch;
+  padding: 13px;
+  border: 1px solid rgba(94, 234, 212, .18);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(2, 14, 24, .88), rgba(4, 32, 44, .62)),
+    var(--asset-panel-noise);
+  background-size: auto, 220px 220px;
+  box-shadow: 0 18px 42px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.multi-ops-card.pressure-high {
+  border-color: rgba(251, 191, 36, .34);
+  background-image: linear-gradient(135deg, rgba(55, 34, 5, .62), rgba(2, 14, 24, .86)), var(--asset-panel-noise);
+}
+.multi-ops-card.pressure-critical {
+  border-color: rgba(248, 113, 113, .54);
+  background-image: linear-gradient(135deg, rgba(74, 11, 22, .70), rgba(2, 14, 24, .90)), var(--asset-panel-noise);
+  animation: c190-pressure-alert 1.4s ease-in-out infinite;
+}
+@keyframes c190-pressure-alert {
+  0%, 100% { box-shadow: 0 18px 42px rgba(0,0,0,.22), 0 0 0 0 rgba(248,113,113,.08); }
+  50% { box-shadow: 0 22px 52px rgba(0,0,0,.30), 0 0 0 7px rgba(248,113,113,.07); }
+}
+.multi-ops-main h3,
+.multi-ops-main p,
+.multi-ops-recommendation strong,
+.multi-ops-recommendation small {
+  margin: 0;
+}
+.multi-ops-main h3 {
+  font-size: clamp(1.05rem, 2.2vw, 1.45rem);
+  margin-top: 4px;
+}
+.multi-ops-main p,
+.multi-ops-recommendation small {
+  color: var(--muted);
+  display: block;
+  margin-top: 5px;
+}
+.multi-pressure-meter,
+.multi-ops-recommendation,
+.multi-ops-alerts {
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 10px;
+  background: rgba(2, 10, 18, .44);
+}
+.multi-pressure-meter strong {
+  display: block;
+  font-size: 1.45rem;
+  color: var(--accent);
+}
+.multi-pressure-meter span {
+  font-size: .72rem;
+  color: #e0f2fe;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+.multi-ops-recommendation {
+  display: grid;
+  gap: 6px;
+}
+.multi-ops-alerts {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+.multi-ops-alerts span {
+  display: block;
+  padding: 5px 7px;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, .48);
+  color: #dbeafe;
+  font-size: .76rem;
+  line-height: 1.25;
+}
+.call-card.risk-critical {
+  border-color: rgba(248, 113, 113, .78) !important;
+  box-shadow: 0 0 0 1px rgba(248,113,113,.18), 0 12px 30px rgba(127,29,29,.18) !important;
+}
+.call-card.risk-high {
+  border-color: rgba(251, 191, 36, .62) !important;
+}
+.call-card.risk-critical .call-meta span:first-child {
+  color: #fecaca;
+}
+.call-card.risk-high .call-meta span:first-child {
+  color: #fde68a;
+}
+@media (max-width: 1080px) {
+  .multi-ops-card {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 760px) {
+  .multi-ops-card {
+    grid-template-columns: 1fr;
+    padding: 11px;
+  }
+  .multi-ops-alerts {
+    max-height: 130px;
+    overflow-y: auto;
+  }
+}
