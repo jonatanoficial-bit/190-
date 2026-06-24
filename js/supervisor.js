@@ -90,7 +90,9 @@ window.C190_Supervisor = (() => {
     if (major?.active) warnings.unshift(`${major.severity?.label || "Contingência"}: ${major.label}.`);
     const support = window.C190_SupportNetwork?.analyze?.(state);
     const command = window.C190_UnifiedCommand?.analyze?.(state);
+    const fatigue = window.C190_UnitFatigue?.analyze?.(state);
     if (support?.active && support.level !== "ready") warnings.unshift(`Apoio especializado pendente: score ${support.supportScore}/100.`);
+    if (fatigue?.active && fatigue.level !== "ready") warnings.unshift(`Efetivo sob desgaste: prontidão média ${fatigue.avgReadiness}/100.`);
     return { score, level: analysis.pressureLevel || (score >= 78 ? "critical" : score >= 48 ? "high" : "normal"), warnings, ok: score < 78 };
   }
 

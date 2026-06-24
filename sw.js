@@ -1,4 +1,4 @@
-const CACHE = "central190-v3.6.0-f42-comando-unificado";
+const CACHE = "central190-v3.7.0-f43-fadiga-rodizio-equipes";
 const ASSETS = [
   "./",
   "./index.html",
@@ -24,6 +24,7 @@ const ASSETS = [
   "./js/urban-dynamics.js",
   "./js/major-incidents.js",
   "./js/support-network.js",
+  "./js/unit-fatigue.js",
   "./js/unified-command.js",
   "./js/debriefing.js",
   "./js/supervisor.js",

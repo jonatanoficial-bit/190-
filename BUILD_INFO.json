@@ -1,12 +1,13 @@
 {
   "name": "Central 190",
-  "version": "3.6.0",
-  "phase": 42,
-  "build": "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT",
-  "compiledAt": "2026-06-24T13:15:00-03:00",
-  "saveSchema": 39,
-  "title": "Comando unificado, comunicação interagências e operação coordenada",
+  "version": "3.7.0",
+  "phase": 43,
+  "build": "CENTRAL190-3700-F43-FADIGA-RODIZIO-EQUIPES-20260624-134500-BRT",
+  "compiledAt": "2026-06-24T13:45:00-03:00",
+  "saveSchema": 40,
+  "title": "Fadiga das equipes, rodízio operacional e disponibilidade real",
   "preserved": [
+    "Comando Unificado F42",
     "Rede de Apoio F41",
     "Grandes Eventos F40",
     "Ambiente Urbano F39",
@@ -16,16 +17,16 @@
     "fluxo pós-despacho",
     "mapa cinematográfico com ETA",
     "áudio e voz PT-BR",
-    "Defesa Civil e Águia",
     "carreira, campanha e cursos"
   ],
   "added": [
-    "novo módulo js/unified-command.js",
-    "painel Comando Unificado",
-    "sincronização PM/Bombeiros/SAMU/Defesa Civil/Apoios externos",
-    "doutrina operacional por cenário",
-    "alívio de pressão por coordenação",
-    "alertas de comando fragmentado",
-    "integração com Central Multitarefa e Supervisor"
+    "novo módulo js/unit-fatigue.js",
+    "painel Efetivo e Fadiga",
+    "prontidão média das equipes",
+    "fadiga por unidade conforme uso",
+    "rodízio operacional recomendado",
+    "ETA impactado por desgaste",
+    "Central Multitarefa considera equipe cansada",
+    "Supervisor alerta efetivo sob desgaste"
   ]
 }

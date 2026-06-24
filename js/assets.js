@@ -1,8 +1,8 @@
 window.C190_Assets = (() => {
   "use strict";
-  const VERSION = "3.6.0";
-  const PHASE = 42;
-  const BUILD = "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT";
+  const VERSION = "3.7.0";
+  const PHASE = 43;
+  const BUILD = "CENTRAL190-3700-F43-FADIGA-RODIZIO-EQUIPES-20260624-134500-BRT";
   const required = [
     "assets/badges/central190-brand.svg",
     "assets/backgrounds/bg-central-room.webp",

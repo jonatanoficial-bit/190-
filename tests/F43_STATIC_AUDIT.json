@@ -1,0 +1,15 @@
+{
+  "build": "CENTRAL190-3700-F43-FADIGA-RODIZIO-EQUIPES-20260624-134500-BRT",
+  "version": "3.7.0",
+  "phase": 43,
+  "saveSchema": 40,
+  "features": {
+    "unitFatigueModule": true,
+    "readinessPanel": true,
+    "rotationRecommendation": true,
+    "etaFatigueImpact": true,
+    "multitaskFatigueRisk": true,
+    "supervisorFatigueAlert": true
+  },
+  "status": "ok"
+}

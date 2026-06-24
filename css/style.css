@@ -5669,3 +5669,115 @@ textarea,
 .unified-doctrine em { font-style: normal; font-size: .78rem; }
 @media (max-width: 1120px) { .unified-command-card { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 760px) { .unified-command-card { grid-template-columns: 1fr; } .unified-channels { grid-template-columns: 1fr; } }
+
+
+/* F43 — Fadiga das equipes, rodízio operacional e disponibilidade real */
+.unit-fatigue-panel {
+  max-width: var(--visual-content-max, 1240px);
+  margin: 0 auto 14px;
+}
+.unit-fatigue-card {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(150px, .32fr) minmax(300px, 1fr) minmax(190px, .5fr);
+  gap: 12px;
+  align-items: stretch;
+  padding: 13px;
+  border: 1px solid rgba(94,234,212,.18);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(2,14,24,.88), rgba(4,28,42,.66)),
+    var(--asset-panel-noise);
+  background-size: auto, 220px 220px;
+  box-shadow: 0 18px 42px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.unit-fatigue-card.fatigue-attention {
+  border-color: rgba(251,191,36,.38);
+}
+.unit-fatigue-card.fatigue-critical {
+  border-color: rgba(248,113,113,.54);
+  background-image: linear-gradient(135deg, rgba(74,11,22,.62), rgba(2,14,24,.90)), var(--asset-panel-noise);
+}
+.fatigue-main h3 {
+  margin: 4px 0 2px;
+  font-size: clamp(1.02rem, 2.1vw, 1.38rem);
+}
+.fatigue-main p,
+.fatigue-score span,
+.fatigue-unit small,
+.fatigue-advice span {
+  color: var(--muted);
+}
+.fatigue-score {
+  display: grid;
+  gap: 5px;
+  padding: 11px;
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,.07);
+  background: rgba(2,10,18,.46);
+  align-content: center;
+}
+.fatigue-score strong {
+  color: var(--accent);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+.fatigue-score span {
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .7rem;
+  font-weight: 900;
+}
+.fatigue-unit-list {
+  display: grid;
+  gap: 7px;
+}
+.fatigue-unit {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(125,211,252,.14);
+  background: rgba(15,23,42,.44);
+}
+.fatigue-unit img {
+  width: 54px;
+  height: 35px;
+  object-fit: contain;
+  filter: drop-shadow(0 7px 10px rgba(0,0,0,.42));
+}
+.fatigue-unit strong,
+.fatigue-unit small {
+  display: block;
+}
+.fatigue-unit.fatigue-tired,
+.fatigue-unit.fatigue-attention {
+  border-color: rgba(251,191,36,.30);
+}
+.fatigue-unit.fatigue-critical {
+  border-color: rgba(248,113,113,.42);
+}
+.fatigue-advice {
+  display: grid;
+  gap: 7px;
+  align-content: start;
+}
+.fatigue-advice span {
+  display: block;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(251,191,36,.20);
+  background: rgba(69,42,5,.28);
+  line-height: 1.25;
+}
+@media (max-width: 1120px) {
+  .unit-fatigue-card {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 760px) {
+  .unit-fatigue-card {
+    grid-template-columns: 1fr;
+  }
+}

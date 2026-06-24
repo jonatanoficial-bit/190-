@@ -1,9 +1,9 @@
 {
   "name": "Central 190",
-  "version": "3.6.0",
-  "phase": 42,
-  "build": "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT",
-  "fileCount": 215,
+  "version": "3.7.0",
+  "phase": 43,
+  "build": "CENTRAL190-3700-F43-FADIGA-RODIZIO-EQUIPES-20260624-134500-BRT",
+  "fileCount": 219,
   "files": [
     {
       "path": "ASSET_PATHS_REQUIRED.txt",
@@ -186,49 +186,54 @@
       "sha256": "3b200e934d6dbaf8130d17c023a4b1becdbfe4fca1f0d34330e025b8e6083f07"
     },
     {
+      "path": "AUDIT_F43.md",
+      "size": 499,
+      "sha256": "63ef86d2951c8708eef672b7794692dee07079e1d1a09296ff53127559aa93af"
+    },
+    {
       "path": "BUILD-MANIFEST.json",
-      "size": 33658,
-      "sha256": "a8320c850ce205ca9362f3d8415dbd1a27c1982d9a0a4b14e9f45c4593aec4dc"
+      "size": 34272,
+      "sha256": "9acb1c184856e21da804881b9ee8441f592343d83ee21af5cf3ea1cc4bcc7895"
     },
     {
       "path": "BUILD-REPORT.md",
-      "size": 1226,
-      "sha256": "2f751bc16f29b723a9ea232fe21f79296b2c0d808f2931d2ec1478d75089c9c7"
+      "size": 1236,
+      "sha256": "ab0bc9f8b922b7b1db019d1c1611ff543c513efa3386b54e91e3e8b48a2ca299"
     },
     {
       "path": "BUILD_INFO.json",
-      "size": 958,
-      "sha256": "87626a540b78af00563c8996c6d81b45664eede9b47b1d3d59f7a9f1c4874a31"
+      "size": 948,
+      "sha256": "f283e48f70836468bcd4121e499cab65a5d70f7d05f5556254b5ee498e741303"
     },
     {
       "path": "BUILD_MANIFEST.json",
-      "size": 33658,
-      "sha256": "a8320c850ce205ca9362f3d8415dbd1a27c1982d9a0a4b14e9f45c4593aec4dc"
+      "size": 34272,
+      "sha256": "9acb1c184856e21da804881b9ee8441f592343d83ee21af5cf3ea1cc4bcc7895"
     },
     {
       "path": "CHANGELOG.md",
-      "size": 2355,
-      "sha256": "e4aee9ea0203a21f4617fab429b50cfb794cd91d70cbf9fde6db63e0f6e6e7de"
+      "size": 2375,
+      "sha256": "50eddac2211429d9f6d1ba9f0704df172df50122ce01895bc70b736cad7878ab"
     },
     {
       "path": "CHECKLIST.md",
       "size": 1447,
-      "sha256": "ca2dd908cf273c961a5a9f6f8ffb79e238f768941015db6cb9576ee866a833b2"
+      "sha256": "169cb3aeedcbc14914b0215eb4640893ef9ac5f8a7eaf34ee3993519adfc94fb"
     },
     {
       "path": "FILE-MANIFEST.sha256",
-      "size": 19322,
-      "sha256": "dbfb574c7efc57006f7433f2865283c8686cd3ff95c2c593feb8dfe82153dce6"
+      "size": 19679,
+      "sha256": "398ff8afaa58b76fc0e94109ded9f8f3f461f4b0cbe513e429224d66e39eb0e6"
     },
     {
       "path": "README.md",
       "size": 1787,
-      "sha256": "c8dc6388a688648c427e961f51932ffbcbb3e7a1296dce67d4a2adcc2fa55b19"
+      "sha256": "de8806d92b3a8beb61fe089813aa3fb3afa69a53349039edca3e21e602c22056"
     },
     {
       "path": "TEST-REPORT.md",
       "size": 1481,
-      "sha256": "c1628b739e65806155686cd2b6ff7767782426d88d1b4e82f02b9d313a101e64"
+      "sha256": "5f1256bab061ac472c3301044d274cc4e4f2e0a9c32334ee231e2ce63092da10"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -237,8 +242,8 @@
     },
     {
       "path": "VERSION.txt",
-      "size": 150,
-      "sha256": "55e7569797efdc5cff596f779e3342cae31efbf1744a1398630e1100b3054c3e"
+      "size": 155,
+      "sha256": "a4d6102de19b5bcee921ea9301bcf48c28a58d6f639e8d6d875724b46ac11ea9"
     },
     {
       "path": "assets/backgrounds/bg-career-room.webp",
@@ -437,8 +442,8 @@
     },
     {
       "path": "css/style.css",
-      "size": 150510,
-      "sha256": "d57e2b2440518b015a4be6cb5096a6321a6646da4ad99d7320275d7abc4a0cdf"
+      "size": 153120,
+      "sha256": "736ab0956040ac8b06d5a3d44fe066f657d4804635f49f9a19a3d2e2e4d79472"
     },
     {
       "path": "docs/AMBIENTE_URBANO_DINAMICO_F39.md",
@@ -519,6 +524,11 @@
       "path": "docs/EXPANSION_API_F15.md",
       "size": 1269,
       "sha256": "8137a8d490792f979e433135dd27e39c9624ddd1e00ee077ca01113f2eaa12be"
+    },
+    {
+      "path": "docs/FADIGA_RODIZIO_EQUIPES_F43.md",
+      "size": 663,
+      "sha256": "4a6b7c11e9aee29082eb4368d127b1b5a0d38ada7edaf4e65078f3bddffb3f3a"
     },
     {
       "path": "docs/GRANDES_EVENTOS_CONTINGENCIA_F40.md",
@@ -652,8 +662,8 @@
     },
     {
       "path": "index.html",
-      "size": 42924,
-      "sha256": "9988b9f3a6e711d99e79e62441b5664bc282feea18bc4ee34fde829fb064bda6"
+      "size": 43049,
+      "sha256": "755a1dc91c3a278e49610e380fe172dd7f1550bf4ca1dba0fbf12a79f2b757da"
     },
     {
       "path": "js/anti-break.js",
@@ -662,13 +672,13 @@
     },
     {
       "path": "js/app.js",
-      "size": 114090,
-      "sha256": "b44e6a591963b833a15022d6cc4c9803931d71f5cf728d211ac59f4a74c1e848"
+      "size": 116020,
+      "sha256": "5e28545be11cb03b8ea14bddb084857479e7e5f57c73b2c4eaa0d07866faae95"
     },
     {
       "path": "js/assets.js",
-      "size": 4357,
-      "sha256": "23013ce51684b2305da81bb20c4044d7b848466835ce4805392b33754ff3bdb2"
+      "size": 4362,
+      "sha256": "d2732d714765d1643ae941b7c8958cf9dbd85b98196e8880810b82d9cf95c337"
     },
     {
       "path": "js/balance.js",
@@ -722,8 +732,8 @@
     },
     {
       "path": "js/immersion.js",
-      "size": 11551,
-      "sha256": "e1e6b9e4026526b6b2e7e5b31002ffdf769cf048555bcc59018f0416a86bf43e"
+      "size": 11556,
+      "sha256": "6b8cbf2c8b2c545f4f5466b07c59c54400d8fed7886aef8e14baedb5b3386019"
     },
     {
       "path": "js/location-intel.js",
@@ -742,8 +752,8 @@
     },
     {
       "path": "js/multitask.js",
-      "size": 7740,
-      "sha256": "f098c79c352e3fb86c344037aa583da28c48e760f2132fe900a50e09bf21a180"
+      "size": 8010,
+      "sha256": "a88a7d5936c4cfab5089b138f6ec5334cc840903bd6ea0533b1d6a39be33a8e3"
     },
     {
       "path": "js/public-rc.js",
@@ -757,18 +767,18 @@
     },
     {
       "path": "js/resource-dispatch.js",
-      "size": 15150,
-      "sha256": "569c8db7e24bf3a7544708c1a20576fff480a4ff3ad6e7a813a12d0565b67764"
+      "size": 15204,
+      "sha256": "88d5e9bb41ba8e0b3d3b930bbda6aef750c07c76a9ab46bf0c345b323be100c8"
     },
     {
       "path": "js/save-manager.js",
-      "size": 18556,
-      "sha256": "a7f1f6e87f88e57df88128d4e1f9e85d74ff6be1f1898879908e2fab29654cd3"
+      "size": 18668,
+      "sha256": "be3aba2d7e20e96d8d67848ae705d2e8009ad35c971b62a3203d5d8c49a18f51"
     },
     {
       "path": "js/supervisor.js",
-      "size": 9122,
-      "sha256": "777a1b784fa42fa0a3343cce38355b50b0fd714cfdd9ab6886244ef3411a6fea"
+      "size": 9329,
+      "sha256": "b261b2559e8b2a2a94f62edcad218455126789920c1b20c98a61c3ae617ee669"
     },
     {
       "path": "js/support-network.js",
@@ -796,6 +806,11 @@
       "sha256": "9b527a20f6b73b0a2f4f607fbaf7044052490b106498bd2d63db228952f30a82"
     },
     {
+      "path": "js/unit-fatigue.js",
+      "size": 4876,
+      "sha256": "f4a5229e0565da07eb0ef24fd535f6b645eec905ecd1fd8c8c4e01ac43108660"
+    },
+    {
       "path": "js/urban-dynamics.js",
       "size": 5476,
       "sha256": "d5e619809789cce81948d9da8ac8b1b77e21a020c5d1ad570d82e0d12648381a"
@@ -803,7 +818,7 @@
     {
       "path": "manifest.webmanifest",
       "size": 2417,
-      "sha256": "0a3c7f616faef10aeab13a16d3ceb74c61dc99d82bc191be6de2b6229711f96e"
+      "sha256": "b9a51dc12b40bbf53a398fcd0cad5aa3b788ef683e5385e97bbd01c832279417"
     },
     {
       "path": "reports/audit-v1.7.4-layout-mobile.json",
@@ -817,8 +832,8 @@
     },
     {
       "path": "sw.js",
-      "size": 4237,
-      "sha256": "0a05cc063a65254952f415998354a3230f7ac3417cef5d0615f6c446674c6bef"
+      "size": 4268,
+      "sha256": "9fbbebe08731f7eec2ddbf625705520348aa206efbb8524f8b27d3dee3772240"
     },
     {
       "path": "tests/BROWSER_AUDIT.json",
@@ -989,6 +1004,11 @@
       "path": "tests/F42_STATIC_AUDIT.json",
       "size": 367,
       "sha256": "57d16623af9cd927ec697a912ee33a87700dcc1a98ae31f0c688422984e17842"
+    },
+    {
+      "path": "tests/F43_STATIC_AUDIT.json",
+      "size": 369,
+      "sha256": "a00e6a1624cbcbd753a6cf49fac0fdc7c183eb92cd700a92b92bafc7d2b43c89"
     },
     {
       "path": "tests/FINAL_AUDIT_RESULT.json",

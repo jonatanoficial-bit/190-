@@ -421,6 +421,41 @@
     </section>`;
   }
 
+
+  function renderUnitFatiguePanel() {
+    const panel = $("#unitFatiguePanel");
+    if (!panel) return;
+    const report = window.C190_UnitFatigue?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const units = (report.units || []).slice().sort((a, b) => Number(a.readiness || 0) - Number(b.readiness || 0)).slice(0, 5);
+    panel.innerHTML = `<section class="unit-fatigue-card fatigue-${esc(report.level || "ready")}">
+      <div class="fatigue-main">
+        <span class="eyebrow">EFETIVO E FADIGA</span>
+        <h3>${esc(report.label || "Efetivo operacional")}</h3>
+        <p>Prontidão média ${Number(report.avgReadiness || 0)}% · cansadas ${report.tired.length} · em campo ${report.field.length}</p>
+      </div>
+      <div class="fatigue-score">
+        <strong>${Number(report.avgReadiness || 0)}%</strong>
+        <span>prontidão</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(report.avgReadiness || 0)))}%"></i></div>
+      </div>
+      <div class="fatigue-unit-list">
+        ${units.map((unit) => `<article class="fatigue-unit fatigue-${esc(unit.fatigueLevel || "ready")}">
+          <img src="${esc(unit.icon || "assets/units/sp-police-car-cinematic.png")}" alt="" loading="lazy" />
+          <div><strong>${esc(unit.short || unit.label)}</strong><small>${esc(unit.fatigueLabel || "Pronta")} · prontidão ${Number(unit.readiness || 0)}% · ${unit.fatigue?.dispatched || 0} despacho(s)</small></div>
+        </article>`).join("")}
+      </div>
+      <div class="fatigue-advice">
+        ${report.recommendedRest.length ? report.recommendedRest.map((unit) => `<span>Rodízio recomendado: ${esc(unit.short || unit.label)}</span>`).join("") : "<span>Sem necessidade de rodízio imediato.</span>"}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -524,6 +559,7 @@
     renderMajorIncidentPanel();
     renderSupportNetworkPanel();
     renderUnifiedCommandPanel();
+    renderUnitFatiguePanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
     liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}:${c.multitask?.riskLevel || ""}:${c.supervisor?.level || ""}`).join("|");
