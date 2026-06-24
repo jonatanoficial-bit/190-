@@ -121,6 +121,10 @@ window.C190_Dispatch = (() => {
     return (shift?.calls || []).filter((call) => call && call.status === "waiting");
   }
 
+  function fieldCalls(shift) {
+    return (shift?.calls || []).filter((call) => call && call.status === "field");
+  }
+
   function announceShiftEvent(shift, text, kind = "info", call = null) {
     if (!shift?.events) return;
     const event = { at: new Date().toISOString(), text, kind, callId: call?.id || null };
@@ -130,20 +134,32 @@ window.C190_Dispatch = (() => {
     } catch {}
   }
 
-  function primeNextCall(shift, delaySeconds = 6, reason = "contínuo") {
+  function primeNextCall(shift, delaySeconds = 3, reason = "contínuo") {
     if (!shift?.active) return null;
     if (waitingCalls(shift).length) return null;
     const next = pendingScheduled(shift)[0];
     if (!next) return null;
     const currentElapsed = Number(shift.elapsed || 0);
-    const target = currentElapsed + Math.max(2, Number(delaySeconds || 6));
+    const target = currentElapsed + Math.max(1, Number(delaySeconds || 3));
     if (Number(next.arrivesAt || 0) > target) {
       next.arrivesAt = target;
       next.primedAfterDispatch = true;
       next.primeReason = reason;
-      announceShiftEvent(shift, `Próxima ligação em ${Math.max(1, Math.round(next.arrivesAt - currentElapsed))}s: ${next.type}`, "incoming_scheduled", next);
     }
+    announceShiftEvent(shift, `Próxima ligação em ${Math.max(1, Math.round(next.arrivesAt - currentElapsed))}s: ${next.type}`, "incoming_scheduled", next);
     return next;
+  }
+
+  function releaseCallToField(shift, call) {
+    if (!shift?.active || !call) return null;
+    if (call.fieldRadio?.active && call.status === "active") {
+      call.status = "field";
+      call.fieldHandoffAt = new Date().toISOString();
+      call.operatorHandoff = true;
+      if (shift.activeCallId === call.id) shift.activeCallId = null;
+      announceShiftEvent(shift, `Ocorrência em campo: ${call.type}. Central liberada para nova chamada.`, "field_handoff", call);
+    }
+    return call;
   }
 
   function candidateTemplates(options = {}) {
@@ -255,15 +271,16 @@ window.C190_Dispatch = (() => {
     const shift = state.dispatch.shift;
     if (!shift?.active) return false;
     const call = shift.calls.find((item) => item.id === id);
-    if (!call || !["waiting", "paused"].includes(call.status)) return false;
-    if (shift.activeCallId) {
+    if (!call || !["waiting", "paused", "field"].includes(call.status)) return false;
+    if (shift.activeCallId && shift.activeCallId !== id) {
       const active = shift.calls.find((item) => item.id === shift.activeCallId);
       if (active) {
-        active.status = "paused";
+        active.status = active.fieldRadio?.active ? "field" : "paused";
         active.pausedAt = new Date().toISOString();
       }
     }
     call.status = "active";
+    call.resumedFromField = !!call.fieldRadio?.active;
     call.attempts++;
     window.C190_CallProtocol?.normalize?.(call);
     window.C190_LocationIntel?.normalize?.(call);
@@ -369,8 +386,9 @@ window.C190_Dispatch = (() => {
     if (radio?.ok) {
       call.status = "active";
       shift.activeCallId = call.id;
-      primeNextCall(shift, 6, "após despacho");
-      return { call, choice, protocol: preliminaryOutcome.protocol, triage: preliminaryOutcome.triage || null, resourceDispatch: preliminaryOutcome.resourceDispatch || null, radio: radio.radio, awaitingRadio: true };
+      releaseCallToField(shift, call);
+      primeNextCall(shift, 2, "após despacho");
+      return { call, choice, protocol: preliminaryOutcome.protocol, triage: preliminaryOutcome.triage || null, resourceDispatch: preliminaryOutcome.resourceDispatch || null, radio: radio.radio, awaitingRadio: true, releasedToField: true };
     }
     const applied = applyFinalOutcome(state, call, preliminaryOutcome, choice.text);
     return { call, choice, protocol: preliminaryOutcome.protocol, triage: preliminaryOutcome.triage || null, resourceDispatch: preliminaryOutcome.resourceDispatch || null, finalOutcome: applied?.finalOutcome || preliminaryOutcome };
@@ -380,8 +398,11 @@ window.C190_Dispatch = (() => {
     const shift = state.dispatch.shift;
     if (!shift?.active) return { ok: false, reason: "shift_inactive" };
     const call = shift.calls.find((item) => item.id === callId);
-    if (!call || call.status !== "active") return { ok: false, reason: "call_not_active" };
+    if (!call || !["active", "field"].includes(call.status)) return { ok: false, reason: "call_not_active" };
+    const wasField = call.status === "field";
+    if (wasField) call.status = "active";
     const out = window.C190_FieldRadio?.act?.(state, callId, actionId) || { ok: false, reason: "radio_unavailable" };
+    if (wasField && !out?.finalized && call.status === "active") call.status = "field";
     if (out?.finalized && out.finalOutcome) {
       const applied = applyFinalOutcome(state, call, out.finalOutcome, "Acompanhamento de rádio e encerramento de campo");
       return { ...out, call, finalOutcome: applied?.finalOutcome || out.finalOutcome };
@@ -470,6 +491,22 @@ window.C190_Dispatch = (() => {
     return report;
   }
 
+  function diagnostics(state) {
+    const shift = state?.dispatch?.shift || null;
+    if (!shift?.active) return { active: false };
+    return {
+      active: true,
+      elapsed: shift.elapsed,
+      activeCallId: shift.activeCallId,
+      waiting: waitingCalls(shift).length,
+      scheduled: pendingScheduled(shift).length,
+      field: fieldCalls(shift).length,
+      resolved: shift.resolved,
+      failed: shift.failed,
+      abandoned: shift.abandoned,
+    };
+  }
+
   function forceFinish(state) {
     const shift = state.dispatch.shift;
     if (!shift?.active) return null;
@@ -505,5 +542,8 @@ window.C190_Dispatch = (() => {
     radioAction,
     finishShift,
     forceFinish,
+    fieldCalls,
+    primeNextCall,
+    diagnostics,
   };
 })();

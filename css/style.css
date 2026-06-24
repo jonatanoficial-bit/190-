@@ -4670,3 +4670,210 @@ textarea,
     grid-template-columns: 1fr !important;
   }
 }
+
+
+/* F35 — Mapa cinematográfico, ETA visual e painel de unidades */
+.resource-marker {
+  isolation: isolate;
+}
+.resource-marker i {
+  position: absolute;
+  inset: -7px;
+  border-radius: 18px;
+  background: conic-gradient(from -90deg,
+    rgba(42,241,226,.92) calc(var(--unit-progress, 0) * 1%),
+    rgba(15,23,42,.22) 0);
+  z-index: -1;
+  opacity: .72;
+  filter: drop-shadow(0 0 10px rgba(42,241,226,.18));
+}
+.resource-marker em {
+  position: absolute;
+  left: 50%;
+  top: -17px;
+  transform: translateX(-50%);
+  min-width: max-content;
+  padding: 2px 5px;
+  border-radius: 999px;
+  border: 1px solid rgba(42,241,226,.22);
+  background: rgba(2, 10, 18, .84);
+  color: #dffcff;
+  font-style: normal;
+  font-size: .46rem;
+  letter-spacing: .04em;
+  text-shadow: 0 1px 2px rgba(0,0,0,.8);
+}
+.resource-marker.arrived em {
+  color: #bbf7d0;
+  border-color: rgba(34,197,94,.42);
+}
+.resource-marker.moving {
+  animation: c190-map-unit-drift 1.8s ease-in-out infinite;
+}
+@keyframes c190-map-unit-drift {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-2px) scale(1.025); }
+}
+.tactical-resource-marker {
+  isolation: isolate;
+}
+.tactical-resource-marker em {
+  position: absolute;
+  left: 50%;
+  top: -16px;
+  transform: translateX(-50%);
+  min-width: max-content;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: rgba(2, 10, 18, .82);
+  color: #e0f2fe;
+  border: 1px solid rgba(125,211,252,.22);
+  font-size: .44rem;
+  font-style: normal;
+  line-height: 1.2;
+}
+.tactical-resource-marker::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 14px;
+  background: conic-gradient(from -90deg,
+    rgba(42,241,226,.60) calc(var(--unit-progress, 0) * 1%),
+    transparent 0);
+  z-index: -1;
+  opacity: .82;
+}
+.field-units-tracker {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid rgba(94,234,212,.16);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(2,15,25,.72), rgba(4,32,44,.44)),
+    var(--asset-panel-noise);
+  background-size: auto, 220px 220px;
+}
+.field-units-tracker header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.field-units-tracker h4 {
+  margin: 4px 0 0;
+}
+.field-units-tracker header strong {
+  min-width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid rgba(42,241,226,.22);
+  background: rgba(42,241,226,.10);
+  color: var(--accent);
+}
+.field-unit-track-grid {
+  display: grid;
+  gap: 9px;
+}
+.field-unit-track {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px;
+  border-radius: 15px;
+  border: 1px solid rgba(96,165,250,.15);
+  background: rgba(2, 12, 20, .58);
+}
+.field-unit-track img {
+  width: 62px;
+  height: 42px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,.45));
+}
+.field-unit-track strong,
+.field-unit-track small {
+  display: block;
+}
+.field-unit-track small {
+  color: var(--muted);
+  margin-top: 3px;
+}
+.field-unit-track > span {
+  min-width: 42px;
+  text-align: right;
+  color: #e0f2fe;
+  font-weight: 900;
+  font-size: .82rem;
+}
+.field-unit-track.arrived {
+  border-color: rgba(34,197,94,.34);
+  background: rgba(5, 46, 34, .42);
+}
+.cinematic-progress {
+  margin-top: 6px;
+  height: 7px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(15, 23, 42, .74);
+  border: 1px solid rgba(255,255,255,.06);
+}
+.cinematic-progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(42,241,226,.82), rgba(96,165,250,.92));
+  box-shadow: 0 0 18px rgba(42,241,226,.26);
+}
+.field-unit-track.type-bombeiros .cinematic-progress i {
+  background: linear-gradient(90deg, rgba(248,113,113,.86), rgba(251,146,60,.90));
+}
+.field-unit-track.type-samu .cinematic-progress i {
+  background: linear-gradient(90deg, rgba(52,211,153,.88), rgba(16,185,129,.92));
+}
+.field-unit-track.type-defesa .cinematic-progress i {
+  background: linear-gradient(90deg, rgba(251,191,36,.86), rgba(249,115,22,.86));
+}
+@media (max-width: 760px) {
+  .field-unit-track {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+  .field-unit-track > span {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+  .resource-marker em,
+  .tactical-resource-marker em {
+    font-size: .40rem;
+  }
+}
+
+
+/* F35.1 — Hotfix fluxo pós-despacho: rádio em campo sem prender nova chamada */
+.field-handoff-card {
+  border-color: rgba(42, 241, 226, .38) !important;
+  background:
+    linear-gradient(145deg, rgba(5, 42, 48, .72), rgba(4, 18, 30, .82)),
+    var(--asset-panel-noise) !important;
+}
+.field-handoff-card .call-meta span:first-child {
+  color: #99f6e4;
+  border-color: rgba(45, 212, 191, .34);
+  background: rgba(20, 184, 166, .12);
+}
+.field-handoff-card .action-btn.primary::before {
+  content: "📡";
+  margin-right: .35rem;
+}
+.incoming-call-strip.scheduled strong::before,
+.incoming-call-strip.live strong::before {
+  content: "☎ ";
+}
+@media (max-width: 760px) {
+  .field-handoff-card .call-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "build": "CENTRAL190-2910-F35-1-HOTFIX-FLUXO-POS-DESPACHO-20260624-101500-BRT",
+  "version": "2.9.1",
+  "phase": 35.1,
+  "saveSchema": 32,
+  "postDispatchFlow": {
+    "releaseToField": true,
+    "activeCallCleared": true,
+    "nextCallDelaySeconds": 2,
+    "fieldCanResumeRadio": true
+  },
+  "status": "ok"
+}

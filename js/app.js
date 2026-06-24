@@ -259,7 +259,7 @@
     const status = $("#shiftStatus");
     if (status) {
       status.textContent = sh?.active
-        ? `${sh.modeLabel || "Plantão ativo"} · ${sh.elapsed}s · resolvidas ${sh.resolved} · falhas ${sh.failed} · abandonadas ${sh.abandoned}${sh.affectsCareer === false ? " · sem impacto na carreira" : ""}`
+        ? `${sh.modeLabel || "Plantão ativo"} · ${sh.elapsed}s · campo ${(sh.calls || []).filter((c) => c.status === "field").length} · fila ${(sh.calls || []).filter((c) => c.status === "waiting").length} · resolvidas ${sh.resolved} · falhas ${sh.failed} · abandonadas ${sh.abandoned}${sh.affectsCareer === false ? " · sem impacto na carreira" : ""}`
         : "Nenhum plantão ativo. Escolha um modo de jogo ou inicie um plantão de carreira.";
     }
     const waiting = sh?.calls?.filter((c) => c.status === "waiting") || [];
@@ -290,7 +290,7 @@
       ? "Encerrar plantão"
       : "Iniciar plantão";
     $("#shiftStatus").textContent = sh?.active
-      ? `${sh.modeLabel || "Plantão ativo"} · ${sh.elapsed}s · resolvidas ${sh.resolved} · falhas ${sh.failed} · abandonadas ${sh.abandoned}${sh.affectsCareer === false ? " · sem impacto na carreira" : ""}`
+      ? `${sh.modeLabel || "Plantão ativo"} · ${sh.elapsed}s · campo ${(sh.calls || []).filter((c) => c.status === "field").length} · fila ${(sh.calls || []).filter((c) => c.status === "waiting").length} · resolvidas ${sh.resolved} · falhas ${sh.failed} · abandonadas ${sh.abandoned}${sh.affectsCareer === false ? " · sem impacto na carreira" : ""}`
       : "Nenhum plantão ativo. Escolha um modo de jogo ou inicie um plantão de carreira.";
     const waiting = sh?.calls.filter((c) => c.status === "waiting") || [];
     $("#queueCount").textContent = waiting.length;
@@ -304,10 +304,10 @@
       ? activeCall(active)
       : '<div class="list-item">Nenhuma chamada em atendimento.</div>';
     restoreDispatchScrollState(scrollSnapshot);
-    const paused = sh?.calls.filter((c) => c.status === "paused") || [];
+    const paused = sh?.calls.filter((c) => ["paused", "field"].includes(c.status)) || [];
     $("#pausedCalls").innerHTML =
       paused.map((c) => callCard(c, false)).join("") ||
-      '<div class="list-item">Nenhuma ocorrência pausada.</div>';
+      '<div class="list-item">Nenhuma ocorrência pausada ou em campo.</div>';
     bindDispatchButtons();
     C190_Map.render(state);
   }
@@ -320,7 +320,10 @@
     const locationKnown = Number(locationIntel?.confidence || protocol?.locationConfidence || 0) > 0;
     const locationText = locationKnown ? `${locationIntel?.label || "Local aproximado"} · ${c.location}` : "Local aguardando bairro, rua ou referência";
     const asked = protocol?.asked?.length || 0;
-    return `<div class="call-card ${c.priority === 3 ? "urgent" : waiting ? "waiting" : ""}"><div class="call-meta"><span>${priorityLabel(c.priority)}</span><span>${c.wait}s espera</span></div><strong>${esc(c.type)}</strong><span>${esc(locationText)}</span><small>${asked} pergunta(s) de protocolo · precisão ${Math.round(Number(locationIntel?.confidence || 0) * 100)}%</small><div class="call-actions"><button class="action-btn primary" data-answer="${esc(c.id)}">${waiting ? "Atender ligação" : "Retomar ligação"}</button><button class="action-btn" data-focus-call="${esc(c.id)}" ${locationKnown ? "" : "disabled"}>${locationKnown ? "Ver no mapa" : "Mapa após localização"}</button></div></div>`;
+    const inField = c.status === "field";
+    const buttonLabel = waiting ? "Atender ligação" : inField ? "Acompanhar rádio" : "Retomar ligação";
+    const fieldNote = inField ? ` · rádio em campo${c.fieldRadio?.stage != null ? ` · etapa ${Number(c.fieldRadio.stage || 0) + 1}` : ""}` : "";
+    return `<div class="call-card ${c.priority === 3 ? "urgent" : waiting ? "waiting" : ""} ${inField ? "field-handoff-card" : ""}"><div class="call-meta"><span>${inField ? "EM CAMPO" : priorityLabel(c.priority)}</span><span>${c.wait}s espera</span></div><strong>${esc(c.type)}</strong><span>${esc(locationText)}</span><small>${asked} pergunta(s) de protocolo · precisão ${Math.round(Number(locationIntel?.confidence || 0) * 100)}%${fieldNote}</small><div class="call-actions"><button class="action-btn primary" data-answer="${esc(c.id)}">${buttonLabel}</button><button class="action-btn" data-focus-call="${esc(c.id)}" ${locationKnown ? "" : "disabled"}>${locationKnown ? "Ver no mapa" : "Mapa após localização"}</button></div></div>`;
   }
   function dataChip(label, ok, value = "") {
     return `<span class="protocol-chip ${ok ? "ok" : "missing"}"><b>${esc(label)}</b>${value ? `<small>${esc(value)}</small>` : ""}</span>`;
@@ -365,6 +368,26 @@
       <div class="protocol-score resource-score"><span>Avaliação do despacho</span><strong>${esc(evaluation.grade)}</strong><div class="progress"><i style="width:${Math.max(0, Math.min(100, evaluation.finalScore || 0))}%"></i></div><small>${(evaluation.detail || []).map(esc).join(" · ")}</small></div>
     </section>`;
   }
+
+  function fieldUnitTracker(call) {
+    const units = window.C190_FieldUnits?.operationPanel?.(state)?.filter((unit) => unit.assignedTo === call?.id || true) || [];
+    if (!units.length) return "";
+    return `<section class="field-units-tracker" aria-label="Unidades em campo">
+      <header><div><span class="eyebrow">UNIDADES EM CAMPO</span><h4>Deslocamento para a ocorrência</h4></div><strong>${units.length}</strong></header>
+      <div class="field-unit-track-grid">
+        ${units.map((unit) => `<article class="field-unit-track type-${esc(unit.type)} ${unit.arrived ? "arrived" : "moving"}">
+          <img src="${esc(unit.icon || "assets/units/sp-police-car-cinematic.png")}" alt="" loading="lazy" />
+          <div>
+            <strong>${esc(unit.short || unit.label)}</strong>
+            <small>${esc(unit.statusLabel || "em deslocamento")} · ETA ${esc(unit.etaRemainingText || "calculando")}</small>
+            <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, unit.progressPercent || 0))}%"></i></div>
+          </div>
+          <span>${Number(unit.progressPercent || 0)}%</span>
+        </article>`).join("")}
+      </div>
+    </section>`;
+  }
+
   function fieldRadioPanel(call) {
     const radio = window.C190_FieldRadio?.normalize?.(call);
     if (!radio?.active && !radio?.finalized) return "";
@@ -375,6 +398,7 @@
       <header><div><span class="eyebrow">RÁDIO OPERACIONAL</span><h4>Evolução da ocorrência em campo</h4></div><strong class="radio-grade">${esc(gradeText)}</strong></header>
       <p class="protocol-warning">A ocorrência não termina no despacho. Acompanhe a chegada das equipes, pedidos de apoio e encerramento real do atendimento.</p>
       <div class="radio-status-grid"><span><b>Fase</b>${esc(stageLabel)}</span><span><b>Cenário</b>${esc(radio.scenario || "operacional")}</span><span><b>Ações</b>${radio.actions.length}</span></div>
+      ${fieldUnitTracker(call)}
       <div class="radio-log">${(radio.log || []).slice(0, 8).map((line) => `<div class="radio-line ${esc(line.tone || "info")}${typewriterClass("radio", line)}"><b>${esc(line.source || "RÁDIO")}</b><span>${esc(line.text || "")}</span><small>${new Date(line.at || Date.now()).toLocaleTimeString()}</small></div>`).join("")}</div>
       ${radio.finalized ? `<div class="protocol-score radio-score"><span>Avaliação do rádio</span><strong>${esc(radio.grade || "N/A")}</strong><div class="progress"><i style="width:${Math.max(0, Math.min(100, radio.finalScore || 0))}%"></i></div><small>Impacto do acompanhamento: ${radio.scoreDelta >= 0 ? "+" : ""}${Number(radio.scoreDelta || 0)} ponto(s).</small></div>` : `<h4>Ações do operador</h4><div class="radio-action-grid">${actions.map((a) => `<button class="radio-action-btn ${a.id === "close" ? "close" : ""}" data-radio-action="${esc(a.id)}" data-call="${esc(call.id)}"><strong>${esc(a.short || a.label)}</strong><small>${esc(a.hint || a.label)}</small></button>`).join("")}</div>`}
     </section>`;
@@ -499,10 +523,10 @@
           persist();
           if (out) {
             C190_Immersion?.play?.(out.awaitingRadio ? "dispatch" : out.call.status === "resolved" ? "success" : "error", state);
-            if (out.awaitingRadio) C190_Immersion?.speakRadio?.("Despacho confirmado. Equipes em deslocamento para a ocorrência.", state);
+            if (out.awaitingRadio) { C190_Immersion?.play?.("siren", state); C190_Immersion?.speakRadio?.("Despacho confirmado. Equipes em deslocamento para a ocorrência.", state); }
             toast(
               out.awaitingRadio
-                ? `Despacho confirmado · rádio operacional iniciado · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"} · despacho ${out.resourceDispatch?.grade || "N/A"}.`
+                ? `Despacho confirmado · ocorrência enviada ao campo · próxima ligação liberada na fila · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"} · despacho ${out.resourceDispatch?.grade || "N/A"}.`
                 : out.call.status === "resolved"
                   ? `Ocorrência resolvida · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"} · despacho ${out.resourceDispatch?.grade || "N/A"}.`
                   : `Falha de protocolo/triagem/despacho · protocolo ${out.protocol?.grade || "N/A"} · triagem ${out.triage?.grade || "N/A"} · despacho ${out.resourceDispatch?.grade || "N/A"}.`,
@@ -1462,7 +1486,8 @@
         C190_Immersion?.speak?.("Nova ligação de emergência entrando na fila.", state, { rate: 0.98 });
         toast(event.detail?.text || "Nova ligação na fila.", "warning");
         updateDispatchLite();
-      } else if (kind === "incoming_scheduled") {
+      } else if (kind === "incoming_scheduled" || kind === "field_handoff") {
+        if (kind === "field_handoff") toast(event.detail?.text || "Ocorrência em campo. Central liberada para nova ligação.", "success");
         updateDispatchLite();
       }
     });
@@ -1507,7 +1532,7 @@
     }, 1000);
   }
   function init() {
-    window.C190_AppDebug = { state: () => state, renderAll, renderDispatch, immersion: () => C190_Immersion?.diagnostics?.(state) };
+    window.C190_AppDebug = { state: () => state, renderAll, renderDispatch, immersion: () => C190_Immersion?.diagnostics?.(state), dispatchFlow: () => C190_Dispatch?.diagnostics?.(state) };
     C190_I18N.init();
     $("#languageSelect").value = C190_I18N.language;
     $("#buildLabel").textContent = `${BUILD} · 22/06/2026 13:15:00 BRT`;

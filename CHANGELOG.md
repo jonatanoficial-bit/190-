@@ -1,4 +1,4 @@
-## v2.8.0 — Fase 34 — Áudio de ocorrência e voz PT-BR
+## v2.9.1 — Fase 35.1 — Áudio de ocorrência e voz PT-BR
 
 - Adicionados sons de ocorrência por categoria: fogo/resgate, médico/SAMU, pânico/risco e chuva/desastre.
 - Adicionada voz PT-BR por síntese do navegador.

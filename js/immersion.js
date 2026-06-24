@@ -2,7 +2,7 @@ window.C190_Immersion = (() => {
   "use strict";
 
   const VERSION = 2;
-  const BUILD = "CENTRAL190-2800-F34-AUDIO-VOZ-PTBR-20260623-123800-BRT";
+  const BUILD = "CENTRAL190-2910-F35-1-HOTFIX-FLUXO-POS-DESPACHO-20260624-101500-BRT";
   let audioContext = null;
   let master = null;
   let unlocked = false;

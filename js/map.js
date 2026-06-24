@@ -106,7 +106,7 @@ window.C190_Map = (() => {
     const unitClass = `unit-${String(resource.id || "unit").replace(/[^a-zA-Z0-9_-]/g, "-")}`;
     return window.L.divIcon({
       className: "c190-div-icon c190-resource-div-icon",
-      html: `<button class="resource-marker type-${escapeHtml(resource.type)} ${escapeHtml(unitClass)} ${resource.selected ? "selected" : ""} ${resource.moving ? "moving" : ""} ${resource.arrived ? "arrived" : ""}" style="--unit-progress:${Math.round((resource.progress || 0) * 100)}%" aria-label="${escapeHtml(resource.label)}"><span>${escapeHtml(resource.short || label)}</span></button>`,
+      html: `<button class="resource-marker type-${escapeHtml(resource.type)} ${escapeHtml(unitClass)} ${resource.selected ? "selected" : ""} ${resource.moving ? "moving" : ""} ${resource.arrived ? "arrived" : ""}" style="--unit-progress:${Math.round((resource.progress || 0) * 100)}%" aria-label="${escapeHtml(resource.label)}"><i></i><span>${escapeHtml(resource.short || label)}</span><em>${escapeHtml(resource.arrived ? "LOCAL" : resource.etaRemainingText || "")}</em></button>`,
       iconSize: compact ? [42, 42] : [52, 52],
       iconAnchor: compact ? [21, 21] : [26, 26],
       popupAnchor: [0, -22],
@@ -114,7 +114,7 @@ window.C190_Map = (() => {
   }
 
   function resourcePopup(resource) {
-    return `<div class="map-popup-card"><strong>${escapeHtml(resource.label)}</strong><span>${escapeHtml(resource.moving ? `Em deslocamento · ${Math.round((resource.progress || 0) * 100)}%` : resource.arrived ? "No local" : resource.selected ? "Selecionada para despacho" : resource.status)}</span><small>${escapeHtml(resource.role || "unidade operacional")} · ETA ${Number(resource.etaMin || 0)} min</small></div>`;
+    return `<div class="map-popup-card"><strong>${escapeHtml(resource.label)}</strong><span>${escapeHtml(resource.moving ? `${resource.statusLabel || "Em deslocamento"} · ${Math.round((resource.progress || 0) * 100)}%` : resource.arrived ? "No local" : resource.selected ? "Selecionada para despacho" : resource.status)}</span><small>${escapeHtml(resource.role || "unidade operacional")} · ETA ${escapeHtml(resource.etaRemainingText || `${Number(resource.etaMin || 0)} min`)}</small></div>`;
   }
 
 
@@ -368,7 +368,7 @@ window.C190_Map = (() => {
         const fakeCall = { lat: resource.lat, lng: resource.lng, priority: 2, status: resource.arrived ? "resolved" : "active", type: resource.short || resource.label };
         const position = tacticalPosition(fakeCall, center, [...calls, fakeCall]);
         const unitClass = `unit-${String(resource.id || "unit").replace(/[^a-zA-Z0-9_-]/g, "-")}`;
-        return `<button class="tactical-resource-marker type-${escapeHtml(resource.type)} ${escapeHtml(unitClass)} ${resource.moving ? "moving" : "arrived"}" style="left:${position.x}%;top:${position.y}%;--unit-progress:${Math.round((resource.progress || 0) * 100)}%" title="${escapeHtml(resource.label)}"><span>${escapeHtml(resource.short || "UN")}</span></button>`;
+        return `<button class="tactical-resource-marker type-${escapeHtml(resource.type)} ${escapeHtml(unitClass)} ${resource.moving ? "moving" : "arrived"}" style="left:${position.x}%;top:${position.y}%;--unit-progress:${Math.round((resource.progress || 0) * 100)}%" title="${escapeHtml(resource.label)}"><span>${escapeHtml(resource.short || "UN")}</span><em>${escapeHtml(resource.arrived ? "LOCAL" : resource.etaRemainingText || "")}</em></button>`;
       }).join("")}
       ${calls.length ? "" : '<div class="tactical-empty">Nenhuma ocorrência georreferenciada no plantão atual.</div>'}
     `;

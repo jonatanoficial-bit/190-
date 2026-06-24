@@ -1,6 +1,6 @@
-## v2.8.0 — Fase 34 — Áudio e voz
+## v2.9.1 — Fase 35.1 — Áudio e voz
 
-Build: `CENTRAL190-2800-F34-AUDIO-VOZ-PTBR-20260623-123800-BRT`
+Build: `CENTRAL190-2910-F35-1-HOTFIX-FLUXO-POS-DESPACHO-20260624-101500-BRT`
 
 - Camada de voz PT-BR e sons de ocorrência integrada.
 

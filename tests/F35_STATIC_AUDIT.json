@@ -1,0 +1,13 @@
+{
+  "build": "CENTRAL190-2900-F35-MAPA-CINEMATICO-ETA-20260623-125500-BRT",
+  "version": "2.9.0",
+  "phase": 35,
+  "saveSchema": 31,
+  "features": {
+    "mapEtaLabels": true,
+    "unitProgressRing": true,
+    "fieldUnitsTracker": true,
+    "fieldUnitsVersion": 3
+  },
+  "status": "ok"
+}

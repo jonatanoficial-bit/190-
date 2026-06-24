@@ -65,11 +65,25 @@ window.C190_FieldUnits = (() => {
       const start = { lat: Number(unit.lat), lng: Number(unit.lng) };
       const progress = progressFor(unit, call);
       const current = interpolate(start, target, progress);
+      const etaTotalSeconds = Math.max(60, Number(unit.etaMin || 3) * 60);
+      const etaRemainingSeconds = Math.max(0, Math.round(etaTotalSeconds * (1 - progress)));
+      const progressPercent = Math.round(progress * 100);
+      const statusLabel = progress >= 0.96
+        ? "no local"
+        : progress >= 0.66
+          ? "chegando"
+          : progress >= 0.28
+            ? "em deslocamento"
+            : "saindo da base";
       return {
         ...unit,
         assignedTo: call.id,
         assignedCallType: call.type,
         progress,
+        progressPercent,
+        etaRemainingSeconds,
+        etaRemainingText: etaRemainingSeconds <= 0 ? "no local" : etaRemainingSeconds >= 60 ? `${Math.ceil(etaRemainingSeconds / 60)} min` : `${etaRemainingSeconds}s`,
+        statusLabel,
         moving: progress > 0 && progress < 1,
         arrived: progress >= 0.96,
         targetLat: target.lat,
@@ -88,9 +102,25 @@ window.C190_FieldUnits = (() => {
   function resourcesForMap(state) {
     return [...staticResources(state), ...movingResources(state)];
   }
+  function operationPanel(state) {
+    return movingResources(state).map((unit) => ({
+      id: unit.id,
+      label: unit.label,
+      short: unit.short,
+      type: unit.type,
+      icon: unit.icon,
+      role: unit.role,
+      progress: unit.progress,
+      progressPercent: unit.progressPercent,
+      etaRemainingText: unit.etaRemainingText,
+      statusLabel: unit.statusLabel,
+      arrived: unit.arrived,
+      moving: unit.moving,
+    }));
+  }
   function diagnostics(state) {
     const moving = movingResources(state);
-    return { version: VERSION, movingUnits: moving.length, units: moving.map((u) => ({ id: u.id, progress: Math.round(u.progress * 100), call: u.assignedTo })) };
+    return { version: VERSION, movingUnits: moving.length, units: moving.map((u) => ({ id: u.id, progress: Math.round(u.progress * 100), eta: u.etaRemainingText, call: u.assignedTo })) };
   }
-  return { VERSION, resourcesForMap, movingResources, diagnostics };
+  return { VERSION, resourcesForMap, movingResources, operationPanel, diagnostics };
 })();

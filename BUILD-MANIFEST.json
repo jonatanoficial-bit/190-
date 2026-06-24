@@ -1,9 +1,9 @@
 {
   "name": "Central 190",
-  "version": "2.8.0",
-  "phase": 34,
-  "build": "CENTRAL190-2800-F34-AUDIO-VOZ-PTBR-20260623-123800-BRT",
-  "fileCount": 181,
+  "version": "2.9.1",
+  "phase": 35.1,
+  "build": "CENTRAL190-2910-F35-1-HOTFIX-FLUXO-POS-DESPACHO-20260624-101500-BRT",
+  "fileCount": 187,
   "files": [
     {
       "path": "ASSET_PATHS_REQUIRED.txt",
@@ -141,49 +141,59 @@
       "sha256": "09fae4936fab11d32744d26b6dba2260e8ef5c5b307b1ec4153e0ca4cb8648d5"
     },
     {
+      "path": "AUDIT_F35.md",
+      "size": 426,
+      "sha256": "189b5b70fa4b8119ac0a9aeaa34cf1ffb26d54e94431d915ce49ec4a07e4db3c"
+    },
+    {
+      "path": "AUDIT_F35_1.md",
+      "size": 481,
+      "sha256": "0ddf04d3a10e478a015685f39edd6046f2fd24e28b3e0d1046ad67ce0df52ba9"
+    },
+    {
       "path": "BUILD-MANIFEST.json",
-      "size": 28491,
-      "sha256": "54621b26675f3aa8ef03de1f61f444ec2baba1a965934c07c20d7e41ea316566"
+      "size": 29417,
+      "sha256": "5e7ab131a1314f25e804b6542bf885abf5c8c9ca36468f44eb723908d52e3ce4"
     },
     {
       "path": "BUILD-REPORT.md",
-      "size": 1226,
-      "sha256": "e59786a76a6543831052a40020c4cb5f68ffe5b4f9c954d8f3d5ac50e3147a21"
+      "size": 1241,
+      "sha256": "f922a141759494130ec3a58249f5bc601cb27c05b6cf4f0aac14932a49a9a238"
     },
     {
       "path": "BUILD_INFO.json",
-      "size": 959,
-      "sha256": "18fce596a34966df038f49bc6f8846655f7163ee589ceb32283a1baeb5d06355"
+      "size": 719,
+      "sha256": "3426f7b4867eba4f038b0e91abdc56855af1845ec76a8bc0b2934e5ca2cd1ca6"
     },
     {
       "path": "BUILD_MANIFEST.json",
-      "size": 28491,
-      "sha256": "54621b26675f3aa8ef03de1f61f444ec2baba1a965934c07c20d7e41ea316566"
+      "size": 29417,
+      "sha256": "5e7ab131a1314f25e804b6542bf885abf5c8c9ca36468f44eb723908d52e3ce4"
     },
     {
       "path": "CHANGELOG.md",
-      "size": 5843,
-      "sha256": "ba778a23ade104dca672189705f4ebc76d25354757d9be783ebc6e3092842931"
+      "size": 5845,
+      "sha256": "6035411e0b2ccebb2a70c379fb2bafe442eaeb87af35040603c965b1740aa2f8"
     },
     {
       "path": "CHECKLIST.md",
-      "size": 1447,
-      "sha256": "a0da95e98a210da8acad517cdc6a70bf2ac78a62b8b1402f3b51563de53ee0a3"
+      "size": 1449,
+      "sha256": "0ab8514ffde66e349fd01ddd0429d383fc77b54d9a532e08391c6b0ae4a9a15e"
     },
     {
       "path": "FILE-MANIFEST.sha256",
-      "size": 16339,
-      "sha256": "5d54911212cf6bac2d968bbe94476e6f9e93f5fbfcb0dfef5e38df4ca815b56c"
+      "size": 16876,
+      "sha256": "167752b2cc9967197213682d26d71dccd9f79a03338d55a33c234597e33cfc8e"
     },
     {
       "path": "README.md",
-      "size": 1787,
-      "sha256": "2324ffdf343f3f5e3eb2c052e5e654a27e511f0d75cbcd178722b41af62996a0"
+      "size": 1789,
+      "sha256": "168696d27857a340b9a352417d192248cfc3c62d41b22427a32dca4de152a77f"
     },
     {
       "path": "TEST-REPORT.md",
-      "size": 1481,
-      "sha256": "52ad43daca43c9ead2e9cc39400103f32241d0249773561a304aad4a23d7021f"
+      "size": 1483,
+      "sha256": "59569f1970e5e0038ae07dea2e9b5a5322cb2ead59eb57655eaf30d02c673b7b"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -192,8 +202,8 @@
     },
     {
       "path": "VERSION.txt",
-      "size": 147,
-      "sha256": "8647728748eb4683f11fe877c6c49233083ddaf0c7ac3ceacc8a3319a5859add"
+      "size": 162,
+      "sha256": "810fb7a023a7823376508d9483fa97f2057d6713e1329f0876e5f16f1cd86339"
     },
     {
       "path": "assets/backgrounds/bg-career-room.webp",
@@ -392,8 +402,8 @@
     },
     {
       "path": "css/style.css",
-      "size": 125258,
-      "sha256": "3831beddf018152f11e033ed113e1adae38fbdf9cfea35a4288ab4a2de85fc7e"
+      "size": 130375,
+      "sha256": "54499094800da74d7c8047602bee7a0833bd16c69894c5ad4f4def5b7a520887"
     },
     {
       "path": "docs/ATENDIMENTO_REAL_F18.md",
@@ -466,6 +476,11 @@
       "sha256": "468b599409985610fd16fa591ddf094fa37b2a110a9c704089ff70b95fc5f4a2"
     },
     {
+      "path": "docs/HOTFIX_FLUXO_POS_DESPACHO_F35_1.md",
+      "size": 808,
+      "sha256": "810a9d0352968097487a33cc866125271a2acfa8ba2862efda2d75b7aef8389a"
+    },
+    {
       "path": "docs/HOTFIX_FUNDOS_CINEMATICOS_F23_1.md",
       "size": 1285,
       "sha256": "b324ef7eea7e3c0bc9dc4ab4ea93e04e42e521160b094e0342a20c2aeba9c243"
@@ -474,6 +489,11 @@
       "path": "docs/HOTFIX_TUTORIAL_VISIVEL_F33_1.md",
       "size": 570,
       "sha256": "c2ddcdfbcb01e55444db76710403c4041279b058464791d2805e084aa78babe2"
+    },
+    {
+      "path": "docs/MAPA_CINEMATICO_ETA_F35.md",
+      "size": 554,
+      "sha256": "129e7e72460d8d83cfadc83b423941cf1fa4b3ff84cb67299d6afc7f717f01ae"
     },
     {
       "path": "docs/MAPA_PROGRESSIVO_F20.md",
@@ -562,8 +582,8 @@
     },
     {
       "path": "index.html",
-      "size": 42043,
-      "sha256": "0695e28f857acfb17e8d6004131b84362d45ead2582f8524facef2b71c1780b9"
+      "size": 42038,
+      "sha256": "415563076adf882e84ee2372f4e3a8b0232d8816a8c20cfd0289ce7f445585e7"
     },
     {
       "path": "js/anti-break.js",
@@ -572,13 +592,13 @@
     },
     {
       "path": "js/app.js",
-      "size": 95468,
-      "sha256": "954c25f865ab21a630141618859f2e9a47a6060be1c068e99c23276c23f748e4"
+      "size": 97654,
+      "sha256": "fe9f7d635e3e0297674a03d118d1ec3e4e0e97e510fa26adcdabc9a7820b0ea6"
     },
     {
       "path": "js/assets.js",
-      "size": 4354,
-      "sha256": "7e5ce9407da38e194b01a7ed9dc676c93058390e94616c88aaeef0bdc90adec9"
+      "size": 4371,
+      "sha256": "88fb7ad1bf4c4bf570f38de87c8f09cb0c116f2e34c122aa811e323e035e54a7"
     },
     {
       "path": "js/balance.js",
@@ -607,8 +627,8 @@
     },
     {
       "path": "js/dispatch.js",
-      "size": 66078,
-      "sha256": "b43036acb5aa9b1c70e7dd52c818db2fdb449d5a990c4edf81f5e6a261909927"
+      "size": 67606,
+      "sha256": "4e6d5b306f214cd5470365ad08ff32de9c2fc54dc1e6f971d744a7d9f9688c46"
     },
     {
       "path": "js/field-radio.js",
@@ -617,8 +637,8 @@
     },
     {
       "path": "js/field-units.js",
-      "size": 4409,
-      "sha256": "c03fb774c8b1fcde984f25da5c384bf8ab768a87bbf543f1a32424bb876c91ca"
+      "size": 5579,
+      "sha256": "c382dfa4ddbc187d124b76e87e3e006e752518547fa67cffa539f3211c42c5bd"
     },
     {
       "path": "js/i18n.js",
@@ -627,8 +647,8 @@
     },
     {
       "path": "js/immersion.js",
-      "size": 11548,
-      "sha256": "af1fc64d017d4c2aa0d6fedbf89076533a626b48b1b2adc09c3edc83aec59ba5"
+      "size": 11561,
+      "sha256": "e3939659fd35e2994f3749d7e690eeeb459e2d4b098fadaa8e34a9875bb07f37"
     },
     {
       "path": "js/location-intel.js",
@@ -637,8 +657,8 @@
     },
     {
       "path": "js/map.js",
-      "size": 20980,
-      "sha256": "caf1dbbae8d20298401714d8bd8c250488ca29379bdac5b0905ba857f5a88b94"
+      "size": 21230,
+      "sha256": "38336903848b5333c32a94f89178a385b7943ba00b979232663814aa95f8751d"
     },
     {
       "path": "js/public-rc.js",
@@ -657,8 +677,8 @@
     },
     {
       "path": "js/save-manager.js",
-      "size": 17500,
-      "sha256": "8594eaa0f1a8a3c6509f0a2fa307ee7c79dd913ee844d24e1243c9afe747cb81"
+      "size": 17745,
+      "sha256": "2768d012f97700ac28510ee4027d2a2bf4364dc93ae0141f2282bfba77976cf2"
     },
     {
       "path": "js/training-academy.js",
@@ -677,8 +697,8 @@
     },
     {
       "path": "manifest.webmanifest",
-      "size": 2417,
-      "sha256": "08176359609d844a18505c5b119624df667a3d865efba0dc7cff3a8540d8f0d4"
+      "size": 2419,
+      "sha256": "04bb52886fb5bd51733c76038fb41c4850bc1086d8d141267c0b51fed76910ed"
     },
     {
       "path": "reports/audit-v1.7.4-layout-mobile.json",
@@ -692,8 +712,8 @@
     },
     {
       "path": "sw.js",
-      "size": 4048,
-      "sha256": "b55fcfab458e3795cc939ddcf6a28a30783b897ca5e0727d34544d7f28644d7a"
+      "size": 4054,
+      "sha256": "8d2658e64cae751c6fe80edb37b4b2be03237711227797dcfaaacf4cd503f328"
     },
     {
       "path": "tests/BROWSER_AUDIT.json",
@@ -819,6 +839,16 @@
       "path": "tests/F34_STATIC_AUDIT.json",
       "size": 342,
       "sha256": "d584928c84f95fbe7bfeae763bf6358dcfcf1f0665b7515110f47db5ecf16a42"
+    },
+    {
+      "path": "tests/F35_1_STATIC_AUDIT.json",
+      "size": 312,
+      "sha256": "6465f23333f6703ab1dc7c4fa1be2d7572a730b77ba11a974fc9aef0f9cc85bd"
+    },
+    {
+      "path": "tests/F35_STATIC_AUDIT.json",
+      "size": 286,
+      "sha256": "636c859ab9516d87865493ec020acc18b1c80ed1ffce893d7e1f247baf1f4485"
     },
     {
       "path": "tests/FINAL_AUDIT_RESULT.json",

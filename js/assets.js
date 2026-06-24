@@ -1,8 +1,8 @@
 window.C190_Assets = (() => {
   "use strict";
-  const VERSION = "2.8.0";
-  const PHASE = 34;
-  const BUILD = "CENTRAL190-2800-F34-AUDIO-VOZ-PTBR-20260623-123800-BRT";
+  const VERSION = "2.9.1";
+  const PHASE = "35.1";
+  const BUILD = "CENTRAL190-2910-F35-1-HOTFIX-FLUXO-POS-DESPACHO-20260624-101500-BRT";
   const required = [
     "assets/badges/central190-brand.svg",
     "assets/backgrounds/bg-central-room.webp",
