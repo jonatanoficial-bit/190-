@@ -1,0 +1,17 @@
+{
+  "build": "CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT",
+  "version": "4.1.0",
+  "phase": 47,
+  "saveSchema": 44,
+  "features": {
+    "territorialIntelModule": true,
+    "riskHotspots": true,
+    "zoneHistory": true,
+    "operationalPrediction": true,
+    "preventivePatrolRecommendation": true,
+    "multitaskHotspotRisk": true,
+    "supervisorTerritorialAlert": true,
+    "f46CoveragePanelRenderHotfix": true
+  },
+  "status": "ok"
+}

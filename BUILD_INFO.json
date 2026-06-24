@@ -1,12 +1,13 @@
 {
   "name": "Central 190",
-  "version": "4.0.0",
-  "phase": 46,
-  "build": "CENTRAL190-4000-F46-COBERTURA-TERRITORIAL-20260624-151500-BRT",
-  "compiledAt": "2026-06-24T15:15:00-03:00",
-  "saveSchema": 43,
-  "title": "Cobertura territorial, bases operacionais e reposicionamento preventivo",
+  "version": "4.1.0",
+  "phase": 47,
+  "build": "CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT",
+  "compiledAt": "2026-06-24T15:45:00-03:00",
+  "saveSchema": 44,
+  "title": "Inteligência territorial, manchas de risco e previsão operacional",
   "preserved": [
+    "Cobertura Territorial F46",
     "Orçamento Operacional F45",
     "Manutenção das Viaturas F44",
     "Fadiga das Equipes F43",
@@ -19,14 +20,15 @@
     "Central Multitarefa F36"
   ],
   "added": [
-    "novo módulo js/base-logistics.js",
-    "painel Cobertura Territorial",
-    "bases operacionais por região",
-    "cobertura média territorial",
-    "áreas frágeis e descobertas",
-    "recomendação de reposicionamento preventivo",
-    "ETA impactado por distância da base",
-    "risco por ocorrência em área com baixa cobertura",
-    "Supervisor e Central Multitarefa integrados à cobertura"
+    "novo módulo js/territorial-intel.js",
+    "painel Inteligência Territorial",
+    "manchas de risco por zona",
+    "histórico de reincidência",
+    "previsão de maior probabilidade",
+    "foco por categoria de ocorrência",
+    "recomendação de patrulha preventiva",
+    "Central Multitarefa considera zonas quentes",
+    "Supervisor alerta padrão territorial crítico",
+    "hotfix: painel Cobertura Territorial F46 agora é chamado no renderDispatch"
   ]
 }

@@ -1,4 +1,4 @@
-## v4.0.0 — Fase 46 — Áudio de ocorrência e voz PT-BR
+## v4.1.0 — Fase 47 — Áudio de ocorrência e voz PT-BR
 
 - Adicionados sons de ocorrência por categoria: fogo/resgate, médico/SAMU, pânico/risco e chuva/desastre.
 - Adicionada voz PT-BR por síntese do navegador.
@@ -8,7 +8,7 @@
 
 # Central 190 v2.3.0 — Fase 29
 
-Build: CENTRAL190-4000-F46-COBERTURA-TERRITORIAL-20260624-151500-BRT
+Build: CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT
 Save schema: 27
 
 ## Fase 29 — Balanceamento final
@@ -34,7 +34,7 @@ Save schema: 27
 
 # Central 190 v1.8.0 — Fase 24 — RC AAA, áudio e imersão
 
-Build: `CENTRAL190-4000-F46-COBERTURA-TERRITORIAL-20260624-151500-BRT`  
+Build: `CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT`  
 Data: 20/06/2026 17:30:00 BRT
 
 - Áudio operacional gerado localmente por Web Audio API.
@@ -48,10 +48,10 @@ Data: 20/06/2026 17:30:00 BRT
 
 # Central 190 v1.8.0 — Fase 24 — Hotfix layout mobile-first
 
-Build: `CENTRAL190-4000-F46-COBERTURA-TERRITORIAL-20260624-151500-BRT`
+Build: `CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT`
 
 - Topbar e sidebar restauradas como fixas.
 - Card de nova carreira reorganizado para texto e formulário alinhados.
 - Mobile priorizado: formulário em uma coluna, botões maiores, painel compacto e rolagem natural.
 - Fundos fotográficos reais da v1.7.3 preservados.
-- Cache PWA atualizado para `central190-v4.0.0-f46-cobertura-territorial
+- Cache PWA atualizado para `central190-v4.1.0-f47-inteligencia-territorial

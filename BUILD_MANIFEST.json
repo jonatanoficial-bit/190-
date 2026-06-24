@@ -1,9 +1,9 @@
 {
   "name": "Central 190",
-  "version": "4.0.0",
-  "phase": 46,
-  "build": "CENTRAL190-4000-F46-COBERTURA-TERRITORIAL-20260624-151500-BRT",
-  "fileCount": 231,
+  "version": "4.1.0",
+  "phase": 47,
+  "build": "CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT",
+  "fileCount": 235,
   "files": [
     {
       "path": "ASSET_PATHS_REQUIRED.txt",
@@ -206,49 +206,54 @@
       "sha256": "8cce096fce55c8dd204e45c8a260c1cec492109be8c2b51cede444fa18c0faad"
     },
     {
+      "path": "AUDIT_F47.md",
+      "size": 560,
+      "sha256": "3619b6687e4c515d647fb0840713d216ff760ec3b55cf943c604bb425a54f965"
+    },
+    {
       "path": "BUILD-MANIFEST.json",
-      "size": 36158,
-      "sha256": "eb2cadde815ad558bdf49e16fc88ef09a6d2c4417ff4d9e26282104fc7aa8549"
+      "size": 36781,
+      "sha256": "2a33dc7e012f3cda52f01a5bf23cbdbd101a6a545428805f1a133a0edae95466"
     },
     {
       "path": "BUILD-REPORT.md",
-      "size": 1234,
-      "sha256": "cbf815e43330053543bf614143a76adb500653fc7718b1c0afd67f6acbbf381b"
+      "size": 1240,
+      "sha256": "be0dbe0c20ebd6b122eff8f86ff93f5fd73a3bb02d685c2445664e7f6930e29e"
     },
     {
       "path": "BUILD_INFO.json",
-      "size": 1020,
-      "sha256": "a6a00e4bc2142e1627939c651b5b55ae9dbc4bab79f2f799e186a73d217c5799"
+      "size": 1111,
+      "sha256": "08d0af44ca41e8428afce3704d907226bd27ddf2a05add7c481314266caae860"
     },
     {
       "path": "BUILD_MANIFEST.json",
-      "size": 36158,
-      "sha256": "eb2cadde815ad558bdf49e16fc88ef09a6d2c4417ff4d9e26282104fc7aa8549"
+      "size": 36781,
+      "sha256": "2a33dc7e012f3cda52f01a5bf23cbdbd101a6a545428805f1a133a0edae95466"
     },
     {
       "path": "CHANGELOG.md",
-      "size": 2371,
-      "sha256": "4fe2af76b5ad71f8a59bdc74bd9a687810b93932e23fd67276e0923f995146e9"
+      "size": 2383,
+      "sha256": "34712e2e8c7baa6ae612d7628efff43b377a7b8a8112dbe0802f396da59fdddb"
     },
     {
       "path": "CHECKLIST.md",
       "size": 1447,
-      "sha256": "fd7f0acbb4c8df3d15ed503fcdb3bf6dd186b70397c62cfd1954115e7e5ba76b"
+      "sha256": "6299453eee432fc3e6ba427807fb4269c85cd1aea6934c83d5bfe121efd92fcc"
     },
     {
       "path": "FILE-MANIFEST.sha256",
-      "size": 20763,
-      "sha256": "735b4581ed501d0509cd97bbb02a743ca575165ab8855ad98e6539751daa5460"
+      "size": 21123,
+      "sha256": "c43c79bad78028be990bc5cacb524cb74cadf734126d65a991073bcd88191e0d"
     },
     {
       "path": "README.md",
       "size": 1787,
-      "sha256": "d2d19db795cf50519f7957032fe24b909b4880f12d99ab51852d360a26207588"
+      "sha256": "a02920d6bec5b22fad1ff6233c6118a4ca1253a39b2456b3423b638d9468de9c"
     },
     {
       "path": "TEST-REPORT.md",
       "size": 1481,
-      "sha256": "a82e8a8be643684d9bdd4beb5a80359a846bbf8e5d88f280cb464bdcbb4f2e0a"
+      "sha256": "5309392175bae63d190b12e2e6c98a6e8218cca30fe9644e4220d95a05d9e506"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -257,8 +262,8 @@
     },
     {
       "path": "VERSION.txt",
-      "size": 154,
-      "sha256": "0cfa6439c5ec89f23cf850d24fd2423fe1ceff0baefaf1f244b37d4c683d94a0"
+      "size": 157,
+      "sha256": "20da9a02c8c8391bb81e00bc511522090b109857e1fbb853215e21dae09d23ad"
     },
     {
       "path": "assets/backgrounds/bg-career-room.webp",
@@ -457,8 +462,8 @@
     },
     {
       "path": "css/style.css",
-      "size": 160740,
-      "sha256": "6731daa989a84f3e94d52546f1716b06bb94dba4dacce21ad93b8afa67260dd6"
+      "size": 163219,
+      "sha256": "4318789204d6d8fab0c4f5fa5a8a998ea622edf73428734927019d3556023d6c"
     },
     {
       "path": "docs/AMBIENTE_URBANO_DINAMICO_F39.md",
@@ -581,6 +586,11 @@
       "sha256": "c2ddcdfbcb01e55444db76710403c4041279b058464791d2805e084aa78babe2"
     },
     {
+      "path": "docs/INTELIGENCIA_TERRITORIAL_F47.md",
+      "size": 872,
+      "sha256": "986d44156a11c7024997de76e2a7e1d37a29a0110077a169304b6fa3d689c9c3"
+    },
+    {
       "path": "docs/MANUTENCAO_VIATURAS_F44.md",
       "size": 669,
       "sha256": "579b124bf3ad956cc080d31d64a5cbcb39ca1e791a090e207e086490eb4e9bd0"
@@ -692,8 +702,8 @@
     },
     {
       "path": "index.html",
-      "size": 43473,
-      "sha256": "6e7ec1eb89a6b725704764c57afccce3f44142fae1edd2f87dcee2b32f7b3d03"
+      "size": 43617,
+      "sha256": "edbeebea2377b7f9917bbce7d1e10517e15ec51288d0c057dab3ebc32d44e646"
     },
     {
       "path": "js/anti-break.js",
@@ -702,13 +712,13 @@
     },
     {
       "path": "js/app.js",
-      "size": 121461,
-      "sha256": "b34a0b8194660f7a09d19ae9608904826ea1472b171c8c26c881456997c349fb"
+      "size": 123149,
+      "sha256": "6711c7c4997e26599bf07b0507dc3fb842a1f184af5277d5950254872e25a503"
     },
     {
       "path": "js/assets.js",
-      "size": 4361,
-      "sha256": "cabde22adb2945ad2dccbea37030e5740407c2b821de20aa88cb28efa8f19407"
+      "size": 4364,
+      "sha256": "a7400045f5e790bba13e4d9cb9dda34e98985899021aae4e2516a701d385a426"
     },
     {
       "path": "js/balance.js",
@@ -767,8 +777,8 @@
     },
     {
       "path": "js/immersion.js",
-      "size": 11555,
-      "sha256": "5660afc0f9d69a36ff3096bce89ff4526f6269845d819aff738b80a402c1b29b"
+      "size": 11558,
+      "sha256": "b7b4c9eff558acddef857177e329227533adda98570202de1c385083bbc69b5c"
     },
     {
       "path": "js/location-intel.js",
@@ -787,8 +797,8 @@
     },
     {
       "path": "js/multitask.js",
-      "size": 8645,
-      "sha256": "bd4ae8f144490487dc14553c9b336bb9a4191d6bc51c99c6ba8c9dcee9d65f1a"
+      "size": 8734,
+      "sha256": "5829dd8919284ecfac54a0a2f2dc78fc139b2c03339f85f152012b3121b791f4"
     },
     {
       "path": "js/operational-budget.js",
@@ -812,18 +822,23 @@
     },
     {
       "path": "js/save-manager.js",
-      "size": 19018,
-      "sha256": "22ad05a69bc4f9fc6546853c254c41bd9745a6c27801e6a6d79b4b1d056cdd98"
+      "size": 19138,
+      "sha256": "5eb66dfbc9f366a6786c4070c75a8be379d9bf62437eaff21e72c5be8b4578a9"
     },
     {
       "path": "js/supervisor.js",
-      "size": 9890,
-      "sha256": "58c55e2692828b173a836e96409ef01d5f7edb767a2ec745038cff6a58b43f0d"
+      "size": 10050,
+      "sha256": "3899e6a1a96ed04c62e5adc21553f53e310943563af2ed4fccfbceb34d52e855"
     },
     {
       "path": "js/support-network.js",
       "size": 8697,
       "sha256": "a489dbd8e9e8b9669f7d3cef54d8aa9d329efada81f979934504c06d72556fc6"
+    },
+    {
+      "path": "js/territorial-intel.js",
+      "size": 7102,
+      "sha256": "b6d1d282c72f32815e6b6b094251d7ac569a92fbc49feaf2bdb2f7dcbe80c3e6"
     },
     {
       "path": "js/training-academy.js",
@@ -863,7 +878,7 @@
     {
       "path": "manifest.webmanifest",
       "size": 2417,
-      "sha256": "b20621e9772dcc36d5ff6a1122d8fa86082de91a4e1853a634ebf72e29aa5475"
+      "sha256": "6016335444b88f82196616111a5d9024bd42693dacc0b9d63f0a71c709afda77"
     },
     {
       "path": "reports/audit-v1.7.4-layout-mobile.json",
@@ -877,8 +892,8 @@
     },
     {
       "path": "sw.js",
-      "size": 4360,
-      "sha256": "758aa46e0c3c0b4ed40d8c4a9de3d710d0711078dbde5c64e354e49c1ad8c420"
+      "size": 4394,
+      "sha256": "6f55df1345f2f664beff97e232b7e01a74b65d98e2345a0bbdffea0e513c74b7"
     },
     {
       "path": "tests/BROWSER_AUDIT.json",
@@ -1069,6 +1084,11 @@
       "path": "tests/F46_STATIC_AUDIT.json",
       "size": 410,
       "sha256": "7dadd578c1e3e05f4be73cd4cbc9c0a182277cff0d7fa6f8b45746d76d62287b"
+    },
+    {
+      "path": "tests/F47_STATIC_AUDIT.json",
+      "size": 458,
+      "sha256": "28c820f9438641a4c452b7f00753e31b494800f5c7b77778cadbba6038da1d36"
     },
     {
       "path": "tests/FINAL_AUDIT_RESULT.json",

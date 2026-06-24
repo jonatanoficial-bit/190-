@@ -2,7 +2,7 @@ window.C190_Supervisor = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT";
+  const BUILD = "CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT";
 
   function safePercent(value) {
     return Math.max(0, Math.min(100, Math.round(Number(value || 0))));
@@ -97,6 +97,7 @@ window.C190_Supervisor = (() => {
     if (fatigue?.active && fatigue.level !== "ready") warnings.unshift(`Efetivo sob desgaste: prontidão média ${fatigue.avgReadiness}/100.`);
     if (vehicle?.active && vehicle.level !== "ready") warnings.unshift(`Frota com baixa prontidão: média ${vehicle.avgReadiness}/100.`);
     if (bases?.active && bases.level !== "ready") warnings.unshift(`Cobertura territorial irregular: média ${bases.avgCoverage}/100.`);
+    if (intel?.active && intel.level !== "stable") warnings.unshift(`Inteligência territorial: ${intel.prediction?.text || "mancha de risco ativa"}.`);
     if (budget?.active && budget.level !== "stable") warnings.unshift(`Pressão orçamentária: ${budget.label} (${budget.usedPercent}% usado).`);
     return { score, level: analysis.pressureLevel || (score >= 78 ? "critical" : score >= 48 ? "high" : "normal"), warnings, ok: score < 78 };
   }

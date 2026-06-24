@@ -80,6 +80,7 @@ window.C190_Multitask = (() => {
       if (fatigueCall.notes?.length) risk.reason = `${risk.reason} ${fatigueCall.notes[0]}`;
       if (vehicleCall.notes?.length) risk.reason = `${risk.reason} ${vehicleCall.notes[0]}`;
       if (baseCall.notes?.length) risk.reason = `${risk.reason} ${baseCall.notes[0]}`;
+      if (intelCall.notes?.length) risk.reason = `${risk.reason} ${intelCall.notes[0]}`;
       if (budgetCall.notes?.length) risk.reason = `${risk.reason} ${budgetCall.notes[0]}`;
       call.multitask = { version: VERSION, riskScore: risk.score, riskLevel: risk.level, riskLabel: risk.label, riskReason: risk.reason, updatedAt: new Date().toISOString() };
       const escalationPoint = Math.floor(Number(shift.abandonLimit || 78) * 0.45);

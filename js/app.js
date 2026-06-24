@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-2600-F32-VEICULOS-PNG-SP-20260623-110500-BRT";
+  const BUILD = "CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
@@ -565,6 +565,41 @@
     </section>`;
   }
 
+
+  function renderTerritorialIntelPanel() {
+    const panel = $("#territorialIntelPanel");
+    if (!panel) return;
+    const report = window.C190_TerritorialIntel?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const zones = (report.zones || []).slice(0, 5);
+    panel.innerHTML = `<section class="territorial-intel-card intel-${esc(report.level || "stable")}">
+      <div class="intel-main">
+        <span class="eyebrow">INTELIGÊNCIA TERRITORIAL</span>
+        <h3>${esc(report.label || "Risco territorial")}</h3>
+        <p>${esc(report.prediction?.text || "Sem previsão crítica")} · risco médio ${Number(report.avgRisk || 0)}%</p>
+      </div>
+      <div class="intel-score">
+        <strong>${Number(report.avgRisk || 0)}%</strong>
+        <span>risco</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(report.avgRisk || 0)))}%"></i></div>
+      </div>
+      <div class="intel-zone-grid">
+        ${zones.map((zone) => `<article class="intel-zone intel-${esc(zone.level || "stable")}">
+          <strong>${esc(zone.label)}</strong>
+          <small>${Number(zone.riskScore || 0)}% · ${esc(zone.mainCategory || "geral")} · fila ${zone.waiting}</small>
+        </article>`).join("")}
+      </div>
+      <div class="intel-advice">
+        ${(report.recommended || []).slice(0, 3).map((item) => `<span>${esc(item.action)} · foco ${esc(item.category)}</span>`).join("") || "<span>Risco territorial controlado.</span>"}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -670,6 +705,8 @@
     renderUnifiedCommandPanel();
     renderUnitFatiguePanel();
     renderVehicleMaintenancePanel();
+    renderBaseLogisticsPanel();
+    renderTerritorialIntelPanel();
     renderOperationalBudgetPanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
