@@ -92,9 +92,11 @@ window.C190_Supervisor = (() => {
     const command = window.C190_UnifiedCommand?.analyze?.(state);
     const fatigue = window.C190_UnitFatigue?.analyze?.(state);
     const vehicle = window.C190_VehicleMaintenance?.analyze?.(state);
+    const budget = window.C190_OperationalBudget?.analyze?.(state);
     if (support?.active && support.level !== "ready") warnings.unshift(`Apoio especializado pendente: score ${support.supportScore}/100.`);
     if (fatigue?.active && fatigue.level !== "ready") warnings.unshift(`Efetivo sob desgaste: prontidão média ${fatigue.avgReadiness}/100.`);
     if (vehicle?.active && vehicle.level !== "ready") warnings.unshift(`Frota com baixa prontidão: média ${vehicle.avgReadiness}/100.`);
+    if (budget?.active && budget.level !== "stable") warnings.unshift(`Pressão orçamentária: ${budget.label} (${budget.usedPercent}% usado).`);
     return { score, level: analysis.pressureLevel || (score >= 78 ? "critical" : score >= 48 ? "high" : "normal"), warnings, ok: score < 78 };
   }
 

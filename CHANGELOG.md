@@ -1,4 +1,4 @@
-## v3.8.0 — Fase 44 — Áudio de ocorrência e voz PT-BR
+## v3.9.0 — Fase 45 — Áudio de ocorrência e voz PT-BR
 
 - Adicionados sons de ocorrência por categoria: fogo/resgate, médico/SAMU, pânico/risco e chuva/desastre.
 - Adicionada voz PT-BR por síntese do navegador.
@@ -8,7 +8,7 @@
 
 # Central 190 v2.3.0 — Fase 29
 
-Build: CENTRAL190-3800-F44-MANUTENCAO-VIATURAS-20260624-141500-BRT
+Build: CENTRAL190-3900-F45-ORCAMENTO-LOGISTICA-BASE-20260624-144500-BRT
 Save schema: 27
 
 ## Fase 29 — Balanceamento final
@@ -34,7 +34,7 @@ Save schema: 27
 
 # Central 190 v1.8.0 — Fase 24 — RC AAA, áudio e imersão
 
-Build: `CENTRAL190-3800-F44-MANUTENCAO-VIATURAS-20260624-141500-BRT`  
+Build: `CENTRAL190-3900-F45-ORCAMENTO-LOGISTICA-BASE-20260624-144500-BRT`  
 Data: 20/06/2026 17:30:00 BRT
 
 - Áudio operacional gerado localmente por Web Audio API.
@@ -48,10 +48,10 @@ Data: 20/06/2026 17:30:00 BRT
 
 # Central 190 v1.8.0 — Fase 24 — Hotfix layout mobile-first
 
-Build: `CENTRAL190-3800-F44-MANUTENCAO-VIATURAS-20260624-141500-BRT`
+Build: `CENTRAL190-3900-F45-ORCAMENTO-LOGISTICA-BASE-20260624-144500-BRT`
 
 - Topbar e sidebar restauradas como fixas.
 - Card de nova carreira reorganizado para texto e formulário alinhados.
 - Mobile priorizado: formulário em uma coluna, botões maiores, painel compacto e rolagem natural.
 - Fundos fotográficos reais da v1.7.3 preservados.
-- Cache PWA atualizado para `central190-v3.8.0-f44-manutencao-viaturas
+- Cache PWA atualizado para `central190-v3.9.0-f45-orcamento-logistica-base

@@ -491,6 +491,45 @@
     </section>`;
   }
 
+
+  function moneyBR(value) {
+    const n = Number(value || 0);
+    return `R$ ${Math.round(n).toLocaleString("pt-BR")}`;
+  }
+  function renderOperationalBudgetPanel() {
+    const panel = $("#operationalBudgetPanel");
+    if (!panel) return;
+    const report = window.C190_OperationalBudget?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const high = (report.highCostCalls || []).slice(0, 3);
+    panel.innerHTML = `<section class="operational-budget-card budget-${esc(report.level || "stable")}">
+      <div class="budget-main">
+        <span class="eyebrow">ORÇAMENTO OPERACIONAL</span>
+        <h3>${esc(report.label || "Logística equilibrada")}</h3>
+        <p>${moneyBR(report.spent)} usados de ${moneyBR(report.budget)} · saldo ${moneyBR(report.remaining)}</p>
+      </div>
+      <div class="budget-score">
+        <strong>${Number(report.usedPercent || 0)}%</strong>
+        <span>usado</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(report.usedPercent || 0)))}%"></i></div>
+      </div>
+      <div class="budget-breakdown">
+        <span><b>${moneyBR(report.support?.total || 0)}</b>Apoios</span>
+        <span><b>${moneyBR(report.maintenanceReserve || 0)}</b>Manutenção</span>
+        <span><b>${(report.callCosts || []).length}</b>Ocorrências</span>
+      </div>
+      <div class="budget-advice">
+        ${(report.recommendations || []).slice(0, 3).map((item) => `<span>${esc(item)}</span>`).join("")}
+        ${high.length ? high.map((item) => `<small>${esc(item.type)} · ${moneyBR(item.total)}</small>`).join("") : ""}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -596,6 +635,7 @@
     renderUnifiedCommandPanel();
     renderUnitFatiguePanel();
     renderVehicleMaintenancePanel();
+    renderOperationalBudgetPanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
     liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}:${c.multitask?.riskLevel || ""}:${c.supervisor?.level || ""}`).join("|");

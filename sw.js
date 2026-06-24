@@ -1,4 +1,4 @@
-const CACHE = "central190-v3.8.0-f44-manutencao-viaturas";
+const CACHE = "central190-v3.9.0-f45-orcamento-logistica-base";
 const ASSETS = [
   "./",
   "./index.html",
@@ -24,6 +24,7 @@ const ASSETS = [
   "./js/urban-dynamics.js",
   "./js/major-incidents.js",
   "./js/support-network.js",
+  "./js/operational-budget.js",
   "./js/vehicle-maintenance.js",
   "./js/unit-fatigue.js",
   "./js/unified-command.js",

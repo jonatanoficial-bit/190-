@@ -70,14 +70,16 @@ window.C190_Multitask = (() => {
       const commandCall = window.C190_UnifiedCommand?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
       const fatigueCall = window.C190_UnitFatigue?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
       const vehicleCall = window.C190_VehicleMaintenance?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
-      risk.score = Math.max(0, Math.min(100, Number(risk.score || 0) + Number(urbanCall.riskBonus || 0) + Number(majorCall.riskBonus || 0) + Number(supportCall.riskBonus || 0) + Number(commandCall.riskBonus || 0) + Number(fatigueCall.riskBonus || 0) + Number(vehicleCall.riskBonus || 0)));
-      if ((urbanCall.riskBonus > 0 || majorCall.riskBonus > 0 || supportCall.riskBonus > 0 || commandCall.riskBonus > 0 || fatigueCall.riskBonus > 0 || vehicleCall.riskBonus > 0) && risk.level !== "critical") risk.level = risk.score >= 86 ? "critical" : risk.score >= 58 ? "high" : risk.level;
+      const budgetCall = window.C190_OperationalBudget?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
+      risk.score = Math.max(0, Math.min(100, Number(risk.score || 0) + Number(urbanCall.riskBonus || 0) + Number(majorCall.riskBonus || 0) + Number(supportCall.riskBonus || 0) + Number(commandCall.riskBonus || 0) + Number(fatigueCall.riskBonus || 0) + Number(vehicleCall.riskBonus || 0) + Number(budgetCall.riskBonus || 0)));
+      if ((urbanCall.riskBonus > 0 || majorCall.riskBonus > 0 || supportCall.riskBonus > 0 || commandCall.riskBonus > 0 || fatigueCall.riskBonus > 0 || vehicleCall.riskBonus > 0 || budgetCall.riskBonus > 0) && risk.level !== "critical") risk.level = risk.score >= 86 ? "critical" : risk.score >= 58 ? "high" : risk.level;
       if (urbanCall.notes?.length) risk.reason = `${risk.reason} ${urbanCall.notes[0]}`;
       if (majorCall.notes?.length) risk.reason = `${risk.reason} ${majorCall.notes[0]}`;
       if (supportCall.notes?.length) risk.reason = `${risk.reason} ${supportCall.notes[0]}`;
       if (commandCall.notes?.length) risk.reason = `${risk.reason} ${commandCall.notes[0]}`;
       if (fatigueCall.notes?.length) risk.reason = `${risk.reason} ${fatigueCall.notes[0]}`;
       if (vehicleCall.notes?.length) risk.reason = `${risk.reason} ${vehicleCall.notes[0]}`;
+      if (budgetCall.notes?.length) risk.reason = `${risk.reason} ${budgetCall.notes[0]}`;
       call.multitask = { version: VERSION, riskScore: risk.score, riskLevel: risk.level, riskLabel: risk.label, riskReason: risk.reason, updatedAt: new Date().toISOString() };
       const escalationPoint = Math.floor(Number(shift.abandonLimit || 78) * 0.45);
       if (call.wait >= escalationPoint && Number(call.priority || 1) < 3 && !call.multitaskEscalated) {

@@ -1,0 +1,16 @@
+{
+  "build": "CENTRAL190-3900-F45-ORCAMENTO-LOGISTICA-BASE-20260624-144500-BRT",
+  "version": "3.9.0",
+  "phase": 45,
+  "saveSchema": 42,
+  "features": {
+    "operationalBudgetModule": true,
+    "dispatchCostSimulation": true,
+    "supportCostSimulation": true,
+    "maintenanceReserve": true,
+    "budgetPressure": true,
+    "supervisorBudgetAlert": true,
+    "reportBudgetSummary": true
+  },
+  "status": "ok"
+}

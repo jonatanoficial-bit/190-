@@ -1,12 +1,13 @@
 {
   "name": "Central 190",
-  "version": "3.8.0",
-  "phase": 44,
-  "build": "CENTRAL190-3800-F44-MANUTENCAO-VIATURAS-20260624-141500-BRT",
-  "compiledAt": "2026-06-24T14:15:00-03:00",
-  "saveSchema": 41,
-  "title": "Manutenção das viaturas, combustível, avarias e prontidão mecânica",
+  "version": "3.9.0",
+  "phase": 45,
+  "build": "CENTRAL190-3900-F45-ORCAMENTO-LOGISTICA-BASE-20260624-144500-BRT",
+  "compiledAt": "2026-06-24T14:45:00-03:00",
+  "saveSchema": 42,
+  "title": "Orçamento operacional, custos de despacho e logística de base",
   "preserved": [
+    "Manutenção das viaturas F44",
     "Fadiga das Equipes F43",
     "Comando Unificado F42",
     "Rede de Apoio F41",
@@ -20,13 +21,13 @@
     "áudio e voz PT-BR"
   ],
   "added": [
-    "novo módulo js/vehicle-maintenance.js",
-    "painel Frota e Manutenção",
-    "combustível por viatura",
-    "desgaste mecânico por uso",
-    "prontidão mecânica média",
-    "ETA impactado por baixa prontidão",
-    "risco por viatura com manutenção pendente",
-    "recomendação de abastecimento/revisão"
+    "novo módulo js/operational-budget.js",
+    "painel Orçamento Operacional",
+    "custo por despacho",
+    "custo de apoio especializado",
+    "reserva de manutenção/abastecimento",
+    "pressão orçamentária",
+    "risco de superdespacho",
+    "relatório final com orçamento"
   ]
 }

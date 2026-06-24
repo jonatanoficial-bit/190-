@@ -455,6 +455,7 @@ window.C190_Dispatch = (() => {
       difficultyLabel: shift.difficultyLabel || "Realista",
       balanceVersion: balancedScore?.balanceVersion || shift.balanceVersion || 3,
       scoreBreakdown: balancedScore,
+      budgetSummary: window.C190_OperationalBudget?.analyze?.(state) || null,
       calls: shift.calls.map((call) => ({
         templateId: call.templateId || call.id,
         type: call.type,
