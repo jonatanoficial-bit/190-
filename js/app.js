@@ -530,6 +530,41 @@
     </section>`;
   }
 
+
+  function renderBaseLogisticsPanel() {
+    const panel = $("#baseLogisticsPanel");
+    if (!panel) return;
+    const report = window.C190_BaseLogistics?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const bases = (report.bases || []).slice().sort((a, b) => Number(a.coverage || 0) - Number(b.coverage || 0));
+    panel.innerHTML = `<section class="base-logistics-card base-${esc(report.level || "ready")}">
+      <div class="base-main">
+        <span class="eyebrow">COBERTURA TERRITORIAL</span>
+        <h3>${esc(report.label || "Cobertura operacional")}</h3>
+        <p>Cobertura média ${Number(report.avgCoverage || 0)}% · bases frágeis ${report.weak.length}</p>
+      </div>
+      <div class="base-score">
+        <strong>${Number(report.avgCoverage || 0)}%</strong>
+        <span>cobertura</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(report.avgCoverage || 0)))}%"></i></div>
+      </div>
+      <div class="base-grid">
+        ${bases.map((base) => `<article class="base-item base-${esc(base.level || "strong")}">
+          <strong>${esc(base.label)}</strong>
+          <small>${esc(base.area)} · ${Number(base.coverage || 0)}% · campo ${base.field}</small>
+        </article>`).join("")}
+      </div>
+      <div class="base-advice">
+        ${report.recommended.length ? report.recommended.map((base) => `<span>Reposicionar recursos para ${esc(base.area)}</span>`).join("") : "<span>Cobertura territorial adequada.</span>"}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;

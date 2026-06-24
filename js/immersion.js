@@ -2,7 +2,7 @@ window.C190_Immersion = (() => {
   "use strict";
 
   const VERSION = 2;
-  const BUILD = "CENTRAL190-3900-F45-ORCAMENTO-LOGISTICA-BASE-20260624-144500-BRT";
+  const BUILD = "CENTRAL190-4000-F46-COBERTURA-TERRITORIAL-20260624-151500-BRT";
   let audioContext = null;
   let master = null;
   let unlocked = false;

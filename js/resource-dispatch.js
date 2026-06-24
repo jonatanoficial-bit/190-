@@ -62,7 +62,8 @@ window.C190_ResourceDispatch = (() => {
         lng: Number((lng + Math.cos(unit.angle) * meters / (EARTH_LAT_METERS * cos)).toFixed(6)),
       };
       const fatigued = window.C190_UnitFatigue?.enrichUnit?.(item, state) || item;
-      return window.C190_VehicleMaintenance?.enrichUnit?.(fatigued, state) || fatigued;
+      const maintained = window.C190_VehicleMaintenance?.enrichUnit?.(fatigued, state) || fatigued;
+      return window.C190_BaseLogistics?.enrichUnit?.(maintained, state) || maintained;
     });
   }
 

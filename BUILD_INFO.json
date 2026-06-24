@@ -1,13 +1,14 @@
 {
   "name": "Central 190",
-  "version": "3.9.0",
-  "phase": 45,
-  "build": "CENTRAL190-3900-F45-ORCAMENTO-LOGISTICA-BASE-20260624-144500-BRT",
-  "compiledAt": "2026-06-24T14:45:00-03:00",
-  "saveSchema": 42,
-  "title": "Orçamento operacional, custos de despacho e logística de base",
+  "version": "4.0.0",
+  "phase": 46,
+  "build": "CENTRAL190-4000-F46-COBERTURA-TERRITORIAL-20260624-151500-BRT",
+  "compiledAt": "2026-06-24T15:15:00-03:00",
+  "saveSchema": 43,
+  "title": "Cobertura territorial, bases operacionais e reposicionamento preventivo",
   "preserved": [
-    "Manutenção das viaturas F44",
+    "Orçamento Operacional F45",
+    "Manutenção das Viaturas F44",
     "Fadiga das Equipes F43",
     "Comando Unificado F42",
     "Rede de Apoio F41",
@@ -15,19 +16,17 @@
     "Ambiente Urbano F39",
     "Debriefing F38",
     "Supervisor F37",
-    "Central Multitarefa F36",
-    "fluxo pós-despacho",
-    "mapa cinematográfico com ETA",
-    "áudio e voz PT-BR"
+    "Central Multitarefa F36"
   ],
   "added": [
-    "novo módulo js/operational-budget.js",
-    "painel Orçamento Operacional",
-    "custo por despacho",
-    "custo de apoio especializado",
-    "reserva de manutenção/abastecimento",
-    "pressão orçamentária",
-    "risco de superdespacho",
-    "relatório final com orçamento"
+    "novo módulo js/base-logistics.js",
+    "painel Cobertura Territorial",
+    "bases operacionais por região",
+    "cobertura média territorial",
+    "áreas frágeis e descobertas",
+    "recomendação de reposicionamento preventivo",
+    "ETA impactado por distância da base",
+    "risco por ocorrência em área com baixa cobertura",
+    "Supervisor e Central Multitarefa integrados à cobertura"
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "build": "CENTRAL190-4000-F46-COBERTURA-TERRITORIAL-20260624-151500-BRT",
+  "version": "4.0.0",
+  "phase": 46,
+  "saveSchema": 43,
+  "features": {
+    "baseLogisticsModule": true,
+    "territorialCoveragePanel": true,
+    "operationalBases": true,
+    "preventiveRepositioning": true,
+    "etaBaseImpact": true,
+    "multitaskCoverageRisk": true,
+    "supervisorCoverageAlert": true
+  },
+  "status": "ok"
+}

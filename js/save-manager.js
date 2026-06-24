@@ -1,9 +1,11 @@
 window.C190_Save = (() => {
   "use strict";
 
-  const KEY = "central190_save_v42";
-  const BACKUP = "central190_save_v42_backup";
+  const KEY = "central190_save_v43";
+  const BACKUP = "central190_save_v43_backup";
   const LEGACY = [
+    "central190_save_v42",
+    "central190_save_v42_backup",
     "central190_save_v41",
     "central190_save_v41_backup",
     "central190_save_v40",
@@ -68,9 +70,9 @@ window.C190_Save = (() => {
     "central_190_save",
     "c190_save",
   ];
-  const SCHEMA = 42;
-  const VERSION = "3.9.0";
-  const BUILD = "CENTRAL190-3900-F45-ORCAMENTO-LOGISTICA-BASE-20260624-144500-BRT";
+  const SCHEMA = 43;
+  const VERSION = "4.0.0";
+  const BUILD = "CENTRAL190-4000-F46-COBERTURA-TERRITORIAL-20260624-151500-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,
@@ -144,7 +146,7 @@ window.C190_Save = (() => {
     campaign: window.C190_Campaign?.defaultCampaign?.() || { version: 1, activeMissionId: null, selectedMissionId: "turno_zero", completed: [], attempts: {}, bestScores: {}, rewardsClaimed: [], history: [] },
     release: {
       version: VERSION,
-      phase: 45,
+      phase: 46,
       visualRecovery: 1,
       campaignVersion: 2,
       fieldUnitsVersion: 3,
@@ -157,7 +159,7 @@ window.C190_Save = (() => {
       resourceDispatchVersion: 1,
       fieldRadioVersion: 1,
       trainingAcademyVersion: 1,
-      immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, vehicleMaintenanceVersion: 1, operationalBudgetVersion: 1,
+      immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, vehicleMaintenanceVersion: 1, operationalBudgetVersion: 1, baseLogisticsVersion: 1,
       balanceVersion: 3,
       economyVersion: 1,
       publicRcVersion: 1,
@@ -368,12 +370,12 @@ window.C190_Save = (() => {
       voicePitch: Math.max(0.75, Math.min(1.25, Number(incomingSettings.voicePitch ?? 1.0))),
     };
 
-    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 45, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
+    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 46, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
       fieldUnitsVersion: 3, incomingCallContinuityVersion: 1, cinematicUnitIconsVersion: 1,
       mobileHomologationVersion: 1,
       callProtocolVersion: 3, triageVersion: 1,
       locationIntelVersion: 1, resourceDispatchVersion: 1,
-      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, vehicleMaintenanceVersion: 1, operationalBudgetVersion: 1, balanceVersion: 3, economyVersion: 1, publicRcVersion: 1, tutorialVersion: 1 };
+      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, vehicleMaintenanceVersion: 1, operationalBudgetVersion: 1, baseLogisticsVersion: 1, balanceVersion: 3, economyVersion: 1, publicRcVersion: 1, tutorialVersion: 1 };
     base.settings.telemetry = false;
     base.dispatch = enrichDispatch(source.dispatch || base.dispatch, incomingCenter);
     base.content = source.content && typeof source.content === "object" ? clone(source.content) : defaultContent();
