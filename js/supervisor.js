@@ -78,12 +78,14 @@ window.C190_Supervisor = (() => {
     const shift = state?.dispatch?.shift || {};
     const waiting = waitingCalls(shift).length;
     const field = fieldCalls(shift).length;
-    const score = safePercent(analysis.pressureScore ?? waiting * 20 + field * 10);
+    const urban = window.C190_UrbanDynamics?.current?.(state);
+    const score = safePercent((analysis.pressureScore ?? waiting * 20 + field * 10) + Number(urban?.pressureBonus || 0) * 0.25);
     const warnings = [];
     if (score >= 78) warnings.push("Central sobrecarregada: priorize chamadas críticas antes do rádio não urgente.");
     else if (score >= 48) warnings.push("Alta demanda: evite deixar ligações aguardando muito tempo.");
     else if (field > 0 && waiting === 0) warnings.push("Sem fila nova: momento ideal para acompanhar rádio das ocorrências em campo.");
     else warnings.push("Pressão operacional sob controle.");
+    if (urban?.riskLevel && urban.riskLevel !== "normal") warnings.unshift(`Ambiente urbano impactando operação: ${urban.weather.label}, ${urban.traffic.label}.`);
     return { score, level: analysis.pressureLevel || (score >= 78 ? "critical" : score >= 48 ? "high" : "normal"), warnings, ok: score < 78 };
   }
 

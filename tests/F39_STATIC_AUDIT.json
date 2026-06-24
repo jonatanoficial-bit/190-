@@ -1,0 +1,16 @@
+{
+  "build": "CENTRAL190-3300-F39-AMBIENTE-URBANO-DINAMICO-20260624-114500-BRT",
+  "version": "3.3.0",
+  "phase": 39,
+  "saveSchema": 36,
+  "features": {
+    "urbanDynamicsModule": true,
+    "weatherSystem": true,
+    "trafficSystem": true,
+    "timePeriodSystem": true,
+    "etaMultiplier": true,
+    "pressureImpact": true,
+    "urbanShiftAlerts": true
+  },
+  "status": "ok"
+}

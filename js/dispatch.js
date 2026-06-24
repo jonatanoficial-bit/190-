@@ -232,6 +232,7 @@ window.C190_Dispatch = (() => {
       difficultyLabel: balance.difficultyLabel,
       balanceVersion: balance.balanceVersion,
     };
+    window.C190_UrbanDynamics?.updateShift?.(state, state.dispatch.shift);
     return state.dispatch.shift;
   }
 
@@ -240,6 +241,7 @@ window.C190_Dispatch = (() => {
     if (!shift?.active) return;
     ensureCoordinates(state);
     shift.elapsed++;
+    window.C190_UrbanDynamics?.updateShift?.(state, shift);
     shift.calls.forEach((call) => {
       if (call.status === "scheduled" && shift.elapsed >= call.arrivesAt) {
         call.status = "waiting";

@@ -287,6 +287,37 @@
   function pressureLabel(level) {
     return level === "critical" ? "CRÍTICO" : level === "high" ? "ALTO" : level === "medium" ? "MODERADO" : "NORMAL";
   }
+
+  function renderUrbanDynamicsPanel() {
+    const panel = $("#urbanDynamicsPanel");
+    if (!panel) return;
+    const urban = window.C190_UrbanDynamics?.updateShift?.(state, state.dispatch?.shift) || window.C190_UrbanDynamics?.current?.(state);
+    if (!urban) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const levelLabel = urban.riskLevel === "critical" ? "CRÍTICO" : urban.riskLevel === "high" ? "ALTO" : urban.riskLevel === "medium" ? "MODERADO" : "NORMAL";
+    panel.innerHTML = `<section class="urban-card urban-${esc(urban.riskLevel)}">
+      <div class="urban-main">
+        <span class="eyebrow">AMBIENTE URBANO</span>
+        <h3>${esc(urban.weather.label)} · ${esc(urban.traffic.label)}</h3>
+        <p>${esc(urban.period.label)} · ${esc(urban.event.label)} · ETA x${Number(urban.etaMultiplier || 1).toFixed(2)}</p>
+      </div>
+      <div class="urban-chip-row">
+        <span>${esc(urban.weather.icon)} ${esc(urban.weather.label)}</span>
+        <span>${esc(urban.traffic.icon)} ${esc(urban.traffic.label)}</span>
+        <span>${esc(urban.period.icon)} ${esc(urban.period.label)}</span>
+        <span>${esc(urban.event.icon)} ${esc(urban.event.label)}</span>
+      </div>
+      <div class="urban-impact">
+        <strong>${levelLabel}</strong>
+        <small>Pressão +${Number(urban.pressureBonus || 0)} · ${esc(urban.radioText || "")}</small>
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -386,6 +417,7 @@
     const waiting = window.C190_Multitask?.sortQueue?.(waitingRaw, sh) || waitingRaw;
     $("#queueCount").textContent = waiting.length;
     renderIncomingStrip(sh);
+    renderUrbanDynamicsPanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
     liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}:${c.multitask?.riskLevel || ""}:${c.supervisor?.level || ""}`).join("|");

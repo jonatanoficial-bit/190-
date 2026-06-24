@@ -57,7 +57,7 @@ window.C190_ResourceDispatch = (() => {
         status: unit.status || (index % 4 === 0 ? "em base" : "disponível"),
         selected: selected.has(unit.id),
         assignedTo: selected.has(unit.id) ? activeCall?.id || null : null,
-        etaMin: activeCall ? deterministicEta(unit, activeCall) : Math.max(2, Math.round(Number(unit.km || 2) * 2.6)),
+        etaMin: activeCall ? Math.max(2, Math.round(deterministicEta(unit, activeCall) * (window.C190_UrbanDynamics?.etaMultiplier?.(state) || 1))) : Math.max(2, Math.round(Number(unit.km || 2) * 2.6 * (window.C190_UrbanDynamics?.etaMultiplier?.(state) || 1))),
         lat: Number((lat + Math.sin(unit.angle) * meters / EARTH_LAT_METERS).toFixed(6)),
         lng: Number((lng + Math.cos(unit.angle) * meters / (EARTH_LAT_METERS * cos)).toFixed(6)),
       };

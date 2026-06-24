@@ -1,9 +1,9 @@
 {
   "name": "Central 190",
-  "version": "3.2.0",
-  "phase": 38,
-  "build": "CENTRAL190-3200-F38-DEBRIEFING-PROFISSIONAL-20260624-112500-BRT",
-  "fileCount": 199,
+  "version": "3.3.0",
+  "phase": 39,
+  "build": "CENTRAL190-3300-F39-AMBIENTE-URBANO-DINAMICO-20260624-114500-BRT",
+  "fileCount": 203,
   "files": [
     {
       "path": "ASSET_PATHS_REQUIRED.txt",
@@ -166,49 +166,54 @@
       "sha256": "c4e5e344a4a42c93df00e3be51abbbe7494fd83ef17f2aa12af6bb19e3cfa82e"
     },
     {
+      "path": "AUDIT_F39.md",
+      "size": 565,
+      "sha256": "a2ae1de70e7098ec231bda299a9c3f0ef7ccd8af2689eb55abce88fe71d97ec5"
+    },
+    {
       "path": "BUILD-MANIFEST.json",
-      "size": 31142,
-      "sha256": "9980f11793484bf1160570733eb99ac07c06e428223f02cf081442a31f61a0c3"
+      "size": 31766,
+      "sha256": "7b6c59f8fcec9e1824f0580f8c7c5934dd744a9254d2414bae434086d157e2bf"
     },
     {
       "path": "BUILD-REPORT.md",
-      "size": 1238,
-      "sha256": "10ce2176c01d519cb7a3ebb1f7ed2d7ed34b866d58bcda4b489756aa1c687a8b"
+      "size": 1240,
+      "sha256": "6bdacd2eb7894540fc77eae63f1a568b41ba7fef6c88983939b5f84f8e61e017"
     },
     {
       "path": "BUILD_INFO.json",
-      "size": 864,
-      "sha256": "6100b4e3bfd32a05e3a61ca221a4a0d34ddda9d30cc1a01fcc9826452ecc02fb"
+      "size": 952,
+      "sha256": "ad191c93ea272f6519bbf3326696f892bd1f054267367db658d9b100ed66ffbb"
     },
     {
       "path": "BUILD_MANIFEST.json",
-      "size": 31142,
-      "sha256": "9980f11793484bf1160570733eb99ac07c06e428223f02cf081442a31f61a0c3"
+      "size": 31766,
+      "sha256": "7b6c59f8fcec9e1824f0580f8c7c5934dd744a9254d2414bae434086d157e2bf"
     },
     {
       "path": "CHANGELOG.md",
-      "size": 2379,
-      "sha256": "79cecda1cdced1968492c0e749ca1d86a7e96dffe9e59e0e7d68f05281bda575"
+      "size": 2383,
+      "sha256": "573e494c760a6b3d01e5a717dc08c362052002b24d20f29a9b65a5a7eb10ae07"
     },
     {
       "path": "CHECKLIST.md",
       "size": 1447,
-      "sha256": "6e7b20c4e30de417debf370e755db760993988fc12b5bbabed8e5a52a2908bd2"
+      "sha256": "e1976e3ab90e42c161d3ccf1816ae17c70603eca86a65263938671db2916f528"
     },
     {
       "path": "FILE-MANIFEST.sha256",
-      "size": 17869,
-      "sha256": "c4468fb0479820814df8268d4f29d7cc7bf1c6f01caed24089b2d7cc7e898bc4"
+      "size": 18227,
+      "sha256": "9dac7e7c268b797ce7d760681ea8a679c1bde1957dbefab00b2182827090e300"
     },
     {
       "path": "README.md",
       "size": 1787,
-      "sha256": "68655da177fa74dadc2a8d7826fac0232f6a8c37f2051d4b9340169d28cb914a"
+      "sha256": "403f73121fd94b37958f7384ad9bdf8f56cc3d5a8435718f0fe22a96e8f5c8ea"
     },
     {
       "path": "TEST-REPORT.md",
       "size": 1481,
-      "sha256": "37ff99357028f93cb675d776914b4aeb7b24372ecef0d027df27d67171bb19fa"
+      "sha256": "baa9dd5de238609895620ce53801406a593d028dd789810ce2887773c4b88593"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -217,8 +222,8 @@
     },
     {
       "path": "VERSION.txt",
-      "size": 156,
-      "sha256": "81893f1306c23c6e5c112d1d510f9979522c0d59264ce9a199230bdcd204a8cf"
+      "size": 157,
+      "sha256": "551354d464084d63a600b39d3755f00a0bc8058b47dd6b0c629e9fc2d8910efe"
     },
     {
       "path": "assets/backgrounds/bg-career-room.webp",
@@ -417,8 +422,13 @@
     },
     {
       "path": "css/style.css",
-      "size": 140154,
-      "sha256": "0637eb5c415203726eb20ccf4d3b066a82ac350e6390b949026dad613997547b"
+      "size": 142274,
+      "sha256": "8839b243300839a7396e4847fb8ceee33424bc2bc5265ca21c35bcbc5733823f"
+    },
+    {
+      "path": "docs/AMBIENTE_URBANO_DINAMICO_F39.md",
+      "size": 810,
+      "sha256": "4199bb9ad4191f476ff1857d8fc3b8422a6f3afa72b61ada1fe29e3debc663b2"
     },
     {
       "path": "docs/ATENDIMENTO_REAL_F18.md",
@@ -612,8 +622,8 @@
     },
     {
       "path": "index.html",
-      "size": 42386,
-      "sha256": "59a7cd430192db9c047f7a358fdb3e3c7e8e043d5e7364c7ab451c0bcb06ef99"
+      "size": 42522,
+      "sha256": "697568af5c900a35a4a6ff273c60d00dd64aa845329e789c9aa1c0923dad528a"
     },
     {
       "path": "js/anti-break.js",
@@ -622,13 +632,13 @@
     },
     {
       "path": "js/app.js",
-      "size": 105595,
-      "sha256": "27e0ee8eb69d8b81a254ce509974a53563e9866282b0d1fc3726ff6c7bcf66a5"
+      "size": 107089,
+      "sha256": "149580d48b8fa3311a8be9c386dcf34d87573beaeaff495b04b902eb6a90d25c"
     },
     {
       "path": "js/assets.js",
-      "size": 4363,
-      "sha256": "256df59dbbbff5e31754bad3a28879567245cd0e12f39f939ba1cee2566bb418"
+      "size": 4364,
+      "sha256": "d0d87bb8fec96be9125f6ec6250a0003e5b63b9a14d67d56719b2290177781f7"
     },
     {
       "path": "js/balance.js",
@@ -662,8 +672,8 @@
     },
     {
       "path": "js/dispatch.js",
-      "size": 68070,
-      "sha256": "b1d6e052e95437a01da0862d599a3ae38faa7f632dbb36a8e6facf20a5fcc2ff"
+      "size": 68205,
+      "sha256": "681397850795820c2e38b2d7637a4e81fd518b79056380ded09f9c41578035b9"
     },
     {
       "path": "js/field-radio.js",
@@ -682,8 +692,8 @@
     },
     {
       "path": "js/immersion.js",
-      "size": 11557,
-      "sha256": "86eed2e9325aad70702e84043f458e25370009893fd287410afcf3a8c2a32f85"
+      "size": 11558,
+      "sha256": "ff2c07aa12a7f67d47a62dca99d1c32f2c19c9a39995db4674e2310c973fbfa1"
     },
     {
       "path": "js/location-intel.js",
@@ -697,8 +707,8 @@
     },
     {
       "path": "js/multitask.js",
-      "size": 6081,
-      "sha256": "d0f206666e8a1f8341fcdb1524e860a1f19d48235fee268944592556ecb21369"
+      "size": 6635,
+      "sha256": "637c3aa57ca61a7c792cffd0fe2e150bd98125359dfb54ea069f3f8ac9a4029e"
     },
     {
       "path": "js/public-rc.js",
@@ -712,18 +722,18 @@
     },
     {
       "path": "js/resource-dispatch.js",
-      "size": 15007,
-      "sha256": "53c727bd3cbc7948f4cd5ae9e47cb5f4c8e5120ebfba1ad19e9ffb14dac92a43"
+      "size": 15150,
+      "sha256": "569c8db7e24bf3a7544708c1a20576fff480a4ff3ad6e7a813a12d0565b67764"
     },
     {
       "path": "js/save-manager.js",
-      "size": 18114,
-      "sha256": "65cad6864348f5acf40345716001f73715bf4a44fe0141eaa1e7efe68340298a"
+      "size": 18226,
+      "sha256": "18613510ee80e06e31a79ebde3942dfb34e3fdd9e9b1752d67469958ff6be7bb"
     },
     {
       "path": "js/supervisor.js",
-      "size": 8412,
-      "sha256": "1111dc93917edbef15ce6cd39629b5b94a233c7ecbc6f4d4222f211bf842d406"
+      "size": 8686,
+      "sha256": "bbbdb8356138b8bfd38c2b6e120bb24a02ea8b373b9a95339233d27c8daa5a4d"
     },
     {
       "path": "js/training-academy.js",
@@ -741,9 +751,14 @@
       "sha256": "a3ad54f418593695293d765993bf7e2878759a8c73d2ac48da0b0e7b2617226b"
     },
     {
+      "path": "js/urban-dynamics.js",
+      "size": 5483,
+      "sha256": "0057fcd398cae3ba91e9ae3c4863ed91cf3bf2237cf6ca46e31c4a58ef8883b6"
+    },
+    {
       "path": "manifest.webmanifest",
       "size": 2417,
-      "sha256": "090240d0b1f5a71ceaba9ccf8a5b2d968aa543a00901d3b9c6fbb9738e7e07d9"
+      "sha256": "b8d973ec7ae5a94dc432ac03a09f0c9f972ee5776df04aca4c8e2f117682658f"
     },
     {
       "path": "reports/audit-v1.7.4-layout-mobile.json",
@@ -757,8 +772,8 @@
     },
     {
       "path": "sw.js",
-      "size": 4128,
-      "sha256": "d96498e193348ba6d50adffbcc55b92e89db784ab5ffd0b2391942d3d655bf29"
+      "size": 4157,
+      "sha256": "5982538d8395251a3c272981193d13db24cc3d186e5f41cb2b7ea42d12e85056"
     },
     {
       "path": "tests/BROWSER_AUDIT.json",
@@ -909,6 +924,11 @@
       "path": "tests/F38_STATIC_AUDIT.json",
       "size": 356,
       "sha256": "c0961899b35daebf1e00e3310c413143eb10b3dfc75630cb5b1f837406a8c4e6"
+    },
+    {
+      "path": "tests/F39_STATIC_AUDIT.json",
+      "size": 378,
+      "sha256": "b42ae948f27ca1572f20544d9609740d5efa017c98d0b6747c2aa586a37f43b8"
     },
     {
       "path": "tests/FINAL_AUDIT_RESULT.json",

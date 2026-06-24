@@ -1,4 +1,4 @@
-const CACHE = "central190-v3.2.0-f38-debriefing-profissional";
+const CACHE = "central190-v3.3.0-f39-ambiente-urbano-dinamico";
 const ASSETS = [
   "./",
   "./index.html",
@@ -21,6 +21,7 @@ const ASSETS = [
   "./js/location-intel.js",
   "./js/save-manager.js",
   "./js/career.js",
+  "./js/urban-dynamics.js",
   "./js/debriefing.js",
   "./js/supervisor.js",
   "./js/multitask.js",
