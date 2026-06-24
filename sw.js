@@ -1,4 +1,4 @@
-const CACHE = "central190-v3.3.0-f39-ambiente-urbano-dinamico";
+const CACHE = "central190-v3.4.0-f40-grandes-eventos-contingencia";
 const ASSETS = [
   "./",
   "./index.html",
@@ -22,6 +22,7 @@ const ASSETS = [
   "./js/save-manager.js",
   "./js/career.js",
   "./js/urban-dynamics.js",
+  "./js/major-incidents.js",
   "./js/debriefing.js",
   "./js/supervisor.js",
   "./js/multitask.js",

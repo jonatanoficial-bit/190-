@@ -1,4 +1,4 @@
-## v3.3.0 — Fase 39 — Áudio de ocorrência e voz PT-BR
+## v3.4.0 — Fase 40 — Áudio de ocorrência e voz PT-BR
 
 Esta build adiciona áudio operacional avançado e voz PT-BR sem arquivos externos, usando Web Audio API e SpeechSynthesis do navegador.
 

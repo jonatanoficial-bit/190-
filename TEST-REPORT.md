@@ -1,4 +1,4 @@
-## v3.3.0 — Fase 39
+## v3.4.0 — Fase 40
 
 - JS auditado por sintaxe.
 - Voz PT-BR integrada via SpeechSynthesis.

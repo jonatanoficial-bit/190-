@@ -86,6 +86,8 @@ window.C190_Supervisor = (() => {
     else if (field > 0 && waiting === 0) warnings.push("Sem fila nova: momento ideal para acompanhar rádio das ocorrências em campo.");
     else warnings.push("Pressão operacional sob controle.");
     if (urban?.riskLevel && urban.riskLevel !== "normal") warnings.unshift(`Ambiente urbano impactando operação: ${urban.weather.label}, ${urban.traffic.label}.`);
+    const major = window.C190_MajorIncidents?.current?.(state);
+    if (major?.active) warnings.unshift(`${major.severity?.label || "Contingência"}: ${major.label}.`);
     return { score, level: analysis.pressureLevel || (score >= 78 ? "critical" : score >= 48 ? "high" : "normal"), warnings, ok: score < 78 };
   }
 

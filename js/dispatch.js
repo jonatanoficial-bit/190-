@@ -233,6 +233,7 @@ window.C190_Dispatch = (() => {
       balanceVersion: balance.balanceVersion,
     };
     window.C190_UrbanDynamics?.updateShift?.(state, state.dispatch.shift);
+    window.C190_MajorIncidents?.updateShift?.(state, state.dispatch.shift);
     return state.dispatch.shift;
   }
 
@@ -242,6 +243,7 @@ window.C190_Dispatch = (() => {
     ensureCoordinates(state);
     shift.elapsed++;
     window.C190_UrbanDynamics?.updateShift?.(state, shift);
+    window.C190_MajorIncidents?.updateShift?.(state, shift);
     shift.calls.forEach((call) => {
       if (call.status === "scheduled" && shift.elapsed >= call.arrivesAt) {
         call.status = "waiting";

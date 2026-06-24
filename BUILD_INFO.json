@@ -1,32 +1,30 @@
 {
   "name": "Central 190",
-  "version": "3.3.0",
-  "phase": 39,
-  "build": "CENTRAL190-3300-F39-AMBIENTE-URBANO-DINAMICO-20260624-114500-BRT",
-  "compiledAt": "2026-06-24T11:45:00-03:00",
-  "saveSchema": 36,
-  "title": "Ambiente urbano dinâmico, clima, trânsito e horário operacional",
+  "version": "3.4.0",
+  "phase": 40,
+  "build": "CENTRAL190-3400-F40-GRANDES-EVENTOS-CONTINGENCIA-20260624-121500-BRT",
+  "compiledAt": "2026-06-24T12:15:00-03:00",
+  "saveSchema": 37,
+  "title": "Grandes eventos, ocorrências em cadeia e operação de contingência",
   "preserved": [
+    "ambiente urbano dinâmico F39",
     "debriefing profissional F38",
     "supervisor operacional F37",
     "central multitarefa F36",
     "fluxo pós-despacho",
-    "mapa cinematográfico e ETA visual",
+    "mapa cinematográfico e ETA",
     "áudio e voz PT-BR",
     "Defesa Civil e Águia",
     "veículos PNG SP",
-    "tutorial visível",
-    "campanha, carreira e cursos"
+    "tutorial/carreira/campanha/cursos"
   ],
   "added": [
-    "novo módulo js/urban-dynamics.js",
-    "painel Ambiente Urbano",
-    "clima dinâmico",
-    "trânsito dinâmico",
-    "período do dia",
-    "evento urbano/obras",
-    "ETA impactado por condições urbanas",
-    "pressão operacional afetada por clima/trânsito",
-    "alerta de mudança urbana no plantão"
+    "novo módulo js/major-incidents.js",
+    "painel Grande Evento / Contingência",
+    "contingência por temporal, via bloqueada, pico urbano e madrugada",
+    "antecipação de chamadas em cadeia",
+    "bônus de pressão operacional",
+    "risco específico por tipo de chamada",
+    "alertas de contingência por rádio/voz"
   ]
 }

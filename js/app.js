@@ -318,6 +318,42 @@
     </section>`;
   }
 
+
+  function renderMajorIncidentPanel() {
+    const panel = $("#majorIncidentPanel");
+    if (!panel) return;
+    const major = window.C190_MajorIncidents?.updateShift?.(state, state.dispatch?.shift) || window.C190_MajorIncidents?.current?.(state);
+    if (!major?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const severity = major.severity || { score: 0, level: "watch", label: "Monitoramento" };
+    const history = (major.history || []).slice(0, 3);
+    panel.innerHTML = `<section class="major-card major-${esc(severity.level)}">
+      <div class="major-main">
+        <span class="eyebrow">GRANDE EVENTO / CONTINGÊNCIA</span>
+        <h3>${esc(major.icon || "⚠")} ${esc(major.label || "Contingência operacional")}</h3>
+        <p>${esc(major.doctrine || "Acompanhe risco, fila e recursos em campo.")}</p>
+      </div>
+      <div class="major-severity">
+        <strong>${Number(severity.score || 0)}%</strong>
+        <span>${esc(severity.label || "Monitoramento")}</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(severity.score || 0)))}%"></i></div>
+      </div>
+      <div class="major-context">
+        <span>Clima: ${esc(major.source?.weather || "—")}</span>
+        <span>Trânsito: ${esc(major.source?.traffic || "—")}</span>
+        <span>Período: ${esc(major.source?.period || "—")}</span>
+        <span>ETA x${Number(major.source?.etaMultiplier || 1).toFixed(2)}</span>
+      </div>
+      <div class="major-history">
+        ${history.length ? history.map((item) => `<small>${esc(item.text || "Alerta de contingência")}</small>`).join("") : "<small>Contingência monitorada.</small>"}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -418,6 +454,7 @@
     $("#queueCount").textContent = waiting.length;
     renderIncomingStrip(sh);
     renderUrbanDynamicsPanel();
+    renderMajorIncidentPanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
     liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}:${c.multitask?.riskLevel || ""}:${c.supervisor?.level || ""}`).join("|");

@@ -1,0 +1,15 @@
+{
+  "build": "CENTRAL190-3400-F40-GRANDES-EVENTOS-CONTINGENCIA-20260624-121500-BRT",
+  "version": "3.4.0",
+  "phase": 40,
+  "saveSchema": 37,
+  "features": {
+    "majorIncidentModule": true,
+    "contingencyPanel": true,
+    "chainCallAcceleration": true,
+    "pressureBonus": true,
+    "supervisorIntegration": true,
+    "multitaskIntegration": true
+  },
+  "status": "ok"
+}

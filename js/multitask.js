@@ -65,9 +65,11 @@ window.C190_Multitask = (() => {
     waiting.forEach((call) => {
       const risk = callRisk(call, shift);
       const urbanCall = window.C190_UrbanDynamics?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
-      risk.score = Math.max(0, Math.min(100, Number(risk.score || 0) + Number(urbanCall.riskBonus || 0)));
-      if (urbanCall.riskBonus > 0 && risk.level !== "critical") risk.level = risk.score >= 86 ? "critical" : risk.score >= 58 ? "high" : risk.level;
+      const majorCall = window.C190_MajorIncidents?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
+      risk.score = Math.max(0, Math.min(100, Number(risk.score || 0) + Number(urbanCall.riskBonus || 0) + Number(majorCall.riskBonus || 0)));
+      if ((urbanCall.riskBonus > 0 || majorCall.riskBonus > 0) && risk.level !== "critical") risk.level = risk.score >= 86 ? "critical" : risk.score >= 58 ? "high" : risk.level;
       if (urbanCall.notes?.length) risk.reason = `${risk.reason} ${urbanCall.notes[0]}`;
+      if (majorCall.notes?.length) risk.reason = `${risk.reason} ${majorCall.notes[0]}`;
       call.multitask = { version: VERSION, riskScore: risk.score, riskLevel: risk.level, riskLabel: risk.label, riskReason: risk.reason, updatedAt: new Date().toISOString() };
       const escalationPoint = Math.floor(Number(shift.abandonLimit || 78) * 0.45);
       if (call.wait >= escalationPoint && Number(call.priority || 1) < 3 && !call.multitaskEscalated) {
@@ -79,7 +81,8 @@ window.C190_Multitask = (() => {
     const sorted = sortQueue(waiting, shift);
     const critical = sorted.find((call) => call.multitask?.riskLevel === "critical");
     const urbanPressure = window.C190_UrbanDynamics?.pressureBonus?.(state) || 0;
-    const pressureScore = Math.min(100, waiting.length * 18 + field.length * 10 + (critical ? 28 : 0) + (activeCall(shift) ? 8 : 0) + urbanPressure);
+    const majorPressure = window.C190_MajorIncidents?.pressureBonus?.(state) || 0;
+    const pressureScore = Math.min(100, waiting.length * 18 + field.length * 10 + (critical ? 28 : 0) + (activeCall(shift) ? 8 : 0) + urbanPressure + majorPressure);
     const level = pressureScore >= 78 ? "critical" : pressureScore >= 48 ? "high" : pressureScore >= 24 ? "medium" : "normal";
     shift.multitask.pressureScore = pressureScore;
     shift.multitask.pressureLevel = level;
