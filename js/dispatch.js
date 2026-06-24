@@ -234,6 +234,7 @@ window.C190_Dispatch = (() => {
     };
     window.C190_UrbanDynamics?.updateShift?.(state, state.dispatch.shift);
     window.C190_MajorIncidents?.updateShift?.(state, state.dispatch.shift);
+    window.C190_SupportNetwork?.analyze?.(state);
     return state.dispatch.shift;
   }
 
@@ -244,6 +245,7 @@ window.C190_Dispatch = (() => {
     shift.elapsed++;
     window.C190_UrbanDynamics?.updateShift?.(state, shift);
     window.C190_MajorIncidents?.updateShift?.(state, shift);
+    window.C190_SupportNetwork?.analyze?.(state);
     shift.calls.forEach((call) => {
       if (call.status === "scheduled" && shift.elapsed >= call.arrivesAt) {
         call.status = "waiting";

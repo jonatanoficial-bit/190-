@@ -2,7 +2,7 @@ window.C190_Immersion = (() => {
   "use strict";
 
   const VERSION = 2;
-  const BUILD = "CENTRAL190-3400-F40-GRANDES-EVENTOS-CONTINGENCIA-20260624-121500-BRT";
+  const BUILD = "CENTRAL190-3500-F41-REDE-APOIO-ESPECIALIZADO-20260624-124500-BRT";
   let audioContext = null;
   let master = null;
   let unlocked = false;

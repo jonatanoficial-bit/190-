@@ -88,6 +88,8 @@ window.C190_Supervisor = (() => {
     if (urban?.riskLevel && urban.riskLevel !== "normal") warnings.unshift(`Ambiente urbano impactando operação: ${urban.weather.label}, ${urban.traffic.label}.`);
     const major = window.C190_MajorIncidents?.current?.(state);
     if (major?.active) warnings.unshift(`${major.severity?.label || "Contingência"}: ${major.label}.`);
+    const support = window.C190_SupportNetwork?.analyze?.(state);
+    if (support?.active && support.level !== "ready") warnings.unshift(`Apoio especializado pendente: score ${support.supportScore}/100.`);
     return { score, level: analysis.pressureLevel || (score >= 78 ? "critical" : score >= 48 ? "high" : "normal"), warnings, ok: score < 78 };
   }
 

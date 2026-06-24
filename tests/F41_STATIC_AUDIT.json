@@ -1,0 +1,16 @@
+{
+  "build": "CENTRAL190-3500-F41-REDE-APOIO-ESPECIALIZADO-20260624-124500-BRT",
+  "version": "3.5.0",
+  "phase": 41,
+  "saveSchema": 38,
+  "features": {
+    "supportNetworkModule": true,
+    "hospitalCapacity": true,
+    "specializedSupportRequests": true,
+    "pressureRelief": true,
+    "supervisorIntegration": true,
+    "multitaskRiskIntegration": true,
+    "majorIncidentPreserved": true
+  },
+  "status": "ok"
+}

@@ -1,30 +1,31 @@
 {
   "name": "Central 190",
-  "version": "3.4.0",
-  "phase": 40,
-  "build": "CENTRAL190-3400-F40-GRANDES-EVENTOS-CONTINGENCIA-20260624-121500-BRT",
-  "compiledAt": "2026-06-24T12:15:00-03:00",
-  "saveSchema": 37,
-  "title": "Grandes eventos, ocorrências em cadeia e operação de contingência",
+  "version": "3.5.0",
+  "phase": 41,
+  "build": "CENTRAL190-3500-F41-REDE-APOIO-ESPECIALIZADO-20260624-124500-BRT",
+  "compiledAt": "2026-06-24T12:45:00-03:00",
+  "saveSchema": 38,
+  "title": "Rede de apoio especializado, hospitais e recursos externos",
   "preserved": [
-    "ambiente urbano dinâmico F39",
+    "grandes eventos e contingência F40",
+    "ambiente urbano F39",
     "debriefing profissional F38",
     "supervisor operacional F37",
     "central multitarefa F36",
     "fluxo pós-despacho",
-    "mapa cinematográfico e ETA",
+    "mapa cinematográfico e ETA visual",
     "áudio e voz PT-BR",
     "Defesa Civil e Águia",
     "veículos PNG SP",
-    "tutorial/carreira/campanha/cursos"
+    "tutorial, carreira, campanha e cursos"
   ],
   "added": [
-    "novo módulo js/major-incidents.js",
-    "painel Grande Evento / Contingência",
-    "contingência por temporal, via bloqueada, pico urbano e madrugada",
-    "antecipação de chamadas em cadeia",
-    "bônus de pressão operacional",
-    "risco específico por tipo de chamada",
-    "alertas de contingência por rádio/voz"
+    "novo módulo js/support-network.js",
+    "painel Rede de Apoio no plantão",
+    "recomendações de apoio especializado",
+    "acionamento de Regulação SAMU, CET, Defesa Civil, Águia, GCM, concessionária e COBOM",
+    "capacidade hospitalar simulada",
+    "alívio de pressão operacional por apoio acionado",
+    "risco aumentado quando apoio crítico fica pendente"
   ]
 }

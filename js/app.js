@@ -354,6 +354,39 @@
     </section>`;
   }
 
+
+  function renderSupportNetworkPanel() {
+    const panel = $("#supportNetworkPanel");
+    if (!panel) return;
+    const network = window.C190_SupportNetwork?.analyze?.(state);
+    if (!network?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const activeIds = new Set(network.activeIds || []);
+    const recommendations = network.recommendations || [];
+    panel.innerHTML = `<section class="support-network-card support-${esc(network.level || "attention")}">
+      <div class="support-main">
+        <span class="eyebrow">REDE DE APOIO</span>
+        <h3>${esc(network.hospital?.label || "Regulação operacional")}</h3>
+        <p>Capacidade hospitalar ${Math.max(0, 100 - Number(network.hospital?.load || 0))}% · apoio ativo ${network.activated.length} · alívio ${network.relief}</p>
+      </div>
+      <div class="support-score">
+        <strong>${Number(network.supportScore || 0)}%</strong>
+        <span>${network.level === "ready" ? "PRONTO" : network.level === "critical" ? "CRÍTICO" : "ATENÇÃO"}</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(network.supportScore || 0)))}%"></i></div>
+      </div>
+      <div class="support-recommendations">
+        ${recommendations.length ? recommendations.map((item) => `<button class="support-chip type-${esc(item.type)} ${activeIds.has(item.id) ? "active" : ""}" data-support-request="${esc(item.id)}"><b>${esc(item.icon)}</b><span>${esc(item.label)}</span><small>${activeIds.has(item.id) ? "acionado" : `relevância ${item.score}`}</small></button>`).join("") : "<span class=\"support-empty\">Nenhum apoio extra recomendado agora.</span>"}
+      </div>
+      <div class="support-active-list">
+        ${network.activated.length ? network.activated.slice(0, 3).map((item) => `<small>${esc(item.label)} acionado</small>`).join("") : "<small>Aguardando necessidade de apoio especializado.</small>"}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -455,6 +488,7 @@
     renderIncomingStrip(sh);
     renderUrbanDynamicsPanel();
     renderMajorIncidentPanel();
+    renderSupportNetworkPanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
     liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}:${c.multitask?.riskLevel || ""}:${c.supervisor?.level || ""}`).join("|");
@@ -676,6 +710,15 @@
           const out = C190_Dispatch.clearResources(state, b.dataset.resourceClear);
           persist();
           if (out?.ok) { C190_Immersion?.play?.("warning", state); toast("Unidades removidas do despacho.", "warning"); }
+        }),
+    );
+    $$(`[data-support-request]`).forEach(
+      (b) =>
+        (b.onclick = () => {
+          const out = window.C190_SupportNetwork?.requestSupport?.(state, b.dataset.supportRequest);
+          persist();
+          if (out?.ok) { C190_Immersion?.play?.("radio", state); toast(out.already ? `${out.support?.label || "Apoio"} já estava acionado.` : `Apoio acionado: ${out.support?.label || "rede especializada"}.`, "success"); }
+          else toast("Não foi possível acionar apoio especializado.", "warning");
         }),
     );
     $$(`[data-choice]`).forEach(
