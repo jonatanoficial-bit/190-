@@ -1,0 +1,16 @@
+{
+  "build": "CENTRAL190-3100-F37-SUPERVISOR-OPERACIONAL-20260624-105500-BRT",
+  "version": "3.1.0",
+  "phase": 37,
+  "saveSchema": 34,
+  "features": {
+    "supervisorModule": true,
+    "liveProtocolAudit": true,
+    "liveLocationAudit": true,
+    "liveTriageAudit": true,
+    "liveDispatchAudit": true,
+    "operationalSafetyScore": true,
+    "nextActionAssistant": true
+  },
+  "status": "ok"
+}

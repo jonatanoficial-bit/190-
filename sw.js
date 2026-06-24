@@ -1,4 +1,4 @@
-const CACHE = "central190-v3.0.0-f36-central-multitarefa";
+const CACHE = "central190-v3.1.0-f37-supervisor-operacional";
 const ASSETS = [
   "./",
   "./index.html",
@@ -21,6 +21,7 @@ const ASSETS = [
   "./js/location-intel.js",
   "./js/save-manager.js",
   "./js/career.js",
+  "./js/supervisor.js",
   "./js/multitask.js",
   "./js/dispatch.js",
   "./js/map.js",

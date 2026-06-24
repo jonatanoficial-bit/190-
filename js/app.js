@@ -321,6 +321,58 @@
     </section>`;
   }
 
+
+  function supervisorGaugeClass(level) {
+    return level === "danger" ? "danger" : level === "attention" ? "attention" : level === "good" ? "good" : "excellent";
+  }
+  function supervisorAuditCard(title, audit) {
+    const ok = audit?.ok;
+    const score = Number(audit?.score || 0);
+    const warning = (audit?.warnings || [])[0] || "Sem alerta.";
+    return `<article class="supervisor-audit ${ok ? "ok" : "warn"}">
+      <strong>${esc(title)}</strong>
+      <span>${score}%</span>
+      <small>${esc(warning)}</small>
+      <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, score))}%"></i></div>
+    </article>`;
+  }
+  function renderSupervisorPanel() {
+    const panel = $("#supervisorPanel");
+    if (!panel) return;
+    const report = window.C190_Supervisor?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const risk = report.risk || { score: 0, level: "danger", label: "Sem análise" };
+    const audits = report.audits || {};
+    panel.innerHTML = `<section class="supervisor-card supervisor-${esc(supervisorGaugeClass(risk.level))}">
+      <header>
+        <div>
+          <span class="eyebrow">SUPERVISOR OPERACIONAL</span>
+          <h3>${esc(risk.label || "Auditoria ao vivo")}</h3>
+          <small>${report.call ? `Chamada ativa: ${esc(report.call.type)}` : "Sem chamada ativa · monitorando fila e campo"}</small>
+        </div>
+        <div class="supervisor-score">
+          <strong>${Number(risk.score || 0)}%</strong>
+          <span>segurança</span>
+        </div>
+      </header>
+      <div class="supervisor-audit-grid">
+        ${supervisorAuditCard("Protocolo", audits.protocol || {})}
+        ${supervisorAuditCard("Localização", audits.location || {})}
+        ${supervisorAuditCard("Triagem", audits.triage || {})}
+        ${supervisorAuditCard("Despacho", audits.dispatch || {})}
+        ${supervisorAuditCard("Pressão", audits.pressure || {})}
+      </div>
+      <div class="supervisor-actions">
+        ${(report.actions || []).map((item) => `<span class="supervisor-action type-${esc(item.type)}">${esc(item.text)}</span>`).join("")}
+      </div>
+    </section>`;
+  }
+
   function renderDispatch() {
     const scrollSnapshot = captureDispatchScrollState();
     const sh = state.dispatch.shift;
@@ -335,7 +387,8 @@
     $("#queueCount").textContent = waiting.length;
     renderIncomingStrip(sh);
     renderMultiOpsPanel();
-    liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}:${c.multitask?.riskLevel || ""}`).join("|");
+    renderSupervisorPanel();
+    liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}:${c.multitask?.riskLevel || ""}:${c.supervisor?.level || ""}`).join("|");
     $("#callQueue").innerHTML =
       waiting.map((c) => callCard(c, true)).join("") ||
       '<div class="list-item">Fila vazia.</div>';
@@ -1533,6 +1586,7 @@
       } else if (kind === "incoming_scheduled" || kind === "field_handoff") {
         if (kind === "field_handoff") toast(event.detail?.text || "Ocorrência em campo. Central liberada para nova ligação.", "success");
         updateDispatchLite();
+        renderSupervisorPanel();
       }
     });
     window.addEventListener("c190:map-call-select", (event) => {
