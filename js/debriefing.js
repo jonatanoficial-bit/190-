@@ -2,7 +2,7 @@ window.C190_Debriefing = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-3200-F38-DEBRIEFING-PROFISSIONAL-20260624-112500-BRT";
+  const BUILD = "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT";
 
   const courseMap = {
     protocol: "Protocolo de atendimento",

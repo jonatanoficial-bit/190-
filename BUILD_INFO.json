@@ -1,31 +1,31 @@
 {
   "name": "Central 190",
-  "version": "3.5.0",
-  "phase": 41,
-  "build": "CENTRAL190-3500-F41-REDE-APOIO-ESPECIALIZADO-20260624-124500-BRT",
-  "compiledAt": "2026-06-24T12:45:00-03:00",
-  "saveSchema": 38,
-  "title": "Rede de apoio especializado, hospitais e recursos externos",
+  "version": "3.6.0",
+  "phase": 42,
+  "build": "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT",
+  "compiledAt": "2026-06-24T13:15:00-03:00",
+  "saveSchema": 39,
+  "title": "Comando unificado, comunicação interagências e operação coordenada",
   "preserved": [
-    "grandes eventos e contingência F40",
-    "ambiente urbano F39",
-    "debriefing profissional F38",
-    "supervisor operacional F37",
-    "central multitarefa F36",
+    "Rede de Apoio F41",
+    "Grandes Eventos F40",
+    "Ambiente Urbano F39",
+    "Debriefing F38",
+    "Supervisor F37",
+    "Central Multitarefa F36",
     "fluxo pós-despacho",
-    "mapa cinematográfico e ETA visual",
+    "mapa cinematográfico com ETA",
     "áudio e voz PT-BR",
     "Defesa Civil e Águia",
-    "veículos PNG SP",
-    "tutorial, carreira, campanha e cursos"
+    "carreira, campanha e cursos"
   ],
   "added": [
-    "novo módulo js/support-network.js",
-    "painel Rede de Apoio no plantão",
-    "recomendações de apoio especializado",
-    "acionamento de Regulação SAMU, CET, Defesa Civil, Águia, GCM, concessionária e COBOM",
-    "capacidade hospitalar simulada",
-    "alívio de pressão operacional por apoio acionado",
-    "risco aumentado quando apoio crítico fica pendente"
+    "novo módulo js/unified-command.js",
+    "painel Comando Unificado",
+    "sincronização PM/Bombeiros/SAMU/Defesa Civil/Apoios externos",
+    "doutrina operacional por cenário",
+    "alívio de pressão por coordenação",
+    "alertas de comando fragmentado",
+    "integração com Central Multitarefa e Supervisor"
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "build": "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT",
+  "version": "3.6.0",
+  "phase": 42,
+  "saveSchema": 39,
+  "features": {
+    "unifiedCommandModule": true,
+    "agencySynchronization": true,
+    "doctrineByScenario": true,
+    "pressureRelief": true,
+    "multitaskIntegration": true,
+    "supervisorIntegration": true
+  },
+  "status": "ok"
+}

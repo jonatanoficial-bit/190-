@@ -2,7 +2,7 @@ window.C190_Multitask = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-3000-F36-CENTRAL-MULTITAREFA-20260624-103500-BRT";
+  const BUILD = "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT";
 
   function priorityWeight(call) {
     return Number(call?.priority || 1) * 34;
@@ -67,11 +67,13 @@ window.C190_Multitask = (() => {
       const urbanCall = window.C190_UrbanDynamics?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
       const majorCall = window.C190_MajorIncidents?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
       const supportCall = window.C190_SupportNetwork?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
-      risk.score = Math.max(0, Math.min(100, Number(risk.score || 0) + Number(urbanCall.riskBonus || 0) + Number(majorCall.riskBonus || 0) + Number(supportCall.riskBonus || 0)));
-      if ((urbanCall.riskBonus > 0 || majorCall.riskBonus > 0 || supportCall.riskBonus > 0) && risk.level !== "critical") risk.level = risk.score >= 86 ? "critical" : risk.score >= 58 ? "high" : risk.level;
+      const commandCall = window.C190_UnifiedCommand?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
+      risk.score = Math.max(0, Math.min(100, Number(risk.score || 0) + Number(urbanCall.riskBonus || 0) + Number(majorCall.riskBonus || 0) + Number(supportCall.riskBonus || 0) + Number(commandCall.riskBonus || 0)));
+      if ((urbanCall.riskBonus > 0 || majorCall.riskBonus > 0 || supportCall.riskBonus > 0 || commandCall.riskBonus > 0) && risk.level !== "critical") risk.level = risk.score >= 86 ? "critical" : risk.score >= 58 ? "high" : risk.level;
       if (urbanCall.notes?.length) risk.reason = `${risk.reason} ${urbanCall.notes[0]}`;
       if (majorCall.notes?.length) risk.reason = `${risk.reason} ${majorCall.notes[0]}`;
       if (supportCall.notes?.length) risk.reason = `${risk.reason} ${supportCall.notes[0]}`;
+      if (commandCall.notes?.length) risk.reason = `${risk.reason} ${commandCall.notes[0]}`;
       call.multitask = { version: VERSION, riskScore: risk.score, riskLevel: risk.level, riskLabel: risk.label, riskReason: risk.reason, updatedAt: new Date().toISOString() };
       const escalationPoint = Math.floor(Number(shift.abandonLimit || 78) * 0.45);
       if (call.wait >= escalationPoint && Number(call.priority || 1) < 3 && !call.multitaskEscalated) {
@@ -85,6 +87,7 @@ window.C190_Multitask = (() => {
     const urbanPressure = window.C190_UrbanDynamics?.pressureBonus?.(state) || 0;
     const majorPressure = window.C190_MajorIncidents?.pressureBonus?.(state) || 0;
     const supportRelief = window.C190_SupportNetwork?.pressureRelief?.(state) || 0;
+    const commandRelief = window.C190_UnifiedCommand?.pressureRelief?.(state) || 0;
     const pressureScore = Math.min(100, Math.max(0, waiting.length * 18 + field.length * 10 + (critical ? 28 : 0) + (activeCall(shift) ? 8 : 0) + urbanPressure + majorPressure - supportRelief));
     const level = pressureScore >= 78 ? "critical" : pressureScore >= 48 ? "high" : pressureScore >= 24 ? "medium" : "normal";
     shift.multitask.pressureScore = pressureScore;

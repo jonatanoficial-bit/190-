@@ -5603,3 +5603,69 @@ textarea,
     min-height: 64px;
   }
 }
+
+
+/* F42 — Comando unificado, comunicação interagências e operação coordenada */
+.unified-command-panel {
+  max-width: var(--visual-content-max, 1240px);
+  margin: 0 auto 14px;
+}
+.unified-command-card {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(145px, .28fr) minmax(280px, 1fr) minmax(220px, .68fr);
+  gap: 12px;
+  align-items: stretch;
+  padding: 13px;
+  border: 1px solid rgba(94,234,212,.18);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(2,14,24,.88), rgba(4,28,42,.66)), var(--asset-panel-noise);
+  background-size: auto, 220px 220px;
+  box-shadow: 0 18px 42px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.unified-command-card.unified-partial { border-color: rgba(251,191,36,.34); }
+.unified-command-card.unified-fragile { border-color: rgba(249,115,22,.42); }
+.unified-command-card.unified-critical {
+  border-color: rgba(248,113,113,.55);
+  background-image: linear-gradient(135deg, rgba(74,11,22,.62), rgba(2,14,24,.90)), var(--asset-panel-noise);
+}
+.unified-main h3 { margin: 4px 0 2px; font-size: clamp(1.05rem, 2.1vw, 1.42rem); }
+.unified-main p, .unified-doctrine small, .unified-doctrine em { color: var(--muted); }
+.unified-score, .unified-doctrine {
+  display: grid;
+  gap: 5px;
+  padding: 11px;
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(2,10,18,.46);
+}
+.unified-score strong { color: var(--accent); font-size: 1.55rem; line-height: 1; }
+.unified-score span { color: #e0f2fe; font-size: .72rem; font-weight: 900; letter-spacing: .08em; }
+.unified-channels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.unified-channel {
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr);
+  gap: 3px 8px;
+  align-items: center;
+  min-height: 48px;
+  padding: 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(125,211,252,.16);
+  background: rgba(15,23,42,.44);
+  color: #e0f2fe;
+  cursor: pointer;
+  text-align: left;
+}
+.unified-channel b { grid-row: span 2; display: grid; place-items: center; min-width: 34px; height: 34px; border-radius: 10px; background: rgba(42,241,226,.10); color: var(--accent); }
+.unified-channel span { font-weight: 900; }
+.unified-channel small { color: var(--muted); }
+.unified-channel.active { border-color: rgba(34,197,94,.32); background: rgba(5,46,34,.34); }
+.unified-channel.pending { border-color: rgba(251,191,36,.24); }
+.unified-empty { grid-column: 1 / -1; color: var(--muted); padding: 10px; border: 1px dashed rgba(125,211,252,.18); border-radius: 14px; }
+.unified-doctrine strong { color: #f8fafc; }
+.unified-doctrine em { font-style: normal; font-size: .78rem; }
+@media (max-width: 1120px) { .unified-command-card { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 760px) { .unified-command-card { grid-template-columns: 1fr; } .unified-channels { grid-template-columns: 1fr; } }

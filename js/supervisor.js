@@ -2,7 +2,7 @@ window.C190_Supervisor = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-3100-F37-SUPERVISOR-OPERACIONAL-20260624-105500-BRT";
+  const BUILD = "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT";
 
   function safePercent(value) {
     return Math.max(0, Math.min(100, Math.round(Number(value || 0))));
@@ -89,6 +89,7 @@ window.C190_Supervisor = (() => {
     const major = window.C190_MajorIncidents?.current?.(state);
     if (major?.active) warnings.unshift(`${major.severity?.label || "Contingência"}: ${major.label}.`);
     const support = window.C190_SupportNetwork?.analyze?.(state);
+    const command = window.C190_UnifiedCommand?.analyze?.(state);
     if (support?.active && support.level !== "ready") warnings.unshift(`Apoio especializado pendente: score ${support.supportScore}/100.`);
     return { score, level: analysis.pressureLevel || (score >= 78 ? "critical" : score >= 48 ? "high" : "normal"), warnings, ok: score < 78 };
   }

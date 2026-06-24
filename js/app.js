@@ -387,6 +387,40 @@
     </section>`;
   }
 
+
+  function renderUnifiedCommandPanel() {
+    const panel = $("#unifiedCommandPanel");
+    if (!panel) return;
+    const report = window.C190_UnifiedCommand?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const activeIds = new Set((report.synchronized || []).map((item) => item.id));
+    panel.innerHTML = `<section class="unified-command-card unified-${esc(report.level || "fragile")}">
+      <div class="unified-main">
+        <span class="eyebrow">COMANDO UNIFICADO</span>
+        <h3>${esc(report.label || "Coordenação operacional")}</h3>
+        <p>${esc(report.doctrine?.label || "Doutrina operacional")} · fila ${report.waiting} · campo ${report.field} · alívio ${report.relief}</p>
+      </div>
+      <div class="unified-score">
+        <strong>${Number(report.score || 0)}%</strong>
+        <span>${report.level === "coordinated" ? "COORDENADO" : report.level === "partial" ? "PARCIAL" : report.level === "critical" ? "CRÍTICO" : "FRÁGIL"}</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(report.score || 0)))}%"></i></div>
+      </div>
+      <div class="unified-channels">
+        ${(report.required || []).length ? (report.required || []).slice(0, 5).map((channel) => `<button class="unified-channel ${activeIds.has(channel.id) ? "active" : "pending"}" data-command-sync="${esc(channel.id)}"><b>${esc(channel.icon || "•")}</b><span>${esc(channel.label)}</span><small>${activeIds.has(channel.id) ? "sincronizado" : `${channel.urgency || 0} urgência`}</small></button>`).join("") : "<span class=\"unified-empty\">Sem canal extra exigido agora.</span>"}
+      </div>
+      <div class="unified-doctrine">
+        <strong>${esc(report.doctrine?.label || "Doutrina")}</strong>
+        <small>${esc(report.doctrine?.detail || "Mantenha coordenação proporcional ao risco.")}</small>
+        ${(report.pending || []).length ? `<em>Pendente: ${esc(report.pending.map((c) => c.label).slice(0, 3).join(", "))}</em>` : "<em>Canais essenciais sincronizados.</em>"}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -489,6 +523,7 @@
     renderUrbanDynamicsPanel();
     renderMajorIncidentPanel();
     renderSupportNetworkPanel();
+    renderUnifiedCommandPanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
     liteQueueSignature = waiting.map((c) => `${c.id}:${c.priority}:${c.status}:${c.multitask?.riskLevel || ""}:${c.supervisor?.level || ""}`).join("|");
@@ -742,6 +777,15 @@
               out.awaitingRadio ? "success" : out.call.status === "resolved" ? "success" : "danger",
             );
           }
+        }),
+    );
+    $$(`[data-command-sync]`).forEach(
+      (b) =>
+        (b.onclick = () => {
+          const out = window.C190_UnifiedCommand?.synchronize?.(state, b.dataset.commandSync);
+          persist();
+          if (out?.ok) { C190_Immersion?.play?.("radio", state); toast(`Canal sincronizado: ${out.channel?.label || "comando"}.`, "success"); }
+          else toast("Não foi possível sincronizar o canal.", "warning");
         }),
     );
     $$(`[data-radio-action]`).forEach(

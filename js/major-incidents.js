@@ -2,7 +2,7 @@ window.C190_MajorIncidents = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-3400-F40-GRANDES-EVENTOS-CONTINGENCIA-20260624-121500-BRT";
+  const BUILD = "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT";
 
   const SCENARIOS = {
     storm: {

@@ -2,7 +2,7 @@ window.C190_SupportNetwork = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-3500-F41-REDE-APOIO-ESPECIALIZADO-20260624-124500-BRT";
+  const BUILD = "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT";
 
   const SUPPORTS = [
     { id: "regulacao-samu", label: "Regulação SAMU", icon: "192", type: "medical", relief: 10, tags: ["samu", "vítima", "ferid", "avc", "mal súbito", "acidente"] },

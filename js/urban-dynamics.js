@@ -2,7 +2,7 @@ window.C190_UrbanDynamics = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-3300-F39-AMBIENTE-URBANO-DINAMICO-20260624-114500-BRT";
+  const BUILD = "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT";
 
   const WEATHER = [
     { id: "clear", label: "Tempo aberto", icon: "☀", eta: 1.00, risk: 0, radio: "visibilidade boa" },
