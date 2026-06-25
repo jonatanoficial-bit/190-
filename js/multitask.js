@@ -2,7 +2,7 @@ window.C190_Multitask = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT";
+  const BUILD = "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT";
 
   function priorityWeight(call) {
     return Number(call?.priority || 1) * 34;
@@ -81,7 +81,9 @@ window.C190_Multitask = (() => {
       if (vehicleCall.notes?.length) risk.reason = `${risk.reason} ${vehicleCall.notes[0]}`;
       if (baseCall.notes?.length) risk.reason = `${risk.reason} ${baseCall.notes[0]}`;
       if (intelCall.notes?.length) risk.reason = `${risk.reason} ${intelCall.notes[0]}`;
+      if (preventiveCall.notes?.length) risk.reason = `${risk.reason} ${preventiveCall.notes[0]}`;
       if (budgetCall.notes?.length) risk.reason = `${risk.reason} ${budgetCall.notes[0]}`;
+      if (evidenceCall.notes?.length) risk.reason = `${risk.reason} ${evidenceCall.notes[0]}`;
       call.multitask = { version: VERSION, riskScore: risk.score, riskLevel: risk.level, riskLabel: risk.label, riskReason: risk.reason, updatedAt: new Date().toISOString() };
       const escalationPoint = Math.floor(Number(shift.abandonLimit || 78) * 0.45);
       if (call.wait >= escalationPoint && Number(call.priority || 1) < 3 && !call.multitaskEscalated) {

@@ -2,7 +2,7 @@ window.C190_Debriefing = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-3600-F42-COMANDO-UNIFICADO-20260624-131500-BRT";
+  const BUILD = "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT";
 
   const courseMap = {
     protocol: "Protocolo de atendimento",
@@ -106,6 +106,7 @@ window.C190_Debriefing = (() => {
       radioAvg,
       locationAvg,
       decisionAvg,
+      evidenceAvg,
       strengths,
       lessons,
       recommendedCourse,

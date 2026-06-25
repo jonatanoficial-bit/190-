@@ -1,0 +1,17 @@
+{
+  "build": "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT",
+  "version": "4.3.0",
+  "phase": 49,
+  "saveSchema": 46,
+  "features": {
+    "evidenceChainModule": true,
+    "evidencePanel": true,
+    "forensicsPending": true,
+    "chainOfCustody": true,
+    "evidenceSummaryOnReport": true,
+    "multitaskEvidenceRisk": true,
+    "supervisorEvidenceAlert": true,
+    "debriefingEvidenceQuality": true
+  },
+  "status": "ok"
+}

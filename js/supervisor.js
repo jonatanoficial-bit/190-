@@ -2,7 +2,7 @@ window.C190_Supervisor = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT";
+  const BUILD = "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT";
 
   function safePercent(value) {
     return Math.max(0, Math.min(100, Math.round(Number(value || 0))));
@@ -93,12 +93,15 @@ window.C190_Supervisor = (() => {
     const fatigue = window.C190_UnitFatigue?.analyze?.(state);
     const vehicle = window.C190_VehicleMaintenance?.analyze?.(state);
     const budget = window.C190_OperationalBudget?.analyze?.(state);
+    const evidence = window.C190_EvidenceChain?.analyze?.(state);
     if (support?.active && support.level !== "ready") warnings.unshift(`Apoio especializado pendente: score ${support.supportScore}/100.`);
     if (fatigue?.active && fatigue.level !== "ready") warnings.unshift(`Efetivo sob desgaste: prontidão média ${fatigue.avgReadiness}/100.`);
     if (vehicle?.active && vehicle.level !== "ready") warnings.unshift(`Frota com baixa prontidão: média ${vehicle.avgReadiness}/100.`);
     if (bases?.active && bases.level !== "ready") warnings.unshift(`Cobertura territorial irregular: média ${bases.avgCoverage}/100.`);
     if (intel?.active && intel.level !== "stable") warnings.unshift(`Inteligência territorial: ${intel.prediction?.text || "mancha de risco ativa"}.`);
+    if (preventive?.active && preventive.level !== "ready") warnings.unshift(`Prevenção insuficiente: ${preventive.uncovered.length} zona(s) sem ação preventiva.`);
     if (budget?.active && budget.level !== "stable") warnings.unshift(`Pressão orçamentária: ${budget.label} (${budget.usedPercent}% usado).`);
+    if (evidence?.active && evidence.level !== "ready") warnings.unshift(`Evidências frágeis: score ${evidence.avgScore}/100, perícia pendente ${evidence.forensic.length}.`);
     return { score, level: analysis.pressureLevel || (score >= 78 ? "critical" : score >= 48 ? "high" : "normal"), warnings, ok: score < 78 };
   }
 

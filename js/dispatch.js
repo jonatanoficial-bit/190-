@@ -496,7 +496,8 @@ window.C190_Dispatch = (() => {
     let promotion = null;
     if (shift.affectsCareer) promotion = window.C190_Career.endShift(state, report);
     else {
-      state.dispatch.reports.unshift(report);
+      const documentedReport = window.C190_EvidenceChain?.decorateReport?.(report, state) || report;
+      state.dispatch.reports.unshift(documentedReport);
       state.dispatch.reports = state.dispatch.reports.slice(0, 60);
     }
     window.C190_Content?.onShiftEnded(state, report);

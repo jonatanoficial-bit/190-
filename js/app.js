@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT";
+  const BUILD = "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
@@ -600,6 +600,78 @@
     </section>`;
   }
 
+
+  function renderPreventiveOpsPanel() {
+    const panel = $("#preventiveOpsPanel");
+    if (!panel) return;
+    const report = window.C190_PreventiveOps?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const active = report.activeOperations || [];
+    const plans = report.plans || [];
+    panel.innerHTML = `<section class="preventive-ops-card preventive-${esc(report.level || "ready")}">
+      <div class="preventive-main">
+        <span class="eyebrow">OPERAÇÕES PREVENTIVAS</span>
+        <h3>${esc(report.label || "Prevenção operacional")}</h3>
+        <p>Score ${Number(report.coverageScore || 0)}% · ativas ${active.length} · descobertas ${report.uncovered.length} · custo ${moneyBR(report.totalCost || 0)}</p>
+      </div>
+      <div class="preventive-score">
+        <strong>${Number(report.coverageScore || 0)}%</strong>
+        <span>prevenção</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(report.coverageScore || 0)))}%"></i></div>
+      </div>
+      <div class="preventive-plan-grid">
+        ${plans.slice(0, 4).map((plan) => `<article class="preventive-plan ${plan.alreadyActive ? "active" : ""}">
+          <strong>${esc(plan.icon)} ${esc(plan.zoneLabel)}</strong>
+          <small>${esc(plan.label)} · risco ${Number(plan.riskScore || 0)}% · ${moneyBR(plan.cost || 0)}</small>
+          <button class="action-btn ${plan.alreadyActive ? "secondary" : "primary"}" data-preventive-op="${esc(plan.zoneId)}" data-preventive-type="${esc(plan.opType)}" ${plan.alreadyActive ? "disabled" : ""}>${plan.alreadyActive ? "Ativa" : "Iniciar"}</button>
+        </article>`).join("") || "<span>Sem plano preventivo necessário.</span>"}
+      </div>
+      <div class="preventive-active-list">
+        ${active.slice(0, 4).map((op) => `<span>${esc(op.icon)} ${esc(op.label)} · ${esc(op.zoneLabel)} · ${Math.max(0, Number(op.endsAt || 0) - Number(state.dispatch?.shift?.elapsed || 0))}s</span>`).join("") || "<span>Nenhuma operação preventiva ativa.</span>"}
+      </div>
+    </section>`;
+  }
+
+
+  function renderEvidenceChainPanel() {
+    const panel = $("#evidenceChainPanel");
+    if (!panel) return;
+    const report = window.C190_EvidenceChain?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const cases = (report.callReports || []).slice().sort((a, b) => Number(a.score || 0) - Number(b.score || 0)).slice(0, 4);
+    panel.innerHTML = `<section class="evidence-chain-card evidence-${esc(report.level || "ready")}">
+      <div class="evidence-main">
+        <span class="eyebrow">EVIDÊNCIAS E PERÍCIA</span>
+        <h3>${esc(report.label || "Cadeia de custódia")}</h3>
+        <p>Score ${Number(report.avgScore || 0)}% · frágeis ${report.critical.length} · perícia pendente ${report.forensic.length}</p>
+      </div>
+      <div class="evidence-score">
+        <strong>${Number(report.avgScore || 0)}%</strong>
+        <span>provas</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(report.avgScore || 0)))}%"></i></div>
+      </div>
+      <div class="evidence-case-list">
+        ${cases.length ? cases.map((item) => `<article class="evidence-case evidence-${esc(item.chainLevel || "partial")}">
+          <strong>${esc(item.type)}</strong>
+          <small>${esc(item.label)} · ${Number(item.score || 0)}% · falta ${esc((item.missing || []).slice(0, 2).join(", ") || "nada crítico")}</small>
+        </article>`).join("") : "<article class='evidence-case'><strong>Sem casos</strong><small>Inicie ou atenda uma ocorrência para gerar cadeia de custódia.</small></article>"}
+      </div>
+      <div class="evidence-advice">
+        ${(report.recommended || []).slice(0, 3).map((item) => `<span>${esc(item.text)}</span>`).join("") || "<span>Documentação operacional adequada.</span>"}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -707,6 +779,8 @@
     renderVehicleMaintenancePanel();
     renderBaseLogisticsPanel();
     renderTerritorialIntelPanel();
+    renderPreventiveOpsPanel();
+    renderEvidenceChainPanel();
     renderOperationalBudgetPanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
@@ -875,6 +949,15 @@
     </div>`;
   }
   function bindDispatchButtons() {
+    $$(`[data-preventive-op]`).forEach(
+      (b) =>
+        (b.onclick = () => {
+          const out = window.C190_PreventiveOps?.startOperation?.(state, b.dataset.preventiveOp, b.dataset.preventiveType);
+          persist();
+          if (out?.ok) { C190_Immersion?.play?.("dispatch", state); C190_Immersion?.speakRadio?.(out.alreadyActive ? "Operação preventiva já ativa." : "Operação preventiva iniciada.", state); toast(out.alreadyActive ? "Operação preventiva já estava ativa." : "Operação preventiva iniciada.", out.alreadyActive ? "warning" : "success"); renderDispatch(); }
+          else toast(out?.reason || "Não foi possível iniciar operação preventiva.", "warning");
+        }),
+    );
     $$("[data-answer], [data-answer-priority]").forEach(
       (b) =>
         (b.onclick = () => {

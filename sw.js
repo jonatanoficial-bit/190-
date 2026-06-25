@@ -1,4 +1,4 @@
-const CACHE = "central190-v4.1.0-f47-inteligencia-territorial";
+const CACHE = "central190-v4.3.0-f49-evidencias-pericia";
 const ASSETS = [
   "./",
   "./index.html",
@@ -26,6 +26,8 @@ const ASSETS = [
   "./js/support-network.js",
   "./js/operational-budget.js",
   "./js/territorial-intel.js",
+  "./js/evidence-chain.js",
+  "./js/preventive-ops.js",
   "./js/base-logistics.js",
   "./js/vehicle-maintenance.js",
   "./js/unit-fatigue.js",

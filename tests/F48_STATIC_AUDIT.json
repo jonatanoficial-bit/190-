@@ -1,0 +1,19 @@
+{
+  "build": "CENTRAL190-4200-F48-PATRULHAMENTO-PREVENTIVO-20260624-161500-BRT",
+  "version": "4.2.0",
+  "phase": 48,
+  "saveSchema": 45,
+  "features": {
+    "preventiveOpsModule": true,
+    "preventiveOpsPanel": true,
+    "hotspotActionPlans": true,
+    "pmPreventivePatrol": true,
+    "samuPrepositioning": true,
+    "civilDefenseInspection": true,
+    "fireCoverage": true,
+    "riskReductionInCoveredZone": true,
+    "multitaskPreventiveRisk": true,
+    "supervisorPreventiveAlert": true
+  },
+  "status": "ok"
+}

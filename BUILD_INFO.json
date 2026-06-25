@@ -1,12 +1,14 @@
 {
   "name": "Central 190",
-  "version": "4.1.0",
-  "phase": 47,
-  "build": "CENTRAL190-4100-F47-INTELIGENCIA-TERRITORIAL-20260624-154500-BRT",
-  "compiledAt": "2026-06-24T15:45:00-03:00",
-  "saveSchema": 44,
-  "title": "Inteligência territorial, manchas de risco e previsão operacional",
+  "version": "4.3.0",
+  "phase": 49,
+  "build": "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT",
+  "compiledAt": "2026-06-24T16:45:00-03:00",
+  "saveSchema": 46,
+  "title": "Evidências, perícia, boletim operacional e cadeia de custódia",
   "preserved": [
+    "Patrulhamento Preventivo F48",
+    "Inteligência Territorial F47",
     "Cobertura Territorial F46",
     "Orçamento Operacional F45",
     "Manutenção das Viaturas F44",
@@ -20,15 +22,15 @@
     "Central Multitarefa F36"
   ],
   "added": [
-    "novo módulo js/territorial-intel.js",
-    "painel Inteligência Territorial",
-    "manchas de risco por zona",
-    "histórico de reincidência",
-    "previsão de maior probabilidade",
-    "foco por categoria de ocorrência",
-    "recomendação de patrulha preventiva",
-    "Central Multitarefa considera zonas quentes",
-    "Supervisor alerta padrão territorial crítico",
-    "hotfix: painel Cobertura Territorial F46 agora é chamado no renderDispatch"
+    "novo módulo js/evidence-chain.js",
+    "painel Evidências e Perícia",
+    "cadeia de custódia por ocorrência",
+    "itens obrigatórios por categoria",
+    "perícia pendente e documentação frágil",
+    "qualidade do boletim operacional",
+    "relatório final com evidenceSummary",
+    "Central Multitarefa considera ausência de evidências",
+    "Supervisor alerta cadeia de custódia crítica",
+    "Debriefing reconhece documentação de evidências"
   ]
 }
