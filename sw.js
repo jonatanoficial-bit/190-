@@ -1,4 +1,4 @@
-const CACHE = "central190-v4.3.0-f49-evidencias-pericia";
+const CACHE = "central190-v4.4.1-f50-1-hotfix-finalizacao-veiculos";
 const ASSETS = [
   "./",
   "./index.html",
@@ -26,6 +26,7 @@ const ASSETS = [
   "./js/support-network.js",
   "./js/operational-budget.js",
   "./js/territorial-intel.js",
+  "./js/legal-followup.js",
   "./js/evidence-chain.js",
   "./js/preventive-ops.js",
   "./js/base-logistics.js",

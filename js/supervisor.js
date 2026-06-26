@@ -2,7 +2,7 @@ window.C190_Supervisor = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT";
+  const BUILD = "CENTRAL190-4400-F50-ENCAMINHAMENTO-LEGAL-20260624-171500-BRT";
 
   function safePercent(value) {
     return Math.max(0, Math.min(100, Math.round(Number(value || 0))));
@@ -92,9 +92,14 @@ window.C190_Supervisor = (() => {
     const command = window.C190_UnifiedCommand?.analyze?.(state);
     const fatigue = window.C190_UnitFatigue?.analyze?.(state);
     const vehicle = window.C190_VehicleMaintenance?.analyze?.(state);
+    const bases = window.C190_BaseLogistics?.analyze?.(state);
+    const intel = window.C190_TerritorialIntel?.analyze?.(state);
+    const preventive = window.C190_PreventiveOps?.analyze?.(state);
     const budget = window.C190_OperationalBudget?.analyze?.(state);
     const evidence = window.C190_EvidenceChain?.analyze?.(state);
+    const legal = window.C190_LegalFollowup?.analyze?.(state);
     if (support?.active && support.level !== "ready") warnings.unshift(`Apoio especializado pendente: score ${support.supportScore}/100.`);
+    if (command?.active && ["fragile", "critical"].includes(command.level)) warnings.unshift(`Comando unificado frágil: sincronização ${command.score}/100.`);
     if (fatigue?.active && fatigue.level !== "ready") warnings.unshift(`Efetivo sob desgaste: prontidão média ${fatigue.avgReadiness}/100.`);
     if (vehicle?.active && vehicle.level !== "ready") warnings.unshift(`Frota com baixa prontidão: média ${vehicle.avgReadiness}/100.`);
     if (bases?.active && bases.level !== "ready") warnings.unshift(`Cobertura territorial irregular: média ${bases.avgCoverage}/100.`);
@@ -102,6 +107,7 @@ window.C190_Supervisor = (() => {
     if (preventive?.active && preventive.level !== "ready") warnings.unshift(`Prevenção insuficiente: ${preventive.uncovered.length} zona(s) sem ação preventiva.`);
     if (budget?.active && budget.level !== "stable") warnings.unshift(`Pressão orçamentária: ${budget.label} (${budget.usedPercent}% usado).`);
     if (evidence?.active && evidence.level !== "ready") warnings.unshift(`Evidências frágeis: score ${evidence.avgScore}/100, perícia pendente ${evidence.forensic.length}.`);
+    if (legal?.active && legal.level !== "ready") warnings.unshift(`Encaminhamento legal pendente: score ${legal.avgScore}/100, casos pendentes ${legal.pending.length}.`);
     return { score, level: analysis.pressureLevel || (score >= 78 ? "critical" : score >= 48 ? "high" : "normal"), warnings, ok: score < 78 };
   }
 

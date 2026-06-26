@@ -1,17 +1,17 @@
 window.C190_FieldRadio = (() => {
   "use strict";
 
-  const VERSION = 1;
+  const VERSION = 2;
 
   const ACTIONS = [
-    { id: "advance", label: "Aguardar nova atualização", short: "Aguardar", score: 0, hint: "Mantém a escuta operacional sem alterar recursos." },
-    { id: "keep_line", label: "Manter chamador em linha segura", short: "Linha aberta", score: 6, hint: "Útil quando vítima, agressor ou risco ainda estão presentes." },
+    { id: "advance", label: "Pedir nova atualização da equipe", short: "Próxima atualização", score: 0, hint: "Use para avançar o atendimento de campo até a equipe confirmar situação controlada." },
+    { id: "keep_line", label: "Manter linha aberta com solicitante", short: "Manter linha — não encerra", score: 6, hint: "Mantém o chamador em segurança, mas a ocorrência continua aberta até você encerrar." },
     { id: "pm_backup", label: "Enviar reforço policial", short: "Reforço PM", score: 0, hint: "Necessário em arma, agressor, multidão ou cerco." },
     { id: "samu_support", label: "Acionar/confirmar SAMU", short: "SAMU", score: 0, hint: "Necessário para feridos, inconsciente ou mal súbito." },
     { id: "fire_support", label: "Acionar/confirmar Bombeiros", short: "Bombeiros", score: 0, hint: "Necessário para fogo, resgate, acidente grave ou alagamento." },
     { id: "civil_defense", label: "Acionar Defesa Civil", short: "Defesa Civil", score: 0, hint: "Útil para alagamento, árvore, fios, queda de energia ou risco estrutural." },
     { id: "reroute", label: "Redirecionar unidade mais próxima", short: "Redirecionar", score: 4, hint: "Corrige demora ou endereço ajustado pelo mapa." },
-    { id: "close", label: "Encerrar ocorrência", short: "Encerrar", score: -8, hint: "Só use quando o rádio informar situação controlada." },
+    { id: "close", label: "Finalizar ocorrência em campo", short: "FINALIZAR OCORRÊNCIA", score: -8, hint: "Use quando a equipe informar que a situação está controlada. Isso fecha a ocorrência." },
   ];
 
   const byId = (id) => ACTIONS.find((a) => a.id === id) || ACTIONS[0];

@@ -1,4 +1,4 @@
-## v4.3.0 — Fase 49
+## v4.4.1 — Fase 50.1
 
 - [x] Sons de ocorrência por categoria.
 - [x] Voz PT-BR do chamador.

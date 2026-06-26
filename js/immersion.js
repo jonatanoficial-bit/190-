@@ -2,7 +2,7 @@ window.C190_Immersion = (() => {
   "use strict";
 
   const VERSION = 2;
-  const BUILD = "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT";
+  const BUILD = "CENTRAL190-4410-F50-1-HOTFIX-FINALIZACAO-VEICULOS-20260624-181500-BRT";
   let audioContext = null;
   let master = null;
   let unlocked = false;

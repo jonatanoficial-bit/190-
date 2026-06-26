@@ -2,7 +2,7 @@ window.C190_Multitask = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT";
+  const BUILD = "CENTRAL190-4400-F50-ENCAMINHAMENTO-LEGAL-20260624-171500-BRT";
 
   function priorityWeight(call) {
     return Number(call?.priority || 1) * 34;
@@ -64,26 +64,28 @@ window.C190_Multitask = (() => {
     const field = fieldCalls(shift);
     waiting.forEach((call) => {
       const risk = callRisk(call, shift);
-      const urbanCall = window.C190_UrbanDynamics?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
-      const majorCall = window.C190_MajorIncidents?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
-      const supportCall = window.C190_SupportNetwork?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
-      const commandCall = window.C190_UnifiedCommand?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
-      const fatigueCall = window.C190_UnitFatigue?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
-      const vehicleCall = window.C190_VehicleMaintenance?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
-      const budgetCall = window.C190_OperationalBudget?.callModifier?.(call, state) || { riskBonus: 0, notes: [] };
-      risk.score = Math.max(0, Math.min(100, Number(risk.score || 0) + Number(urbanCall.riskBonus || 0) + Number(majorCall.riskBonus || 0) + Number(supportCall.riskBonus || 0) + Number(commandCall.riskBonus || 0) + Number(fatigueCall.riskBonus || 0) + Number(vehicleCall.riskBonus || 0) + Number(budgetCall.riskBonus || 0)));
-      if ((urbanCall.riskBonus > 0 || majorCall.riskBonus > 0 || supportCall.riskBonus > 0 || commandCall.riskBonus > 0 || fatigueCall.riskBonus > 0 || vehicleCall.riskBonus > 0 || budgetCall.riskBonus > 0) && risk.level !== "critical") risk.level = risk.score >= 86 ? "critical" : risk.score >= 58 ? "high" : risk.level;
-      if (urbanCall.notes?.length) risk.reason = `${risk.reason} ${urbanCall.notes[0]}`;
-      if (majorCall.notes?.length) risk.reason = `${risk.reason} ${majorCall.notes[0]}`;
-      if (supportCall.notes?.length) risk.reason = `${risk.reason} ${supportCall.notes[0]}`;
-      if (commandCall.notes?.length) risk.reason = `${risk.reason} ${commandCall.notes[0]}`;
-      if (fatigueCall.notes?.length) risk.reason = `${risk.reason} ${fatigueCall.notes[0]}`;
-      if (vehicleCall.notes?.length) risk.reason = `${risk.reason} ${vehicleCall.notes[0]}`;
-      if (baseCall.notes?.length) risk.reason = `${risk.reason} ${baseCall.notes[0]}`;
-      if (intelCall.notes?.length) risk.reason = `${risk.reason} ${intelCall.notes[0]}`;
-      if (preventiveCall.notes?.length) risk.reason = `${risk.reason} ${preventiveCall.notes[0]}`;
-      if (budgetCall.notes?.length) risk.reason = `${risk.reason} ${budgetCall.notes[0]}`;
-      if (evidenceCall.notes?.length) risk.reason = `${risk.reason} ${evidenceCall.notes[0]}`;
+      const modifiers = [
+        window.C190_UrbanDynamics?.callModifier?.(call, state),
+        window.C190_MajorIncidents?.callModifier?.(call, state),
+        window.C190_SupportNetwork?.callModifier?.(call, state),
+        window.C190_UnifiedCommand?.callModifier?.(call, state),
+        window.C190_UnitFatigue?.callModifier?.(call, state),
+        window.C190_VehicleMaintenance?.callModifier?.(call, state),
+        window.C190_BaseLogistics?.callModifier?.(call, state),
+        window.C190_TerritorialIntel?.callModifier?.(call, state),
+        window.C190_PreventiveOps?.callModifier?.(call, state),
+        window.C190_OperationalBudget?.callModifier?.(call, state),
+        window.C190_EvidenceChain?.callModifier?.(call, state),
+        window.C190_LegalFollowup?.callModifier?.(call, state),
+      ].filter(Boolean);
+      const modifierBonus = modifiers.reduce((sum, item) => sum + Number(item.riskBonus || 0), 0);
+      risk.score = Math.max(0, Math.min(100, Number(risk.score || 0) + modifierBonus));
+      if (modifiers.some((item) => Number(item.riskBonus || 0) > 0) && risk.level !== "critical") {
+        risk.level = risk.score >= 86 ? "critical" : risk.score >= 58 ? "high" : risk.level;
+      }
+      modifiers.forEach((item) => {
+        if (item.notes?.length) risk.reason = `${risk.reason} ${item.notes[0]}`;
+      });
       call.multitask = { version: VERSION, riskScore: risk.score, riskLevel: risk.level, riskLabel: risk.label, riskReason: risk.reason, updatedAt: new Date().toISOString() };
       const escalationPoint = Math.floor(Number(shift.abandonLimit || 78) * 0.45);
       if (call.wait >= escalationPoint && Number(call.priority || 1) < 3 && !call.multitaskEscalated) {
@@ -98,7 +100,21 @@ window.C190_Multitask = (() => {
     const majorPressure = window.C190_MajorIncidents?.pressureBonus?.(state) || 0;
     const supportRelief = window.C190_SupportNetwork?.pressureRelief?.(state) || 0;
     const commandRelief = window.C190_UnifiedCommand?.pressureRelief?.(state) || 0;
-    const pressureScore = Math.min(100, Math.max(0, waiting.length * 18 + field.length * 10 + (critical ? 28 : 0) + (activeCall(shift) ? 8 : 0) + urbanPressure + majorPressure - supportRelief));
+    const baseRelief = window.C190_BaseLogistics?.pressureRelief?.(state) || 0;
+    const intelRelief = window.C190_TerritorialIntel?.pressureRelief?.(state) || 0;
+    const preventiveRelief = window.C190_PreventiveOps?.pressureRelief?.(state) || 0;
+    const budgetRelief = window.C190_OperationalBudget?.pressureRelief?.(state) || 0;
+    const evidenceRelief = window.C190_EvidenceChain?.pressureRelief?.(state) || 0;
+    const legalRelief = window.C190_LegalFollowup?.pressureRelief?.(state) || 0;
+    const fatigueReport = window.C190_UnitFatigue?.analyze?.(state);
+    const vehicleReport = window.C190_VehicleMaintenance?.analyze?.(state);
+    const fatiguePressure = fatigueReport?.level === "critical" ? 14 : fatigueReport?.level === "attention" ? 7 : fatigueReport?.level === "ready" ? -2 : 0;
+    const vehiclePressure = vehicleReport?.level === "critical" ? 16 : vehicleReport?.level === "attention" ? 8 : vehicleReport?.level === "ready" ? -2 : 0;
+    const pressureScore = Math.min(100, Math.max(0,
+      waiting.length * 18 + field.length * 10 + (critical ? 28 : 0) + (activeCall(shift) ? 8 : 0) +
+      urbanPressure + majorPressure + fatiguePressure + vehiclePressure -
+      supportRelief - commandRelief + baseRelief + intelRelief + preventiveRelief + budgetRelief + evidenceRelief + legalRelief
+    ));
     const level = pressureScore >= 78 ? "critical" : pressureScore >= 48 ? "high" : pressureScore >= 24 ? "medium" : "normal";
     shift.multitask.pressureScore = pressureScore;
     shift.multitask.pressureLevel = level;

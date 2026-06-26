@@ -6380,3 +6380,271 @@ textarea,
     grid-template-columns: 1fr;
   }
 }
+
+
+/* F50 — Encaminhamento legal, delegacia e continuidade do caso */
+.legal-followup-panel {
+  max-width: var(--visual-content-max, 1240px);
+  margin: 0 auto 14px;
+}
+.legal-followup-card {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(150px, .32fr) minmax(330px, 1.1fr) minmax(235px, .62fr);
+  gap: 12px;
+  align-items: stretch;
+  padding: 13px;
+  border: 1px solid rgba(94,234,212,.18);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(2,14,24,.88), rgba(4,28,42,.66)),
+    var(--asset-panel-noise);
+  background-size: auto, 220px 220px;
+  box-shadow: 0 18px 42px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.legal-followup-card.legal-attention {
+  border-color: rgba(251,191,36,.38);
+}
+.legal-followup-card.legal-critical {
+  border-color: rgba(248,113,113,.54);
+  background-image: linear-gradient(135deg, rgba(74,11,22,.62), rgba(2,14,24,.90)), var(--asset-panel-noise);
+}
+.legal-main h3 {
+  margin: 4px 0 2px;
+  font-size: clamp(1.02rem, 2.1vw, 1.38rem);
+}
+.legal-main p,
+.legal-score span,
+.legal-case small,
+.legal-advice span {
+  color: var(--muted);
+}
+.legal-score {
+  display: grid;
+  gap: 5px;
+  padding: 11px;
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,.07);
+  background: rgba(2,10,18,.46);
+  align-content: center;
+}
+.legal-score strong {
+  color: var(--accent);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+.legal-score span {
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .7rem;
+  font-weight: 900;
+}
+.legal-case-list {
+  display: grid;
+  gap: 7px;
+}
+.legal-case {
+  display: grid;
+  gap: 3px;
+  padding: 8px;
+  border-radius: 13px;
+  border: 1px solid rgba(125,211,252,.14);
+  background: rgba(15,23,42,.44);
+}
+.legal-case.legal-pending,
+.legal-case.legal-adequate {
+  border-color: rgba(251,191,36,.30);
+}
+.legal-case.legal-critical {
+  border-color: rgba(248,113,113,.46);
+}
+.legal-case.legal-complete {
+  border-color: rgba(34,197,94,.22);
+}
+.legal-advice {
+  display: grid;
+  gap: 7px;
+  align-content: start;
+}
+.legal-advice span {
+  display: block;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(251,191,36,.20);
+  background: rgba(69,42,5,.28);
+  line-height: 1.25;
+}
+@media (max-width: 1120px) {
+  .legal-followup-card {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 760px) {
+  .legal-followup-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* F50.1 — Hotfix finalização intuitiva e restauração visual dos veículos */
+.clear-radio-panel {
+  border: 1px solid rgba(94,234,212,.22);
+  border-radius: 18px;
+  padding: 12px;
+  background: linear-gradient(145deg, rgba(2,15,25,.78), rgba(4,32,44,.50)), var(--asset-panel-noise);
+  background-size: auto, 220px 220px;
+}
+.radio-finish-guide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, .75fr);
+  gap: 12px;
+  margin: 10px 0 12px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(251,191,36,.28);
+  background: rgba(69,42,5,.25);
+}
+.radio-finish-guide.ready {
+  border-color: rgba(34,197,94,.40);
+  background: rgba(20,83,45,.22);
+}
+.radio-finish-guide.wait {
+  border-color: rgba(125,211,252,.22);
+  background: rgba(7,89,133,.18);
+}
+.radio-finish-guide span {
+  display: block;
+  color: var(--accent);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+.radio-finish-guide strong {
+  display: block;
+  margin: 2px 0 4px;
+  color: #f8fafc;
+  font-size: 1.05rem;
+}
+.radio-finish-guide small {
+  color: var(--muted);
+  line-height: 1.35;
+}
+.radio-finish-guide ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 5px;
+}
+.radio-finish-guide li {
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(15,23,42,.55);
+  color: var(--muted);
+  font-size: .78rem;
+}
+.radio-finish-guide li.done {
+  color: #dcfce7;
+  background: rgba(22,101,52,.28);
+  border: 1px solid rgba(34,197,94,.20);
+}
+.radio-action-title {
+  margin-top: 10px;
+  color: #f8fafc;
+}
+.clear-radio-actions {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+.radio-action-btn.finish-primary {
+  border-color: rgba(34,197,94,.55) !important;
+  background: linear-gradient(135deg, rgba(22,163,74,.34), rgba(5,46,22,.58)) !important;
+  box-shadow: 0 0 0 1px rgba(187,247,208,.10), 0 12px 28px rgba(0,0,0,.24);
+}
+.radio-action-btn.finish-primary strong {
+  color: #dcfce7;
+  font-size: .96rem;
+}
+.radio-action-btn.keep-line {
+  border-color: rgba(251,191,36,.38) !important;
+  background: rgba(69,42,5,.26) !important;
+}
+.operator-next-step {
+  display: grid;
+  gap: 4px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(94,234,212,.20);
+  background: rgba(8,47,73,.22);
+}
+.operator-next-step strong {
+  color: #f8fafc;
+}
+.operator-next-step span {
+  color: var(--muted);
+}
+.c190-resource-div-icon,
+.c190-resource-div-icon * {
+  pointer-events: auto;
+}
+.resource-marker {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 52px !important;
+  min-height: 42px !important;
+  position: relative !important;
+  display: grid !important;
+  place-items: center !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  overflow: visible !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+.resource-marker > img {
+  display: block !important;
+  width: 100% !important;
+  height: 82% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,.52));
+  z-index: 2;
+}
+.resource-marker > img.asset-missing {
+  display: none !important;
+}
+.resource-marker span,
+.resource-marker em {
+  z-index: 3;
+}
+.resource-unit-card img,
+.field-unit-track img {
+  display: block !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,.42));
+}
+.resource-unit-card img.asset-missing,
+.field-unit-track img.asset-missing {
+  display: none !important;
+}
+.resource-unit-card img.asset-missing + strong::before {
+  content: "🚓 ";
+}
+.resource-unit-card.type-bombeiros img.asset-missing + strong::before {
+  content: "🚒 ";
+}
+.resource-unit-card.type-samu img.asset-missing + strong::before {
+  content: "🚑 ";
+}
+.resource-unit-card.type-defesa img.asset-missing + strong::before {
+  content: "⚠️ ";
+}
+@media (max-width: 760px) {
+  .radio-finish-guide {
+    grid-template-columns: 1fr;
+  }
+  .clear-radio-actions {
+    grid-template-columns: 1fr;
+  }
+}

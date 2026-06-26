@@ -1,36 +1,30 @@
 {
   "name": "Central 190",
-  "version": "4.3.0",
-  "phase": 49,
-  "build": "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT",
-  "compiledAt": "2026-06-24T16:45:00-03:00",
-  "saveSchema": 46,
-  "title": "Evidências, perícia, boletim operacional e cadeia de custódia",
+  "version": "4.4.1",
+  "phase": 50.1,
+  "build": "CENTRAL190-4410-F50-1-HOTFIX-FINALIZACAO-VEICULOS-20260624-181500-BRT",
+  "compiledAt": "2026-06-24T18:15:00-03:00",
+  "saveSchema": 48,
+  "title": "Hotfix finalização intuitiva de ocorrência e restauração visual dos veículos",
+  "fixed": [
+    "Fluxo de finalização de ocorrência estava confuso para o usuário",
+    "Linha aberta parecia manter caso eterno sem indicar próximo passo",
+    "Botão de campo agora diz Acompanhar / finalizar",
+    "Painel de rádio agora mostra passo atual e orientação clara",
+    "Finalizar ocorrência ganha destaque verde quando disponível",
+    "Ação Linha aberta informa explicitamente que não encerra",
+    "Ícones de PM, ROCAM, SAMU, Bombeiros, Defesa Civil e Águia agora são renderizados como IMG no marcador do mapa",
+    "Cards de despacho e campo receberam fallback visual de asset"
+  ],
   "preserved": [
+    "Encaminhamento Legal F50",
+    "Evidências e Perícia F49",
     "Patrulhamento Preventivo F48",
     "Inteligência Territorial F47",
     "Cobertura Territorial F46",
     "Orçamento Operacional F45",
     "Manutenção das Viaturas F44",
     "Fadiga das Equipes F43",
-    "Comando Unificado F42",
-    "Rede de Apoio F41",
-    "Grandes Eventos F40",
-    "Ambiente Urbano F39",
-    "Debriefing F38",
-    "Supervisor F37",
-    "Central Multitarefa F36"
-  ],
-  "added": [
-    "novo módulo js/evidence-chain.js",
-    "painel Evidências e Perícia",
-    "cadeia de custódia por ocorrência",
-    "itens obrigatórios por categoria",
-    "perícia pendente e documentação frágil",
-    "qualidade do boletim operacional",
-    "relatório final com evidenceSummary",
-    "Central Multitarefa considera ausência de evidências",
-    "Supervisor alerta cadeia de custódia crítica",
-    "Debriefing reconhece documentação de evidências"
+    "Comando Unificado F42"
   ]
 }

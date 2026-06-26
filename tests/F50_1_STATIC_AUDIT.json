@@ -1,0 +1,16 @@
+{
+  "build": "CENTRAL190-4410-F50-1-HOTFIX-FINALIZACAO-VEICULOS-20260624-181500-BRT",
+  "version": "4.4.1",
+  "phase": 50.1,
+  "saveSchema": 48,
+  "fixes": {
+    "clearClosureFlow": true,
+    "radioStepGuide": true,
+    "finishButtonHighlighted": true,
+    "keepLineClarified": true,
+    "mapVehicleImagesAsImgTags": true,
+    "dispatchVehicleFallback": true,
+    "serviceWorkerCacheUpdated": true
+  },
+  "status": "ok"
+}

@@ -1,0 +1,21 @@
+{
+  "build": "CENTRAL190-4400-F50-ENCAMINHAMENTO-LEGAL-20260624-171500-BRT",
+  "version": "4.4.0",
+  "phase": 50,
+  "saveSchema": 47,
+  "features": {
+    "legalFollowupModule": true,
+    "legalPanel": true,
+    "policeStationFlow": true,
+    "hospitalFlow": true,
+    "civilDefenseTechnicalFlow": true,
+    "trafficLegalFlow": true,
+    "legalSummaryOnReport": true,
+    "multitaskLegalRisk": true,
+    "supervisorLegalAlert": true,
+    "debriefingLegalQuality": true,
+    "runtimeHotfixMultitaskUndefinedVariables": true,
+    "runtimeHotfixSupervisorUndefinedVariables": true
+  },
+  "status": "ok"
+}

@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-4300-F49-EVIDENCIAS-PERICIA-20260624-164500-BRT";
+  const BUILD = "CENTRAL190-4410-F50-1-HOTFIX-FINALIZACAO-VEICULOS-20260624-181500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
@@ -446,7 +446,7 @@
       </div>
       <div class="fatigue-unit-list">
         ${units.map((unit) => `<article class="fatigue-unit fatigue-${esc(unit.fatigueLevel || "ready")}">
-          <img src="${esc(unit.icon || "assets/units/sp-police-car-cinematic.png")}" alt="" loading="lazy" />
+          <img src="${esc(unit.icon || "assets/units/sp-police-car-cinematic.png")}" alt="" loading="lazy" decoding="async" onerror="this.classList.add(\'asset-missing\')" />
           <div><strong>${esc(unit.short || unit.label)}</strong><small>${esc(unit.fatigueLabel || "Pronta")} · prontidão ${Number(unit.readiness || 0)}% · ${unit.fatigue?.dispatched || 0} despacho(s)</small></div>
         </article>`).join("")}
       </div>
@@ -481,7 +481,7 @@
       </div>
       <div class="vehicle-unit-list">
         ${units.map((unit) => `<article class="vehicle-unit vehicle-${esc(unit.vehicleLevel || "ready")}">
-          <img src="${esc(unit.icon || "assets/units/sp-police-car-cinematic.png")}" alt="" loading="lazy" />
+          <img src="${esc(unit.icon || "assets/units/sp-police-car-cinematic.png")}" alt="" loading="lazy" decoding="async" onerror="this.classList.add(\'asset-missing\')" />
           <div><strong>${esc(unit.short || unit.label)}</strong><small>${esc(unit.vehicleLabel || "Operacional")} · combustível ${Number(unit.maintenance?.fuel || 0)}% · desgaste ${Number(unit.maintenance?.wear || 0)}%</small></div>
         </article>`).join("")}
       </div>
@@ -672,6 +672,41 @@
     </section>`;
   }
 
+
+  function renderLegalFollowupPanel() {
+    const panel = $("#legalFollowupPanel");
+    if (!panel) return;
+    const report = window.C190_LegalFollowup?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const cases = (report.callReports || []).slice().sort((a, b) => Number(a.score || 0) - Number(b.score || 0)).slice(0, 4);
+    panel.innerHTML = `<section class="legal-followup-card legal-${esc(report.level || "ready")}">
+      <div class="legal-main">
+        <span class="eyebrow">ENCAMINHAMENTO LEGAL</span>
+        <h3>${esc(report.label || "Fluxo legal")}</h3>
+        <p>Score ${Number(report.avgScore || 0)}% · pendentes ${report.pending.length} · críticos ${report.critical.length}</p>
+      </div>
+      <div class="legal-score">
+        <strong>${Number(report.avgScore || 0)}%</strong>
+        <span>legal</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(report.avgScore || 0)))}%"></i></div>
+      </div>
+      <div class="legal-case-list">
+        ${cases.length ? cases.map((item) => `<article class="legal-case legal-${esc(item.level || "adequate")}">
+          <strong>${esc(item.type)}</strong>
+          <small>${esc(item.pathway)} · ${Number(item.score || 0)}% · ${esc(item.destination)}</small>
+        </article>`).join("") : "<article class='legal-case'><strong>Sem casos</strong><small>Atenda uma ocorrência para gerar encaminhamento.</small></article>"}
+      </div>
+      <div class="legal-advice">
+        ${(report.recommended || []).slice(0, 3).map((item) => `<span>${esc(item)}</span>`).join("") || "<span>Fluxo legal adequado.</span>"}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -781,6 +816,7 @@
     renderTerritorialIntelPanel();
     renderPreventiveOpsPanel();
     renderEvidenceChainPanel();
+    renderLegalFollowupPanel();
     renderOperationalBudgetPanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
@@ -810,7 +846,7 @@
     const locationText = locationKnown ? `${locationIntel?.label || "Local aproximado"} · ${c.location}` : "Local aguardando bairro, rua ou referência";
     const asked = protocol?.asked?.length || 0;
     const inField = c.status === "field";
-    const buttonLabel = waiting ? "Atender ligação" : inField ? "Acompanhar rádio" : "Retomar ligação";
+    const buttonLabel = waiting ? "Atender ligação" : inField ? "Acompanhar / finalizar" : "Retomar ligação";
     const fieldNote = inField ? ` · rádio em campo${c.fieldRadio?.stage != null ? ` · etapa ${Number(c.fieldRadio.stage || 0) + 1}` : ""}` : "";
     const risk = c.multitask || {};
     const riskNote = waiting && risk.riskLabel ? ` · ${risk.riskLabel} ${risk.riskScore || 0}%` : "";
@@ -854,7 +890,7 @@
     return `<section class="resource-dispatch-panel" aria-label="Despacho de unidades">
       <header><div><span class="eyebrow">DESPACHO DE UNIDADES</span><h4>Escolha PM, Bombeiros, SAMU ou apoio combinado</h4></div><strong class="resource-grade">${esc(evaluation.grade)} · ${Number(evaluation.finalScore || 0)}/100</strong></header>
       <p class="protocol-warning">Recomendado pela triagem: ${esc(requiredText)}. A unidade mais próxima nem sempre é suficiente; avalie segurança da cena, vítima, fogo, água, trânsito e risco armado.</p>
-      <div class="resource-unit-grid">${resources.map((unit) => `<button class="resource-unit-card ${selected.has(unit.id) ? "selected" : ""} type-${esc(unit.type)}" data-resource-toggle="${esc(unit.id)}" data-call="${esc(call.id)}"><img src="${esc(unit.icon || "assets/units/unit-police-cruiser.png")}" alt="" loading="lazy"><strong>${esc(unit.short || unit.label)}</strong><span>${esc(unit.label)}</span><small>${esc(unit.role || unit.status)} · ETA ${Number(unit.etaMin || 0)} min</small></button>`).join("")}</div>
+      <div class="resource-unit-grid">${resources.map((unit) => `<button class="resource-unit-card ${selected.has(unit.id) ? "selected" : ""} type-${esc(unit.type)}" data-resource-toggle="${esc(unit.id)}" data-call="${esc(call.id)}"><img src="${esc(unit.icon || "assets/units/unit-police-cruiser.png")}" alt="" loading="lazy" decoding="async" onerror="this.classList.add(\'asset-missing\')"><strong>${esc(unit.short || unit.label)}</strong><span>${esc(unit.label)}</span><small>${esc(unit.role || unit.status)} · ETA ${Number(unit.etaMin || 0)} min</small></button>`).join("")}</div>
       <div class="button-row"><button class="action-btn primary" data-resource-recommend="${esc(call.id)}">Selecionar despacho recomendado</button><button class="action-btn" data-resource-clear="${esc(call.id)}">Limpar unidades</button></div>
       <div class="protocol-score resource-score"><span>Avaliação do despacho</span><strong>${esc(evaluation.grade)}</strong><div class="progress"><i style="width:${Math.max(0, Math.min(100, evaluation.finalScore || 0))}%"></i></div><small>${(evaluation.detail || []).map(esc).join(" · ")}</small></div>
     </section>`;
@@ -867,7 +903,7 @@
       <header><div><span class="eyebrow">UNIDADES EM CAMPO</span><h4>Deslocamento para a ocorrência</h4></div><strong>${units.length}</strong></header>
       <div class="field-unit-track-grid">
         ${units.map((unit) => `<article class="field-unit-track type-${esc(unit.type)} ${unit.arrived ? "arrived" : "moving"}">
-          <img src="${esc(unit.icon || "assets/units/sp-police-car-cinematic.png")}" alt="" loading="lazy" />
+          <img src="${esc(unit.icon || "assets/units/sp-police-car-cinematic.png")}" alt="" loading="lazy" decoding="async" onerror="this.classList.add(\'asset-missing\')" />
           <div>
             <strong>${esc(unit.short || unit.label)}</strong>
             <small>${esc(unit.statusLabel || "em deslocamento")} · ETA ${esc(unit.etaRemainingText || "calculando")}</small>
@@ -879,19 +915,70 @@
     </section>`;
   }
 
+
+  function fieldRadioGuide(call, radio) {
+    const stage = Number(radio?.stage || 0);
+    const finalReady = stage >= 3;
+    const canClose = stage >= 2;
+    const title = radio?.finalized
+      ? "Ocorrência encerrada"
+      : finalReady
+        ? "Situação controlada: finalize agora"
+        : canClose
+          ? "Campo em verificação final"
+          : "Ocorrência em campo: ainda não finalize";
+    const instruction = radio?.finalized
+      ? "Esta ocorrência já saiu da linha ativa. Volte para a fila ou finalize o plantão quando não houver pendências."
+      : finalReady
+        ? "Clique no botão verde FINALIZAR OCORRÊNCIA para fechar o caso e liberar o relatório."
+        : canClose
+          ? "Se a equipe confirmar que está tudo controlado, finalize. Se ainda houver risco, peça nova atualização ou mantenha linha."
+          : "Use Próxima atualização até a viatura chegar e confirmar controle. Linha aberta mantém a ligação, mas não encerra.";
+    return `<div class="radio-finish-guide ${finalReady ? "ready" : canClose ? "check" : "wait"}">
+      <div><span>PASSO ${Math.min(4, stage + 1)} DE 4</span><strong>${esc(title)}</strong><small>${esc(instruction)}</small></div>
+      <ol>
+        <li class="${stage >= 0 ? "done" : ""}">Despachar unidade</li>
+        <li class="${stage >= 1 ? "done" : ""}">Chegada / contato</li>
+        <li class="${stage >= 2 ? "done" : ""}">Verificação final</li>
+        <li class="${stage >= 3 || radio?.finalized ? "done" : ""}">Finalizar ocorrência</li>
+      </ol>
+    </div>`;
+  }
+
+  function radioActionButton(call, action, radio) {
+    const stage = Number(radio?.stage || 0);
+    const isClose = action.id === "close";
+    const isLine = action.id === "keep_line";
+    const cls = isClose ? "finish-primary" : isLine ? "keep-line" : "";
+    const prefix = isClose ? "✅ " : isLine ? "☎️ " : "";
+    const extra = isClose
+      ? (stage >= 3 ? "Fecha o caso agora." : "Só finalize se a equipe confirmou controle.")
+      : isLine
+        ? "Atenção: mantém aberto, não finaliza."
+        : (action.hint || action.label);
+    return `<button class="radio-action-btn ${cls}" data-radio-action="${esc(action.id)}" data-call="${esc(call.id)}">
+      <strong>${prefix}${esc(action.short || action.label)}</strong>
+      <small>${esc(extra)}</small>
+    </button>`;
+  }
+
   function fieldRadioPanel(call) {
     const radio = window.C190_FieldRadio?.normalize?.(call);
     if (!radio?.active && !radio?.finalized) return "";
-    const actions = window.C190_FieldRadio?.availableActions?.(call) || [];
-    const stageLabel = radio.finalized ? "Encerrado" : radio.stage === 0 ? "Despacho confirmado" : radio.stage === 1 ? "Chegada aproximada" : radio.stage === 2 ? "Confirmação no local" : "Controle final";
-    const gradeText = radio.finalized ? `${radio.grade || "N/A"} · ${Number(radio.finalScore || 0)}/100` : `Δ ${radio.scoreDelta >= 0 ? "+" : ""}${Number(radio.scoreDelta || 0)} pts`;
-    return `<section class="field-radio-panel" aria-label="Rádio e acompanhamento de campo">
-      <header><div><span class="eyebrow">RÁDIO OPERACIONAL</span><h4>Evolução da ocorrência em campo</h4></div><strong class="radio-grade">${esc(gradeText)}</strong></header>
-      <p class="protocol-warning">A ocorrência não termina no despacho. Acompanhe a chegada das equipes, pedidos de apoio e encerramento real do atendimento.</p>
-      <div class="radio-status-grid"><span><b>Fase</b>${esc(stageLabel)}</span><span><b>Cenário</b>${esc(radio.scenario || "operacional")}</span><span><b>Ações</b>${radio.actions.length}</span></div>
-      ${fieldUnitTracker(call)}
-      <div class="radio-log">${(radio.log || []).slice(0, 8).map((line) => `<div class="radio-line ${esc(line.tone || "info")}${typewriterClass("radio", line)}"><b>${esc(line.source || "RÁDIO")}</b><span>${esc(line.text || "")}</span><small>${new Date(line.at || Date.now()).toLocaleTimeString()}</small></div>`).join("")}</div>
-      ${radio.finalized ? `<div class="protocol-score radio-score"><span>Avaliação do rádio</span><strong>${esc(radio.grade || "N/A")}</strong><div class="progress"><i style="width:${Math.max(0, Math.min(100, radio.finalScore || 0))}%"></i></div><small>Impacto do acompanhamento: ${radio.scoreDelta >= 0 ? "+" : ""}${Number(radio.scoreDelta || 0)} ponto(s).</small></div>` : `<h4>Ações do operador</h4><div class="radio-action-grid">${actions.map((a) => `<button class="radio-action-btn ${a.id === "close" ? "close" : ""}" data-radio-action="${esc(a.id)}" data-call="${esc(call.id)}"><strong>${esc(a.short || a.label)}</strong><small>${esc(a.hint || a.label)}</small></button>`).join("")}</div>`}
+    const actionsRaw = window.C190_FieldRadio?.availableActions?.(call) || [];
+    const actions = [...actionsRaw].sort((a, b) => {
+      if (a.id === "close") return -1;
+      if (b.id === "close") return 1;
+      if (a.id === "advance") return -1;
+      if (b.id === "advance") return 1;
+      return 0;
+    });
+    const stageLabel = radio.finalized ? "Encerrado" : radio.stage >= 3 ? "Controle confirmado" : radio.stage >= 2 ? "Verificação final" : radio.stage >= 1 ? "No local" : "Deslocamento";
+    return `<section class="field-radio-panel clear-radio-panel">
+      <header><div><span class="eyebrow">ACOMPANHAMENTO DE CAMPO</span><h4>Rádio da equipe · ${esc(stageLabel)}</h4></div><strong>${radio.finalized ? "FECHADA" : "ABERTA"}</strong></header>
+      ${fieldRadioGuide(call, radio)}
+      <div class="radio-log">${(radio.log || []).slice(0, 6).map((line) => `<div class="radio-log-line ${esc(line.tone || "info")}"><strong>${esc(line.source || "RÁDIO")}</strong><span>${esc(line.text || "")}</span><small>${new Date(line.at || Date.now()).toLocaleTimeString()}</small></div>`).join("")}</div>
+      ${radio.finalized ? `<div class="protocol-score radio-score"><span>Avaliação do rádio</span><strong>${esc(radio.grade || "N/A")}</strong><div class="progress"><i style="width:${Math.max(0, Math.min(100, radio.finalScore || 0))}%"></i></div><small>Impacto do acompanhamento: ${radio.scoreDelta >= 0 ? "+" : ""}${Number(radio.scoreDelta || 0)} ponto(s).</small></div>` : `<h4 class="radio-action-title">O que fazer agora?</h4><div class="radio-action-grid clear-radio-actions">${actions.map((a) => radioActionButton(call, a, radio)).join("")}</div>`}
     </section>`;
   }
 
@@ -917,6 +1004,7 @@
           ${dataChip("Despacho", !!c.resourceDispatchResult, c.resourceDispatchResult?.grade || "")}
         </div>
         ${fieldRadioPanel(c)}
+        <div class="operator-next-step"><strong>Resumo para o operador:</strong><span>Se a ocorrência ainda aparece aqui, ela NÃO terminou. Use o painel de rádio acima e clique em <b>FINALIZAR OCORRÊNCIA</b> quando a equipe confirmar controle.</span></div>
         <button class="action-btn" data-focus-call="${esc(c.id)}" ${canMap}>${locationKnown ? "Localizar no mapa" : "Mapa bloqueado até coletar bairro/rua"}</button>
       </div>`;
     }
@@ -1063,7 +1151,13 @@
           if (out?.ok) {
             C190_Immersion?.play?.(out.finalized ? (out.call?.status === "resolved" ? "success" : "error") : "radio", state);
             if (out.call) voiceLatestRadio(out.call, true);
-            toast(out.finalized ? `Ocorrência encerrada em campo · rádio ${out.radio?.grade || out.finalOutcome?.radio?.grade || "N/A"}.` : "Atualização de rádio registrada.", out.finalized ? (out.call?.status === "resolved" ? "success" : "danger") : "success");
+            const actionId = b.dataset.radioAction;
+            const openHint = actionId === "keep_line"
+              ? "Linha mantida. A ocorrência continua aberta até FINALIZAR OCORRÊNCIA."
+              : actionId === "advance"
+                ? "Atualização registrada. Continue até o campo confirmar controle."
+                : "Atualização de rádio registrada.";
+            toast(out.finalized ? `Ocorrência encerrada em campo · rádio ${out.radio?.grade || out.finalOutcome?.radio?.grade || "N/A"}.` : openHint, out.finalized ? (out.call?.status === "resolved" ? "success" : "danger") : "success");
           } else {
             toast("Não foi possível registrar ação de rádio.", "warning");
           }

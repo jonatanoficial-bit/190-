@@ -493,17 +493,18 @@ window.C190_Dispatch = (() => {
       })),
     };
 
+    const evidenceReport = window.C190_EvidenceChain?.decorateReport?.(report, state) || report;
+    const documentedReport = window.C190_LegalFollowup?.decorateReport?.(evidenceReport, state) || evidenceReport;
     let promotion = null;
-    if (shift.affectsCareer) promotion = window.C190_Career.endShift(state, report);
+    if (shift.affectsCareer) promotion = window.C190_Career.endShift(state, documentedReport);
     else {
-      const documentedReport = window.C190_EvidenceChain?.decorateReport?.(report, state) || report;
       state.dispatch.reports.unshift(documentedReport);
       state.dispatch.reports = state.dispatch.reports.slice(0, 60);
     }
-    window.C190_Content?.onShiftEnded(state, report);
-    const campaignResult = window.C190_Campaign?.onShiftEnded?.(state, report) || null;
-    window.dispatchEvent(new CustomEvent("c190:shift-ended", { detail: { report, promotion, campaignResult } }));
-    return report;
+    window.C190_Content?.onShiftEnded(state, documentedReport);
+    const campaignResult = window.C190_Campaign?.onShiftEnded?.(state, documentedReport) || null;
+    window.dispatchEvent(new CustomEvent("c190:shift-ended", { detail: { report: documentedReport, promotion, campaignResult } }));
+    return documentedReport;
   }
 
   function diagnostics(state) {

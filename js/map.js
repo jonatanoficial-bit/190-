@@ -104,12 +104,13 @@ window.C190_Map = (() => {
   function resourceIcon(resource, compact) {
     const label = resource.type === "pm" ? "PM" : resource.type === "bombeiros" ? "193" : resource.type === "samu" ? "192" : "DC";
     const unitClass = `unit-${String(resource.id || "unit").replace(/[^a-zA-Z0-9_-]/g, "-")}`;
+    const iconSrc = resource.icon || (resource.type === "bombeiros" ? "assets/units/sp-fire-truck-cinematic.png" : resource.type === "samu" ? "assets/units/sp-samu-ambulance-cinematic.png" : resource.type === "defesa" ? "assets/units/sp-civil-defense-cinematic.png" : "assets/units/sp-police-car-cinematic.png");
     return window.L.divIcon({
       className: "c190-div-icon c190-resource-div-icon",
-      html: `<button class="resource-marker type-${escapeHtml(resource.type)} ${escapeHtml(unitClass)} ${resource.selected ? "selected" : ""} ${resource.moving ? "moving" : ""} ${resource.arrived ? "arrived" : ""}" style="--unit-progress:${Math.round((resource.progress || 0) * 100)}%" aria-label="${escapeHtml(resource.label)}"><i></i><span>${escapeHtml(resource.short || label)}</span><em>${escapeHtml(resource.arrived ? "LOCAL" : resource.etaRemainingText || "")}</em></button>`,
-      iconSize: compact ? [42, 42] : [52, 52],
-      iconAnchor: compact ? [21, 21] : [26, 26],
-      popupAnchor: [0, -22],
+      html: `<button class="resource-marker type-${escapeHtml(resource.type)} ${escapeHtml(unitClass)} ${resource.selected ? "selected" : ""} ${resource.moving ? "moving" : ""} ${resource.arrived ? "arrived" : ""}" style="--unit-progress:${Math.round((resource.progress || 0) * 100)}%" aria-label="${escapeHtml(resource.label)}"><i></i><img src="${escapeHtml(iconSrc)}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'"><span>${escapeHtml(resource.short || label)}</span><em>${escapeHtml(resource.arrived ? "LOCAL" : resource.etaRemainingText || "")}</em></button>`,
+      iconSize: compact ? [52, 44] : [64, 54],
+      iconAnchor: compact ? [26, 22] : [32, 27],
+      popupAnchor: [0, -24],
     });
   }
 
