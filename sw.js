@@ -1,4 +1,4 @@
-const CACHE = "central190-v4.4.1-f50-1-hotfix-finalizacao-veiculos";
+const CACHE = "central190-v4.5.0-f51-chamadas-duplicadas";
 const ASSETS = [
   "./",
   "./index.html",
@@ -26,6 +26,7 @@ const ASSETS = [
   "./js/support-network.js",
   "./js/operational-budget.js",
   "./js/territorial-intel.js",
+  "./js/duplicate-calls.js",
   "./js/legal-followup.js",
   "./js/evidence-chain.js",
   "./js/preventive-ops.js",

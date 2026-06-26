@@ -494,7 +494,8 @@ window.C190_Dispatch = (() => {
     };
 
     const evidenceReport = window.C190_EvidenceChain?.decorateReport?.(report, state) || report;
-    const documentedReport = window.C190_LegalFollowup?.decorateReport?.(evidenceReport, state) || evidenceReport;
+    const legalReport = window.C190_LegalFollowup?.decorateReport?.(evidenceReport, state) || evidenceReport;
+    const documentedReport = window.C190_DuplicateCalls?.decorateReport?.(legalReport, state) || legalReport;
     let promotion = null;
     if (shift.affectsCareer) promotion = window.C190_Career.endShift(state, documentedReport);
     else {

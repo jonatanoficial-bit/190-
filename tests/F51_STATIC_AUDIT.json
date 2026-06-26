@@ -1,0 +1,18 @@
+{
+  "build": "CENTRAL190-4500-F51-CHAMADAS-DUPLICADAS-20260624-184500-BRT",
+  "version": "4.5.0",
+  "phase": 51,
+  "saveSchema": 49,
+  "features": {
+    "duplicateCallsModule": true,
+    "duplicateCallsPanel": true,
+    "sameIncidentDetection": true,
+    "contradictoryVersions": true,
+    "mergeCallsAction": true,
+    "treatSeparateAction": true,
+    "multitaskDuplicateRisk": true,
+    "supervisorDuplicateAlert": true,
+    "duplicateSummaryOnReport": true
+  },
+  "status": "ok"
+}

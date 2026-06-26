@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const BUILD = "CENTRAL190-4410-F50-1-HOTFIX-FINALIZACAO-VEICULOS-20260624-181500-BRT";
+  const BUILD = "CENTRAL190-4500-F51-CHAMADAS-DUPLICADAS-20260624-184500-BRT";
   let state = C190_Save.load();
   let tickTimer = null;
   let autosaveTick = 0;
@@ -707,6 +707,44 @@
     </section>`;
   }
 
+
+  function renderDuplicateCallsPanel() {
+    const panel = $("#duplicateCallsPanel");
+    if (!panel) return;
+    const report = window.C190_DuplicateCalls?.analyze?.(state);
+    if (!report?.active) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    panel.hidden = false;
+    const groups = (report.groups || []).slice(0, 4);
+    panel.innerHTML = `<section class="duplicate-calls-card duplicate-${esc(report.level || "ready")}">
+      <div class="duplicate-main">
+        <span class="eyebrow">CHAMADAS DUPLICADAS</span>
+        <h3>${esc(report.label || "Análise de duplicidade")}</h3>
+        <p>${report.pending.length} pendente(s) · ${report.merged.length} unificada(s) · histórico ${report.history.length}</p>
+      </div>
+      <div class="duplicate-score">
+        <strong>${groups.length}</strong>
+        <span>grupo(s)</span>
+        <div class="cinematic-progress"><i style="width:${Math.max(4, Math.min(100, Number(report.avgScore || 0)))}%"></i></div>
+      </div>
+      <div class="duplicate-group-list">
+        ${groups.length ? groups.map((group) => `<article class="duplicate-group ${group.merged ? "merged" : ""}">
+          <strong>${group.merged ? "Unificada" : "Possível duplicidade"} · ${group.witnesses} ligação(ões)</strong>
+          <small>${esc(group.leader?.type || "Ocorrência")} · confiança ${Number(group.score || 0)}%${group.contradictions.length ? ` · conflito: ${esc(group.contradictions.slice(0, 2).join(", "))}` : ""}</small>
+          <div class="duplicate-call-tags">${group.calls.map((call) => `<span>${esc(call.type)} · ${esc(call.status)}</span>`).join("")}</div>
+          ${group.merged ? "<em>Já tratada como mesmo fato.</em>" : `<div class="button-row duplicate-actions"><button class="action-btn primary" data-duplicate-merge="${esc(group.key)}">Unir chamadas</button><button class="action-btn" data-duplicate-separate="${esc(group.key)}">São casos diferentes</button></div>`}
+        </article>`).join("") : "<article class='duplicate-group'><strong>Sem duplicidade ativa</strong><small>As ligações atuais parecem independentes.</small></article>"}
+      </div>
+      <div class="duplicate-advice">
+        ${report.pending.length ? "<span>Ao unir chamadas, a central mantém um caso principal e transforma as outras ligações em testemunhas do mesmo fato.</span>" : "<span>Fila sem duplicidade pendente.</span>"}
+        ${report.pending.some((g) => g.contradictions.length) ? "<span>Existem versões contraditórias: confirme endereço, número de vítimas e natureza antes de encerrar.</span>" : ""}
+      </div>
+    </section>`;
+  }
+
   function renderMultiOpsPanel() {
     const panel = $("#multiOpsPanel");
     if (!panel) return;
@@ -817,6 +855,7 @@
     renderPreventiveOpsPanel();
     renderEvidenceChainPanel();
     renderLegalFollowupPanel();
+    renderDuplicateCallsPanel();
     renderOperationalBudgetPanel();
     renderMultiOpsPanel();
     renderSupervisorPanel();
@@ -1161,6 +1200,28 @@
           } else {
             toast("Não foi possível registrar ação de rádio.", "warning");
           }
+        }),
+    );
+    $$("[data-duplicate-merge]").forEach(
+      (button) =>
+        (button.onclick = () => {
+          const out = window.C190_DuplicateCalls?.mergeGroup?.(state, button.dataset.duplicateMerge);
+          persist();
+          if (out?.ok) {
+            C190_Immersion?.play?.("success", state);
+            toast(`Chamadas unificadas: ${out.linked?.length || 0} ligação(ões) viraram testemunhas do mesmo fato.`, "success");
+          } else {
+            toast("Não foi possível unir essas chamadas.", "warning");
+          }
+        }),
+    );
+    $$("[data-duplicate-separate]").forEach(
+      (button) =>
+        (button.onclick = () => {
+          const out = window.C190_DuplicateCalls?.treatSeparate?.(state, button.dataset.duplicateSeparate);
+          persist();
+          if (out?.ok) toast("Marcado como ocorrências diferentes.", "success");
+          else toast("Não foi possível separar esse grupo.", "warning");
         }),
     );
     $$("[data-focus-call]").forEach(

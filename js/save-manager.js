@@ -1,9 +1,11 @@
 window.C190_Save = (() => {
   "use strict";
 
-  const KEY = "central190_save_v48";
-  const BACKUP = "central190_save_v48_backup";
+  const KEY = "central190_save_v49";
+  const BACKUP = "central190_save_v49_backup";
   const LEGACY = [
+    "central190_save_v48",
+    "central190_save_v48_backup",
     "central190_save_v47",
     "central190_save_v47_backup",
     "central190_save_v46",
@@ -80,9 +82,9 @@ window.C190_Save = (() => {
     "central_190_save",
     "c190_save",
   ];
-  const SCHEMA = 48;
-  const VERSION = "4.4.1";
-  const BUILD = "CENTRAL190-4410-F50-1-HOTFIX-FINALIZACAO-VEICULOS-20260624-181500-BRT";
+  const SCHEMA = 49;
+  const VERSION = "4.5.0";
+  const BUILD = "CENTRAL190-4500-F51-CHAMADAS-DUPLICADAS-20260624-184500-BRT";
   const DEFAULT_CENTER = {
     lat: -23.55052,
     lng: -46.63331,
@@ -156,7 +158,7 @@ window.C190_Save = (() => {
     campaign: window.C190_Campaign?.defaultCampaign?.() || { version: 1, activeMissionId: null, selectedMissionId: "turno_zero", completed: [], attempts: {}, bestScores: {}, rewardsClaimed: [], history: [] },
     release: {
       version: VERSION,
-      phase: 50.1,
+      phase: 51,
       visualRecovery: 1,
       campaignVersion: 2,
       fieldUnitsVersion: 3,
@@ -169,7 +171,7 @@ window.C190_Save = (() => {
       resourceDispatchVersion: 1,
       fieldRadioVersion: 1,
       trainingAcademyVersion: 1,
-      immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, vehicleMaintenanceVersion: 1, operationalBudgetVersion: 1, baseLogisticsVersion: 1, territorialIntelVersion: 1, preventiveOpsVersion: 1, evidenceChainVersion: 1, legalFollowupVersion: 1, fieldClosureUxHotfixVersion: 1, vehicleIconHotfixVersion: 1,
+      immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, vehicleMaintenanceVersion: 1, operationalBudgetVersion: 1, baseLogisticsVersion: 1, territorialIntelVersion: 1, preventiveOpsVersion: 1, evidenceChainVersion: 1, legalFollowupVersion: 1, fieldClosureUxHotfixVersion: 1, vehicleIconHotfixVersion: 1, duplicateCallsVersion: 1,
       balanceVersion: 3,
       economyVersion: 1,
       publicRcVersion: 1,
@@ -380,12 +382,12 @@ window.C190_Save = (() => {
       voicePitch: Math.max(0.75, Math.min(1.25, Number(incomingSettings.voicePitch ?? 1.0))),
     };
 
-    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 50.1, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
+    base.release = { ...base.release, ...(source.release || {}), version: VERSION, phase: 51, visualRecovery: 1, campaignVersion: 2, scenarioDepthVersion: 1,
       fieldUnitsVersion: 3, incomingCallContinuityVersion: 1, cinematicUnitIconsVersion: 1,
       mobileHomologationVersion: 1,
       callProtocolVersion: 3, triageVersion: 1,
       locationIntelVersion: 1, resourceDispatchVersion: 1,
-      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, vehicleMaintenanceVersion: 1, operationalBudgetVersion: 1, baseLogisticsVersion: 1, territorialIntelVersion: 1, preventiveOpsVersion: 1, evidenceChainVersion: 1, legalFollowupVersion: 1, fieldClosureUxHotfixVersion: 1, vehicleIconHotfixVersion: 1, balanceVersion: 3, economyVersion: 1, publicRcVersion: 1, tutorialVersion: 1 };
+      fieldRadioVersion: 1, trainingAcademyVersion: 1, immersionVersion: 2, voicePtBrVersion: 1, occurrenceAudioVersion: 1, cinematicMapEtaVersion: 1, postDispatchFlowVersion: 1, multitaskCentralVersion: 1, supervisorOperationalVersion: 1, professionalDebriefingVersion: 1, urbanDynamicsVersion: 1, majorIncidentVersion: 1, supportNetworkVersion: 1, unifiedCommandVersion: 1, unitFatigueVersion: 1, vehicleMaintenanceVersion: 1, operationalBudgetVersion: 1, baseLogisticsVersion: 1, territorialIntelVersion: 1, preventiveOpsVersion: 1, evidenceChainVersion: 1, legalFollowupVersion: 1, fieldClosureUxHotfixVersion: 1, vehicleIconHotfixVersion: 1, duplicateCallsVersion: 1, balanceVersion: 3, economyVersion: 1, publicRcVersion: 1, tutorialVersion: 1 };
     base.settings.telemetry = false;
     base.dispatch = enrichDispatch(source.dispatch || base.dispatch, incomingCenter);
     base.content = source.content && typeof source.content === "object" ? clone(source.content) : defaultContent();

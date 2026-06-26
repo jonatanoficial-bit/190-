@@ -2,7 +2,7 @@ window.C190_Debriefing = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-4400-F50-ENCAMINHAMENTO-LEGAL-20260624-171500-BRT";
+  const BUILD = "CENTRAL190-4500-F51-CHAMADAS-DUPLICADAS-20260624-184500-BRT";
 
   const courseMap = {
     protocol: "Protocolo de atendimento",

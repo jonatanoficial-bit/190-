@@ -2,7 +2,7 @@ window.C190_Multitask = (() => {
   "use strict";
 
   const VERSION = 1;
-  const BUILD = "CENTRAL190-4400-F50-ENCAMINHAMENTO-LEGAL-20260624-171500-BRT";
+  const BUILD = "CENTRAL190-4500-F51-CHAMADAS-DUPLICADAS-20260624-184500-BRT";
 
   function priorityWeight(call) {
     return Number(call?.priority || 1) * 34;
@@ -77,6 +77,7 @@ window.C190_Multitask = (() => {
         window.C190_OperationalBudget?.callModifier?.(call, state),
         window.C190_EvidenceChain?.callModifier?.(call, state),
         window.C190_LegalFollowup?.callModifier?.(call, state),
+        window.C190_DuplicateCalls?.callModifier?.(call, state),
       ].filter(Boolean);
       const modifierBonus = modifiers.reduce((sum, item) => sum + Number(item.riskBonus || 0), 0);
       risk.score = Math.max(0, Math.min(100, Number(risk.score || 0) + modifierBonus));
@@ -106,6 +107,7 @@ window.C190_Multitask = (() => {
     const budgetRelief = window.C190_OperationalBudget?.pressureRelief?.(state) || 0;
     const evidenceRelief = window.C190_EvidenceChain?.pressureRelief?.(state) || 0;
     const legalRelief = window.C190_LegalFollowup?.pressureRelief?.(state) || 0;
+    const duplicateRelief = window.C190_DuplicateCalls?.pressureRelief?.(state) || 0;
     const fatigueReport = window.C190_UnitFatigue?.analyze?.(state);
     const vehicleReport = window.C190_VehicleMaintenance?.analyze?.(state);
     const fatiguePressure = fatigueReport?.level === "critical" ? 14 : fatigueReport?.level === "attention" ? 7 : fatigueReport?.level === "ready" ? -2 : 0;
@@ -113,7 +115,7 @@ window.C190_Multitask = (() => {
     const pressureScore = Math.min(100, Math.max(0,
       waiting.length * 18 + field.length * 10 + (critical ? 28 : 0) + (activeCall(shift) ? 8 : 0) +
       urbanPressure + majorPressure + fatiguePressure + vehiclePressure -
-      supportRelief - commandRelief + baseRelief + intelRelief + preventiveRelief + budgetRelief + evidenceRelief + legalRelief
+      supportRelief - commandRelief + baseRelief + intelRelief + preventiveRelief + budgetRelief + evidenceRelief + legalRelief + duplicateRelief
     ));
     const level = pressureScore >= 78 ? "critical" : pressureScore >= 48 ? "high" : pressureScore >= 24 ? "medium" : "normal";
     shift.multitask.pressureScore = pressureScore;
